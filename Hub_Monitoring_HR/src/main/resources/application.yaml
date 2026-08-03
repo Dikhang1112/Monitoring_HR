@@ -1,0 +1,3 @@
+spring:
+  application:
+    name: Hub_Monitoring_HR

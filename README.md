@@ -1,12 +1,5 @@
-# Monitoring_HR - HR Management Platform
-
-Hệ thống quản lý nhân sự và giám sát năng suất làm việc toàn diện (**HR Management Platform**).
-
----
-
-## 📐 System Feature Flowchart
-
-Sơ đồ tính năng hệ thống với nút trung tâm hình vuông **HR Management Platform**, kết nối bằng các đường nối thẳng đơn giản không mũi tên (`---`), được bố trí cân đối chia đều **2 bên (Trái & Phải)** và mỗi tính năng chính được phân biệt bằng **màu sắc riêng biệt**:
+# HR Management Platform 
+## Mindmap 2 layers
 
 ```mermaid
 flowchart LR
@@ -15,7 +8,7 @@ flowchart LR
     ROOT["HR Management Platform"]
 
     %% =====================================================
-    %% BÊN TRÁI (LEFT SIDE - 7 FEATURES)
+    %% LEFT SIDE (7 FEATURES)
     %% =====================================================
 
     %% 1. Time Tracking
@@ -33,20 +26,21 @@ flowchart LR
 
     %% 3. GPS & Geofencing
     GPS1["Real-time GPS Location"] --- GPS["GPS & Geofencing"]
-    GPS2["Geofenced Attendance Check"] --- GPS
+    GPS2["Geofenced Attendance Check-ins"] --- GPS
     GPS3["Route Tracking"] --- GPS
     GPS --- ROOT
 
     %% 4. Scheduling
-    SH1["Weekly Shift Schedule"] --- SCHED["Scheduling"]
-    SH2["Drag & Drop Planner"] --- SCHED
-    SH3["Shift Rotation & Swap"] --- SCHED
+    SH1["Weekly Schedule"] --- SCHED["Scheduling"]
+    SH2["Time-off Request"] --- SCHED
+    SH3["Onsite & Remote"] --- SCHED
     SCHED --- ROOT
 
     %% 5. Meeting Tracking
     MT1["Zoom & Teams Integration"] --- MEET["Meeting Tracking"]
     MT2["Meeting Duration Log"] --- MEET
     MT3["Auto Attendance"] --- MEET
+    MT4["Meeting Recording"] --- MEET
     MEET --- ROOT
 
     %% 6. Timeline
@@ -62,44 +56,51 @@ flowchart LR
     EXPEND --- ROOT
 
     %% =====================================================
-    %% BÊN PHẢI (RIGHT SIDE - 6 FEATURES)
+    %% RIGHT SIDE (7 FEATURES)
     %% =====================================================
 
-    %% 8. Payroll & Invoicing
+    %% 8. People Management
+    ROOT --- PPL["People Management"]
+    PPL --- PPL1["Employee Profiles"]
+    PPL --- PPL2["Org Structure & Departments"]
+    PPL --- PPL3["Onboarding & Offboarding"]
+    PPL --- PPL4["Roles & Permissions"]
+
+    %% 9. Payroll & Invoicing
     ROOT --- PAY["Payroll & Invoicing"]
     PAY --- PY1["Automated Salary Calculation"]
     PAY --- PY2["Overtime Pay"]
-    PAY --- PY3["Client Invoices Generation"]
+    PAY --- PY3["Client Invoices"]
 
-    %% 9. Report Statistic
+    %% 10. Report Statistic
     ROOT --- REPORTS["Report Statistic"]
     REPORTS --- RP1["Attendance Reports"]
     REPORTS --- RP2["Productivity Analytics"]
-    REPORTS --- RP3["Export PDF & Excel"]
+    REPORTS --- RP3["Daily Totals"]
+    REPORTS --- RP4["Payments Report"]
 
-    %% 10. Highlight Activity
+    %% 11. Highlight Activity
     ROOT --- HIGHLIGHT["Highlight Activity"]
     HIGHLIGHT --- HL1["Key Achievements & Milestones"]
-    HIGHLIGHT --- HL2["Productivity Spurt Alerts"]
+    HIGHLIGHT --- HL2["Productivity Alerts"]
     HIGHLIGHT --- HL3["Anomaly & Idle Alerts"]
 
-    %% 11. Dashboard & Insight
+    %% 12. Dashboard & Insight
     ROOT --- DASH["Dashboard & Insight"]
     DASH --- DB1["Executive HR Dashboard"]
     DASH --- DB2["Real-time Status Board"]
     DASH --- DB3["AI-Powered Insights"]
 
-    %% 12. Project Manager
+    %% 13. Project Manager
     ROOT --- PM["Project Manager"]
-    PM --- PJ1["Projects & Tasks Kanban"]
+    PM --- PJ1["Project To-Do List"]
     PM --- PJ2["Client Portal"]
     PM --- PJ3["Budget & Time Allocation"]
 
-    %% 13. App & Url
+    %% 14. App & Url
     ROOT --- APPURL["App & Url"]
     APPURL --- AU1["App Classification"]
     APPURL --- AU2["Website Usage Tracking"]
-    APPURL --- AU3["URL Category Limits"]
 
     %% =====================================================
     %% STYLING (DIFFERENT COLORS FOR EACH MAIN FEATURE)
@@ -112,6 +113,7 @@ flowchart LR
     classDef colorMeet fill:#dc2626,stroke:#b91c1c,stroke-width:2px,color:#fff,font-weight:bold
     classDef colorTL fill:#4f46e5,stroke:#4338ca,stroke-width:2px,color:#fff,font-weight:bold
     classDef colorExpend fill:#ea580c,stroke:#c2410c,stroke-width:2px,color:#fff,font-weight:bold
+    classDef colorPpl fill:#0891b2,stroke:#0e7490,stroke-width:2px,color:#fff,font-weight:bold
     classDef colorPay fill:#16a34a,stroke:#15803d,stroke-width:2px,color:#fff,font-weight:bold
     classDef colorReports fill:#ca8a04,stroke:#a16207,stroke-width:2px,color:#fff,font-weight:bold
     classDef colorHighlight fill:#e11d48,stroke:#be123c,stroke-width:2px,color:#fff,font-weight:bold
@@ -127,6 +129,7 @@ flowchart LR
     class MEET colorMeet
     class TL colorTL
     class EXPEND colorExpend
+    class PPL colorPpl
     class PAY colorPay
     class REPORTS colorReports
     class HIGHLIGHT colorHighlight
@@ -135,18 +138,12 @@ flowchart LR
     class APPURL colorAppUrl
 ```
 
-> 📄 Xem sơ đồ luồng tại: [docs/Mindmap.md](docs/Mindmap.md)
-
----
-
-## 📋 Danh Sách Tính Năng Hệ Thống (Feature Breakdown)
-
-| 👈 **Bên Trái (Operational & Tracking)** | 👉 **Bên Phải (Management & Analytics)** |
+| Operational & Tracking | Management & Analytics |
 | :--- | :--- |
-| **1. Time Tracking**<br>- Desktop / Mobile Timer, Manual Timesheet, Idle Detection | **8. Payroll & Invoicing**<br>- Automated Salary Calculation, Overtime Pay, Invoices |
-| **2. Productivity Monitoring**<br>- Screenshot Capture, Activity Score, Mouse/Keystroke | **9. Report Statistic**<br>- Attendance Reports, Productivity Analytics, Export PDF/Excel |
-| **3. GPS & Geofencing**<br>- Real-time Location, Geofenced Attendance Check, Route Tracking | **10. Highlight Activity**<br>- Key Milestones, Productivity Spurt Alerts, Idle Alerts |
-| **4. Scheduling**<br>- Weekly Shift Schedule, Drag & Drop Planner, Shift Swap | **11. Dashboard & Insight**<br>- Executive HR Dashboard, Real-time Status, AI Insights |
-| **5. Meeting Tracking**<br>- Zoom/Teams Integration, Meeting Log, Auto Attendance | **12. Project Manager**<br>- Projects & Tasks Kanban, Client Portal, Budget Tracking |
-| **6. Timeline**<br>- Daily Activity Stream, Work Blocks, Chronological Log | **13. App & Url**<br>- App Classification, Website Usage Tracking, Category Limits |
-| **7. Worktime Expenditure**<br>- Billable Hours, Cost Per Task/Project, Overtime Budgeting | |
+| **1. Time Tracking**<br>- Desktop Timer, Mobile Timer, Manual Timesheet, Idle Detection | **8. People Management**<br>- Employee Profiles, Org Structure & Departments, Onboarding & Offboarding, Roles & Permissions |
+| **2. Productivity Monitoring**<br>- Screenshot Capture, Activity Score, Keystroke & Mouse Activity | **9. Payroll & Invoicing**<br>- Automated Salary Calculation, Overtime Pay, Client Invoices |
+| **3. GPS & Geofencing**<br>- Real-time GPS Location, Geofenced Attendance Check-ins, Route Tracking | **10. Report Statistic**<br>- Attendance Reports, Productivity Analytics, Daily Totals, Payments Report |
+| **4. Scheduling**<br>- Weekly Schedule, Time-off Request, Onsite & Remote | **11. Highlight Activity**<br>- Key Achievements & Milestones, Productivity Alerts, Anomaly & Idle Alerts |
+| **5. Meeting Tracking**<br>- Zoom & Teams Integration, Meeting Duration Log, Auto Attendance, Meeting Recording | **12. Dashboard & Insight**<br>- Executive HR Dashboard, Real-time Status Board, AI-Powered Insights |
+| **6. Timeline**<br>- Daily Activity Stream, Work Blocks & Gaps, Chronological Log | **13. Project Manager**<br>- Project To-Do List, Client Portal, Budget & Time Allocation |
+| **7. Worktime Expenditure**<br>- Billable Hours, Cost Per Task & Project, Overtime Budgeting | **14. App & Url**<br>- App Classification, Website Usage Tracking |

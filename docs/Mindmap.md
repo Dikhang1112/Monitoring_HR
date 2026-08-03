@@ -1,10 +1,13 @@
+# HR Management Platform - Mindmap
+
+```mermaid
 flowchart LR
 
     %% Central Node
     ROOT["HR Management Platform"]
 
     %% =====================================================
-    %% BÊN TRÁI (LEFT SIDE - 7 FEATURES)
+    %% LEFT SIDE (7 FEATURES)
     %% =====================================================
 
     %% 1. Time Tracking
@@ -22,20 +25,21 @@ flowchart LR
 
     %% 3. GPS & Geofencing
     GPS1["Real-time GPS Location"] --- GPS["GPS & Geofencing"]
-    GPS2["Geofenced Attendance Check"] --- GPS
+    GPS2["Geofenced Attendance Check-ins"] --- GPS
     GPS3["Route Tracking"] --- GPS
     GPS --- ROOT
 
     %% 4. Scheduling
-    SH1["Weekly Shift Schedule"] --- SCHED["Scheduling"]
-    SH2["Drag & Drop Planner"] --- SCHED
-    SH3["Shift Rotation & Swap"] --- SCHED
+    SH1["Weekly Schedule"] --- SCHED["Scheduling"]
+    SH2["Time-off Request"] --- SCHED
+    SH3["Onsite & Remote"] --- SCHED
     SCHED --- ROOT
 
     %% 5. Meeting Tracking
     MT1["Zoom & Teams Integration"] --- MEET["Meeting Tracking"]
     MT2["Meeting Duration Log"] --- MEET
     MT3["Auto Attendance"] --- MEET
+    MT4["Meeting Recording"] --- MEET
     MEET --- ROOT
 
     %% 6. Timeline
@@ -51,44 +55,51 @@ flowchart LR
     EXPEND --- ROOT
 
     %% =====================================================
-    %% BÊN PHẢI (RIGHT SIDE - 6 FEATURES)
+    %% RIGHT SIDE (7 FEATURES)
     %% =====================================================
 
-    %% 8. Payroll & Invoicing
+    %% 8. People Management
+    ROOT --- PPL["People Management"]
+    PPL --- PPL1["Employee Profiles"]
+    PPL --- PPL2["Org Structure & Departments"]
+    PPL --- PPL3["Onboarding & Offboarding"]
+    PPL --- PPL4["Roles & Permissions"]
+
+    %% 9. Payroll & Invoicing
     ROOT --- PAY["Payroll & Invoicing"]
     PAY --- PY1["Automated Salary Calculation"]
     PAY --- PY2["Overtime Pay"]
-    PAY --- PY3["Client Invoices Generation"]
+    PAY --- PY3["Client Invoices"]
 
-    %% 9. Report Statistic
+    %% 10. Report Statistic
     ROOT --- REPORTS["Report Statistic"]
     REPORTS --- RP1["Attendance Reports"]
     REPORTS --- RP2["Productivity Analytics"]
-    REPORTS --- RP3["Export PDF & Excel"]
+    REPORTS --- RP3["Daily Totals"]
+    REPORTS --- RP4["Payments Report"]
 
-    %% 10. Highlight Activity
+    %% 11. Highlight Activity
     ROOT --- HIGHLIGHT["Highlight Activity"]
     HIGHLIGHT --- HL1["Key Achievements & Milestones"]
-    HIGHLIGHT --- HL2["Productivity Spurt Alerts"]
+    HIGHLIGHT --- HL2["Productivity Alerts"]
     HIGHLIGHT --- HL3["Anomaly & Idle Alerts"]
 
-    %% 11. Dashboard & Insight
+    %% 12. Dashboard & Insight
     ROOT --- DASH["Dashboard & Insight"]
     DASH --- DB1["Executive HR Dashboard"]
     DASH --- DB2["Real-time Status Board"]
     DASH --- DB3["AI-Powered Insights"]
 
-    %% 12. Project Manager
+    %% 13. Project Manager
     ROOT --- PM["Project Manager"]
-    PM --- PJ1["Projects & Tasks Kanban"]
+    PM --- PJ1["Project To-Do List"]
     PM --- PJ2["Client Portal"]
     PM --- PJ3["Budget & Time Allocation"]
 
-    %% 13. App & Url
+    %% 14. App & Url
     ROOT --- APPURL["App & Url"]
     APPURL --- AU1["App Classification"]
     APPURL --- AU2["Website Usage Tracking"]
-    APPURL --- AU3["URL Category Limits"]
 
     %% =====================================================
     %% STYLING (DIFFERENT COLORS FOR EACH MAIN FEATURE)
@@ -101,6 +112,7 @@ flowchart LR
     classDef colorMeet fill:#dc2626,stroke:#b91c1c,stroke-width:2px,color:#fff,font-weight:bold
     classDef colorTL fill:#4f46e5,stroke:#4338ca,stroke-width:2px,color:#fff,font-weight:bold
     classDef colorExpend fill:#ea580c,stroke:#c2410c,stroke-width:2px,color:#fff,font-weight:bold
+    classDef colorPpl fill:#0891b2,stroke:#0e7490,stroke-width:2px,color:#fff,font-weight:bold
     classDef colorPay fill:#16a34a,stroke:#15803d,stroke-width:2px,color:#fff,font-weight:bold
     classDef colorReports fill:#ca8a04,stroke:#a16207,stroke-width:2px,color:#fff,font-weight:bold
     classDef colorHighlight fill:#e11d48,stroke:#be123c,stroke-width:2px,color:#fff,font-weight:bold
@@ -116,9 +128,11 @@ flowchart LR
     class MEET colorMeet
     class TL colorTL
     class EXPEND colorExpend
+    class Ppl colorPpl
     class PAY colorPay
     class REPORTS colorReports
     class HIGHLIGHT colorHighlight
     class DASH colorDash
     class PM colorPM
     class APPURL colorAppUrl
+```

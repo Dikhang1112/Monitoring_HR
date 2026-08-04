@@ -471,105 +471,20 @@ This master table contains **all 91 Use Cases** across the 7 feature subsystems 
 
 ---
 
-### 3. Detailed Sub-Use Cases Inventory (Level 2 & Level 3)
+### 3. Total Use Case Summary & Actor Coverage Matrix
 
-This section lists all **70 Detailed Sub-Use Cases (Level 2 & Level 3)** grouped by subsystem, detailing the specific operational steps (`<<include>>` and `<<extend>>` workflows):
+This matrix provides a complete breakdown of **High-Level Use Cases (Level 1)** and **Detailed Sub-Use Cases (Level 2 & Level 3)** covered across all **7 System Actors**:
 
-#### 1. System & Tenant Admin Subsystem
-* **`UC-SYS-01a`** Assign Default Admin Credentials `[L2]` – Provisions primary Admin-Tenant credentials and initial access rights.
-* **`UC-SYS-01b`** Send Tenant Welcome Email `[L2]` – Dispatches automated welcome emails with initial login credentials.
-* **`UC-SYS-02a`** Configure Storage & User Seat Limits `[L2]` – Sets max employee seat licenses and cloud screenshot storage limits.
-
-#### 2. People Management Subsystem
-* **`UC-PPL-01a`** Assign Department & Direct Manager `[L2]` – Assigns employees to organizational departments and designates Direct Managers.
-* **`UC-PPL-01b`** Record Emergency Contacts & Bank Info `[L2]` – Records emergency contacts, tax IDs, and direct deposit bank accounts.
-* **`UC-PPL-01c`** Import / Export Employee Records `[L2]` – Bulk imports employee profiles from CSV/Excel or exports roster data.
-* **`UC-PPL-01d`** Track Employment Contract History `[L2]` – Logs probation periods, contract renewals, and salary change history.
-* **`UC-PPL-02a`** Build Department & Sub-unit Tree `[L2]` – Creates department hierarchies, branch offices, and team sub-units.
-* **`UC-PPL-02b`** Assign Department Head & Deputies `[L2]` – Appoints Department Heads, Deputy Heads, and Team Lead roles.
-* **`UC-PPL-02c`** View Headcount & Roster Statistics `[L2]` – Displays headcount distribution and department roster capacity stats.
-* **`UC-PPL-02d`** Merge / Dissolve Department `[L2]` – Handles department mergers, restructuring, and member reassignment.
-* **`UC-PPL-03a`** Automate Account Provisioning `[L2]` – Provisions Email, HR Portal, and Timer app accounts for new hires.
-* **`UC-PPL-03b`** Track Equipment & Asset Handover `[L2]` – Logs hardware assets (laptops, monitors, keycards) assigned to staff.
-* **`UC-PPL-03c`** Process Exit Checklist & Task Handover `[L2]` – Executes task handover checklists and approves resignation workflows.
-* **`UC-PPL-03d`** Revoke Access & Archive Account `[L2]` – Revokes system permissions and freezes departing employee accounts.
-* **`UC-PPL-04a`** Assign Default System Roles `[L2]` – Assigns system default roles (Admin, Director, Manager, Staff, Client).
-* **`UC-PPL-04b`** Configure Action Permission Matrix `[L2]` – Sets CRUD and Approval permission checkboxes per feature screen.
-* **`UC-PPL-04c`** Create Custom Role Groups `[L2]` – Defines custom role groups (e.g. HR Officer, Payroll Accountant).
-* **`UC-PPL-04d`** Configure Data Scope Scoping `[L2]` – Restricts data scope boundaries (Company-wide, Department, Self-only).
-
-#### 3. Time Tracking Subsystem
-* **`UC-TIME-01a`** Select Active Project & Task `[L2]` – Tags current work session with active project and task names.
-* **`UC-TIME-01b`** System Tray Integration & Hotkeys `[L2]` – Minimizes timer to System Tray and supports quick hotkeys (`Ctrl+Shift+S`).
-* **`UC-TIME-01c`** Buffer Offline Work Time `[L2]` – Stores encrypted work logs locally when Internet connection drops.
-* **`UC-TIME-01d`** Sync Offline Timesheet when Reconnected `[L3]` – Synchronizes buffered offline timesheets to cloud servers when online.
-* **`UC-TIME-02a`** Touch Task Switcher & Work Notes `[L2]` – Provides touch interface to switch tasks and attach brief work notes.
-* **`UC-TIME-02b`** Send App Heartbeat Status `[L2]` – Transmits periodic heartbeat pings to verify active mobile app session.
-* **`UC-TIME-02c`** Attach Field Photo Note `[L3]` – Attaches real-time site photos to mobile clock-in records.
-* **`UC-TIME-03a`** Detect Keyboard/Mouse Inactivity Threshold `[L2]` – Monitors input inactivity and triggers idle state after 10 mins.
-* **`UC-TIME-03b`** Prompt Inactive State Warning Popup `[L2]` – Prompts popup asking user to keep or discard inactive work time.
-* **`UC-TIME-03c`** Keep or Discard Idle Time Selection `[L3]` – User chooses to keep valid offline discussions or discard idle time.
-* **`UC-TIME-03d`** Submit Manual Timesheet Request `[L3]` – Submits manual timesheet adjustment requests for manager approval.
-
-#### 4. GPS Attendance Subsystem
-* **`UC-GPS-01a`** Configure Branch GPS Coordinates & Radius `[L2]` – Sets branch latitude, longitude, and allowed geofence perimeter radius.
-* **`UC-GPS-01b`** Verify Real-time GPS Location upon Check-in `[L2]` – Compares device GPS coordinates with geofence perimeter radius.
-* **`UC-GPS-01c`** Reject Out-of-Perimeter Check-in `[L3]` – Blocks check-in attempts outside authorized geofence perimeters.
-* **`UC-GPS-02a`** Track Real-time Field Staff Position `[L2]` – Displays real-time GPS locations of field service staff on interactive map.
-* **`UC-GPS-02b`** Log Shift Movement Route History `[L2]` – Logs chronological movement route history during active work shifts.
-* **`UC-GPS-02c`** Export Route Movement Log `[L3]` – Exports field staff movement route history logs for auditing.
-
-#### 5. Productivity Monitoring Subsystem
-* **`UC-PROD-01a`** Multi-Monitor Concurrent Capture `[L2]` – Captures all connected displays simultaneously in multi-monitor setups.
-* **`UC-PROD-01b`** Client-side Screenshot Encryption `[L2]` – Encrypts captured screenshots on client device before cloud upload.
-* **`UC-PROD-01c`** Blur Sensitive Data & App Window `[L3]` – Blurs sensitive app windows (banking, password managers) automatically.
-* **`UC-PROD-02a`** Calculate Active vs Idle Session Ratio (%) `[L2]` – Computes active vs inactive time ratio percentage per minute.
-* **`UC-PROD-02b`** Detect Anti-AutoClicker & Fake Activity `[L3]` – Detects artificial mouse jigglers and auto-clicker software anomalies.
-* **`UC-PROD-03a`** Assign Productivity Labels `[L2]` – Assigns Productive, Unproductive, or Neutral tags to software and URLs.
-* **`UC-PROD-03b`** Log Active Window Title & Domain URL `[L2]` – Records specific website domain URLs and active window titles.
-* **`UC-PROD-03c`** Configure Department Overrides `[L3]` – Sets department-specific rules (e.g. Facebook is Productive for Marketing).
-* **`UC-PROD-04a`** Calculate Weighted Activity Score (%) `[L2]` – Runs weighted algorithm combining input activity and productive app time.
-* **`UC-PROD-04b`** Trigger Low Productivity Alert (< 30%) `[L2]` – Triggers alert when employee Activity Score drops below 30% threshold.
-* **`UC-PROD-04c`** Dispatch Real-time Push Notification `[L3]` – Sends instant mobile push notification and email alert to Manager.
-
-#### 6. Scheduling & Time-Off Subsystem
-* **`UC-SCHED-01a`** Assign Shift Patterns `[L2]` – Configures morning, afternoon, night, or split shift schedules.
-* **`UC-SCHED-01b`** Classify Onsite vs Remote Work Mode `[L2]` – Designates whether shift is executed Onsite or Remote/Work-From-Home.
-* **`UC-SCHED-01c`** Publish Schedule & Notify Team Roster `[L3]` – Dispatches roster notification alerts to assigned staff members.
-* **`UC-SCHED-02a`** Check Available Leave Balance `[L2]` – Validates remaining annual leave balance before request submission.
-* **`UC-SCHED-02b`** Submit Leave Request with Attachments `[L2]` – Submits annual, sick, or personal leave requests with doctor notes.
-* **`UC-SCHED-02c`** Multi-level Manager & HR Approval `[L3]` – Executes sequential approval workflow (Direct Manager -> HR Admin).
-* **`UC-SCHED-02d`** Deduct Approved Leave Balance `[L3]` – Deducts approved leave days automatically from employee annual quota.
-* **`UC-SCHED-03a`** Apply Work Shift Grace Period `[L2]` – Allows 15-minute grace period before marking clock-in as late.
-* **`UC-SCHED-03b`** Log Late Arrival & Early Departure `[L2]` – Records exact minutes of tardiness or early shift departure.
-* **`UC-SCHED-03c`** Flag Unexcused Absence `[L3]` – Marks unexcused absence if staff fails to clock in without approved leave.
-
-#### 7. Payroll & Client Invoicing Subsystem
-* **`UC-PAY-01a`** Integrate Timesheet Approved Work Hours `[L2]` – Fetches verified working hours automatically from Time Tracking.
-* **`UC-PAY-01b`** Apply Tardiness & Absence Deductions `[L2]` – Deducts salary penalties for unexcused absences and tardiness.
-* **`UC-PAY-01c`** Generate Monthly Salary Sheet `[L3]` – Compiles company-wide monthly payroll sheet for payout.
-* **`UC-PAY-01d`** Export Personal Paystub PDF `[L3]` – Dispatches individual encrypted PDF paystubs to employees via email.
-* **`UC-PAY-02a`** Apply Overtime Multipliers `[L2]` – Multiplies OT pay rates (Weekday 150%, Weekend 200%, Holiday 300%).
-* **`UC-PAY-02b`** Calculate Fixed & Variable Allowances `[L2]` – Adds lunch, travel, mobile phone, and role allowance items.
-* **`UC-PAY-02c`** Trigger Overtime Budget Cap Warning `[L3]` – Sends warning alert when department OT expenses exceed budget cap.
-* **`UC-PAY-03a`** Approve Client Project Billable Hours `[L2]` – Reviews and approves billable work hours tagged to client projects.
-* **`UC-PAY-03b`** Apply Hourly Billing Rates per Role `[L2]` – Multiplies billable hours by billing rate per role (e.g. Senior Dev $40/h).
-* **`UC-PAY-03c`** Generate Client Invoice PDF Statement `[L3]` – Compiles itemized billing statements and exports official PDF invoice.
-* **`UC-PAY-03d`** Client Portal Invoice Download & Review `[L3]` – Client logs into portal to review, approve, and download PDF invoice.
-
----
-
-### 4. Total Use Case Summary & Actor Coverage Matrix
-
-| Actor Code | Actor Name | Role Category | Direct Core Use Cases | Total Use Case Count |
-| :--- | :--- | :--- | :--- | :---: |
-| **ACT-01** | **System-Admin** | Super Administrator | `UC-CORE-01` | **1** |
-| **ACT-02** | **Admin-Tenant** | HR Administrator | `UC-CORE-02`, `UC-CORE-06`, `UC-CORE-11` | **3** |
-| **ACT-03** | **Director** | Executive C-Level | `UC-CORE-10`, `UC-CORE-12` | **2** |
-| **ACT-04** | **Manager** | Department / Project Head | `UC-CORE-05`, `UC-CORE-06`, `UC-CORE-07`, `UC-CORE-08`, `UC-CORE-09`, `UC-CORE-10`, `UC-CORE-12` | **7** |
-| **ACT-05** | **Staff** | Internal Employee | `UC-CORE-03`, `UC-CORE-04`, `UC-CORE-05`, `UC-CORE-07`, `UC-CORE-08`, `UC-CORE-09`, `UC-CORE-10` | **7** |
-| **ACT-06** | **Client** | External Partner | `UC-CORE-09`, `UC-CORE-10` | **2** |
-| **TOTAL** | **6 System Actors** | **5 System Subsystems** | **12 Core System Use Cases** | **12 Core UCs** |
+| Actor Code | Actor Name | Role Category | High-Level UCs (Level 1) | Detailed Sub-UCs (Level 2 & 3) | Total System Use Cases |
+| :--- | :--- | :--- | :---: | :---: | :---: |
+| **ACT-01** | **System-Admin** | Super Administrator | **5** | **6** | **11 UCs** |
+| **ACT-02** | **Admin-Tenant** | HR Administrator | **6** | **20** | **26 UCs** |
+| **ACT-03** | **Director** | Executive C-Level | **2** | **3** | **5 UCs** |
+| **ACT-04** | **Manager** | Department / Project Head | **6** | **18** | **24 UCs** |
+| **ACT-05** | **Staff** | Internal Employee | **5** | **17** | **22 UCs** |
+| **ACT-06** | **Client** | External Partner | **2** | **1** | **3 UCs** |
+| **ACT-07** | **System / Background Engine** | Automated System Services | **3** | **22** | **25 UCs** |
+| **TOTAL** | **7 System Actors** | **7 System Subsystems** | **21 High-Level UCs** | **70 Detailed Sub-UCs** | **91 Total UCs** |
 
 ---
 

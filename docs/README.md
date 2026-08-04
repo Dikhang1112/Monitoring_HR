@@ -25,22 +25,22 @@ This document contains detailed Use Case specifications and diagram galleries fo
 ### Diagrams Gallery
 
 #### 1.1. Employee Profile Management Diagram
-![Employee Profile Management Diagram](images/people_manager/EmployeeManagement.png)
+![Employee Profile Management Diagram](images/usecase_diagram/people_manager/EmployeeManagement.png)
 
 ---
 
 #### 1.2. Organizational Structure Setup Diagram
-![Organizational Structure Setup Diagram](images/people_manager/Organizational.png)
+![Organizational Structure Setup Diagram](images/usecase_diagram/people_manager/Organizational.png)
 
 ---
 
 #### 1.3. Onboarding & Offboarding Workflow Diagram
-![Onboarding & Offboarding Workflow Diagram](images/people_manager/Boarding.png)
+![Onboarding & Offboarding Workflow Diagram](images/usecase_diagram/people_manager/Boarding.png)
 
 ---
 
 #### 1.4. Role & Permission Management (RBAC) Diagram
-![Role & Permission Management Diagram](images/people_manager/Role_Permission.png)
+![Role & Permission Management Diagram](images/usecase_diagram/people_manager/Role_Permission.png)
 
 ---
 
@@ -59,17 +59,17 @@ This document contains detailed Use Case specifications and diagram galleries fo
 ### Diagrams Gallery
 
 #### 2.1. Desktop App Timer Diagram
-![Desktop App Timer Diagram](images/time_tracking/DesktopTimer.png)
+![Desktop App Timer Diagram](images/usecase_diagram/time_tracking/DesktopTimer.png)
 
 ---
 
 #### 2.2. Mobile App Timer Diagram
-![Mobile App Timer Diagram](images/time_tracking/MobileTimer.png)
+![Mobile App Timer Diagram](images/usecase_diagram/time_tracking/MobileTimer.png)
 
 ---
 
 #### 2.3. Idle Inactivity Detection & Manual Timesheet Diagram
-![Idle Inactivity Detection Diagram](images/time_tracking/IdleTimeSheet.png)
+![Idle Inactivity Detection Diagram](images/usecase_diagram/time_tracking/IdleTimeSheet.png)
 
 ---
 
@@ -88,12 +88,12 @@ This document contains detailed Use Case specifications and diagram galleries fo
 ### Diagrams Gallery
 
 #### 3.1. Geofenced GPS Attendance Check-in Diagram
-![Geofenced GPS Check-in Diagram](images/gps_attendence/Geofenced.png)
+![Geofenced GPS Check-in Diagram](images/usecase_diagram/gps_attendence/Geofenced.png)
 
 ---
 
 #### 3.2. Live Map Location & Shift Route Tracking Diagram
-![Live Map & Route Tracking Diagram](images/gps_attendence/Route.png)
+![Live Map & Route Tracking Diagram](images/usecase_diagram/gps_attendence/Route.png)
 
 ---
 
@@ -111,22 +111,22 @@ This document contains detailed Use Case specifications and diagram galleries fo
 ### Diagrams Gallery
 
 #### 4.1. Automated Screenshot Capture Diagram
-![Automated Screenshot Capture Diagram](images/productivity_monitoring/Screenshot.png)
+![Automated Screenshot Capture Diagram](images/usecase_diagram/productivity_monitoring/Screenshot.png)
 
 ---
 
 #### 4.2. Input Activity Tracking Diagram
-![Input Activity Tracking Diagram](images/productivity_monitoring/InputActivity.png)
+![Input Activity Tracking Diagram](images/usecase_diagram/productivity_monitoring/InputActivity.png)
 
 ---
 
 #### 4.3. App & Website Productivity Classification Diagram
-![App & Website Productivity Classification Diagram](images/productivity_monitoring/AppUrl.png)
+![App & Website Productivity Classification Diagram](images/usecase_diagram/productivity_monitoring/AppUrl.png)
 
 ---
 
 #### 4.4. Activity Score Calculation & Real-time Alerts Diagram
-![Activity Score Calculation Diagram](images/productivity_monitoring/ActivityScore.png)
+![Activity Score Calculation Diagram](images/usecase_diagram/productivity_monitoring/ActivityScore.png)
 
 ---
 
@@ -143,17 +143,17 @@ This document contains detailed Use Case specifications and diagram galleries fo
 ### Diagrams Gallery
 
 #### 5.1. Weekly Shift & Work Schedule Planning Diagram
-![Weekly Shift Planning Diagram](images/scheduling_leave/ShiftPlanning.png)
+![Weekly Shift Planning Diagram](images/usecase_diagram/scheduling_leave/ShiftPlanning.png)
 
 ---
 
 #### 5.2. Time-off & Leave Request Management Diagram
-![Time-off & Leave Management Diagram](images/scheduling_leave/LeaveManagement.png)
+![Time-off & Leave Management Diagram](images/usecase_diagram/scheduling_leave/LeaveManagement.png)
 
 ---
 
 #### 5.3. Attendance Rules & Punctuality Violation Log Diagram
-![Attendance Rules Diagram](images/scheduling_leave/AttendenceRule.png)
+![Attendance Rules Diagram](images/usecase_diagram/scheduling_leave/AttendenceRule.png)
 
 ---
 
@@ -170,14 +170,14 @@ This document contains detailed Use Case specifications and diagram galleries fo
 ### Diagrams Gallery
 
 #### 6.1. Automated Monthly Salary Calculation Diagram
-![Automated Monthly Salary Calculation Diagram](images/payroll_invoicing/SalaryCalculation.png)
+![Automated Monthly Salary Calculation Diagram](images/usecase_diagram/payroll_invoicing/SalaryCalculation.png)
 
 ---
 
 #### 6.2. Overtime Pay & Allowance Management Diagram
-![Overtime Pay & Allowance Management Diagram](images/payroll_invoicing/OvertimeAllowance.png)
+![Overtime Pay & Allowance Management Diagram](images/usecase_diagram/payroll_invoicing/OvertimeAllowance.png)
 
 ---
 
 #### 6.3. Client Invoicing & Billable Hours Approval Diagram
-![Client Invoicing Diagram](images/payroll_invoicing/ClientInvoicing.png)
+![Client Invoicing Diagram](images/usecase_diagram/payroll_invoicing/ClientInvoicing.png)

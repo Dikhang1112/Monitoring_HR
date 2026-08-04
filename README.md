@@ -373,45 +373,118 @@ This section outlines the core Use Cases of the HR Management Platform, mapped d
 
 ### 2. Master System Use Case Overview & Actor Mapping Table
 
-This master table summarizes all detailed Use Cases across the 7 feature subsystems, explicitly listing their **Primary Actor** (initiator) and **Secondary Actor(s)** (supporting users or services):
+This master table contains **all 91 Use Cases** across the 7 feature subsystems from High-Level (Level 1) down to Detailed Sub-Use Cases (Level 2 & Level 3), explicitly listing their **Hierarchy Level**, **Primary Actor** (initiator), and **Secondary Actor(s)** (supporting users or services):
 
-| UC ID | Use Case Name | Subsystem / Feature Module | Primary Actor | Secondary Actor(s) | Description |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **UC-SYS-01** | Tenant Provisioning & Subscription | System & Tenant Admin | `System-Admin` | `System Service`, `Email Service` | Initializes new tenant organizations, provisions credentials, and sets quota caps. |
-| **UC-SYS-02** | Tenant Quota & Resource Cap Management | System & Tenant Admin | `System-Admin` | `System Service` | Manages storage, user seat limits, and platform resource caps per tenant. |
-| **UC-PPL-01** | Employee Profile Management | People Management | `Admin-Tenant` | `Manager`, `Staff` | Manages employee personal details, employment contracts, and bank account info. |
-| **UC-PPL-02** | Organizational Structure Setup | People Management | `Admin-Tenant` | `Director`, `Manager` | Builds the multi-level org tree and appoints leadership roles. |
-| **UC-PPL-03** | Onboarding & Offboarding Workflow | People Management | `Admin-Tenant` | `Manager`, `Email Service` | Automates account provisioning, asset handover logs, and exit checklists. |
-| **UC-PPL-04** | Role & Permission Management (RBAC) | People Management | `System-Admin` | `Admin-Tenant`, `System Service` | Configures action permission matrices and data scope boundaries. |
-| **UC-TIME-01** | Desktop Work Timer Control | Time Tracking | `Staff` | `Desktop Agent Service` | Toggles real-time work timers on desktop client apps with active task tagging. |
-| **UC-TIME-02** | Mobile Clock In / Out & Task Switcher | Time Tracking | `Staff` | `Mobile Service` | Enables mobile check-in/out, task switching, and heartbeat logs for field staff. |
-| **UC-TIME-03** | Idle Inactivity Detection & Timesheet | Time Tracking | `Staff` | `Manager`, `Desktop Agent Service` | Detects keyboard/mouse inactivity and submits manual timesheet requests. |
-| **UC-GPS-01** | Geofenced GPS Check-in | GPS Attendance | `Staff` | `Admin-Tenant`, `Location Service` | Restricts check-in/out to authorized GPS coordinates and branch perimeter radii. |
-| **UC-GPS-02** | Live Map & Shift Route Tracking | GPS Attendance | `Manager` | `Staff`, `GPS Location Service` | Tracks real-time field staff positions on a live map and logs movement routes. |
-| **UC-PROD-01** | Random Automated Screenshot Capture | Productivity Monitoring | `System Service` | `Manager`, `Staff` | Captures multi-monitor screen activity at random intervals with encryption. |
-| **UC-PROD-02** | Keystroke & Mouse Input Activity | Productivity Monitoring | `Desktop Agent Service` | `Staff` | Measures input activity frequency and detects anti-autoclicker tools. |
-| **UC-PROD-03** | App & Website Classification | Productivity Monitoring | `Admin-Tenant` | `Manager` | Categorizes apps and URLs into Productive, Unproductive, or Neutral status. |
-| **UC-PROD-04** | Activity Score & Real-time Alerts | Productivity Monitoring | `Manager` | `System Service`, `Director` | Computes Activity Score (%) and triggers low-productivity alerts (< 30%). |
-| **UC-SCHED-01** | Weekly Shift & Work Schedule Planning | Scheduling & Time-Off | `Manager` | `Staff` | Assigns shift patterns, Onsite/Remote work modes, and publishes rosters. |
-| **UC-SCHED-02** | Time-off & Leave Request Management | Scheduling & Time-Off | `Staff` | `Manager`, `Admin-Tenant` | Submits leave requests with attachments and executes multi-level approvals. |
-| **UC-SCHED-03** | Attendance Rules & Punctuality Log | Scheduling & Time-Off | `System Service` | `Manager`, `Admin-Tenant` | Applies shift grace periods and logs late arrival / early departure violations. |
-| **UC-PAY-01** | Automated Monthly Salary Calculation | Payroll & Invoicing | `Admin-Tenant` | `System Service`, `Staff` | Calculates monthly salary sheets automatically using timesheets and deductions. |
-| **UC-PAY-02** | Overtime Pay & Allowance Management | Payroll & Invoicing | `Admin-Tenant` | `Director` | Applies overtime multipliers (x1.5, x2.0, x3.0) and monitors OT budget caps. |
-| **UC-PAY-03** | Client Invoicing & Billable Hours | Payroll & Invoicing | `Manager` | `Client`, `Billing System` | Approves project billable hours and generates client invoice PDF statements. |
+| UC ID | Use Case Name | Hierarchy Level | Subsystem / Feature Module | Primary Actor | Secondary Actor(s) | Description |
+| :--- | :--- | :---: | :--- | :--- | :--- | :--- |
+| **UC-SYS-01** | Tenant Provisioning & Subscription | `L1 (High-Level)` | System & Tenant Admin | `System-Admin` | `System Service`, `Email Service` | Initializes new tenant organizations, provisions credentials, and sets quota caps. |
+| **UC-SYS-01a** | Assign Default Admin Credentials | `L2 (Sub-UC)` | System & Tenant Admin | `System-Admin` | `System Service` | Provisions primary Admin-Tenant credentials and initial access rights. |
+| **UC-SYS-01b** | Send Tenant Welcome Email | `L2 (Sub-UC)` | System & Tenant Admin | `System Service` | `Email Service` | Dispatches automated welcome emails with initial login credentials. |
+| **UC-SYS-02** | Tenant Quota & Resource Cap Management | `L1 (High-Level)` | System & Tenant Admin | `System-Admin` | `System Service` | Manages storage, user seat limits, and platform resource caps per tenant. |
+| **UC-SYS-02a** | Configure Storage & User Seat Limits | `L2 (Sub-UC)` | System & Tenant Admin | `System-Admin` | `System Service` | Sets max employee seat licenses and cloud screenshot storage limits. |
+| **UC-SYS-03** | Global Platform Monitoring & Audit Logs | `L1 (High-Level)` | System & Tenant Admin | `System-Admin` | `System Service` | Tracks system uptime, server health, and platform-wide security audit logs. |
+| **UC-SYS-04** | Platform API Key & Integration Management | `L1 (High-Level)` | System & Tenant Admin | `System-Admin` | `System Service` | Issues and revokes API keys for external ERP/HRIS integrations. |
+| **UC-PPL-01** | Employee Profile Management | `L1 (High-Level)` | People Management | `Admin-Tenant` | `Manager`, `Staff` | Manages employee personal details, employment contracts, and bank account info. |
+| **UC-PPL-01a** | Assign Department & Direct Manager | `L2 (Sub-UC)` | People Management | `Admin-Tenant` | `Manager` | Assigns employees to organizational departments and designates Direct Managers. |
+| **UC-PPL-01b** | Record Emergency Contacts & Bank Info | `L2 (Sub-UC)` | People Management | `Admin-Tenant` | `Staff` | Records emergency contacts, tax IDs, and direct deposit bank accounts. |
+| **UC-PPL-01c** | Import / Export Employee Records | `L2 (Sub-UC)` | People Management | `Admin-Tenant` | `System Service` | Bulk imports employee profiles from CSV/Excel or exports roster data. |
+| **UC-PPL-01d** | Track Employment Contract History | `L2 (Sub-UC)` | People Management | `Admin-Tenant` | `Staff` | Logs probation periods, contract renewals, and salary change history. |
+| **UC-PPL-02** | Organizational Structure Setup | `L1 (High-Level)` | People Management | `Admin-Tenant` | `Director`, `Manager` | Builds the multi-level org tree and appoints leadership roles. |
+| **UC-PPL-02a** | Build Department & Sub-unit Tree | `L2 (Sub-UC)` | People Management | `Admin-Tenant` | `Manager` | Creates department hierarchies, branch offices, and team sub-units. |
+| **UC-PPL-02b** | Assign Department Head & Deputies | `L2 (Sub-UC)` | People Management | `Admin-Tenant` | `Manager` | Appoints Department Heads, Deputy Heads, and Team Lead roles. |
+| **UC-PPL-02c** | View Headcount & Roster Statistics | `L2 (Sub-UC)` | People Management | `Director` | `Admin-Tenant` | Displays headcount distribution and department roster capacity stats. |
+| **UC-PPL-02d** | Merge / Dissolve Department | `L2 (Sub-UC)` | People Management | `Admin-Tenant` | `Director` | Handles department mergers, restructuring, and member reassignment. |
+| **UC-PPL-03** | Onboarding & Offboarding Workflow | `L1 (High-Level)` | People Management | `Admin-Tenant` | `Manager`, `Email Service` | Automates account provisioning, asset handover logs, and exit checklists. |
+| **UC-PPL-03a** | Automate Account Provisioning | `L2 (Sub-UC)` | People Management | `Admin-Tenant` | `Email Service` | Provisions Email, HR Portal, and Timer app accounts for new hires. |
+| **UC-PPL-03b** | Track Equipment & Asset Handover | `L2 (Sub-UC)` | People Management | `Admin-Tenant` | `Staff` | Logs hardware assets (laptops, monitors, keycards) assigned to staff. |
+| **UC-PPL-03c** | Process Exit Checklist & Task Handover | `L2 (Sub-UC)` | People Management | `Admin-Tenant` | `Manager` | Executes task handover checklists and approves resignation workflows. |
+| **UC-PPL-03d** | Revoke Access & Archive Account | `L2 (Sub-UC)` | People Management | `Admin-Tenant` | `System Service` | Revokes system permissions and freezes departing employee accounts. |
+| **UC-PPL-04** | Role & Permission Management (RBAC) | `L1 (High-Level)` | People Management | `System-Admin` | `Admin-Tenant`, `System Service` | Configures action permission matrices and data scope boundaries. |
+| **UC-PPL-04a** | Assign Default System Roles | `L2 (Sub-UC)` | People Management | `System-Admin` | `Admin-Tenant` | Assigns system default roles (Admin, Director, Manager, Staff, Client). |
+| **UC-PPL-04b** | Configure Action Permission Matrix | `L2 (Sub-UC)` | People Management | `System-Admin` | `Admin-Tenant` | Sets CRUD and Approval permission checkboxes per feature screen. |
+| **UC-PPL-04c** | Create Custom Role Groups | `L2 (Sub-UC)` | People Management | `System-Admin` | `Admin-Tenant` | Defines custom role groups (e.g. HR Officer, Payroll Accountant). |
+| **UC-PPL-04d** | Configure Data Scope Scoping | `L2 (Sub-UC)` | People Management | `System-Admin` | `System Service` | Restricts data scope boundaries (Company-wide, Department, Self-only). |
+| **UC-TIME-01** | Desktop Work Timer Control | `L1 (High-Level)` | Time Tracking | `Staff` | `Desktop Agent Service` | Toggles real-time work timers on desktop client apps with active task tagging. |
+| **UC-TIME-01a** | Select Active Project & Task | `L2 (Sub-UC)` | Time Tracking | `Staff` | `Desktop Agent Service` | Tags current work session with active project and task names. |
+| **UC-TIME-01b** | System Tray Integration & Hotkeys | `L2 (Sub-UC)` | Time Tracking | `Staff` | `Desktop Agent Service` | Minimizes timer to System Tray and supports quick hotkeys (`Ctrl+Shift+S`). |
+| **UC-TIME-01c** | Buffer Offline Work Time | `L2 (Sub-UC)` | Time Tracking | `Staff` | `Desktop Agent Service` | Stores encrypted work logs locally when Internet connection drops. |
+| **UC-TIME-01d** | Sync Offline Timesheet when Reconnected | `L3 (Sub-UC)` | Time Tracking | `Desktop Agent Service` | `System Service` | Synchronizes buffered offline timesheets to cloud servers when online. |
+| **UC-TIME-02** | Mobile Clock In / Out & Task Switcher | `L1 (High-Level)` | Time Tracking | `Staff` | `Mobile Service` | Enables mobile check-in/out, task switching, and heartbeat logs for field staff. |
+| **UC-TIME-02a** | Touch Task Switcher & Work Notes | `L2 (Sub-UC)` | Time Tracking | `Staff` | `Mobile Service` | Provides touch interface to switch tasks and attach brief work notes. |
+| **UC-TIME-02b** | Send App Heartbeat Status | `L2 (Sub-UC)` | Time Tracking | `Mobile Service` | `System Service` | Transmits periodic heartbeat pings to verify active mobile app session. |
+| **UC-TIME-02c** | Attach Field Photo Note | `L3 (Sub-UC)` | Time Tracking | `Staff` | `Mobile Service` | Attaches real-time site photos to mobile clock-in records. |
+| **UC-TIME-03** | Idle Inactivity Detection & Timesheet | `L1 (High-Level)` | Time Tracking | `Staff` | `Manager`, `Desktop Agent Service` | Detects keyboard/mouse inactivity and submits manual timesheet requests. |
+| **UC-TIME-03a** | Detect Keyboard/Mouse Inactivity Threshold | `L2 (Sub-UC)` | Time Tracking | `Desktop Agent Service` | `Staff` | Monitors input inactivity and triggers idle state after 10 mins. |
+| **UC-TIME-03b** | Prompt Inactive State Warning Popup | `L2 (Sub-UC)` | Time Tracking | `Desktop Agent Service` | `Staff` | Prompts popup asking user to keep or discard inactive work time. |
+| **UC-TIME-03c** | Keep or Discard Idle Time Selection | `L3 (Sub-UC)` | Time Tracking | `Staff` | `Desktop Agent Service` | User chooses to keep valid offline discussions or discard idle time. |
+| **UC-TIME-03d** | Submit Manual Timesheet Request | `L3 (Sub-UC)` | Time Tracking | `Staff` | `Manager` | Submits manual timesheet adjustment requests for manager approval. |
+| **UC-GPS-01** | Geofenced GPS Check-in | `L1 (High-Level)` | GPS Attendance | `Staff` | `Admin-Tenant`, `Location Service` | Restricts check-in/out to authorized GPS coordinates and branch perimeter radii. |
+| **UC-GPS-01a** | Configure Branch GPS Coordinates & Radius | `L2 (Sub-UC)` | GPS Attendance | `Admin-Tenant` | `Location Service` | Sets branch latitude, longitude, and allowed geofence perimeter radius. |
+| **UC-GPS-01b** | Verify Real-time GPS Location upon Check-in | `L2 (Sub-UC)` | GPS Attendance | `Location Service` | `Staff` | Compares device GPS coordinates with geofence perimeter radius. |
+| **UC-GPS-01c** | Reject Out-of-Perimeter Check-in | `L3 (Sub-UC)` | GPS Attendance | `Location Service` | `Staff` | Blocks check-in attempts outside authorized geofence perimeters. |
+| **UC-GPS-02** | Live Map & Shift Route Tracking | `L1 (High-Level)` | GPS Attendance | `Manager` | `Staff`, `GPS Location Service` | Tracks real-time field staff positions on a live map and logs movement routes. |
+| **UC-GPS-02a** | Track Real-time Field Staff Position | `L2 (Sub-UC)` | GPS Attendance | `Manager` | `GPS Location Service` | Displays real-time GPS locations of field service staff on interactive map. |
+| **UC-GPS-02b** | Log Shift Movement Route History | `L2 (Sub-UC)` | GPS Attendance | `GPS Location Service` | `Manager` | Logs chronological movement route history during active work shifts. |
+| **UC-GPS-02c** | Export Route Movement Log | `L3 (Sub-UC)` | GPS Attendance | `Manager` | `System Service` | Exports field staff movement route history logs for auditing. |
+| **UC-PROD-01** | Random Automated Screenshot Capture | `L1 (High-Level)` | Productivity Monitoring | `System Service` | `Manager`, `Staff` | Captures multi-monitor screen activity at random intervals with encryption. |
+| **UC-PROD-01a** | Multi-Monitor Concurrent Capture | `L2 (Sub-UC)` | Productivity Monitoring | `System Service` | `Desktop Agent Service` | Captures all connected displays simultaneously in multi-monitor setups. |
+| **UC-PROD-01b** | Client-side Screenshot Encryption | `L2 (Sub-UC)` | Productivity Monitoring | `Desktop Agent Service` | `System Service` | Encrypts captured screenshots on client device before cloud upload. |
+| **UC-PROD-01c** | Blur Sensitive Data & App Window | `L3 (Sub-UC)` | Productivity Monitoring | `Desktop Agent Service` | `Staff` | Blurs sensitive app windows (banking, password managers) automatically. |
+| **UC-PROD-02** | Keystroke & Mouse Input Activity | `L1 (High-Level)` | Productivity Monitoring | `Desktop Agent Service` | `Staff` | Measures input activity frequency and detects anti-autoclicker tools. |
+| **UC-PROD-02a** | Calculate Active vs Idle Session Ratio (%) | `L2 (Sub-UC)` | Productivity Monitoring | `Desktop Agent Service` | `System Service` | Computes active vs inactive time ratio percentage per minute. |
+| **UC-PROD-02b** | Detect Anti-AutoClicker & Fake Activity | `L3 (Sub-UC)` | Productivity Monitoring | `Desktop Agent Service` | `System Service` | Detects artificial mouse jigglers and auto-clicker software anomalies. |
+| **UC-PROD-03** | App & Website Classification | `L1 (High-Level)` | Productivity Monitoring | `Admin-Tenant` | `Manager` | Categorizes apps and URLs into Productive, Unproductive, or Neutral status. |
+| **UC-PROD-03a** | Assign Productivity Labels | `L2 (Sub-UC)` | Productivity Monitoring | `Admin-Tenant` | `Manager` | Assigns Productive, Unproductive, or Neutral tags to software and URLs. |
+| **UC-PROD-03b** | Log Active Window Title & Domain URL | `L2 (Sub-UC)` | Productivity Monitoring | `Desktop Agent Service` | `System Service` | Records specific website domain URLs and active window titles. |
+| **UC-PROD-03c** | Configure Department Overrides | `L3 (Sub-UC)` | Productivity Monitoring | `Admin-Tenant` | `Manager` | Sets department-specific rules (e.g. Facebook is Productive for Marketing). |
+| **UC-PROD-04** | Activity Score & Real-time Alerts | `L1 (High-Level)` | Productivity Monitoring | `Manager` | `System Service`, `Director` | Computes Activity Score (%) and triggers low-productivity alerts (< 30%). |
+| **UC-PROD-04a** | Calculate Weighted Activity Score (%) | `L2 (Sub-UC)` | Productivity Monitoring | `System Service` | `Manager` | Runs weighted algorithm combining input activity and productive app time. |
+| **UC-PROD-04b** | Trigger Low Productivity Alert (< 30%) | `L2 (Sub-UC)` | Productivity Monitoring | `System Service` | `Manager` | Triggers alert when employee Activity Score drops below 30% threshold. |
+| **UC-PROD-04c** | Dispatch Real-time Push Notification | `L3 (Sub-UC)` | Productivity Monitoring | `System Service` | `Manager` | Sends instant mobile push notification and email alert to Manager. |
+| **UC-SCHED-01** | Weekly Shift & Work Schedule Planning | `L1 (High-Level)` | Scheduling & Time-Off | `Manager` | `Staff` | Assigns shift patterns, Onsite/Remote work modes, and publishes rosters. |
+| **UC-SCHED-01a** | Assign Shift Patterns | `L2 (Sub-UC)` | Scheduling & Time-Off | `Manager` | `Staff` | Configures morning, afternoon, night, or split shift schedules. |
+| **UC-SCHED-01b** | Classify Onsite vs Remote Work Mode | `L2 (Sub-UC)` | Scheduling & Time-Off | `Manager` | `Staff` | Designates whether shift is executed Onsite or Remote/Work-From-Home. |
+| **UC-SCHED-01c** | Publish Schedule & Notify Team Roster | `L3 (Sub-UC)` | Scheduling & Time-Off | `Manager` | `Staff` | Dispatches roster notification alerts to assigned staff members. |
+| **UC-SCHED-02** | Time-off & Leave Request Management | `L1 (High-Level)` | Scheduling & Time-Off | `Staff` | `Manager`, `Admin-Tenant` | Submits leave requests with attachments and executes multi-level approvals. |
+| **UC-SCHED-02a** | Check Available Leave Balance | `L2 (Sub-UC)` | Scheduling & Time-Off | `Staff` | `System Service` | Validates remaining annual leave balance before request submission. |
+| **UC-SCHED-02b** | Submit Leave Request with Attachments | `L2 (Sub-UC)` | Scheduling & Time-Off | `Staff` | `Manager` | Submits annual, sick, or personal leave requests with doctor notes. |
+| **UC-SCHED-02c** | Multi-level Manager & HR Approval | `L3 (Sub-UC)` | Scheduling & Time-Off | `Manager` | `Admin-Tenant` | Executes sequential approval workflow (Direct Manager -> HR Admin). |
+| **UC-SCHED-02d** | Deduct Approved Leave Balance | `L3 (Sub-UC)` | Scheduling & Time-Off | `Admin-Tenant` | `System Service` | Deducts approved leave days automatically from employee annual quota. |
+| **UC-SCHED-03** | Attendance Rules & Punctuality Log | `L1 (High-Level)` | Scheduling & Time-Off | `System Service` | `Manager`, `Admin-Tenant` | Applies shift grace periods and logs late arrival / early departure violations. |
+| **UC-SCHED-03a** | Apply Work Shift Grace Period | `L2 (Sub-UC)` | Scheduling & Time-Off | `System Service` | `Manager` | Allows 15-minute grace period before marking clock-in as late. |
+| **UC-SCHED-03b** | Log Late Arrival & Early Departure | `L2 (Sub-UC)` | Scheduling & Time-Off | `System Service` | `Manager` | Records exact minutes of tardiness or early shift departure. |
+| **UC-SCHED-03c** | Flag Unexcused Absence | `L3 (Sub-UC)` | Scheduling & Time-Off | `System Service` | `Manager`, `Admin-Tenant` | Marks unexcused absence if staff fails to clock in without approved leave. |
+| **UC-PAY-01** | Automated Monthly Salary Calculation | `L1 (High-Level)` | Payroll & Invoicing | `Admin-Tenant` | `System Service`, `Staff` | Calculates monthly salary sheets automatically using timesheets and deductions. |
+| **UC-PAY-01a** | Integrate Timesheet Approved Work Hours | `L2 (Sub-UC)` | Payroll & Invoicing | `System Service` | `Admin-Tenant` | Fetches verified working hours automatically from Time Tracking. |
+| **UC-PAY-01b** | Apply Tardiness & Absence Deductions | `L2 (Sub-UC)` | Payroll & Invoicing | `Admin-Tenant` | `System Service` | Deducts salary penalties for unexcused absences and tardiness. |
+| **UC-PAY-01c** | Generate Monthly Salary Sheet | `L3 (Sub-UC)` | Payroll & Invoicing | `Admin-Tenant` | `System Service` | Compiles company-wide monthly payroll sheet for payout. |
+| **UC-PAY-01d** | Export Personal Paystub PDF | `L3 (Sub-UC)` | Payroll & Invoicing | `Admin-Tenant` | `Staff` | Dispatches individual encrypted PDF paystubs to employees via email. |
+| **UC-PAY-02** | Overtime Pay & Allowance Management | `L1 (High-Level)` | Payroll & Invoicing | `Admin-Tenant` | `Director` | Applies overtime multipliers (x1.5, x2.0, x3.0) and monitors OT budget caps. |
+| **UC-PAY-02a** | Apply Overtime Multipliers | `L2 (Sub-UC)` | Payroll & Invoicing | `Admin-Tenant` | `System Service` | Multiplies OT pay rates (Weekday 150%, Weekend 200%, Holiday 300%). |
+| **UC-PAY-02b** | Calculate Fixed & Variable Allowances | `L2 (Sub-UC)` | Payroll & Invoicing | `Admin-Tenant` | `System Service` | Adds lunch, travel, mobile phone, and role allowance items. |
+| **UC-PAY-02c** | Trigger Overtime Budget Cap Warning | `L3 (Sub-UC)` | Payroll & Invoicing | `System Service` | `Director` | Sends warning alert when department OT expenses exceed budget cap. |
+| **UC-PAY-03** | Client Invoicing & Billable Hours | `L1 (High-Level)` | Payroll & Invoicing | `Manager` | `Client`, `Billing System` | Approves project billable hours and generates client invoice PDF statements. |
+| **UC-PAY-03a** | Approve Client Project Billable Hours | `L2 (Sub-UC)` | Payroll & Invoicing | `Manager` | `Client` | Reviews and approves billable work hours tagged to client projects. |
+| **UC-PAY-03b** | Apply Hourly Billing Rates per Role | `L2 (Sub-UC)` | Payroll & Invoicing | `Manager` | `Billing System` | Multiplies billable hours by billing rate per role (e.g. Senior Dev $40/h). |
+| **UC-PAY-03c** | Generate Client Invoice PDF Statement | `L3 (Sub-UC)` | Payroll & Invoicing | `Billing System` | `Manager` | Compiles itemized billing statements and exports official PDF invoice. |
+| **UC-PAY-03d** | Client Portal Invoice Download & Review | `L3 (Sub-UC)` | Payroll & Invoicing | `Client` | `Billing System` | Client logs into portal to review, approve, and download PDF invoice. |
 
 ---
 
 ### 3. Total Use Case Summary & Actor Coverage Matrix
 
-| Actor Code | Actor Name | Role Category | Direct Core Use Cases | Total Use Case Count |
-| :--- | :--- | :--- | :--- | :---: |
-| **ACT-01** | **System-Admin** | Super Administrator | `UC-CORE-01` | **1** |
-| **ACT-02** | **Admin-Tenant** | HR Administrator | `UC-CORE-02`, `UC-CORE-06`, `UC-CORE-11` | **3** |
-| **ACT-03** | **Director** | Executive C-Level | `UC-CORE-10`, `UC-CORE-12` | **2** |
-| **ACT-04** | **Manager** | Department / Project Head | `UC-CORE-05`, `UC-CORE-06`, `UC-CORE-07`, `UC-CORE-08`, `UC-CORE-09`, `UC-CORE-10`, `UC-CORE-12` | **7** |
-| **ACT-05** | **Staff** | Internal Employee | `UC-CORE-03`, `UC-CORE-04`, `UC-CORE-05`, `UC-CORE-07`, `UC-CORE-08`, `UC-CORE-09`, `UC-CORE-10` | **7** |
-| **ACT-06** | **Client** | External Partner | `UC-CORE-09`, `UC-CORE-10` | **2** |
-| **TOTAL** | **6 System Actors** | **5 System Subsystems** | **12 Core System Use Cases** | **12 Core UCs** |
+This matrix provides a complete breakdown of **High-Level Use Cases (Level 1)** and **Detailed Sub-Use Cases (Level 2 & Level 3)** covered across all **7 System Actors**:
+
+| Actor Code | Actor Name | Role Category | High-Level UCs (Level 1) | Detailed Sub-UCs (Level 2 & 3) | Total System Use Cases |
+| :--- | :--- | :--- | :---: | :---: | :---: |
+| **ACT-01** | **System-Admin** | Super Administrator | **5** | **6** | **11 UCs** |
+| **ACT-02** | **Admin-Tenant** | HR Administrator | **6** | **20** | **26 UCs** |
+| **ACT-03** | **Director** | Executive C-Level | **2** | **3** | **5 UCs** |
+| **ACT-04** | **Manager** | Department / Project Head | **6** | **18** | **24 UCs** |
+| **ACT-05** | **Staff** | Internal Employee | **5** | **17** | **22 UCs** |
+| **ACT-06** | **Client** | External Partner | **2** | **1** | **3 UCs** |
+| **ACT-07** | **System / Background Engine** | Automated System Services | **3** | **22** | **25 UCs** |
+| **TOTAL** | **7 System Actors** | **7 System Subsystems** | **21 High-Level UCs** | **70 Detailed Sub-UCs** | **91 Total UCs** |
 
 ---
 

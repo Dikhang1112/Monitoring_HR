@@ -1,6 +1,6 @@
-# HR Management Platform - Detailed Use Case Documentation
+# HR Management Platform - Detailed Use Case & Process Swimlane Documentation
 
-This document contains detailed Use Case specifications and diagram galleries for the core subsystems of the HR Management Platform.
+This document contains detailed Use Case specifications, Use Case diagram galleries, and Process Swimlane Activity diagram galleries for the core subsystems of the HR Management Platform.
 
 ---
 
@@ -22,7 +22,7 @@ This document contains detailed Use Case specifications and diagram galleries fo
 | **UC-PPL-04a** | Create Custom Role Groups | `System-Admin` | Defines custom role groups (e.g., HR Officer, Payroll Accountant, Warehouse Lead) tailored to business needs. |
 | **UC-PPL-04b** | Configure Data Scope Scoping | `System-Admin`, `System Service` | Restricts data visibility boundaries across levels: Company-wide, Department-only, or Self-only. |
 
-### Diagrams Gallery
+### Use Case Diagrams Gallery
 
 #### 1.1. Employee Profile Management Diagram
 ![Employee Profile Management Diagram](images/usecase_diagram/people_manager/EmployeeManagement.png)
@@ -44,6 +44,28 @@ This document contains detailed Use Case specifications and diagram galleries fo
 
 ---
 
+### Process Swimlane Diagrams Gallery
+
+#### 1.5. Onboarding & Offboarding Swimlane Process Diagram
+![Onboarding & Offboarding Swimlane Diagram](images/swimlane/people_management/OnboardingOffboarding.png)
+
+---
+
+#### 1.6. Role & Permission Management (RBAC) Swimlane Process Diagram
+![Role & Permission Management Swimlane Diagram](images/swimlane/people_management/RolesPermissions.png)
+
+---
+
+#### 1.7. Employee Profile Management Swimlane Process Diagram
+![Employee Profile Management Swimlane Diagram](images/swimlane/people_management/EmployeeProfiles.png)
+
+---
+
+#### 1.8. Organizational Structure Setup Swimlane Process Diagram
+![Organizational Structure Setup Swimlane Diagram](images/swimlane/people_management/OrgStructure.png)
+
+---
+
 ## 2. Time Tracking Subsystem
 
 ### Use Case Specifications
@@ -56,7 +78,7 @@ This document contains detailed Use Case specifications and diagram galleries fo
 | **UC-TIME-02** | Mobile Clock In / Out & Task Switcher | `Staff`, `Mobile Service` | Allows field staff to clock in/out, switch work tasks, add notes, and transmit app heartbeat status on mobile devices. |
 | **UC-TIME-03** | Idle Inactivity Detection & Timesheet Approval | `Staff`, `Manager`, `Desktop Agent Service` | Detects keyboard/mouse inactivity thresholds, prompts idle warning popups, and submits manual timesheet requests for manager approval. |
 
-### Diagrams Gallery
+### Use Case Diagrams Gallery
 
 #### 2.1. Desktop App Timer Diagram
 ![Desktop App Timer Diagram](images/usecase_diagram/time_tracking/DesktopTimer.png)
@@ -73,6 +95,23 @@ This document contains detailed Use Case specifications and diagram galleries fo
 
 ---
 
+### Process Swimlane Diagrams Gallery
+
+#### 2.4. Desktop Work Timer Swimlane Process Diagram
+![Desktop Work Timer Swimlane Diagram](images/swimlane/time_tracking/DesktopTimer.png)
+
+---
+
+#### 2.5. Mobile Clock In / Out Swimlane Process Diagram
+![Mobile Clock In / Out Swimlane Diagram](images/swimlane/time_tracking/MobileTimer.png)
+
+---
+
+#### 2.6. Idle Inactivity Detection & Manual Timesheet Swimlane Process Diagram
+![Idle Inactivity Detection Swimlane Diagram](images/swimlane/time_tracking/IdleTimesheet.png)
+
+---
+
 ## 3. GPS Attendance Subsystem
 
 ### Use Case Specifications
@@ -85,7 +124,7 @@ This document contains detailed Use Case specifications and diagram galleries fo
 | **UC-GPS-02** | Live Map Location & Shift Route Tracking | `Manager`, `Staff`, `GPS Location Service` | Tracks real-time field staff positions on a live map and logs movement route history throughout the work shift. |
 | **UC-GPS-02a** | Export Shift Route Movement Log | `Manager` | Exports detailed shift route history movement logs for compliance auditing. |
 
-### Diagrams Gallery
+### Use Case Diagrams Gallery
 
 #### 3.1. Geofenced GPS Attendance Check-in Diagram
 ![Geofenced GPS Check-in Diagram](images/usecase_diagram/gps_attendence/Geofenced.png)
@@ -94,6 +133,18 @@ This document contains detailed Use Case specifications and diagram galleries fo
 
 #### 3.2. Live Map Location & Shift Route Tracking Diagram
 ![Live Map & Route Tracking Diagram](images/usecase_diagram/gps_attendence/Route.png)
+
+---
+
+### Process Swimlane Diagrams Gallery
+
+#### 3.3. Geofenced GPS Check-in Swimlane Process Diagram
+![Geofenced GPS Check-in Swimlane Diagram](images/swimlane/gps_attendance/GeofencedCheckin.png)
+
+---
+
+#### 3.4. Live Map & Shift Route Tracking Swimlane Process Diagram
+![Live Map & Shift Route Tracking Swimlane Diagram](images/swimlane/gps_attendance/LiveMapRoute.png)
 
 ---
 
@@ -108,7 +159,7 @@ This document contains detailed Use Case specifications and diagram galleries fo
 | **UC-PROD-03** | App & Website Productivity Classification | `Admin-Tenant`, `Manager` | Categorizes active window titles and domain URLs into Productive, Unproductive, or Neutral status with department-level rules. |
 | **UC-PROD-04** | Activity Score Calculation & Real-time Alerts | `Manager`, `System Service`, `Director` | Computes weighted Activity Score (%) metrics and triggers real-time alerts when productivity drops below designated thresholds (< 30%). |
 
-### Diagrams Gallery
+### Use Case Diagrams Gallery
 
 #### 4.1. Automated Screenshot Capture Diagram
 ![Automated Screenshot Capture Diagram](images/usecase_diagram/productivity_monitoring/Screenshot.png)
@@ -130,6 +181,28 @@ This document contains detailed Use Case specifications and diagram galleries fo
 
 ---
 
+### Process Swimlane Diagrams Gallery
+
+#### 4.5. Automated Screenshot Capture Swimlane Process Diagram
+![Automated Screenshot Capture Swimlane Diagram](images/swimlane/productivity_monitoring/ScreenshotCapture.png)
+
+---
+
+#### 4.6. Input Activity Tracking Swimlane Process Diagram
+![Input Activity Tracking Swimlane Diagram](images/swimlane/productivity_monitoring/InputActivity.png)
+
+---
+
+#### 4.7. App & Website Classification Swimlane Process Diagram
+![App & Website Classification Swimlane Diagram](images/swimlane/productivity_monitoring/AppUrlClassification.png)
+
+---
+
+#### 4.8. Activity Score & Real-time Alerts Swimlane Process Diagram
+![Activity Score & Real-time Alerts Swimlane Diagram](images/swimlane/productivity_monitoring/ActivityScoreAlerts.png)
+
+---
+
 ## 5. Scheduling & Time-Off Subsystem
 
 ### Use Case Specifications
@@ -140,7 +213,7 @@ This document contains detailed Use Case specifications and diagram galleries fo
 | **UC-SCHED-02** | Time-off & Leave Request Management | `Staff`, `Manager`, `Admin-Tenant` | Verifies available leave balances, submits leave requests with supporting attachments, and executes multi-level manager approvals. |
 | **UC-SCHED-03** | Attendance Rules & Punctuality Violation Log | `System Service`, `Manager`, `Admin-Tenant` | Applies work shift grace periods, logs late arrival and early departure violations, and flags unexcused absences. |
 
-### Diagrams Gallery
+### Use Case Diagrams Gallery
 
 #### 5.1. Weekly Shift & Work Schedule Planning Diagram
 ![Weekly Shift Planning Diagram](images/usecase_diagram/scheduling_leave/ShiftPlanning.png)
@@ -157,6 +230,23 @@ This document contains detailed Use Case specifications and diagram galleries fo
 
 ---
 
+### Process Swimlane Diagrams Gallery
+
+#### 5.4. Weekly Shift Planning Swimlane Process Diagram
+![Weekly Shift Planning Swimlane Diagram](images/swimlane/scheduling_leave/ShiftPlanning.png)
+
+---
+
+#### 5.5. Time-off & Leave Request Management Swimlane Process Diagram
+![Time-off & Leave Management Swimlane Diagram](images/swimlane/scheduling_leave/LeaveManagement.png)
+
+---
+
+#### 5.6. Attendance Rules & Punctuality Violation Log Swimlane Process Diagram
+![Attendance Rules & Violation Log Swimlane Diagram](images/swimlane/scheduling_leave/AttendanceRules.png)
+
+---
+
 ## 6. Payroll & Client Invoicing Subsystem
 
 ### Use Case Specifications
@@ -167,7 +257,7 @@ This document contains detailed Use Case specifications and diagram galleries fo
 | **UC-PAY-02** | Overtime Pay & Allowance Management | `Admin-Tenant`, `Director` | Applies overtime multipliers (Weekday x1.5, Weekend x2.0, Holiday x3.0), computes allowances, and monitors overtime budget caps. |
 | **UC-PAY-03** | Client Invoicing & Billable Hours Approval | `Manager`, `Client`, `Billing System` | Approves client-billable project work hours, applies role-based hourly billing rates, and generates client invoice PDF statements. |
 
-### Diagrams Gallery
+### Use Case Diagrams Gallery
 
 #### 6.1. Automated Monthly Salary Calculation Diagram
 ![Automated Monthly Salary Calculation Diagram](images/usecase_diagram/payroll_invoicing/SalaryCalculation.png)
@@ -181,3 +271,20 @@ This document contains detailed Use Case specifications and diagram galleries fo
 
 #### 6.3. Client Invoicing & Billable Hours Approval Diagram
 ![Client Invoicing Diagram](images/usecase_diagram/payroll_invoicing/ClientInvoicing.png)
+
+---
+
+### Process Swimlane Diagrams Gallery
+
+#### 6.4. Automated Monthly Salary Calculation Swimlane Process Diagram
+![Automated Monthly Salary Calculation Swimlane Diagram](images/swimlane/payroll_invoicing/SalaryCalculation.png)
+
+---
+
+#### 6.5. Overtime Pay & Allowance Management Swimlane Process Diagram
+![Overtime Pay & Allowance Management Swimlane Diagram](images/swimlane/payroll_invoicing/OvertimeAllowance.png)
+
+---
+
+#### 6.6. Client Invoicing & Billable Hours Swimlane Process Diagram
+![Client Invoicing & Billable Hours Swimlane Diagram](images/swimlane/payroll_invoicing/ClientInvoicing.png)

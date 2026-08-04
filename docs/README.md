@@ -94,3 +94,90 @@ This document contains detailed Use Case specifications and diagram galleries fo
 
 #### 3.2. Live Map Location & Shift Route Tracking Diagram
 ![Live Map & Route Tracking Diagram](images/gps_attendence/Route.png)
+
+---
+
+## 4. Productivity Monitoring Subsystem
+
+### Use Case Specifications
+
+| ID | Name | Actor | Description |
+| :--- | :--- | :--- | :--- |
+| **UC-PROD-01** | Random Automated Screenshot Capture | `System Service`, `Manager`, `Staff` | Captures multi-monitor screen activity at random intervals with client-side encryption and sensitive data blurring. |
+| **UC-PROD-02** | Keystroke & Mouse Input Activity Tracking | `Desktop Agent Service`, `Staff` | Measures keystrokes and mouse movement frequency to calculate active vs. idle session ratios and detect anti-autoclickers. |
+| **UC-PROD-03** | App & Website Productivity Classification | `Admin-Tenant`, `Manager` | Categorizes active window titles and domain URLs into Productive, Unproductive, or Neutral status with department-level rules. |
+| **UC-PROD-04** | Activity Score Calculation & Real-time Alerts | `Manager`, `System Service`, `Director` | Computes weighted Activity Score (%) metrics and triggers real-time alerts when productivity drops below designated thresholds (< 30%). |
+
+### Diagrams Gallery
+
+#### 4.1. Automated Screenshot Capture Diagram
+![Automated Screenshot Capture Diagram](images/productivity_monitoring/Screenshot.png)
+
+---
+
+#### 4.2. Input Activity Tracking Diagram
+![Input Activity Tracking Diagram](images/productivity_monitoring/InputActivity.png)
+
+---
+
+#### 4.3. App & Website Productivity Classification Diagram
+![App & Website Productivity Classification Diagram](images/productivity_monitoring/AppUrl.png)
+
+---
+
+#### 4.4. Activity Score Calculation & Real-time Alerts Diagram
+![Activity Score Calculation Diagram](images/productivity_monitoring/ActivityScore.png)
+
+---
+
+## 5. Scheduling & Time-Off Subsystem
+
+### Use Case Specifications
+
+| ID | Name | Actor | Description |
+| :--- | :--- | :--- | :--- |
+| **UC-SCHED-01** | Weekly Shift & Work Schedule Planning | `Manager`, `Staff` | Assigns morning, afternoon, night, or split shift patterns, classifies Onsite/Remote work modes, and publishes roster schedules. |
+| **UC-SCHED-02** | Time-off & Leave Request Management | `Staff`, `Manager`, `Admin-Tenant` | Verifies available leave balances, submits leave requests with supporting attachments, and executes multi-level manager approvals. |
+| **UC-SCHED-03** | Attendance Rules & Punctuality Violation Log | `System Service`, `Manager`, `Admin-Tenant` | Applies work shift grace periods, logs late arrival and early departure violations, and flags unexcused absences. |
+
+### Diagrams Gallery
+
+#### 5.1. Weekly Shift & Work Schedule Planning Diagram
+![Weekly Shift Planning Diagram](images/scheduling_leave/ShiftPlanning.png)
+
+---
+
+#### 5.2. Time-off & Leave Request Management Diagram
+![Time-off & Leave Management Diagram](images/scheduling_leave/LeaveManagement.png)
+
+---
+
+#### 5.3. Attendance Rules & Punctuality Violation Log Diagram
+![Attendance Rules Diagram](images/scheduling_leave/AttendenceRule.png)
+
+---
+
+## 6. Payroll & Client Invoicing Subsystem
+
+### Use Case Specifications
+
+| ID | Name | Actor | Description |
+| :--- | :--- | :--- | :--- |
+| **UC-PAY-01** | Automated Monthly Salary Calculation | `Admin-Tenant`, `System Service`, `Staff` | Calculates monthly salary sheets automatically using approved timesheets, base pay rates, and tardiness/absence deductions. |
+| **UC-PAY-02** | Overtime Pay & Allowance Management | `Admin-Tenant`, `Director` | Applies overtime multipliers (Weekday x1.5, Weekend x2.0, Holiday x3.0), computes allowances, and monitors overtime budget caps. |
+| **UC-PAY-03** | Client Invoicing & Billable Hours Approval | `Manager`, `Client`, `Billing System` | Approves client-billable project work hours, applies role-based hourly billing rates, and generates client invoice PDF statements. |
+
+### Diagrams Gallery
+
+#### 6.1. Automated Monthly Salary Calculation Diagram
+![Automated Monthly Salary Calculation Diagram](images/payroll_invoicing/SalaryCalculation.png)
+
+---
+
+#### 6.2. Overtime Pay & Allowance Management Diagram
+![Overtime Pay & Allowance Management Diagram](images/payroll_invoicing/OvertimeAllowance.png)
+
+---
+
+#### 6.3. Client Invoicing & Billable Hours Approval Diagram
+![Client Invoicing Diagram](images/payroll_invoicing/ClientInvoicing.png)

@@ -157,6 +157,182 @@ flowchart LR
 
 ---
 
+## Core Subsystem Feature Mindmaps & Flowcharts
+
+This section details the 3 level feature breakdown flowcharts for the **Top 5 Essential Core Subsystems** of the HR Management Platform. Detailed documentation for each feature is available in [`docs/mindmap/`](docs/mindmap/).
+
+### 1. People Management
+Detailed Specifications: [`docs/mindmap/PeopleManagement.md`](docs/mindmap/PeopleManagement.md)
+
+```mermaid
+flowchart TD
+    ROOT["1. People Management"]
+
+    %% Branch 1: Employee Profiles
+    ROOT --> PROFILES["1.1. Employee Profiles"]
+    PROFILES --> P1["Personal & Contact Info (Họ tên, CCCD, SĐT, Email)"]
+    PROFILES --> P2["Contract & Employment History (Thử việc, Chính thức, Ngày vào)"]
+    PROFILES --> P3["Department & Direct Manager Assignment"]
+    PROFILES --> P4["Emergency Contacts & Bank Account Details"]
+
+    %% Branch 2: Org Structure
+    ROOT --> ORG["1.2. Org Structure & Departments"]
+    ORG --> O1["Interactive Multi-level Org Tree (Cây sơ đồ tổ chức)"]
+    ORG --> O2["Department & Sub-unit Management (Phòng ban/Chi nhánh)"]
+    ORG --> O3["Department Head & Deputy Assignment (Bổ nhiệm Trưởng/Phó phòng)"]
+    ORG --> O4["Headcount & Roster Statistics (Định biên nhân sự)"]
+
+    %% Branch 3: Onboarding & Offboarding
+    ROOT --> ONBOARD["1.3. Onboarding & Offboarding Workflow"]
+    ONBOARD --> N1["Automated Account Provisioning (Email, HR Portal, App)"]
+    ONBOARD --> N2["Equipment & Asset Handover Log (Bàn giao máy tính, thẻ từ)"]
+    ONBOARD --> N3["Exit Checklist & Task Handover (Checklist nghỉ việc)"]
+    ONBOARD --> N4["Account Revocation & Data Archiving (Thu hồi quyền & Đóng băng)"]
+
+    %% Branch 4: Roles & Permissions
+    ROOT --> RBAC["1.4. Role & Permission Management (RBAC)"]
+    RBAC --> R1["Default System Roles (Admin, Director, Manager, Staff, Client)"]
+    RBAC --> R2["Custom Role Group Creation (HR Officer, Finance Officer)"]
+    RBAC --> R3["Action Permission Matrix (Create, Read, Update, Delete, Approve)"]
+    RBAC --> R4["Data Scope Scoping (Company-wide, Department, Self-only)"]
+```
+
+---
+
+### 2. Time Tracking & GPS Attendance
+Detailed Specifications: [`docs/mindmap/TimeTracking.md`](docs/mindmap/TimeTracking.md)
+
+```mermaid
+flowchart TD
+    ROOT["2. Time Tracking & GPS Attendance"]
+
+    %% Branch 1: Desktop App Timer
+    ROOT --> DESK["2.1. Desktop App Timer"]
+    DESK --> D1["Real-time Start / Pause / Stop Timer Button"]
+    DESK --> D2["Active Project & Task Selection (Gán dự án & công việc)"]
+    DESK --> D3["System Tray Integration & Quick Hotkeys"]
+    DESK --> D4["Offline Time Buffering & Sync when Reconnected"]
+
+    %% Branch 2: Mobile App Timer
+    ROOT --> MOB["2.2. Mobile App Timer"]
+    MOB --> M1["Mobile Clock In / Out (Chấm công trên Smartphone)"]
+    MOB --> M2["Touch Task Switcher & Work Notes"]
+    MOB --> M3["Background Location & App Heartbeat Status"]
+
+    %% Branch 3: GPS Geofenced Attendance
+    ROOT --> GPS["2.3. Geofenced GPS Attendance"]
+    GPS --> G1["Branch GPS Coordinates & Perimeter Radius Setup"]
+    GPS --> G2["Real-time GPS Perimeter Verification upon Check-in"]
+    GPS --> G3["Live Map Location Tracking for Field Staff"]
+    GPS --> G4["Shift Movement Route Tracking & Location History Log"]
+
+    %% Branch 4: Idle Detection & Manual Timesheet
+    ROOT --> IDLE["2.4. Idle Detection & Manual Timesheet"]
+    IDLE --> I1["Keyboard & Mouse Inactivity Threshold Configuration"]
+    IDLE --> I2["Idle State Popup Warning (Inactive > 10 mins)"]
+    IDLE --> I3["Keep or Discard Idle Time User Selection"]
+    IDLE --> I4["Manual Timesheet Request Submission & Approval"]
+```
+
+---
+
+### 3. Productivity Monitoring & App/URL Classification
+Detailed Specifications: [`docs/mindmap/ProductivityMonitoring.md`](docs/mindmap/ProductivityMonitoring.md)
+
+```mermaid
+flowchart TD
+    ROOT["3. Productivity Monitoring & App/URL Classification"]
+
+    %% Branch 1: Automated Screenshot Capture
+    ROOT --> SCR["3.1. Automated Screenshot Capture"]
+    SCR --> S1["Random Interval Engine (1-3 screenshots per 10 mins)"]
+    SCR --> S2["Multi-Monitor Concurrent Capture Support"]
+    SCR --> S3["Client-side Screenshot Encryption before Upload"]
+    SCR --> S4["Blur Sensitive Data / Private App Rules"]
+
+    %% Branch 2: Input Activity Tracking
+    ROOT --> INP["3.2. Input Activity Tracking"]
+    INP --> I1["Keystroke Count & Mouse Movement Frequency Metrics"]
+    INP --> I2["Active vs. Idle Session Ratio Calculation (%)"]
+    INP --> I3["Anti-AutoClicker & Fake Activity Anomaly Detection"]
+
+    %% Branch 3: App & URL Classification
+    ROOT --> APP["3.3. App & URL Productivity Classification"]
+    APP --> A1["Global & Tenant App/Website Categorization Engine"]
+    APP --> A2["Productivity Labeling (Productive / Unproductive / Neutral)"]
+    APP --> A3["Department-specific Classification Rules (Flexible Overrides)"]
+    APP --> A4["Detailed Domain URL & Active Window Title Logging"]
+
+    %% Branch 4: Activity Score & Alerts
+    ROOT --> SCORE["3.4. Activity Score & Real-time Alerts"]
+    SCORE --> C1["Weighted Activity Score Algorithm Calculation (%)"]
+    SCORE --> C2["Low Productivity Threshold Triggers (< 30%)"]
+    SCORE --> C3["Manager Real-time Alert Notifications & Dashboard Badges"]
+```
+
+---
+
+### 4. Scheduling & Time-Off Management
+Detailed Specifications: [`docs/mindmap/SchedulingLeave.md`](docs/mindmap/SchedulingLeave.md)
+
+```mermaid
+flowchart TD
+    ROOT["4. Scheduling & Time-Off Management"]
+
+    %% Branch 1: Shift & Work Schedule Planning
+    ROOT --> SCHED["4.1. Shift & Work Schedule Planning"]
+    SCHED --> S1["Shift Pattern Setup (Ca sáng, Ca chiều, Ca đêm, Ca gãy)"]
+    SCHED --> S2["Onsite vs. Remote Work Mode Classification"]
+    SCHED --> S3["Team Roster & Minimum Coverage Planning"]
+    SCHED --> S4["Published Schedule Automated Notifications"]
+
+    %% Branch 2: Time-Off & Leave Requests
+    ROOT --> LEAVE["4.2. Time-Off & Leave Management"]
+    LEAVE --> L1["Leave Type Configuration (Phép năm, Nghỉ bệnh, Thai sản, Không lương)"]
+    LEAVE --> L2["Real-time Leave Balance Check (Quỹ ngày phép còn lại)"]
+    LEAVE --> L3["Leave Request Submission (Tạo đơn kèm tệp đính kèm)"]
+    LEAVE --> L4["Multi-level Manager Approval Workflow"]
+
+    %% Branch 3: Attendance Rules & Punctuality
+    ROOT --> RULE["4.3. Attendance Rules & Punctuality"]
+    RULE --> R1["Work Shift Grace Period Configuration (Số phút cho phép đi muộn)"]
+    RULE --> R2["Late Arrival & Early Departure Violation Log"]
+    RULE --> R3["Unexcused Absence Classification (Nghỉ không phép)"]
+```
+
+---
+
+### 5. Payroll & Client Invoicing
+Detailed Specifications: [`docs/mindmap/PayrollInvoicing.md`](docs/mindmap/PayrollInvoicing.md)
+
+```mermaid
+flowchart TD
+    ROOT["5. Payroll & Client Invoicing"]
+
+    %% Branch 1: Automated Salary Calculation
+    ROOT --> SAL["5.1. Automated Salary Calculation"]
+    SAL --> S1["Base Salary & Hourly Rate Rules Engine"]
+    SAL --> S2["Timesheet Integration (Approved Work Hours)"]
+    SAL --> S3["Tardiness, Early Departure & Absence Deductions"]
+    SAL --> S4["Monthly Salary Sheet Generation & Paystub PDF"]
+
+    %% Branch 2: Overtime Pay & Allowance Rules
+    ROOT --> OT["5.2. Overtime Pay & Allowance Rules"]
+    OT --> O1["Overtime Multiplier Rules (Weekday x1.5, Weekend x2.0, Holiday x3.0)"]
+    OT --> O2["Allowance Configuration (Lunch, Travel, Mobile, Role)"]
+    OT --> O3["Overtime Budget Cap Warning Alerts"]
+
+    %% Branch 3: Client Invoicing & Billable Hours
+    ROOT --> INV["5.3. Client Invoicing & Billable Hours"]
+    INV --> I1["Client Billable Hours Approval Workflow"]
+    INV --> I2["Project Billing Hourly Rates Configuration"]
+    INV --> I3["Automated Client Invoice PDF Statement Generation"]
+    INV --> I4["Client Portal Invoice Review & Approval"]
+```
+
+
+---
+
 ## System Actors Specification
 
 The system identifies 6 primary actors in the Multi-Tenant HR Management Platform architecture:

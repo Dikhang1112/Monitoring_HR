@@ -165,7 +165,7 @@ This section details the 3 level feature breakdown flowcharts for the **Top 5 Es
 Detailed Specifications: [`docs/mindmap/PeopleManagement.md`](docs/mindmap/PeopleManagement.md)
 
 ```mermaid
-flowchart TD
+flowchart LR
     ROOT["1. People Management"]
 
     %% Branch 1: Employee Profiles
@@ -203,7 +203,7 @@ flowchart TD
 Detailed Specifications: [`docs/mindmap/TimeTracking.md`](docs/mindmap/TimeTracking.md)
 
 ```mermaid
-flowchart TD
+flowchart LR
     ROOT["2. Time Tracking & GPS Attendance"]
 
     %% Branch 1: Desktop App Timer
@@ -240,7 +240,7 @@ flowchart TD
 Detailed Specifications: [`docs/mindmap/ProductivityMonitoring.md`](docs/mindmap/ProductivityMonitoring.md)
 
 ```mermaid
-flowchart TD
+flowchart LR
     ROOT["3. Productivity Monitoring & App/URL Classification"]
 
     %% Branch 1: Automated Screenshot Capture
@@ -276,7 +276,7 @@ flowchart TD
 Detailed Specifications: [`docs/mindmap/SchedulingLeave.md`](docs/mindmap/SchedulingLeave.md)
 
 ```mermaid
-flowchart TD
+flowchart LR
     ROOT["4. Scheduling & Time-Off Management"]
 
     %% Branch 1: Shift & Work Schedule Planning
@@ -306,7 +306,7 @@ flowchart TD
 Detailed Specifications: [`docs/mindmap/PayrollInvoicing.md`](docs/mindmap/PayrollInvoicing.md)
 
 ```mermaid
-flowchart TD
+flowchart LR
     ROOT["5. Payroll & Client Invoicing"]
 
     %% Branch 1: Automated Salary Calculation
@@ -390,34 +390,34 @@ This section outlines the core Use Cases of the HR Management Platform, mapped d
 All diagrams are modeled in PlantUML and rendered in standard high resolution.
 
 ### 1. System Overview High-Level Use Case Diagram
-![Overview High-Level Use Case Diagram](docs/usecase_diagram/images/overview.png)
+![Overview High-Level Use Case Diagram](docs/images/overview.png)
 
 ---
 
 ### 2. System-Admin Detailed Use Case Diagram
-![System-Admin Detailed Use Case Diagram](docs/usecase_diagram/images/System-Admin.png)
+![System-Admin Detailed Use Case Diagram](docs/images/System-Admin.png)
 
 ---
 
 ### 3. Admin-Tenant (HR Admin) Detailed Use Case Diagram
-![Admin-Tenant Detailed Use Case Diagram](docs/usecase_diagram/images/Admin-Tenant.png)
+![Admin-Tenant Detailed Use Case Diagram](docs/images/Admin-Tenant.png)
 
 ---
 
 ### 4. Director Detailed Use Case Diagram
-![Director Detailed Use Case Diagram](docs/usecase_diagram/images/Director.png)
+![Director Detailed Use Case Diagram](docs/images/Director.png)
 
 ---
 
 ### 5. Manager Detailed Use Case Diagram
-![Manager Detailed Use Case Diagram](docs/usecase_diagram/images/Manager.png)
+![Manager Detailed Use Case Diagram](docs/images/Manager.png)
 
 ---
 
 ### 6. Staff (Employee) Detailed Use Case Diagram
-![Staff Detailed Use Case Diagram](docs/usecase_diagram/images/Staff.png)
+![Staff Detailed Use Case Diagram](docs/images/Staff.png)
 
 ---
 
 ### 7. Client Detailed Use Case Diagram
-![Client Detailed Use Case Diagram](docs/usecase_diagram/images/Client.png)
+![Client Detailed Use Case Diagram](docs/images/Client.png)

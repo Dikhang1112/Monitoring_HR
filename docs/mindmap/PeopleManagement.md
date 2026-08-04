@@ -7,7 +7,7 @@ Tài liệu này bóc tách chi tiết phân hệ **People Management (Quản l�
 ## 1. MINDMAP TREE - PEOPLE MANAGEMENT
 
 ```mermaid
-flowchart TD
+flowchart LR
     ROOT["1. People Management"]
 
     %% Branch 1: Employee Profiles

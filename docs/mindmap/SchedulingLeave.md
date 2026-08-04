@@ -7,7 +7,7 @@ Tài liệu này bóc tách chi tiết phân hệ **Scheduling & Time-Off Manage
 ## 1. MINDMAP TREE - SCHEDULING & TIME-OFF MANAGEMENT
 
 ```mermaid
-flowchart TD
+flowchart LR
     ROOT["4. Scheduling & Time-Off Management"]
 
     %% Branch 1: Shift & Work Schedule Planning

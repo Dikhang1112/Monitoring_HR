@@ -7,7 +7,7 @@ Tài liệu này bóc tách chi tiết phân hệ **Payroll & Client Invoicing (
 ## 1. MINDMAP TREE - PAYROLL & CLIENT INVOICING
 
 ```mermaid
-flowchart TD
+flowchart LR
     ROOT["5. Payroll & Client Invoicing"]
 
     %% Branch 1: Automated Salary Calculation

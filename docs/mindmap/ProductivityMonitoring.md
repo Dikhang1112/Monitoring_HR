@@ -7,7 +7,7 @@ Tài liệu này bóc tách chi tiết phân hệ **Productivity Monitoring & Ap
 ## 1. MINDMAP TREE - PRODUCTIVITY MONITORING & APP/URL CLASSIFICATION
 
 ```mermaid
-flowchart TD
+flowchart LR
     ROOT["3. Productivity Monitoring & App/URL Classification"]
 
     %% Branch 1: Automated Screenshot Capture

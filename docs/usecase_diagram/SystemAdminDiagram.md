@@ -2,7 +2,7 @@
 
 Tài liệu này chứa mã **PlantUML** và sơ đồ **Use Case Chi tiết cho Actor System-Admin (System-Admin Detailed Use Case Diagram)** của hệ thống HR Management Platform, hoàn toàn đồng bộ mã UC-ID và tên Use Case với [`ListUsecase.md`](file:///d:/Monitoring_HR/docs/usecase_diagram/ListUsecase.md).
 
-![System-Admin Detailed Use Case Diagram](file:///d:/Monitoring_HR/docs/usecase_diagram/images/System-Admin.png)
+![System-Admin Detailed Use Case Diagram](../images/System-Admin.png)
 
 ---
 

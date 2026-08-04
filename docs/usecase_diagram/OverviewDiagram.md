@@ -2,7 +2,7 @@
 
 Tài liệu này chứa mã **PlantUML** và sơ đồ **Use Case Cấp cao (Overview Use Case Diagram)** của hệ thống HR Management Platform, bao gồm 6 System Actors và 12 Core Use Cases.
 
-![Overview Use Case Diagram](file:///d:/Monitoring_HR/docs/usecase_diagram/images/overview.png)
+![Overview Use Case Diagram](../images/overview.png)
 
 ---
 

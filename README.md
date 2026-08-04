@@ -165,7 +165,7 @@ This section details the 3 level feature breakdown flowcharts for the **Top 5 Es
 Detailed Specifications: [`docs/mindmap/PeopleManagement.md`](docs/mindmap/PeopleManagement.md)
 
 ```mermaid
-flowchart TD
+flowchart LR
     ROOT["1. People Management"]
 
     %% Branch 1: Employee Profiles
@@ -203,7 +203,7 @@ flowchart TD
 Detailed Specifications: [`docs/mindmap/TimeTracking.md`](docs/mindmap/TimeTracking.md)
 
 ```mermaid
-flowchart TD
+flowchart LR
     ROOT["2. Time Tracking & GPS Attendance"]
 
     %% Branch 1: Desktop App Timer
@@ -240,7 +240,7 @@ flowchart TD
 Detailed Specifications: [`docs/mindmap/ProductivityMonitoring.md`](docs/mindmap/ProductivityMonitoring.md)
 
 ```mermaid
-flowchart TD
+flowchart LR
     ROOT["3. Productivity Monitoring & App/URL Classification"]
 
     %% Branch 1: Automated Screenshot Capture
@@ -276,7 +276,7 @@ flowchart TD
 Detailed Specifications: [`docs/mindmap/SchedulingLeave.md`](docs/mindmap/SchedulingLeave.md)
 
 ```mermaid
-flowchart TD
+flowchart LR
     ROOT["4. Scheduling & Time-Off Management"]
 
     %% Branch 1: Shift & Work Schedule Planning
@@ -306,7 +306,7 @@ flowchart TD
 Detailed Specifications: [`docs/mindmap/PayrollInvoicing.md`](docs/mindmap/PayrollInvoicing.md)
 
 ```mermaid
-flowchart TD
+flowchart LR
     ROOT["5. Payroll & Client Invoicing"]
 
     %% Branch 1: Automated Salary Calculation
@@ -371,7 +371,37 @@ This section outlines the core Use Cases of the HR Management Platform, mapped d
 
 ---
 
-### 2. Total Use Case Summary & Actor Coverage Matrix
+### 2. Master System Use Case Overview & Actor Mapping Table
+
+This master table summarizes all detailed Use Cases across the 7 feature subsystems, explicitly listing their **Primary Actor** (initiator) and **Secondary Actor(s)** (supporting users or services):
+
+| UC ID | Use Case Name | Subsystem / Feature Module | Primary Actor | Secondary Actor(s) | Description |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **UC-SYS-01** | Tenant Provisioning & Subscription | System & Tenant Admin | `System-Admin` | `System Service`, `Email Service` | Initializes new tenant organizations, provisions credentials, and sets quota caps. |
+| **UC-SYS-02** | Tenant Quota & Resource Cap Management | System & Tenant Admin | `System-Admin` | `System Service` | Manages storage, user seat limits, and platform resource caps per tenant. |
+| **UC-PPL-01** | Employee Profile Management | People Management | `Admin-Tenant` | `Manager`, `Staff` | Manages employee personal details, employment contracts, and bank account info. |
+| **UC-PPL-02** | Organizational Structure Setup | People Management | `Admin-Tenant` | `Director`, `Manager` | Builds the multi-level org tree and appoints leadership roles. |
+| **UC-PPL-03** | Onboarding & Offboarding Workflow | People Management | `Admin-Tenant` | `Manager`, `Email Service` | Automates account provisioning, asset handover logs, and exit checklists. |
+| **UC-PPL-04** | Role & Permission Management (RBAC) | People Management | `System-Admin` | `Admin-Tenant`, `System Service` | Configures action permission matrices and data scope boundaries. |
+| **UC-TIME-01** | Desktop Work Timer Control | Time Tracking | `Staff` | `Desktop Agent Service` | Toggles real-time work timers on desktop client apps with active task tagging. |
+| **UC-TIME-02** | Mobile Clock In / Out & Task Switcher | Time Tracking | `Staff` | `Mobile Service` | Enables mobile check-in/out, task switching, and heartbeat logs for field staff. |
+| **UC-TIME-03** | Idle Inactivity Detection & Timesheet | Time Tracking | `Staff` | `Manager`, `Desktop Agent Service` | Detects keyboard/mouse inactivity and submits manual timesheet requests. |
+| **UC-GPS-01** | Geofenced GPS Check-in | GPS Attendance | `Staff` | `Admin-Tenant`, `Location Service` | Restricts check-in/out to authorized GPS coordinates and branch perimeter radii. |
+| **UC-GPS-02** | Live Map & Shift Route Tracking | GPS Attendance | `Manager` | `Staff`, `GPS Location Service` | Tracks real-time field staff positions on a live map and logs movement routes. |
+| **UC-PROD-01** | Random Automated Screenshot Capture | Productivity Monitoring | `System Service` | `Manager`, `Staff` | Captures multi-monitor screen activity at random intervals with encryption. |
+| **UC-PROD-02** | Keystroke & Mouse Input Activity | Productivity Monitoring | `Desktop Agent Service` | `Staff` | Measures input activity frequency and detects anti-autoclicker tools. |
+| **UC-PROD-03** | App & Website Classification | Productivity Monitoring | `Admin-Tenant` | `Manager` | Categorizes apps and URLs into Productive, Unproductive, or Neutral status. |
+| **UC-PROD-04** | Activity Score & Real-time Alerts | Productivity Monitoring | `Manager` | `System Service`, `Director` | Computes Activity Score (%) and triggers low-productivity alerts (< 30%). |
+| **UC-SCHED-01** | Weekly Shift & Work Schedule Planning | Scheduling & Time-Off | `Manager` | `Staff` | Assigns shift patterns, Onsite/Remote work modes, and publishes rosters. |
+| **UC-SCHED-02** | Time-off & Leave Request Management | Scheduling & Time-Off | `Staff` | `Manager`, `Admin-Tenant` | Submits leave requests with attachments and executes multi-level approvals. |
+| **UC-SCHED-03** | Attendance Rules & Punctuality Log | Scheduling & Time-Off | `System Service` | `Manager`, `Admin-Tenant` | Applies shift grace periods and logs late arrival / early departure violations. |
+| **UC-PAY-01** | Automated Monthly Salary Calculation | Payroll & Invoicing | `Admin-Tenant` | `System Service`, `Staff` | Calculates monthly salary sheets automatically using timesheets and deductions. |
+| **UC-PAY-02** | Overtime Pay & Allowance Management | Payroll & Invoicing | `Admin-Tenant` | `Director` | Applies overtime multipliers (x1.5, x2.0, x3.0) and monitors OT budget caps. |
+| **UC-PAY-03** | Client Invoicing & Billable Hours | Payroll & Invoicing | `Manager` | `Client`, `Billing System` | Approves project billable hours and generates client invoice PDF statements. |
+
+---
+
+### 3. Total Use Case Summary & Actor Coverage Matrix
 
 | Actor Code | Actor Name | Role Category | Direct Core Use Cases | Total Use Case Count |
 | :--- | :--- | :--- | :--- | :---: |
@@ -390,34 +420,34 @@ This section outlines the core Use Cases of the HR Management Platform, mapped d
 All diagrams are modeled in PlantUML and rendered in standard high resolution.
 
 ### 1. System Overview High-Level Use Case Diagram
-![Overview High-Level Use Case Diagram](docs/usecase_diagram/images/overview.png)
+![Overview High-Level Use Case Diagram](docs/images/overview.png)
 
 ---
 
 ### 2. System-Admin Detailed Use Case Diagram
-![System-Admin Detailed Use Case Diagram](docs/usecase_diagram/images/System-Admin.png)
+![System-Admin Detailed Use Case Diagram](docs/images/System-Admin.png)
 
 ---
 
 ### 3. Admin-Tenant (HR Admin) Detailed Use Case Diagram
-![Admin-Tenant Detailed Use Case Diagram](docs/usecase_diagram/images/Admin-Tenant.png)
+![Admin-Tenant Detailed Use Case Diagram](docs/images/Admin-Tenant.png)
 
 ---
 
 ### 4. Director Detailed Use Case Diagram
-![Director Detailed Use Case Diagram](docs/usecase_diagram/images/Director.png)
+![Director Detailed Use Case Diagram](docs/images/Director.png)
 
 ---
 
 ### 5. Manager Detailed Use Case Diagram
-![Manager Detailed Use Case Diagram](docs/usecase_diagram/images/Manager.png)
+![Manager Detailed Use Case Diagram](docs/images/Manager.png)
 
 ---
 
 ### 6. Staff (Employee) Detailed Use Case Diagram
-![Staff Detailed Use Case Diagram](docs/usecase_diagram/images/Staff.png)
+![Staff Detailed Use Case Diagram](docs/images/Staff.png)
 
 ---
 
 ### 7. Client Detailed Use Case Diagram
-![Client Detailed Use Case Diagram](docs/usecase_diagram/images/Client.png)
+![Client Detailed Use Case Diagram](docs/images/Client.png)

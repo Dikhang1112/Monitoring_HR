@@ -7,7 +7,7 @@ Tài liệu này bóc tách chi tiết phân hệ **Time Tracking & GPS Attendan
 ## 1. MINDMAP TREE - TIME TRACKING & GPS ATTENDANCE
 
 ```mermaid
-flowchart TD
+flowchart LR
     ROOT["2. Time Tracking & GPS Attendance"]
 
     %% Branch 1: Desktop App Timer

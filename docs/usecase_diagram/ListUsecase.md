@@ -1,163 +1,9 @@
-# HR Management Platform
-## Mindmap 2 layers
-
-```mermaid
-flowchart LR
-
-    %% Central Node
-    ROOT["HR Management Platform"]
-
-    %% =====================================================
-    %% LEFT SIDE (7 FEATURES)
-    %% =====================================================
-
-    %% 1. Time Tracking
-    TT1["Desktop Timer"] --- TIME["Time Tracking"]
-    TT2["Mobile Timer"] --- TIME
-    TT3["Manual Timesheet"] --- TIME
-    TT4["Idle Detection"] --- TIME
-    TIME --- ROOT
-
-    %% 2. Productivity Monitoring
-    PR1["Screenshot Capture"] --- PROD["Productivity Monitoring"]
-    PR2["Activity Score"] --- PROD
-    PR3["Keystroke & Mouse Activity"] --- PROD
-    PROD --- ROOT
-
-    %% 3. GPS & Geofencing
-    GPS1["Real-time GPS Location"] --- GPS["GPS & Geofencing"]
-    GPS2["Geofenced Attendance Check-ins"] --- GPS
-    GPS3["Route Tracking"] --- GPS
-    GPS --- ROOT
-
-    %% 4. Scheduling
-    SH1["Weekly Schedule"] --- SCHED["Scheduling"]
-    SH2["Time-off Request"] --- SCHED
-    SH3["Onsite & Remote"] --- SCHED
-    SCHED --- ROOT
-
-    %% 5. Meeting Tracking
-    MT1["Zoom & Teams Integration"] --- MEET["Meeting Tracking"]
-    MT2["Meeting Duration Log"] --- MEET
-    MT3["Auto Attendance"] --- MEET
-    MT4["Meeting Recording"] --- MEET
-    MEET --- ROOT
-
-    %% 6. Timeline
-    TL1["Daily Activity Stream"] --- TL["Timeline"]
-    TL2["Work Blocks & Gaps"] --- TL
-    TL3["Chronological Log"] --- TL
-    TL --- ROOT
-
-    %% 7. Worktime Expenditure
-    EX1["Billable Hours"] --- EXPEND["Worktime Expenditure"]
-    EX2["Cost Per Task & Project"] --- EXPEND
-    EX3["Overtime Budgeting"] --- EXPEND
-    EXPEND --- ROOT
-
-    %% =====================================================
-    %% RIGHT SIDE (7 FEATURES)
-    %% =====================================================
-
-    %% 8. People Management
-    ROOT --- PPL["People Management"]
-    PPL --- PPL1["Employee Profiles"]
-    PPL --- PPL2["Org Structure & Departments"]
-    PPL --- PPL3["Onboarding & Offboarding"]
-    PPL --- PPL4["Roles & Permissions"]
-
-    %% 9. Payroll & Invoicing
-    ROOT --- PAY["Payroll & Invoicing"]
-    PAY --- PY1["Automated Salary Calculation"]
-    PAY --- PY2["Overtime Pay"]
-    PAY --- PY3["Client Invoices"]
-
-    %% 10. Report Statistic
-    ROOT --- REPORTS["Report Statistic"]
-    REPORTS --- RP1["Attendance Reports"]
-    REPORTS --- RP2["Productivity Analytics"]
-    REPORTS --- RP3["Daily Totals"]
-    REPORTS --- RP4["Payments Report"]
-
-    %% 11. Highlight Activity
-    ROOT --- HIGHLIGHT["Highlight Activity"]
-    HIGHLIGHT --- HL1["Key Achievements & Milestones"]
-    HIGHLIGHT --- HL2["Productivity Alerts"]
-    HIGHLIGHT --- HL3["Anomaly & Idle Alerts"]
-
-    %% 12. Dashboard & Insight
-    ROOT --- DASH["Dashboard & Insight"]
-    DASH --- DB1["Executive HR Dashboard"]
-    DASH --- DB2["Real-time Status Board"]
-    DASH --- DB3["AI-Powered Insights"]
-
-    %% 13. Project Manager
-    ROOT --- PM["Project Manager"]
-    PM --- PJ1["Project To-Do List"]
-    PM --- PJ2["Client Portal"]
-    PM --- PJ3["Budget & Time Allocation"]
-
-    %% 14. App & Url
-    ROOT --- APPURL["App & Url"]
-    APPURL --- AU1["App Classification"]
-    APPURL --- AU2["Website Usage Tracking"]
-
-    %% =====================================================
-    %% STYLING (DIFFERENT COLORS FOR EACH MAIN FEATURE)
-    %% =====================================================
-    classDef rootStyle fill:#1e293b,stroke:#0f172a,stroke-width:3px,color:#fff,font-weight:bold
-    classDef colorTime fill:#0284c7,stroke:#0369a1,stroke-width:2px,color:#fff,font-weight:bold
-    classDef colorProd fill:#7e22ce,stroke:#6b21a8,stroke-width:2px,color:#fff,font-weight:bold
-    classDef colorGPS fill:#0d9488,stroke:#0f766e,stroke-width:2px,color:#fff,font-weight:bold
-    classDef colorSched fill:#d97706,stroke:#b45309,stroke-width:2px,color:#fff,font-weight:bold
-    classDef colorMeet fill:#dc2626,stroke:#b91c1c,stroke-width:2px,color:#fff,font-weight:bold
-    classDef colorTL fill:#4f46e5,stroke:#4338ca,stroke-width:2px,color:#fff,font-weight:bold
-    classDef colorExpend fill:#ea580c,stroke:#c2410c,stroke-width:2px,color:#fff,font-weight:bold
-    classDef colorPpl fill:#0891b2,stroke:#0e7490,stroke-width:2px,color:#fff,font-weight:bold
-    classDef colorPay fill:#16a34a,stroke:#15803d,stroke-width:2px,color:#fff,font-weight:bold
-    classDef colorReports fill:#ca8a04,stroke:#a16207,stroke-width:2px,color:#fff,font-weight:bold
-    classDef colorHighlight fill:#e11d48,stroke:#be123c,stroke-width:2px,color:#fff,font-weight:bold
-    classDef colorDash fill:#2563eb,stroke:#1d4ed8,stroke-width:2px,color:#fff,font-weight:bold
-    classDef colorPM fill:#059669,stroke:#047857,stroke-width:2px,color:#fff,font-weight:bold
-    classDef colorAppUrl fill:#db2777,stroke:#be185d,stroke-width:2px,color:#fff,font-weight:bold
-
-    class ROOT rootStyle
-    class TIME colorTime
-    class PROD colorProd
-    class GPS colorGPS
-    class SCHED colorSched
-    class MEET colorMeet
-    class TL colorTL
-    class EXPEND colorExpend
-    class PPL colorPpl
-    class PAY colorPay
-    class REPORTS colorReports
-    class HIGHLIGHT colorHighlight
-    class DASH colorDash
-    class PM colorPM
-    class APPURL colorAppUrl
-```
-
-| No. | Main Feature | Feature List |
-| :---: | :--- | :--- |
-| 1 | **Time Tracking** | Desktop Timer, Mobile Timer, Manual Timesheet, Idle Detection |
-| 2 | **Productivity Monitoring** | Screenshot Capture, Activity Score, Keystroke & Mouse Activity |
-| 3 | **GPS & Geofencing** | Real-time GPS Location, Geofenced Attendance Check-ins, Route Tracking |
-| 4 | **Scheduling** | Weekly Schedule, Time-off Request, Onsite & Remote |
-| 5 | **Meeting Tracking** | Zoom & Teams Integration, Meeting Duration Log, Auto Attendance, Meeting Recording |
-| 6 | **Timeline** | Daily Activity Stream, Work Blocks & Gaps, Chronological Log |
-| 7 | **Worktime Expenditure** | Billable Hours, Cost Per Task & Project, Overtime Budgeting |
-| 8 | **People Management** | Employee Profiles, Org Structure & Departments, Onboarding & Offboarding, Roles & Permissions |
-| 9 | **Payroll & Invoicing** | Automated Salary Calculation, Overtime Pay, Client Invoices |
-| 10 | **Report Statistic** | Attendance Reports, Productivity Analytics, Daily Totals, Payments Report |
-| 11 | **Highlight Activity** | Key Achievements & Milestones, Productivity Alerts, Anomaly & Idle Alerts |
-| 12 | **Dashboard & Insight** | Executive HR Dashboard, Real-time Status Board, AI-Powered Insights |
-| 13 | **Project Manager** | Project To-Do List, Client Portal, Budget & Time Allocation |
-| 14 | **App & Url** | App Classification, Website Usage Tracking |
+# HR MANAGEMENT PLATFORM
+## Use Case Specifications & Test Case Matrix
 
 ---
 
-## System Actors Specification
+## 1. SYSTEM ACTORS SPECIFICATION
 
 The system identifies 6 primary actors in the Multi-Tenant HR Management Platform architecture:
 
@@ -172,11 +18,11 @@ The system identifies 6 primary actors in the Multi-Tenant HR Management Platfor
 
 ---
 
-## Use Case Specifications
+## 2. USE CASE SPECIFICATIONS
 
 All Use Cases are categorized across 15 functional modules derived from `docs/mindmap/Architecture.md`:
 
-### 1. System & Tenant Administration Module
+### 2.1. System & Tenant Administration Module
 
 | Use Case ID | Use Case Name | Feature Module | Primary Actor | Secondary Actor | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -185,7 +31,7 @@ All Use Cases are categorized across 15 functional modules derived from `docs/mi
 | **UC-SYS-03** | System Audit Log Monitoring | System Audit | System-Admin | System | Queries system-wide audit logs, access records, and security telemetry logs. |
 | **UC-SYS-04** | Global Integration Setup | Global Integration | System-Admin | System | Configures system-wide API keys for Zoom, Microsoft Teams, and AI analytics services. |
 
-### 2. People & Organization Management Module
+### 2.2. People & Organization Management Module
 
 | Use Case ID | Use Case Name | Feature Module | Primary Actor | Secondary Actor | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -194,7 +40,7 @@ All Use Cases are categorized across 15 functional modules derived from `docs/mi
 | **UC-PPL-03** | Onboarding & Offboarding Workflow | Onboarding/Offboarding | Admin-Tenant | Manager | Automates equipment/account provisioning for new hires and access revocation for departing staff. |
 | **UC-PPL-04** | Role & Permission Management | Roles & Permissions | Admin-Tenant | System | Configures custom role groups and assigns RBAC permissions across the platform. |
 
-### 3. Time Tracking Module
+### 2.3. Time Tracking Module
 
 | Use Case ID | Use Case Name | Feature Module | Primary Actor | Secondary Actor | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -203,7 +49,7 @@ All Use Cases are categorized across 15 functional modules derived from `docs/mi
 | **UC-TIME-03** | Manual Timesheet Submission | Manual Timesheet | Staff | Manager | Submits manual work hours with justification notes for manager review and approval. |
 | **UC-TIME-04** | Idle State Detection | Idle Detection | System | Staff | Automatically detects user inactivity (keyboard/mouse idle) after configured threshold and prompts action. |
 
-### 4. Productivity Monitoring Module
+### 2.4. Productivity Monitoring Module
 
 | Use Case ID | Use Case Name | Feature Module | Primary Actor | Secondary Actor | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -211,7 +57,7 @@ All Use Cases are categorized across 15 functional modules derived from `docs/mi
 | **UC-PROD-02** | Keystroke & Mouse Activity Tracking | Keystroke & Mouse | System | Staff | Measures input activity frequency to calculate active vs. idle ratio per work session. |
 | **UC-PROD-03** | Activity Score Calculation | Activity Score | System | Manager, Director | Aggregates application, website, and input metrics into a weighted Activity Score (%). |
 
-### 5. GPS & Geofencing Module
+### 2.5. GPS & Geofencing Module
 
 | Use Case ID | Use Case Name | Feature Module | Primary Actor | Secondary Actor | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -219,7 +65,7 @@ All Use Cases are categorized across 15 functional modules derived from `docs/mi
 | **UC-GPS-02** | Real-time GPS Location Monitoring | Real-time GPS | Staff | Manager | Displays current geographic coordinates of field service employees on live maps. |
 | **UC-GPS-03** | Route Tracking & History | Route Tracking | Staff | Manager | Logs movement routes and location histories during active field duty shifts. |
 
-### 6. Scheduling & Time-Off Module
+### 2.6. Scheduling & Time-Off Module
 
 | Use Case ID | Use Case Name | Feature Module | Primary Actor | Secondary Actor | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -227,7 +73,7 @@ All Use Cases are categorized across 15 functional modules derived from `docs/mi
 | **UC-SCHED-02** | Time-off Request & Approval | Time-off Request | Staff | Manager | Submits annual, sick, or personal leave requests for manager approval workflows. |
 | **UC-SCHED-03** | Onsite & Remote Work Classification | Onsite & Remote | Manager | Staff | Manages work-from-home vs. office working mode configurations for employees. |
 
-### 7. Meeting Tracking Module
+### 2.7. Meeting Tracking Module
 
 | Use Case ID | Use Case Name | Feature Module | Primary Actor | Secondary Actor | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -235,7 +81,7 @@ All Use Cases are categorized across 15 functional modules derived from `docs/mi
 | **UC-MEET-02** | Auto Meeting Attendance Tracking | Auto Attendance | System | Staff, Manager | Automatically logs meeting start/end times and participant attendance upon room entry. |
 | **UC-MEET-03** | Meeting Duration Log & Recording | Duration Log | System | Manager, Client | Records meeting duration logs and secure links to meeting recordings. |
 
-### 8. Timeline & Activity Log Module
+### 2.8. Timeline & Activity Log Module
 
 | Use Case ID | Use Case Name | Feature Module | Primary Actor | Secondary Actor | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -243,7 +89,7 @@ All Use Cases are categorized across 15 functional modules derived from `docs/mi
 | **UC-TL-02** | Work Blocks & Gaps Analysis | Work Blocks & Gaps | System | Manager | Identifies continuous focus work blocks and unrecorded activity gaps across shifts. |
 | **UC-TL-03** | Chronological Log Audit | Chronological Log | Manager | Director | Enables granular timeline log inspection across historical dates for auditing. |
 
-### 9. Worktime Expenditure & Budgeting Module
+### 2.9. Worktime Expenditure & Budgeting Module
 
 | Use Case ID | Use Case Name | Feature Module | Primary Actor | Secondary Actor | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -251,7 +97,7 @@ All Use Cases are categorized across 15 functional modules derived from `docs/mi
 | **UC-EXPEND-02** | Cost Per Task & Project Calculation | Cost Per Task & Project | Manager | Director | Converts logged employee work time into project cost metrics based on hourly rates. |
 | **UC-EXPEND-03** | Overtime Budget Management | Overtime Budgeting | Director | Manager | Sets department/project overtime expenditure caps and triggers warning alerts. |
 
-### 10. Payroll & Invoicing Module
+### 2.10. Payroll & Invoicing Module
 
 | Use Case ID | Use Case Name | Feature Module | Primary Actor | Secondary Actor | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -259,7 +105,7 @@ All Use Cases are categorized across 15 functional modules derived from `docs/mi
 | **UC-PAY-02** | Overtime Pay & Allowance Calculation | Overtime Pay | Admin-Tenant | Manager | Computes overtime compensation according to multiplier rules (weekdays, weekends, holidays). |
 | **UC-PAY-03** | Client Invoice Generation | Client Invoices | Admin-Tenant | Client | Generates client invoices derived from approved billable hours and exports PDF statements. |
 
-### 11. Report & Statistics Module
+### 2.11. Report & Statistics Module
 
 | Use Case ID | Use Case Name | Feature Module | Primary Actor | Secondary Actor | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -268,7 +114,7 @@ All Use Cases are categorized across 15 functional modules derived from `docs/mi
 | **UC-RP-03** | Daily Worktime Totals | Daily Totals | Manager | Staff | Summarizes daily, weekly, and monthly worktime totals across teams and individuals. |
 | **UC-RP-04** | Payroll & Expenditure Reports | Payments Report | Director | Admin-Tenant | Compiles financial reports covering gross payroll, overtime expenses, and client payouts. |
 
-### 12. Highlight Activity & Alerts Module
+### 2.12. Highlight Activity & Alerts Module
 
 | Use Case ID | Use Case Name | Feature Module | Primary Actor | Secondary Actor | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -276,7 +122,7 @@ All Use Cases are categorized across 15 functional modules derived from `docs/mi
 | **UC-HL-02** | Low Productivity Alerts | Productivity Alerts | System | Manager | Dispatches real-time alerts to managers when employee productivity falls below threshold. |
 | **UC-HL-03** | Anomaly & Extended Idle Alerts | Anomaly & Idle Alerts | System | Manager | Detects suspicious behavior (auto-clickers, fake activity) or prolonged idle periods. |
 
-### 13. Executive Dashboard & AI Insights Module
+### 2.13. Executive Dashboard & AI Insights Module
 
 | Use Case ID | Use Case Name | Feature Module | Primary Actor | Secondary Actor | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -284,7 +130,7 @@ All Use Cases are categorized across 15 functional modules derived from `docs/mi
 | **UC-DASH-02** | Real-time Status Board | Real-time Status Board | Manager | System | Shows live status of team members (Clocked In, Idle, Offline, In Meeting). |
 | **UC-DASH-03** | AI-Powered Insights & Forecasts | AI Insights | Director | Admin-Tenant | AI-driven turnover risk prediction, workload optimization recommendations, and forecasting. |
 
-### 14. Project Management Module
+### 2.14. Project Management Module
 
 | Use Case ID | Use Case Name | Feature Module | Primary Actor | Secondary Actor | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -292,7 +138,7 @@ All Use Cases are categorized across 15 functional modules derived from `docs/mi
 | **UC-PM-02** | Client Portal Management | Client Portal | Client | Manager | External interface for clients to review project progress, task status, and billable logs. |
 | **UC-PM-03** | Project Time & Budget Allocation | Budget & Time Allocation | Manager | Director | Sets estimated project hours, resource caps, and financial budget allocations. |
 
-### 15. Application & URL Classification Module
+### 2.15. Application & URL Classification Module
 
 | Use Case ID | Use Case Name | Feature Module | Primary Actor | Secondary Actor | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -301,9 +147,9 @@ All Use Cases are categorized across 15 functional modules derived from `docs/mi
 
 ---
 
-## Test Cases Matrix by Actor
+## 3. TEST CASES MATRIX BY ACTOR
 
-### 1. Test Cases for Actor 1: `System-Admin`
+### 3.1. Test Cases for Actor 1: `System-Admin`
 
 | Test Case ID | UC ID | Test Scenario | Steps | Input Data | Expected Result | Test Type |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -314,7 +160,7 @@ All Use Cases are categorized across 15 functional modules derived from `docs/mi
 
 ---
 
-### 2. Test Cases for Actor 2: `Admin-Tenant`
+### 3.2. Test Cases for Actor 2: `Admin-Tenant`
 
 | Test Case ID | UC ID | Test Scenario | Steps | Input Data | Expected Result | Test Type |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -326,7 +172,7 @@ All Use Cases are categorized across 15 functional modules derived from `docs/mi
 
 ---
 
-### 3. Test Cases for Actor 3: `Director`
+### 3.3. Test Cases for Actor 3: `Director`
 
 | Test Case ID | UC ID | Test Scenario | Steps | Input Data | Expected Result | Test Type |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -337,7 +183,7 @@ All Use Cases are categorized across 15 functional modules derived from `docs/mi
 
 ---
 
-### 4. Test Cases for Actor 4: `Manager`
+### 3.4. Test Cases for Actor 4: `Manager`
 
 | Test Case ID | UC ID | Test Scenario | Steps | Input Data | Expected Result | Test Type |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -349,7 +195,7 @@ All Use Cases are categorized across 15 functional modules derived from `docs/mi
 
 ---
 
-### 5. Test Cases for Actor 5: `Staff`
+### 3.5. Test Cases for Actor 5: `Staff`
 
 | Test Case ID | UC ID | Test Scenario | Steps | Input Data | Expected Result | Test Type |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -362,7 +208,7 @@ All Use Cases are categorized across 15 functional modules derived from `docs/mi
 
 ---
 
-### 6. Test Cases for Actor 6: `Client`
+### 3.6. Test Cases for Actor 6: `Client`
 
 | Test Case ID | UC ID | Test Scenario | Steps | Input Data | Expected Result | Test Type |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -373,7 +219,7 @@ All Use Cases are categorized across 15 functional modules derived from `docs/mi
 
 ---
 
-## Test Case Coverage Matrix Summary
+## 4. TEST CASE COVERAGE MATRIX SUMMARY
 
 | Actor | Direct Use Cases | Test Case Count | Representative Test Cases |
 | :--- | :---: | :---: | :--- |

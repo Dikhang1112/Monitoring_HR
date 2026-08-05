@@ -1,6 +1,6 @@
 # HR MANAGEMENT PLATFORM - STAFF DETAILED USE CASE DIAGRAM
 
-Tài liệu này chứa mã **PlantUML** và sơ đồ **Use Case Chi tiết cho Actor Staff (Internal Employee Detailed Use Case Diagram)** của hệ thống HR Management Platform.
+This document contains the **PlantUML** code and diagram for the **Staff Detailed Use Case Diagram** of the HR Management Platform.
 
 ---
 
@@ -91,32 +91,32 @@ MGR -[hidden]down-> DESK
 ' =====================================================
 ' PRIMARY ACTOR CONNECTIONS
 ' =====================================================
-EMP -right-> UC_TIMER
-EMP -right-> UC_GPS
-EMP -right-> UC_LEAVE
-EMP -right-> UC_TL
-EMP -right-> UC_MEET
+EMP --> UC_TIMER
+EMP --> UC_GPS
+EMP --> UC_LEAVE
+EMP --> UC_TL
+EMP --> UC_MEET
 
 ' =====================================================
 ' SECONDARY ACTOR CONNECTIONS
 ' =====================================================
-UC_LEAVE <-left- MGR
-UC_MANUAL <-left- MGR
-UC_TIMER <-left- DESK
+UC_LEAVE --> MGR
+UC_MANUAL --> MGR
+UC_TIMER --> DESK
 
 ' =====================================================
-' INCLUDE RELATIONSHIPS (VUÔNG GÓC HƯỚNG XUỐNG)
+' INCLUDE RELATIONSHIPS
 ' =====================================================
-UC_TIMER .down.> UC_TASK : <<include>>
-UC_TIMER .down.> UC_IDLE : <<include>>
-UC_GPS .down.> UC_PERIM : <<include>>
-UC_LEAVE .down.> UC_BAL : <<include>>
+UC_TIMER ..> UC_TASK : <<include>>
+UC_TIMER ..> UC_IDLE : <<include>>
+UC_GPS ..> UC_PERIM : <<include>>
+UC_LEAVE ..> UC_BAL : <<include>>
 
 ' =====================================================
-' EXTEND RELATIONSHIPS (VUÔNG GÓC HƯỚNG LÊN)
+' EXTEND RELATIONSHIPS
 ' =====================================================
-UC_MANUAL .up.> UC_TIMER : <<extend>>
-UC_ROUTE .up.> UC_GPS : <<extend>>
+UC_MANUAL ..> UC_TIMER : <<extend>>
+UC_ROUTE ..> UC_GPS : <<extend>>
 
 @enduml
 ```

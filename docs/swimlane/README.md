@@ -1,4 +1,4 @@
-# HR Management Platform - Process Swimlane Activity Diagrams
+﻿# HR Management Platform - Process Swimlane Activity Diagrams
 
 This document compiles all **19 Process Swimlane Activity Diagrams** across the 6 core subsystems of the HR Management Platform. Each diagram models the operational interaction flow, decision nodes, and data transitions between system actors, client applications, and backend services.
 
@@ -33,20 +33,20 @@ skinparam swimlane {
 ' =====================================================
 ' 4 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Admin-Tenant (HR Admin) |
+|Admin-Tenant (HR Admin) |
 start
 :Create new employee profile & enter contract details;
 :Assign Department & designate Direct Manager;
 :Click "Trigger Onboarding Workflow";
 
-|#e2e8f0| HR System Services |
+|HR System Services |
 :Automatically provision user accounts (Email, HR Portal, Timer App);
 :Dispatch welcome email with temporary credentials;
 
-|#cbd5e1| Employee (Staff) |
+|Employee (Staff) |
 :Log into HR Portal & verify personal details;
 
-|#94a3b8| Direct Manager |
+|Direct Manager |
 :Create onboarding task checklist & assign team buddy;
 
 |Admin-Tenant (HR Admin)|
@@ -125,20 +125,20 @@ skinparam swimlane {
 ' =====================================================
 ' 4 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| System-Admin |
+|System-Admin |
 start
 :Open System Role & Permission Management screen;
 :Create new Custom Role Group;
 :Configure action permission matrix (CRUD & Approvals);
 :Configure Data Scope Boundary (Company-wide / Department / Self-only);
 
-|#e2e8f0| Admin-Tenant (HR Admin) |
+|Admin-Tenant (HR Admin) |
 :Open employee list & assign Custom Role to Staff;
 
-|#cbd5e1| Security Engine & Database |
+|Security Engine & Database |
 :Persist Role Matrix & update user session authorization token;
 
-|#94a3b8| Employee (Staff) |
+|Employee (Staff) |
 :Perform action request on frontend screen UI;
 
 |Security Engine & Database|
@@ -187,19 +187,19 @@ skinparam swimlane {
 ' =====================================================
 ' 4 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Admin-Tenant (HR Admin) |
+|Admin-Tenant (HR Admin) |
 start
 :Open Profile Management & select Import Excel or Create New;
 :Enter personal details, Tax ID, National ID & Bank account;
 :Assign to Department & set designated Direct Manager;
 
-|#e2e8f0| Direct Manager |
+|Direct Manager |
 :Confirm job title, role responsibilities & probation contract;
 
-|#cbd5e1| HR System Services |
+|HR System Services |
 :Encrypt & store employee record in Cloud Database;
 
-|#94a3b8| Employee (Staff) |
+|Employee (Staff) |
 :Access HR Portal to update emergency contact details;
 
 |HR System Services|
@@ -248,19 +248,19 @@ skinparam swimlane {
 ' =====================================================
 ' 4 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Admin-Tenant (HR Admin) |
+|Admin-Tenant (HR Admin) |
 start
 :Open Interactive Org Tree canvas;
 :Create new Branch / Department / Sub-unit node;
 :Appoint Department Head & Deputy Leads;
 
-|#e2e8f0| Director (Executive) |
+|Director (Executive) |
 :Review department headcount allocation statistics;
 
-|#cbd5e1| Direct Manager |
+|Direct Manager |
 :Assume operational management of assigned department roster;
 
-|#94a3b8| HR System Services |
+|HR System Services |
 :Automatically update system reporting hierarchy;
 if (Department merger or dissolution required?) then (YES)
   |Admin-Tenant (HR Admin)|
@@ -308,17 +308,17 @@ skinparam swimlane {
 ' =====================================================
 ' 3 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Staff (Employee) |
+|Staff (Employee) |
 start
 :Open Desktop Client App UI;
 :Select active Project & Task;
 :Click "Start Work Timer";
 
-|#e2e8f0| Desktop Client App |
+|Desktop Client App |
 :Initialize real-time work timer;
 :Transmit API ping to Cloud Server;
 
-|#cbd5e1| Cloud Time Tracking API |
+|Cloud Time Tracking API |
 if (Internet connection active?) then (YES - Online)
   :Create active work session record (Status: Active);
   :Return online timer confirmation;
@@ -377,16 +377,16 @@ skinparam swimlane {
 ' =====================================================
 ' 3 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Staff (Field Worker) |
+|Staff (Field Worker) |
 start
 :Open Mobile App on smartphone;
 :Select Project & tap "Clock In";
 
-|#e2e8f0| Mobile Client App |
+|Mobile Client App |
 :Retrieve GPS location & load task interface;
 :Transmit periodic heartbeat ping (every 1 minute);
 
-|#cbd5e1| Cloud Time Tracking API |
+|Cloud Time Tracking API |
 if (Heartbeat ping valid?) then (YES)
   :Record active Mobile Shift Session;
   |Staff (Field Worker)|
@@ -438,18 +438,18 @@ skinparam swimlane {
 ' =====================================================
 ' 3 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Staff (Employee) |
+|Staff (Employee) |
 start
 :Work on desktop & pause keyboard/mouse input;
 
-|#e2e8f0| Desktop Agent Service |
+|Desktop Agent Service |
 :Monitor input rates & detect idle state > 10 minutes;
 :Display Warning Popup dialog on screen;
 
 |Staff (Employee)|
 if (Inactivity due to valid offline work discussion?) then (YES - Keep Time)
   :Select "Keep Idle Time" & enter reason (Offline Meeting);
-  |#cbd5e1| Manager & Time Backend |
+  |Manager & Time Backend |
   :Submit Manual Timesheet Adjustment Request to Manager;
   if (Manager approves adjustment?) then (YES)
     :Retain idle time in approved working hours;
@@ -500,16 +500,16 @@ skinparam swimlane {
 ' =====================================================
 ' 3 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Staff (Field Worker) |
+|Staff (Field Worker) |
 start
 :Open Mobile App at branch office / site location;
 :Tap "Check-in GPS";
 
-|#e2e8f0| Mobile App Client |
+|Mobile App Client |
 :Retrieve device GPS coordinates (Latitude, Longitude);
 :Submit Check-in API request with GPS payload;
 
-|#cbd5e1| GPS Location Service |
+|GPS Location Service |
 :Fetch branch coordinates & configured Geofence Radius;
 :Calculate Haversine distance from device to branch;
 
@@ -562,16 +562,16 @@ skinparam swimlane {
 ' =====================================================
 ' 3 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Manager |
+|Manager |
 start
 :Open Live Map Dashboard;
 :Select field service staff to track route history;
 
-|#e2e8f0| GPS Location Service |
+|GPS Location Service |
 :Fetch real-time location pings (transmitted every 5 mins);
 :Render shift movement route history line;
 
-|#cbd5e1| Staff (Field Worker) |
+|Staff (Field Worker) |
 :Perform field service tasks during active shift;
 :Transmits background GPS location pings;
 
@@ -622,7 +622,7 @@ skinparam swimlane {
 ' =====================================================
 ' 3 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Desktop Agent App |
+|Desktop Agent App |
 start
 :Trigger random screenshot timer (every 10 mins);
 :Capture all active displays simultaneously (Multi-Monitor);
@@ -631,11 +631,11 @@ start
 :Encrypt screenshot file on client device (AES-256);
 :Upload encrypted image payload to Cloud Storage;
 
-|#e2e8f0| Productivity AI Engine |
+|Productivity AI Engine |
 :Store encrypted image & record capture timestamp;
 :Log active window title at moment of capture;
 
-|#cbd5e1| Manager |
+|Manager |
 :Open Screenshot Review Gallery;
 if (Non-work activity detected in screen capture?) then (YES)
   :Attach reviewer note on screen capture item;
@@ -678,19 +678,19 @@ skinparam swimlane {
 ' =====================================================
 ' 3 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Desktop Agent App |
+|Desktop Agent App |
 start
 :Measure keystroke & mouse movement frequency per minute;
 :Calculate active vs idle time ratio percentage (% Activity Rate);
 :Transmit input metrics payload to Cloud Engine;
 
-|#e2e8f0| Productivity AI Engine |
+|Productivity AI Engine |
 :Analyze input patterns via Anomaly Detection algorithm;
 if (Artificial auto-clicker or mouse jiggler detected?) then (YES - Anomaly)
   :Flag suspicious activity anomaly;
   :Dispatch fake activity alert to Manager;
 
-  |#cbd5e1| Manager |
+  |Manager |
   :Open Anomaly Audit Report & review input logs;
   :Request employee explanation or record compliance violation;
   stop
@@ -732,17 +732,17 @@ skinparam swimlane {
 ' =====================================================
 ' 3 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Admin-Tenant (HR Admin) |
+|Admin-Tenant (HR Admin) |
 start
 :Configure App & Website classification rules;
 :Assign Productive, Unproductive, or Neutral status labels;
 :Set Department-specific Classification Overrides;
 
-|#e2e8f0| Desktop Agent App |
+|Desktop Agent App |
 :Log active window titles & website domain URLs;
 :Transmit application usage time logs to Cloud Engine;
 
-|#cbd5e1| Productivity AI Engine |
+|Productivity AI Engine |
 :Apply classification rules based on employee department;
 if (Unproductive App/Web usage exceeds 30 minutes?) then (YES)
   :Record unproductive time duration;
@@ -785,12 +785,12 @@ skinparam swimlane {
 ' =====================================================
 ' 3 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Desktop Agent App |
+|Desktop Agent App |
 start
 :Collect input activity rates & productive application time;
 :Transmit hourly activity data to Cloud Engine;
 
-|#e2e8f0| Productivity AI Engine |
+|Productivity AI Engine |
 :Execute Weighted Activity Score (%) algorithm;
 :Compare score against configured alert threshold (< 30%);
 
@@ -798,7 +798,7 @@ if (Activity Score < 30% for 2 consecutive hours?) then (YES - Alert Triggered)
   :Generate Low Productivity Alert;
   :Dispatch real-time push notification & email to Manager;
 
-  |#cbd5e1| Manager |
+  |Manager |
   :Receive alert notification & open Dashboard breakdown;
   :Evaluate root cause & send feedback note to employee;
   stop
@@ -842,16 +842,16 @@ skinparam swimlane {
 ' =====================================================
 ' 4 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Direct Manager |
+|Direct Manager |
 start
 :Open Weekly Shift Roster interface;
 :Select shift pattern (Morning, Afternoon, Night, Split Shift);
 :Designate work location mode (Onsite Office / Remote WFH);
 
-|#e2e8f0| Admin-Tenant (HR Admin) |
+|Admin-Tenant (HR Admin) |
 :Approve holiday / night shift allowance budget caps;
 
-|#cbd5e1| Scheduling Engine |
+|Scheduling Engine |
 :Save shift roster draft & execute shift conflict check;
 
 if (Shift overlap or mandatory rest period violation detected?) then (YES - Conflict)
@@ -863,7 +863,7 @@ else (NO - Valid Roster)
   :Publish Weekly Shift Schedule Roster;
   :Dispatch mobile push notifications to assigned staff;
 
-  |#94a3b8| Staff (Employee) |
+  |Staff (Employee) |
   :Receive new shift roster notification on Mobile App;
   stop
 endif
@@ -900,27 +900,27 @@ skinparam swimlane {
 ' =====================================================
 ' 4 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Staff (Employee) |
+|Staff (Employee) |
 start
 :Open Time-off Request screen on Web/Mobile App;
 :Select leave type, date range & attach medical note if required;
 :Click "Submit Leave Request";
 
-|#e2e8f0| Leave Management Service |
+|Leave Management Service |
 :Verify available annual leave balance;
 
 if (Leave Balance >= Requested Days?) then (YES)
   :Record leave request entry (Status: Pending Manager Approval);
   :Dispatch push notification to Direct Manager;
 
-  |#cbd5e1| Direct Manager |
+  |Direct Manager |
   :Review leave request details & team shift coverage;
   if (Manager approves request?) then (YES)
     :Click "Approve";
     |Leave Management Service|
     if (Requested leave duration > 3 consecutive days?) then (Requires HR Review)
       :Forward request to HR Admin (Status: Pending HR Approval);
-      |#94a3b8| Admin-Tenant (HR Admin) |
+      |Admin-Tenant (HR Admin) |
       :Review company leave policy & grant final approval;
     else (No HR Review Needed)
     endif
@@ -983,22 +983,22 @@ skinparam swimlane {
 ' =====================================================
 ' 4 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Attendance Cron Engine |
+|Attendance Cron Engine |
 start
 :Execute automated attendance reconciliation at end of shift;
 :Compare actual Check-in/out timestamps against Roster Schedule;
 
-|#e2e8f0| Direct Manager |
+|Direct Manager |
 :Receive daily attendance violation summary report;
 
-|#cbd5e1| Admin-Tenant (HR Admin) |
+|Admin-Tenant (HR Admin) |
 :Configure shift grace period allowance (e.g., 15 minutes);
 
 |Attendance Cron Engine|
 if (Clock-in timestamp past shift grace period?) then (YES - Late Arrival)
   :Log "Late Arrival" violation record with exact tardiness minutes;
   :Dispatch violation notification to Employee & Manager;
-  |#94a3b8| Staff (Employee) |
+  |Staff (Employee) |
   :Receive tardiness violation notice;
   stop
 else if (No Check-in record & no approved leave request?) then (YES - Absence)
@@ -1046,11 +1046,11 @@ skinparam swimlane {
 ' =====================================================
 ' 4 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Admin-Tenant (HR / Payroll) |
+|Admin-Tenant (HR / Payroll) |
 start
 :Trigger automated monthly payroll calculation batch job;
 
-|#e2e8f0| Payroll & Billing Engine |
+|Payroll & Billing Engine |
 :Fetch verified timesheet working hours from Time Tracking;
 :Apply tardiness penalties & unexcused absence deductions;
 :Apply Overtime Multipliers (Weekday x1.5, Weekend x2.0, Holiday x3.0);
@@ -1060,14 +1060,14 @@ start
 |Admin-Tenant (HR / Payroll)|
 :Audit salary sheet metrics & submit for C-level payout approval;
 
-|#cbd5e1| Director (Executive) |
+|Director (Executive) |
 if (Total payroll expenses within approved budget cap?) then (YES)
   :Approve monthly salary payout sheet;
   |Payroll & Billing Engine|
   :Generate encrypted PDF Paystub for each employee;
   :Dispatch Paystub PDF emails company-wide;
 
-  |#94a3b8| Staff (Employee) |
+  |Staff (Employee) |
   :Receive encrypted PDF Paystub & review compensation breakdown;
   stop
 else (NO - Over Budget)
@@ -1110,20 +1110,20 @@ skinparam swimlane {
 ' =====================================================
 ' 4 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Direct Manager |
+|Direct Manager |
 start
 :Approve employee pre-shift overtime (OT) requests;
 
-|#e2e8f0| Admin-Tenant (HR / Payroll) |
+|Admin-Tenant (HR / Payroll) |
 :Configure OT multipliers (Weekday 150%, Weekend 200%, Holiday 300%);
 :Set department Overtime Budget Caps;
 
-|#cbd5e1| Payroll & Billing Engine |
+|Payroll & Billing Engine |
 :Calculate total OT hours compensation & night shift allowances;
 
 if (Total OT expenses exceed department budget cap?) then (YES - Cap Exceeded)
   :Trigger Overtime Budget Cap Warning alert;
-  |#94a3b8| Director (Executive) |
+  |Director (Executive) |
   :Review additional OT budget grant request;
   if (Director grants additional OT budget?) then (YES)
     :Approve OT budget override;
@@ -1174,24 +1174,24 @@ skinparam swimlane {
 ' =====================================================
 ' 4 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Project Manager |
+|Project Manager |
 start
 :Filter client project Billable Hours from timesheet logs;
 :Apply role-based hourly billing rates (Hourly Billing Rate);
 :Click "Generate Client Invoice Statement";
 
-|#e2e8f0| Payroll & Billing Engine |
+|Payroll & Billing Engine |
 :Compile itemized billable hours statement & total amount;
 :Generate official Client Invoice PDF Statement;
 
-|#cbd5e1| Director (Executive) |
+|Director (Executive) |
 :Sign & approve client invoice statement prior to issuance;
 
 |Payroll & Billing Engine|
 :Automatically publish Invoice PDF to Client Portal;
 :Dispatch email invoice notification to Client;
 
-|#94a3b8| Client (Partner) |
+|Client (Partner) |
 :Log into Client Portal & download Invoice PDF statement;
 if (Verify billable hours & invoice amount valid?) then (YES)
   :Click "Approve & Pay Invoice";
@@ -1208,3 +1208,4 @@ endif
 
 @enduml
 ```
+

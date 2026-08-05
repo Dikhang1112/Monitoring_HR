@@ -1,4 +1,4 @@
-# GPS ATTENDANCE - LIVE MAP & ROUTE TRACKING PROCESS DIAGRAM
+﻿# GPS ATTENDANCE - LIVE MAP & ROUTE TRACKING PROCESS DIAGRAM
 
 This document contains the **PlantUML** Swimlane Activity Diagram for the **Live Map Location & Shift Route Tracking Workflow**.
 
@@ -30,16 +30,16 @@ skinparam swimlane {
 ' =====================================================
 ' 3 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Manager |
+|Manager |
 start
 :Open Live Map Dashboard;
 :Select field service staff to track route history;
 
-|#e2e8f0| GPS Location Service |
+|GPS Location Service |
 :Fetch real-time location pings (transmitted every 5 mins);
 :Render shift movement route history line;
 
-|#cbd5e1| Staff (Field Worker) |
+|Staff (Field Worker) |
 :Perform field service tasks during active shift;
 :Transmits background GPS location pings;
 
@@ -58,3 +58,4 @@ endif
 
 @enduml
 ```
+

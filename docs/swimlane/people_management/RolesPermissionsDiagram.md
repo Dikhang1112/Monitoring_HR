@@ -1,4 +1,4 @@
-# PEOPLE MANAGEMENT - ROLES & PERMISSIONS (RBAC) PROCESS DIAGRAM
+﻿# PEOPLE MANAGEMENT - ROLES & PERMISSIONS (RBAC) PROCESS DIAGRAM
 
 This document contains the **PlantUML** Swimlane Activity Diagram for the **Role & Permission Management (RBAC) & Data Scope Scoping Workflow**.
 
@@ -30,20 +30,20 @@ skinparam swimlane {
 ' =====================================================
 ' 4 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| System-Admin |
+|System-Admin |
 start
 :Open System Role & Permission Management screen;
 :Create new Custom Role Group;
 :Configure action permission matrix (CRUD & Approvals);
 :Configure Data Scope Boundary (Company-wide / Department / Self-only);
 
-|#e2e8f0| Admin-Tenant (HR Admin) |
+|Admin-Tenant (HR Admin) |
 :Open employee list & assign Custom Role to Staff;
 
-|#cbd5e1| Security Engine & Database |
+|Security Engine & Database |
 :Persist Role Matrix & update user session authorization token;
 
-|#94a3b8| Employee (Staff) |
+|Employee (Staff) |
 :Perform action request on frontend screen UI;
 
 |Security Engine & Database|
@@ -62,3 +62,4 @@ endif
 
 @enduml
 ```
+

@@ -1,6 +1,6 @@
-# SCHEDULING & TIME-OFF - TIME-OFF & LEAVE MANAGEMENT DETAILED USE CASE DIAGRAM
+# SCHEDULING & TIME-OFF - LEAVE MANAGEMENT USE CASE DIAGRAM
 
-Tài liệu này chứa mã **PlantUML** sơ đồ Use Case chi tiết cho tính năng **Time-off & Leave Request Management (Quản lý Đăng ký Nghỉ phép)** thuộc phân hệ Scheduling & Time-Off.
+This document contains the **PlantUML** code and diagram for **Managing Time-Off Requests & Approving Multi-Level Leave** within the Scheduling & Time-Off subsystem, formatted for Draw.io (Left Primary Actors | Center Boundary | Right Secondary Actors).
 
 ---
 
@@ -14,84 +14,63 @@ skinparam backgroundColor #ffffff
 skinparam shadowing false
 skinparam actorStyle stickman
 
-' CHỐNG DÍNH MŨI TÊN & LÀM THẲNG CHỮ <<include>>, <<extend>>
-skinparam linetype ortho
-skinparam nodesep 60
-skinparam ranksep 80
-
-' =====================================================
-' STYLING CONFIGURATION
-' =====================================================
 skinparam usecase {
-  BackgroundColor #f8fafc
-  BorderColor #0284c7
-  FontColor #0f172a
-  FontSize 11
-  FontName Arial
-}
-
-skinparam package {
-  BackgroundColor #f1f5f9
-  BorderColor #64748b
-  FontColor #334155
-  FontStyle bold
+  BackgroundColor #EFF6FF
+  BorderColor #2563EB
+  BorderThickness 1.5
   FontSize 12
+  FontStyle bold
+  FontName "Segoe UI"
 }
 
 skinparam actor {
-  BackgroundColor #0f172a
-  BorderColor #0284c7
-  FontColor #0f172a
-  FontSize 13
+  BackgroundColor #0F172A
+  BorderColor #0284C7
+  FontSize 12
   FontStyle bold
+  FontName "Segoe UI"
 }
 
 ' =====================================================
-' PRIMARY ACTOR (BÊN TRÁI)
+' PRIMARY ACTORS (LEFT SIDE)
 ' =====================================================
-actor "Staff\n(Internal Employee)" as EMP
+actor "Staff" as EMP
 
 ' =====================================================
-' USE CASES FOR LEAVE MANAGEMENT
+' SYSTEM BOUNDARY & USE CASES (CENTER)
 ' =====================================================
-package "Time-Off & Leave Management" {
-  usecase "UC-SCHED-02: Time-off & Leave Request Management" as UC_LEAVE
-  usecase "Check Available Leave Balance" as UC_BAL
-  usecase "Submit Leave Request with Attachments" as UC_SUBMIT
-  usecase "Multi-level Manager & HR Approval" as UC_APP
-  usecase "Deduct Approved Leave Balance" as UC_DEDUCT
+rectangle "HR Management Platform - Leave Management Subsystem" {
+    
+    usecase "(UC-SCHED-02)\nManage Time-off & Leave Requests" as UC_SCHED02
+    usecase "(UC-SCHED-02a)\nVerify Available Leave Balances" as UC_SCHED02A
+    usecase "(UC-SCHED-02b)\nAttach Medical Note Documentation" as UC_SCHED02B
+    usecase "(UC-SCHED-02c)\nApprove Multi-level Leave Requests" as UC_SCHED02C
 }
 
 ' =====================================================
-' SECONDARY ACTORS (BÊN PHẢI)
+' SECONDARY ACTORS (RIGHT SIDE)
 ' =====================================================
 actor "Manager" as MGR
-actor "Admin-Tenant\n(HR Admin)" as HR
-
-MGR -[hidden]down-> HR
-
-' =====================================================
-' PRIMARY ACTOR CONNECTIONS
-' =====================================================
-EMP -right-> UC_LEAVE
+actor "Admin-Tenant" as ADMIN
+actor "Leave Service" as LEAVE_SVC
 
 ' =====================================================
-' SECONDARY ACTOR CONNECTIONS
+' ACTOR CONNECTIONS
 ' =====================================================
-UC_APP <-left- MGR
-UC_DEDUCT <-left- HR
+' Left Actors to Use Cases
+EMP --> UC_SCHED02
+
+' Use Cases to Right Actors
+UC_SCHED02C --> MGR
+UC_SCHED02C --> ADMIN
+UC_SCHED02A --> LEAVE_SVC
 
 ' =====================================================
-' INCLUDE RELATIONSHIPS (CHỮ THẲNG HƯỚNG XUỐNG)
+' INCLUDE & EXTEND RELATIONSHIPS
 ' =====================================================
-UC_LEAVE .down.> UC_BAL : <<include>>
-UC_LEAVE .down.> UC_SUBMIT : <<include>>
-
-' =====================================================
-' EXTEND RELATIONSHIPS (CHỮ THẲNG HƯỚNG LÊN)
-' =====================================================
-UC_APP .up.> UC_LEAVE : <<extend>>
-UC_DEDUCT .up.> UC_APP : <<extend>>
+UC_SCHED02 ..> UC_SCHED02A : <<include>>
+UC_SCHED02 ..> UC_SCHED02C : <<include>>
+UC_SCHED02B ..> UC_SCHED02 : <<extend>>
 
 @enduml
 ```

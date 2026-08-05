@@ -1,4 +1,4 @@
-# PAYROLL & INVOICING - SALARY CALCULATION PROCESS DIAGRAM
+﻿# PAYROLL & INVOICING - SALARY CALCULATION PROCESS DIAGRAM
 
 This document contains the **PlantUML** Swimlane Activity Diagram for the **Automated Monthly Salary Calculation Workflow**.
 
@@ -30,11 +30,11 @@ skinparam swimlane {
 ' =====================================================
 ' 4 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Admin-Tenant (HR / Payroll) |
+|Admin-Tenant (HR / Payroll) |
 start
 :Trigger automated monthly payroll calculation batch job;
 
-|#e2e8f0| Payroll & Billing Engine |
+|Payroll & Billing Engine |
 :Fetch verified timesheet working hours from Time Tracking;
 :Apply tardiness penalties & unexcused absence deductions;
 :Apply Overtime Multipliers (Weekday x1.5, Weekend x2.0, Holiday x3.0);
@@ -44,14 +44,14 @@ start
 |Admin-Tenant (HR / Payroll)|
 :Audit salary sheet metrics & submit for C-level payout approval;
 
-|#cbd5e1| Director (Executive) |
+|Director (Executive) |
 if (Total payroll expenses within approved budget cap?) then (YES)
   :Approve monthly salary payout sheet;
   |Payroll & Billing Engine|
   :Generate encrypted PDF Paystub for each employee;
   :Dispatch Paystub PDF emails company-wide;
 
-  |#94a3b8| Staff (Employee) |
+  |Staff (Employee) |
   :Receive encrypted PDF Paystub & review compensation breakdown;
   stop
 else (NO - Over Budget)
@@ -64,3 +64,4 @@ endif
 
 @enduml
 ```
+

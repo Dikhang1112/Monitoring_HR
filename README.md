@@ -170,24 +170,24 @@ flowchart LR
 
     %% Branch 1: Employee Profiles
     ROOT --> PROFILES["1.1. Employee Profiles"]
-    PROFILES --> P1["Personal & Contact Info (Họ tên, CCCD, SĐT, Email)"]
-    PROFILES --> P2["Contract & Employment History (Thử việc, Chính thức, Ngày vào)"]
+    PROFILES --> P1["Personal & Contact Info (Full Name, Citizen ID, Phone, Email)"]
+    PROFILES --> P2["Contract & Employment History (Probation, Official, Hire Date)"]
     PROFILES --> P3["Department & Direct Manager Assignment"]
     PROFILES --> P4["Emergency Contacts & Bank Account Details"]
 
     %% Branch 2: Org Structure
     ROOT --> ORG["1.2. Org Structure & Departments"]
-    ORG --> O1["Interactive Multi-level Org Tree (Cây sơ đồ tổ chức)"]
-    ORG --> O2["Department & Sub-unit Management (Phòng ban/Chi nhánh)"]
-    ORG --> O3["Department Head & Deputy Assignment (Bổ nhiệm Trưởng/Phó phòng)"]
-    ORG --> O4["Headcount & Roster Statistics (Định biên nhân sự)"]
+    ORG --> O1["Interactive Multi-level Org Tree Diagram"]
+    ORG --> O2["Department & Sub-unit Management (Departments & Branches)"]
+    ORG --> O3["Department Head & Deputy Assignment"]
+    ORG --> O4["Headcount & Roster Statistics"]
 
     %% Branch 3: Onboarding & Offboarding
     ROOT --> ONBOARD["1.3. Onboarding & Offboarding Workflow"]
     ONBOARD --> N1["Automated Account Provisioning (Email, HR Portal, App)"]
-    ONBOARD --> N2["Equipment & Asset Handover Log (Bàn giao máy tính, thẻ từ)"]
-    ONBOARD --> N3["Exit Checklist & Task Handover (Checklist nghỉ việc)"]
-    ONBOARD --> N4["Account Revocation & Data Archiving (Thu hồi quyền & Đóng băng)"]
+    ONBOARD --> N2["Equipment & Asset Handover Log (Laptops, Keycards)"]
+    ONBOARD --> N3["Exit Checklist & Task Handover (Resignation Checklist)"]
+    ONBOARD --> N4["Account Revocation & Data Archiving (Revoke Access & Freeze Account)"]
 
     %% Branch 4: Roles & Permissions
     ROOT --> RBAC["1.4. Role & Permission Management (RBAC)"]
@@ -209,13 +209,13 @@ flowchart LR
     %% Branch 1: Desktop App Timer
     ROOT --> DESK["2.1. Desktop App Timer"]
     DESK --> D1["Real-time Start / Pause / Stop Timer Button"]
-    DESK --> D2["Active Project & Task Selection (Gán dự án & công việc)"]
+    DESK --> D2["Active Project & Task Selection"]
     DESK --> D3["System Tray Integration & Quick Hotkeys"]
     DESK --> D4["Offline Time Buffering & Sync when Reconnected"]
 
     %% Branch 2: Mobile App Timer
     ROOT --> MOB["2.2. Mobile App Timer"]
-    MOB --> M1["Mobile Clock In / Out (Chấm công trên Smartphone)"]
+    MOB --> M1["Mobile Clock In / Out (Smartphone Attendance)"]
     MOB --> M2["Touch Task Switcher & Work Notes"]
     MOB --> M3["Background Location & App Heartbeat Status"]
 
@@ -281,23 +281,23 @@ flowchart LR
 
     %% Branch 1: Shift & Work Schedule Planning
     ROOT --> SCHED["4.1. Shift & Work Schedule Planning"]
-    SCHED --> S1["Shift Pattern Setup (Ca sáng, Ca chiều, Ca đêm, Ca gãy)"]
+    SCHED --> S1["Shift Pattern Setup (Morning, Afternoon, Night, Split Shift)"]
     SCHED --> S2["Onsite vs. Remote Work Mode Classification"]
     SCHED --> S3["Team Roster & Minimum Coverage Planning"]
     SCHED --> S4["Published Schedule Automated Notifications"]
 
     %% Branch 2: Time-Off & Leave Requests
     ROOT --> LEAVE["4.2. Time-Off & Leave Management"]
-    LEAVE --> L1["Leave Type Configuration (Phép năm, Nghỉ bệnh, Thai sản, Không lương)"]
-    LEAVE --> L2["Real-time Leave Balance Check (Quỹ ngày phép còn lại)"]
-    LEAVE --> L3["Leave Request Submission (Tạo đơn kèm tệp đính kèm)"]
+    LEAVE --> L1["Leave Type Configuration (Annual, Sick, Maternity, Unpaid)"]
+    LEAVE --> L2["Real-time Leave Balance Check (Remaining Leave Balance)"]
+    LEAVE --> L3["Leave Request Submission (Submit Request with Attachments)"]
     LEAVE --> L4["Multi-level Manager Approval Workflow"]
 
     %% Branch 3: Attendance Rules & Punctuality
     ROOT --> RULE["4.3. Attendance Rules & Punctuality"]
-    RULE --> R1["Work Shift Grace Period Configuration (Số phút cho phép đi muộn)"]
+    RULE --> R1["Work Shift Grace Period Configuration (Allowed Grace Period Minutes)"]
     RULE --> R2["Late Arrival & Early Departure Violation Log"]
-    RULE --> R3["Unexcused Absence Classification (Nghỉ không phép)"]
+    RULE --> R3["Unexcused Absence Classification"]
 ```
 
 ---

@@ -1,4 +1,4 @@
-# SCHEDULING & LEAVE - SHIFT PLANNING PROCESS DIAGRAM
+﻿# SCHEDULING & LEAVE - SHIFT PLANNING PROCESS DIAGRAM
 
 This document contains the **PlantUML** Swimlane Activity Diagram for the **Weekly Shift & Work Schedule Planning Workflow**.
 
@@ -30,16 +30,16 @@ skinparam swimlane {
 ' =====================================================
 ' 4 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Direct Manager |
+|Direct Manager |
 start
 :Open Weekly Shift Roster interface;
 :Select shift pattern (Morning, Afternoon, Night, Split Shift);
 :Designate work location mode (Onsite Office / Remote WFH);
 
-|#e2e8f0| Admin-Tenant (HR Admin) |
+|Admin-Tenant (HR Admin) |
 :Approve holiday / night shift allowance budget caps;
 
-|#cbd5e1| Scheduling Engine |
+|Scheduling Engine |
 :Save shift roster draft & execute shift conflict check;
 
 if (Shift overlap or mandatory rest period violation detected?) then (YES - Conflict)
@@ -51,10 +51,11 @@ else (NO - Valid Roster)
   :Publish Weekly Shift Schedule Roster;
   :Dispatch mobile push notifications to assigned staff;
 
-  |#94a3b8| Staff (Employee) |
+  |Staff (Employee) |
   :Receive new shift roster notification on Mobile App;
   stop
 endif
 
 @enduml
 ```
+

@@ -1,4 +1,4 @@
-# GPS ATTENDANCE - GEOFENCED CHECK-IN PROCESS DIAGRAM
+﻿# GPS ATTENDANCE - GEOFENCED CHECK-IN PROCESS DIAGRAM
 
 This document contains the **PlantUML** Swimlane Activity Diagram for the **Geofenced GPS Check-in Workflow**.
 
@@ -30,16 +30,16 @@ skinparam swimlane {
 ' =====================================================
 ' 3 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Staff (Field Worker) |
+|Staff (Field Worker) |
 start
 :Open Mobile App at branch office / site location;
 :Tap "Check-in GPS";
 
-|#e2e8f0| Mobile App Client |
+|Mobile App Client |
 :Retrieve device GPS coordinates (Latitude, Longitude);
 :Submit Check-in API request with GPS payload;
 
-|#cbd5e1| GPS Location Service |
+|GPS Location Service |
 :Fetch branch coordinates & configured Geofence Radius;
 :Calculate Haversine distance from device to branch;
 
@@ -62,3 +62,4 @@ endif
 
 @enduml
 ```
+

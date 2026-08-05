@@ -1,4 +1,4 @@
-# SCHEDULING & LEAVE - LEAVE MANAGEMENT PROCESS DIAGRAM
+﻿# SCHEDULING & LEAVE - LEAVE MANAGEMENT PROCESS DIAGRAM
 
 This document contains the **PlantUML** Swimlane Activity Diagram for the **Time-off & Leave Request Management Workflow**.
 
@@ -30,27 +30,27 @@ skinparam swimlane {
 ' =====================================================
 ' 4 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Staff (Employee) |
+|Staff (Employee) |
 start
 :Open Time-off Request screen on Web/Mobile App;
 :Select leave type, date range & attach medical note if required;
 :Click "Submit Leave Request";
 
-|#e2e8f0| Leave Management Service |
+|Leave Management Service |
 :Verify available annual leave balance;
 
 if (Leave Balance >= Requested Days?) then (YES)
   :Record leave request entry (Status: Pending Manager Approval);
   :Dispatch push notification to Direct Manager;
 
-  |#cbd5e1| Direct Manager |
+  |Direct Manager |
   :Review leave request details & team shift coverage;
   if (Manager approves request?) then (YES)
     :Click "Approve";
     |Leave Management Service|
     if (Requested leave duration > 3 consecutive days?) then (Requires HR Review)
       :Forward request to HR Admin (Status: Pending HR Approval);
-      |#94a3b8| Admin-Tenant (HR Admin) |
+      |Admin-Tenant (HR Admin) |
       :Review company leave policy & grant final approval;
     else (No HR Review Needed)
     endif
@@ -83,3 +83,4 @@ endif
 
 @enduml
 ```
+

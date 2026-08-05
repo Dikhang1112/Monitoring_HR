@@ -1,4 +1,4 @@
-# TIME TRACKING - DESKTOP APP TIMER PROCESS DIAGRAM
+﻿# TIME TRACKING - DESKTOP APP TIMER PROCESS DIAGRAM
 
 This document contains the **PlantUML** Swimlane Activity Diagram for the **Desktop Work Timer Control Workflow**.
 
@@ -30,17 +30,17 @@ skinparam swimlane {
 ' =====================================================
 ' 3 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Staff (Employee) |
+|Staff (Employee) |
 start
 :Open Desktop Client App UI;
 :Select active Project & Task;
 :Click "Start Work Timer";
 
-|#e2e8f0| Desktop Client App |
+|Desktop Client App |
 :Initialize real-time work timer;
 :Transmit API ping to Cloud Server;
 
-|#cbd5e1| Cloud Time Tracking API |
+|Cloud Time Tracking API |
 if (Internet connection active?) then (YES - Online)
   :Create active work session record (Status: Active);
   :Return online timer confirmation;
@@ -69,3 +69,4 @@ endif
 
 @enduml
 ```
+

@@ -1,6 +1,6 @@
 # HR MANAGEMENT PLATFORM - ADMIN-TENANT DETAILED USE CASE DIAGRAM
 
-Tài liệu này chứa mã **PlantUML** và sơ đồ **Use Case Chi tiết cho Actor Admin-Tenant (HR Admin Detailed Use Case Diagram)** của hệ thống HR Management Platform.
+This document contains the **PlantUML** code and diagram for the **Admin-Tenant Detailed Use Case Diagram** of the HR Management Platform.
 
 ---
 
@@ -88,32 +88,32 @@ MGR -[hidden]down-> SYS
 ' =====================================================
 ' PRIMARY ACTOR CONNECTIONS
 ' =====================================================
-HR -right-> UC_PROFILE
-HR -right-> UC_ORG
-HR -right-> UC_ROLE
-HR -right-> UC_APP
-HR -right-> UC_SAL
-HR -right-> UC_INV
+HR --> UC_PROFILE
+HR --> UC_ORG
+HR --> UC_ROLE
+HR --> UC_APP
+HR --> UC_SAL
+HR --> UC_INV
 
 ' =====================================================
 ' SECONDARY ACTOR CONNECTIONS
 ' =====================================================
-UC_PROFILE <-left- MGR
-UC_SAL <-left- SYS
-UC_INV <-left- SYS
+UC_PROFILE --> MGR
+UC_SAL --> SYS
+UC_INV --> SYS
 
 ' =====================================================
-' INCLUDE RELATIONSHIPS (VUÔNG GÓC HƯỚNG XUỐNG / SANG PHẢI)
+' INCLUDE RELATIONSHIPS
 ' =====================================================
-UC_PROFILE .down.> UC_DEPT : <<include>>
-UC_APP .down.> UC_FLAG : <<include>>
-UC_SAL .down.> UC_OT : <<include>>
+UC_PROFILE ..> UC_DEPT : <<include>>
+UC_APP ..> UC_FLAG : <<include>>
+UC_SAL ..> UC_OT : <<include>>
 
 ' =====================================================
-' EXTEND RELATIONSHIPS (VUÔNG GÓC HƯỚNG LÊN)
+' EXTEND RELATIONSHIPS
 ' =====================================================
-UC_IMP .up.> UC_PROFILE : <<extend>>
-UC_PDF .up.> UC_INV : <<extend>>
+UC_IMP ..> UC_PROFILE : <<extend>>
+UC_PDF ..> UC_INV : <<extend>>
 
 @enduml
 ```

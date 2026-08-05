@@ -1,6 +1,6 @@
 # HR MANAGEMENT PLATFORM - MANAGER DETAILED USE CASE DIAGRAM
 
-Tài liệu này chứa mã **PlantUML** và sơ đồ **Use Case Chi tiết cho Actor Manager (Department / Project Manager Detailed Use Case Diagram)** của hệ thống HR Management Platform.
+This document contains the **PlantUML** code and diagram for the **Manager Detailed Use Case Diagram** of the HR Management Platform.
 
 ---
 
@@ -87,31 +87,31 @@ EMP -[hidden]down-> SYS
 ' =====================================================
 ' PRIMARY ACTOR CONNECTIONS
 ' =====================================================
-MGR -right-> UC_SCHED
-MGR -right-> UC_LEAVE
-MGR -right-> UC_STATUS
-MGR -right-> UC_IDLEALT
-MGR -right-> UC_KANBAN
+MGR --> UC_SCHED
+MGR --> UC_LEAVE
+MGR --> UC_STATUS
+MGR --> UC_IDLEALT
+MGR --> UC_KANBAN
 
 ' =====================================================
 ' SECONDARY ACTOR CONNECTIONS
 ' =====================================================
-UC_LEAVE <-left- EMP
-UC_KANBAN <-left- EMP
-UC_IDLEALT <-left- SYS
+UC_LEAVE --> EMP
+UC_KANBAN --> EMP
+UC_IDLEALT --> SYS
 
 ' =====================================================
-' INCLUDE RELATIONSHIPS (VUÔNG GÓC HƯỚNG XUỐNG)
+' INCLUDE RELATIONSHIPS
 ' =====================================================
-UC_SCHED .down.> UC_SHIFT : <<include>>
-UC_LEAVE .down.> UC_DEDUCT : <<include>>
-UC_STATUS .down.> UC_TEAM : <<include>>
-UC_KANBAN .down.> UC_ASSIGN : <<include>>
+UC_SCHED ..> UC_SHIFT : <<include>>
+UC_LEAVE ..> UC_DEDUCT : <<include>>
+UC_STATUS ..> UC_TEAM : <<include>>
+UC_KANBAN ..> UC_ASSIGN : <<include>>
 
 ' =====================================================
-' EXTEND RELATIONSHIPS (VUÔNG GÓC HƯỚNG LÊN)
+' EXTEND RELATIONSHIPS
 ' =====================================================
-UC_NOTE .up.> UC_IDLEALT : <<extend>>
+UC_NOTE ..> UC_IDLEALT : <<extend>>
 
 @enduml
 ```

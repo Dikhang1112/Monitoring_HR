@@ -1,6 +1,6 @@
 # HR MANAGEMENT PLATFORM - OVERVIEW USE CASE DIAGRAM
 
-Tài liệu này chứa mã **PlantUML** và sơ đồ **Use Case Cấp cao (Overview Use Case Diagram)** của hệ thống HR Management Platform, bao gồm 6 System Actors và 12 Core Use Cases.
+This document contains the **PlantUML** code and diagram for the **System Overview High-Level Use Case Diagram** of the HR Management Platform, featuring 6 System Actors and 12 Core Use Cases.
 
 ![Overview Use Case Diagram](../images/overview.png)
 
@@ -114,50 +114,50 @@ rectangle "HR Management Platform Boundary" {
 ' =====================================================
 ' CONNECTIONS - LEFT ACTORS
 ' =====================================================
-SA -right-> UC01
+SA --> UC01
 
-HR -right-> UC02
-HR -right-> UC06
-HR -right-> UC11
+HR --> UC02
+HR --> UC06
+HR --> UC11
 
-MGR -right-> UC05
-MGR -right-> UC06
-MGR -right-> UC07
-MGR -right-> UC08
-MGR -right-> UC09
-MGR -right-> UC10
-MGR -right-> UC12
+MGR --> UC05
+MGR --> UC06
+MGR --> UC07
+MGR --> UC08
+MGR --> UC09
+MGR --> UC10
+MGR --> UC12
 
 ' =====================================================
 ' CONNECTIONS - RIGHT ACTORS
 ' =====================================================
-EMP -left-> UC03
-EMP -left-> UC04
-EMP -left-> UC05
-EMP -left-> UC07
-EMP -left-> UC08
-EMP -left-> UC09
-EMP -left-> UC10
+UC03 --> EMP
+UC04 --> EMP
+UC05 --> EMP
+UC07 --> EMP
+UC08 --> EMP
+UC09 --> EMP
+UC10 --> EMP
 
-DIR -left-> UC10
-DIR -left-> UC12
+UC10 --> DIR
+UC12 --> DIR
 
-CLI -left-> UC09
-CLI -left-> UC10
+UC09 --> CLI
+UC10 --> CLI
 
 ' =====================================================
 ' INCLUDE RELATIONSHIPS
 ' =====================================================
-UC03 .down.> UC_IDLE : <<include>>
-UC08 .right.> UC_BAL : <<include>>
-UC11 .down.> UC_AGGR : <<include>>
+UC03 ..> UC_IDLE : <<include>>
+UC08 ..> UC_BAL : <<include>>
+UC11 ..> UC_AGGR : <<include>>
 
 ' =====================================================
 ' EXTEND RELATIONSHIPS
 ' =====================================================
-UC_MANUAL .up.> UC03 : <<extend>>
-UC_ROUTE .up.> UC04 : <<extend>>
-UC_ALERT .right.> UC05 : <<extend>>
+UC_MANUAL ..> UC03 : <<extend>>
+UC_ROUTE ..> UC04 : <<extend>>
+UC_ALERT ..> UC05 : <<extend>>
 
 @enduml
 ```

@@ -1,4 +1,4 @@
-# TIME TRACKING - MOBILE CLOCK IN/OUT PROCESS DIAGRAM
+﻿# TIME TRACKING - MOBILE CLOCK IN/OUT PROCESS DIAGRAM
 
 This document contains the **PlantUML** Swimlane Activity Diagram for the **Mobile Clock In / Out & Task Switcher Workflow**.
 
@@ -30,16 +30,16 @@ skinparam swimlane {
 ' =====================================================
 ' 3 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Staff (Field Worker) |
+|Staff (Field Worker) |
 start
 :Open Mobile App on smartphone;
 :Select Project & tap "Clock In";
 
-|#e2e8f0| Mobile Client App |
+|Mobile Client App |
 :Retrieve GPS location & load task interface;
 :Transmit periodic heartbeat ping (every 1 minute);
 
-|#cbd5e1| Cloud Time Tracking API |
+|Cloud Time Tracking API |
 if (Heartbeat ping valid?) then (YES)
   :Record active Mobile Shift Session;
   |Staff (Field Worker)|
@@ -61,3 +61,4 @@ endif
 
 @enduml
 ```
+

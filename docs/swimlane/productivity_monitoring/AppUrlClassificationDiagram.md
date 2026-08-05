@@ -1,4 +1,4 @@
-# PRODUCTIVITY MONITORING - APP & URL CLASSIFICATION PROCESS DIAGRAM
+﻿# PRODUCTIVITY MONITORING - APP & URL CLASSIFICATION PROCESS DIAGRAM
 
 This document contains the **PlantUML** Swimlane Activity Diagram for the **App & Website Productivity Classification Workflow**.
 
@@ -30,17 +30,17 @@ skinparam swimlane {
 ' =====================================================
 ' 3 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Admin-Tenant (HR Admin) |
+|Admin-Tenant (HR Admin) |
 start
 :Configure App & Website classification rules;
 :Assign Productive, Unproductive, or Neutral status labels;
 :Set Department-specific Classification Overrides;
 
-|#e2e8f0| Desktop Agent App |
+|Desktop Agent App |
 :Log active window titles & website domain URLs;
 :Transmit application usage time logs to Cloud Engine;
 
-|#cbd5e1| Productivity AI Engine |
+|Productivity AI Engine |
 :Apply classification rules based on employee department;
 if (Unproductive App/Web usage exceeds 30 minutes?) then (YES)
   :Record unproductive time duration;
@@ -53,3 +53,4 @@ endif
 
 @enduml
 ```
+

@@ -1,4 +1,4 @@
-# PAYROLL & INVOICING - OVERTIME & ALLOWANCES PROCESS DIAGRAM
+﻿# PAYROLL & INVOICING - OVERTIME & ALLOWANCES PROCESS DIAGRAM
 
 This document contains the **PlantUML** Swimlane Activity Diagram for the **Overtime Pay & Allowance Management Workflow**.
 
@@ -30,20 +30,20 @@ skinparam swimlane {
 ' =====================================================
 ' 4 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Direct Manager |
+|Direct Manager |
 start
 :Approve employee pre-shift overtime (OT) requests;
 
-|#e2e8f0| Admin-Tenant (HR / Payroll) |
+|Admin-Tenant (HR / Payroll) |
 :Configure OT multipliers (Weekday 150%, Weekend 200%, Holiday 300%);
 :Set department Overtime Budget Caps;
 
-|#cbd5e1| Payroll & Billing Engine |
+|Payroll & Billing Engine |
 :Calculate total OT hours compensation & night shift allowances;
 
 if (Total OT expenses exceed department budget cap?) then (YES - Cap Exceeded)
   :Trigger Overtime Budget Cap Warning alert;
-  |#94a3b8| Director (Executive) |
+  |Director (Executive) |
   :Review additional OT budget grant request;
   if (Director grants additional OT budget?) then (YES)
     :Approve OT budget override;
@@ -65,3 +65,4 @@ endif
 
 @enduml
 ```
+

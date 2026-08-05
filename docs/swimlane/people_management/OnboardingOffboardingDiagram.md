@@ -1,4 +1,4 @@
-# PEOPLE MANAGEMENT - ONBOARDING & OFFBOARDING PROCESS DIAGRAM
+﻿# PEOPLE MANAGEMENT - ONBOARDING & OFFBOARDING PROCESS DIAGRAM
 
 This document contains the **PlantUML** Swimlane Activity Diagram for the **Employee Onboarding & Offboarding Workflow**.
 
@@ -30,20 +30,20 @@ skinparam swimlane {
 ' =====================================================
 ' 4 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Admin-Tenant (HR Admin) |
+|Admin-Tenant (HR Admin) |
 start
 :Create new employee profile & enter contract details;
 :Assign Department & designate Direct Manager;
 :Click "Trigger Onboarding Workflow";
 
-|#e2e8f0| HR System Services |
+|HR System Services |
 :Automatically provision user accounts (Email, HR Portal, Timer App);
 :Dispatch welcome email with temporary credentials;
 
-|#cbd5e1| Employee (Staff) |
+|Employee (Staff) |
 :Log into HR Portal & verify personal details;
 
-|#94a3b8| Direct Manager |
+|Direct Manager |
 :Create onboarding task checklist & assign team buddy;
 
 |Admin-Tenant (HR Admin)|
@@ -92,3 +92,4 @@ endif
 
 @enduml
 ```
+

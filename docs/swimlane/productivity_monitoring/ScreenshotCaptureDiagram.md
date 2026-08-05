@@ -1,4 +1,4 @@
-# PRODUCTIVITY MONITORING - SCREENSHOT CAPTURE PROCESS DIAGRAM
+﻿# PRODUCTIVITY MONITORING - SCREENSHOT CAPTURE PROCESS DIAGRAM
 
 This document contains the **PlantUML** Swimlane Activity Diagram for the **Automated Screenshot Capture Workflow**.
 
@@ -30,7 +30,7 @@ skinparam swimlane {
 ' =====================================================
 ' 3 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Desktop Agent App |
+|Desktop Agent App |
 start
 :Trigger random screenshot timer (every 10 mins);
 :Capture all active displays simultaneously (Multi-Monitor);
@@ -39,11 +39,11 @@ start
 :Encrypt screenshot file on client device (AES-256);
 :Upload encrypted image payload to Cloud Storage;
 
-|#e2e8f0| Productivity AI Engine |
+|Productivity AI Engine |
 :Store encrypted image & record capture timestamp;
 :Log active window title at moment of capture;
 
-|#cbd5e1| Manager |
+|Manager |
 :Open Screenshot Review Gallery;
 if (Non-work activity detected in screen capture?) then (YES)
   :Attach reviewer note on screen capture item;
@@ -56,3 +56,4 @@ endif
 
 @enduml
 ```
+

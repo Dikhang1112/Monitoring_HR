@@ -1,4 +1,4 @@
-# SCHEDULING & LEAVE - ATTENDANCE RULES PROCESS DIAGRAM
+﻿# SCHEDULING & LEAVE - ATTENDANCE RULES PROCESS DIAGRAM
 
 This document contains the **PlantUML** Swimlane Activity Diagram for the **Attendance Rules & Punctuality Violation Log Workflow**.
 
@@ -30,22 +30,22 @@ skinparam swimlane {
 ' =====================================================
 ' 4 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Attendance Cron Engine |
+|Attendance Cron Engine |
 start
 :Execute automated attendance reconciliation at end of shift;
 :Compare actual Check-in/out timestamps against Roster Schedule;
 
-|#e2e8f0| Direct Manager |
+|Direct Manager |
 :Receive daily attendance violation summary report;
 
-|#cbd5e1| Admin-Tenant (HR Admin) |
+|Admin-Tenant (HR Admin) |
 :Configure shift grace period allowance (e.g., 15 minutes);
 
 |Attendance Cron Engine|
 if (Clock-in timestamp past shift grace period?) then (YES - Late Arrival)
   :Log "Late Arrival" violation record with exact tardiness minutes;
   :Dispatch violation notification to Employee & Manager;
-  |#94a3b8| Staff (Employee) |
+  |Staff (Employee) |
   :Receive tardiness violation notice;
   stop
 else if (No Check-in record & no approved leave request?) then (YES - Absence)
@@ -61,3 +61,4 @@ endif
 
 @enduml
 ```
+

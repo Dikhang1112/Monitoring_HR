@@ -1,4 +1,4 @@
-# PRODUCTIVITY MONITORING - INPUT ACTIVITY TRACKING PROCESS DIAGRAM
+﻿# PRODUCTIVITY MONITORING - INPUT ACTIVITY TRACKING PROCESS DIAGRAM
 
 This document contains the **PlantUML** Swimlane Activity Diagram for the **Input Activity Tracking Workflow**.
 
@@ -30,19 +30,19 @@ skinparam swimlane {
 ' =====================================================
 ' 3 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Desktop Agent App |
+|Desktop Agent App |
 start
 :Measure keystroke & mouse movement frequency per minute;
 :Calculate active vs idle time ratio percentage (% Activity Rate);
 :Transmit input metrics payload to Cloud Engine;
 
-|#e2e8f0| Productivity AI Engine |
+|Productivity AI Engine |
 :Analyze input patterns via Anomaly Detection algorithm;
 if (Artificial auto-clicker or mouse jiggler detected?) then (YES - Anomaly)
   :Flag suspicious activity anomaly;
   :Dispatch fake activity alert to Manager;
 
-  |#cbd5e1| Manager |
+  |Manager |
   :Open Anomaly Audit Report & review input logs;
   :Request employee explanation or record compliance violation;
   stop
@@ -54,3 +54,4 @@ endif
 
 @enduml
 ```
+

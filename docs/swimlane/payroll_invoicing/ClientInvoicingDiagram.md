@@ -1,4 +1,4 @@
-# PAYROLL & INVOICING - CLIENT INVOICING PROCESS DIAGRAM
+﻿# PAYROLL & INVOICING - CLIENT INVOICING PROCESS DIAGRAM
 
 This document contains the **PlantUML** Swimlane Activity Diagram for the **Client Invoicing & Billable Hours Approval Workflow**.
 
@@ -30,24 +30,24 @@ skinparam swimlane {
 ' =====================================================
 ' 4 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Project Manager |
+|Project Manager |
 start
 :Filter client project Billable Hours from timesheet logs;
 :Apply role-based hourly billing rates (Hourly Billing Rate);
 :Click "Generate Client Invoice Statement";
 
-|#e2e8f0| Payroll & Billing Engine |
+|Payroll & Billing Engine |
 :Compile itemized billable hours statement & total amount;
 :Generate official Client Invoice PDF Statement;
 
-|#cbd5e1| Director (Executive) |
+|Director (Executive) |
 :Sign & approve client invoice statement prior to issuance;
 
 |Payroll & Billing Engine|
 :Automatically publish Invoice PDF to Client Portal;
 :Dispatch email invoice notification to Client;
 
-|#94a3b8| Client (Partner) |
+|Client (Partner) |
 :Log into Client Portal & download Invoice PDF statement;
 if (Verify billable hours & invoice amount valid?) then (YES)
   :Click "Approve & Pay Invoice";
@@ -64,3 +64,4 @@ endif
 
 @enduml
 ```
+

@@ -1,4 +1,4 @@
-# PEOPLE MANAGEMENT - EMPLOYEE PROFILES PROCESS DIAGRAM
+﻿# PEOPLE MANAGEMENT - EMPLOYEE PROFILES PROCESS DIAGRAM
 
 This document contains the **PlantUML** Swimlane Activity Diagram for the **Employee Profile Management Workflow**.
 
@@ -30,19 +30,19 @@ skinparam swimlane {
 ' =====================================================
 ' 4 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Admin-Tenant (HR Admin) |
+|Admin-Tenant (HR Admin) |
 start
 :Open Profile Management & select Import Excel or Create New;
 :Enter personal details, Tax ID, National ID & Bank account;
 :Assign to Department & set designated Direct Manager;
 
-|#e2e8f0| Direct Manager |
+|Direct Manager |
 :Confirm job title, role responsibilities & probation contract;
 
-|#cbd5e1| HR System Services |
+|HR System Services |
 :Encrypt & store employee record in Cloud Database;
 
-|#94a3b8| Employee (Staff) |
+|Employee (Staff) |
 :Access HR Portal to update emergency contact details;
 
 |HR System Services|
@@ -61,3 +61,4 @@ endif
 
 @enduml
 ```
+

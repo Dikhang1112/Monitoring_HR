@@ -1,4 +1,4 @@
-# PEOPLE MANAGEMENT - ORGANIZATIONAL STRUCTURE PROCESS DIAGRAM
+﻿# PEOPLE MANAGEMENT - ORGANIZATIONAL STRUCTURE PROCESS DIAGRAM
 
 This document contains the **PlantUML** Swimlane Activity Diagram for the **Organizational Structure Setup Workflow**.
 
@@ -30,19 +30,19 @@ skinparam swimlane {
 ' =====================================================
 ' 4 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Admin-Tenant (HR Admin) |
+|Admin-Tenant (HR Admin) |
 start
 :Open Interactive Org Tree canvas;
 :Create new Branch / Department / Sub-unit node;
 :Appoint Department Head & Deputy Leads;
 
-|#e2e8f0| Director (Executive) |
+|Director (Executive) |
 :Review department headcount allocation statistics;
 
-|#cbd5e1| Direct Manager |
+|Direct Manager |
 :Assume operational management of assigned department roster;
 
-|#94a3b8| HR System Services |
+|HR System Services |
 :Automatically update system reporting hierarchy;
 if (Department merger or dissolution required?) then (YES)
   |Admin-Tenant (HR Admin)|
@@ -58,3 +58,4 @@ endif
 
 @enduml
 ```
+

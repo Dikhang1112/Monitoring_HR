@@ -1,4 +1,4 @@
-# TIME TRACKING - IDLE DETECTION & TIMESHEET PROCESS DIAGRAM
+﻿# TIME TRACKING - IDLE DETECTION & TIMESHEET PROCESS DIAGRAM
 
 This document contains the **PlantUML** Swimlane Activity Diagram for the **Idle Inactivity Detection & Manual Timesheet Approval Workflow**.
 
@@ -30,18 +30,18 @@ skinparam swimlane {
 ' =====================================================
 ' 3 SWIMLANES DECLARATION
 ' =====================================================
-|#f1f5f9| Staff (Employee) |
+|Staff (Employee) |
 start
 :Work on desktop & pause keyboard/mouse input;
 
-|#e2e8f0| Desktop Agent Service |
+|Desktop Agent Service |
 :Monitor input rates & detect idle state > 10 minutes;
 :Display Warning Popup dialog on screen;
 
 |Staff (Employee)|
 if (Inactivity due to valid offline work discussion?) then (YES - Keep Time)
   :Select "Keep Idle Time" & enter reason (Offline Meeting);
-  |#cbd5e1| Manager & Time Backend |
+  |Manager & Time Backend |
   :Submit Manual Timesheet Adjustment Request to Manager;
   if (Manager approves adjustment?) then (YES)
     :Retain idle time in approved working hours;
@@ -60,3 +60,4 @@ endif
 
 @enduml
 ```
+

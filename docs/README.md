@@ -2,7 +2,7 @@
 
 This document serves as the **Master Architecture Diagram Documentation** for the HR Management Platform. It presents all Consolidated Subsystem Use Case Diagrams first, followed by the complete gallery of Process Swimlane Activity Diagrams.
 
-
+---
 
 ## 1. Use Case Diagrams Gallery
 
@@ -16,7 +16,17 @@ This document serves as the **Master Architecture Diagram Documentation** for th
 
 ---
 
-### 1.2. GPS Attendance Subsystem
+### 1.2. Time Tracking Subsystem
+
+#### Desktop & Mobile Work Timer Control Diagram
+![Desktop & Mobile Work Timer Control Diagram](images/usecase_diagram/time_tracking/TimerControl.png)
+
+#### Idle Inactivity Detection & Manual Timesheet Diagram
+![Idle Inactivity Detection & Manual Timesheet Diagram](images/usecase_diagram/time_tracking/IdleAdjustment.png)
+
+---
+
+### 1.3. GPS Attendance Subsystem
 
 #### Geofenced GPS Check-in Diagram
 ![Geofenced GPS Check-in Diagram](images/usecase_diagram/gps_attendence/GPS_Geofence.png)
@@ -26,7 +36,17 @@ This document serves as the **Master Architecture Diagram Documentation** for th
 
 ---
 
-### 1.3. Scheduling & Time-Off Subsystem
+### 1.4. Productivity Monitoring Subsystem
+
+#### Automated Screenshots & Input Activity Diagram
+![Automated Screenshots & Input Activity Diagram](images/usecase_diagram/productivity_monitoring/ScreenshotActivity.png)
+
+#### App/Web Classification, Scores & Anomaly Alerts Diagram
+![App/Web Classification, Scores & Anomaly Alerts Diagram](images/usecase_diagram/productivity_monitoring/UsecaseDiagram.png)
+
+---
+
+### 1.5. Scheduling & Time-Off Subsystem
 
 #### Weekly Shift Planning & Attendance Rules Diagram
 ![Weekly Shift Planning & Attendance Rules Diagram](images/usecase_diagram/scheduling/Shift_Scheduling.png)
@@ -36,7 +56,10 @@ This document serves as the **Master Architecture Diagram Documentation** for th
 
 ---
 
-### 1.4. Payroll & Client Invoicing Subsystem
+### 1.6. Payroll & Client Invoicing Subsystem
+
+#### Automated Monthly Salary & Overtime Pay Diagram
+![Automated Monthly Salary & Overtime Pay Diagram](images/usecase_diagram/payroll_invoicing/Payroll.png)
 
 #### Client Invoicing & Portal Payment Diagram
 ![Client Invoicing & Portal Payment Diagram](images/usecase_diagram/payroll_invoicing/Client_Invocing.png)

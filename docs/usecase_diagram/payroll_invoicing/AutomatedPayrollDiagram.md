@@ -1,6 +1,6 @@
 # PAYROLL & CLIENT INVOICING - AUTOMATED PAYROLL USE CASE DIAGRAM
 
-This document contains the **PlantUML** code and diagram for **Calculating Automated Monthly Salaries & Managing Overtime Rules** within the Payroll & Client Invoicing subsystem, formatted for Draw.io (Left Primary Actors | Center Boundary | Right Secondary Actors).
+This document contains the **PlantUML** code and diagram for **Calculating Automated Monthly Salaries & Managing Overtime Rules** within the Payroll & Client Invoicing subsystem, formatted for Draw.io with active verb high-level Use Cases, non-overlapping orthogonal arrows, and external Actors.
 
 ---
 
@@ -13,12 +13,13 @@ skinparam packageStyle rectangle
 skinparam backgroundColor #ffffff
 skinparam shadowing false
 skinparam actorStyle stickman
+skinparam linetype ortho
 
 skinparam usecase {
   BackgroundColor #EFF6FF
   BorderColor #2563EB
-  BorderThickness 1.5
-  FontSize 12
+  BorderThickness 2
+  FontSize 14
   FontStyle bold
   FontName "Segoe UI"
 }
@@ -26,60 +27,62 @@ skinparam usecase {
 skinparam actor {
   BackgroundColor #0F172A
   BorderColor #0284C7
-  FontSize 12
+  FontSize 13
   FontStyle bold
   FontName "Segoe UI"
 }
 
 ' =====================================================
-' PRIMARY ACTORS (LEFT SIDE)
+' PRIMARY ACTORS (OUTSIDE BOUNDARY - LEFT SIDE)
 ' =====================================================
 actor "Admin-Tenant" as ADMIN
 actor "Director" as DIR
 
-' =====================================================
-' SYSTEM BOUNDARY & USE CASES (CENTER)
-' =====================================================
-rectangle "HR Management Platform - Automated Payroll & Overtime Subsystem" {
-    
-    ' Salary Calculation
-    usecase "(UC-PAY-01)\nCalculate Automated Monthly Salary" as UC_PAY01
-    usecase "(UC-PAY-01a)\nIntegrate Verified Timesheet Hours" as UC_PAY01A
-    usecase "(UC-PAY-01b)\nDeduct Punctuality & Absence Fines" as UC_PAY01B
-    usecase "(UC-PAY-01c)\nAudit Monthly Salary Sheet Payouts" as UC_PAY01C
-    usecase "(UC-PAY-01d)\nGenerate Encrypted Paystub PDF Files" as UC_PAY01D
+ADMIN -[hidden]down-> DIR
 
-    ' Overtime Management
-    usecase "(UC-PAY-02)\nManage Overtime Pay & Allowances" as UC_PAY02
-    usecase "(UC-PAY-02a)\nConfigure Overtime Pay Multipliers" as UC_PAY02A
-    usecase "(UC-PAY-02b)\nCalculate Night Shift Allowances" as UC_PAY02B
-    usecase "(UC-PAY-02c)\nMonitor Overtime Budget Cap Alerts" as UC_PAY02C
-    usecase "(UC-PAY-02d)\nOverride Executive Overtime Budget Cap" as UC_PAY02D
+' =====================================================
+' SYSTEM BOUNDARY & ALIGNED USE CASES (CENTER)
+' =====================================================
+rectangle "HR Management Platform - Automated Payroll & Overtime" {
+    
+    ' High-Level Salary Calculation Group
+    usecase "Calculate Monthly Payroll" as UC_PAY01
+    usecase "Integrate Timesheet Data" as UC_PAY01A
+    usecase "Audit Monthly Payroll Sheets" as UC_PAY01C
+    usecase "Generate Encrypted Paystubs" as UC_PAY01D
+
+    UC_PAY01 -[hidden]down-> UC_PAY01A
+    UC_PAY01A -[hidden]down-> UC_PAY01C
+    UC_PAY01C -[hidden]down-> UC_PAY01D
+
+    ' High-Level Overtime Management Group
+    usecase "Manage Overtime Compensation" as UC_PAY02
+    usecase "Configure Overtime Multipliers" as UC_PAY02A
+    usecase "Monitor Overtime Budget Caps" as UC_PAY02C
+
+    UC_PAY02 -[hidden]down-> UC_PAY02A
+    UC_PAY02A -[hidden]down-> UC_PAY02C
 }
 
 ' =====================================================
-' SECONDARY ACTORS (RIGHT SIDE)
+' SECONDARY ACTORS (OUTSIDE BOUNDARY - RIGHT SIDE)
 ' =====================================================
 actor "Staff" as EMP
 actor "Payroll Engine" as PAY_ENGINE
 
+EMP -[hidden]down-> PAY_ENGINE
+
 ' =====================================================
-' ACTOR CONNECTIONS
+' NON-OVERLAPPING ACTOR CONNECTIONS
 ' =====================================================
-' Left Actors to Use Cases
 ADMIN --> UC_PAY01
 ADMIN --> UC_PAY01C
 ADMIN --> UC_PAY02A
 
 DIR --> UC_PAY01C
-DIR --> UC_PAY02D
 
-' Use Cases to Right Actors
 UC_PAY01D --> EMP
-
 UC_PAY01A --> PAY_ENGINE
-UC_PAY01B --> PAY_ENGINE
-UC_PAY02B --> PAY_ENGINE
 UC_PAY02C --> PAY_ENGINE
 
 ' =====================================================
@@ -87,13 +90,10 @@ UC_PAY02C --> PAY_ENGINE
 ' =====================================================
 UC_PAY01 ..> UC_PAY01A : <<include>>
 UC_PAY01 ..> UC_PAY01C : <<include>>
-UC_PAY01B ..> UC_PAY01 : <<extend>>
 UC_PAY01D ..> UC_PAY01 : <<extend>>
 
 UC_PAY02 ..> UC_PAY02A : <<include>>
-UC_PAY02B ..> UC_PAY02 : <<extend>>
 UC_PAY02C ..> UC_PAY02 : <<extend>>
-UC_PAY02D ..> UC_PAY02C : <<extend>>
 
-@enduml
+@endl
 ```

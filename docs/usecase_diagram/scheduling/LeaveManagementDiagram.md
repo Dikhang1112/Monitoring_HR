@@ -1,6 +1,6 @@
 # SCHEDULING & TIME-OFF - LEAVE MANAGEMENT USE CASE DIAGRAM
 
-This document contains the **PlantUML** code and diagram for **Managing Time-Off Requests & Approving Multi-Level Leave** within the Scheduling & Time-Off subsystem, formatted for Draw.io (Left Primary Actors | Center Boundary | Right Secondary Actors).
+This document contains the **PlantUML** code and diagram for **Managing Time-Off Requests & Approving Multi-Level Leave** within the Scheduling & Time-Off subsystem, formatted for Draw.io with active verb high-level Use Cases, non-overlapping orthogonal arrows, and external Actors.
 
 ---
 
@@ -13,12 +13,13 @@ skinparam packageStyle rectangle
 skinparam backgroundColor #ffffff
 skinparam shadowing false
 skinparam actorStyle stickman
+skinparam linetype ortho
 
 skinparam usecase {
   BackgroundColor #EFF6FF
   BorderColor #2563EB
-  BorderThickness 1.5
-  FontSize 12
+  BorderThickness 2
+  FontSize 14
   FontStyle bold
   FontName "Segoe UI"
 }
@@ -26,41 +27,44 @@ skinparam usecase {
 skinparam actor {
   BackgroundColor #0F172A
   BorderColor #0284C7
-  FontSize 12
+  FontSize 13
   FontStyle bold
   FontName "Segoe UI"
 }
 
 ' =====================================================
-' PRIMARY ACTORS (LEFT SIDE)
+' PRIMARY ACTORS (OUTSIDE BOUNDARY - LEFT SIDE)
 ' =====================================================
 actor "Staff" as EMP
 
 ' =====================================================
-' SYSTEM BOUNDARY & USE CASES (CENTER)
+' SYSTEM BOUNDARY & ALIGNED USE CASES (CENTER)
 ' =====================================================
-rectangle "HR Management Platform - Leave Management Subsystem" {
+rectangle "HR Management Platform - Leave Management" {
     
-    usecase "(UC-SCHED-02)\nManage Time-off & Leave Requests" as UC_SCHED02
-    usecase "(UC-SCHED-02a)\nVerify Available Leave Balances" as UC_SCHED02A
-    usecase "(UC-SCHED-02b)\nAttach Medical Note Documentation" as UC_SCHED02B
-    usecase "(UC-SCHED-02c)\nApprove Multi-level Leave Requests" as UC_SCHED02C
+    usecase "Submit Leave Requests" as UC_SCHED02
+    usecase "Verify Available Leave Quota" as UC_SCHED02A
+    usecase "Approve Multi-level Leave" as UC_SCHED02C
+
+    UC_SCHED02 -[hidden]down-> UC_SCHED02A
+    UC_SCHED02A -[hidden]down-> UC_SCHED02C
 }
 
 ' =====================================================
-' SECONDARY ACTORS (RIGHT SIDE)
+' SECONDARY ACTORS (OUTSIDE BOUNDARY - RIGHT SIDE)
 ' =====================================================
 actor "Manager" as MGR
 actor "Admin-Tenant" as ADMIN
 actor "Leave Service" as LEAVE_SVC
 
+MGR -[hidden]down-> ADMIN
+ADMIN -[hidden]down-> LEAVE_SVC
+
 ' =====================================================
-' ACTOR CONNECTIONS
+' NON-OVERLAPPING ACTOR CONNECTIONS
 ' =====================================================
-' Left Actors to Use Cases
 EMP --> UC_SCHED02
 
-' Use Cases to Right Actors
 UC_SCHED02C --> MGR
 UC_SCHED02C --> ADMIN
 UC_SCHED02A --> LEAVE_SVC
@@ -70,7 +74,6 @@ UC_SCHED02A --> LEAVE_SVC
 ' =====================================================
 UC_SCHED02 ..> UC_SCHED02A : <<include>>
 UC_SCHED02 ..> UC_SCHED02C : <<include>>
-UC_SCHED02B ..> UC_SCHED02 : <<extend>>
 
-@enduml
+@endl
 ```

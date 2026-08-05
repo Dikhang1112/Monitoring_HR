@@ -1,6 +1,6 @@
 # PRODUCTIVITY MONITORING - SCREENSHOT & INPUT ACTIVITY USE CASE DIAGRAM
 
-This document contains the **PlantUML** code and diagram for **Capturing Automated Screenshots & Tracking Input Activity** within the Productivity Monitoring subsystem, formatted for Draw.io (Left Primary Actors | Center Boundary | Right Secondary Actors).
+This document contains the **PlantUML** code and diagram for **Capturing Automated Screenshots & Tracking Input Activity** within the Productivity Monitoring subsystem, formatted for Draw.io with active verb high-level Use Cases, non-overlapping orthogonal arrows, and external Actors.
 
 ---
 
@@ -13,12 +13,13 @@ skinparam packageStyle rectangle
 skinparam backgroundColor #ffffff
 skinparam shadowing false
 skinparam actorStyle stickman
+skinparam linetype ortho
 
 skinparam usecase {
   BackgroundColor #EFF6FF
   BorderColor #2563EB
-  BorderThickness 1.5
-  FontSize 12
+  BorderThickness 2
+  FontSize 14
   FontStyle bold
   FontName "Segoe UI"
 }
@@ -26,60 +27,64 @@ skinparam usecase {
 skinparam actor {
   BackgroundColor #0F172A
   BorderColor #0284C7
-  FontSize 12
+  FontSize 13
   FontStyle bold
   FontName "Segoe UI"
 }
 
 ' =====================================================
-' PRIMARY ACTORS (LEFT SIDE)
+' PRIMARY ACTORS (OUTSIDE BOUNDARY - LEFT SIDE)
 ' =====================================================
 actor "System Service" as SYS_SVC
 actor "Staff" as EMP
 
-' =====================================================
-' SYSTEM BOUNDARY & USE CASES (CENTER)
-' =====================================================
-rectangle "HR Management Platform - Screenshot & Input Activity Subsystem" {
-    
-    ' Screenshot Group
-    usecase "(UC-PROD-01)\nCapture Automated Screenshots" as UC_PROD01
-    usecase "(UC-PROD-01a)\nCapture Multi-Monitor Displays" as UC_PROD01A
-    usecase "(UC-PROD-01b)\nBlur Sensitive Application Windows" as UC_PROD01B
-    usecase "(UC-PROD-01c)\nEncrypt & Upload Screenshot Files" as UC_PROD01C
+SYS_SVC -[hidden]down-> EMP
 
-    ' Input Activity Group
-    usecase "(UC-PROD-02)\nTrack Keystroke & Mouse Input Activity" as UC_PROD02
-    usecase "(UC-PROD-02a)\nCalculate Active vs Idle Session Ratio" as UC_PROD02A
+' =====================================================
+' SYSTEM BOUNDARY & ALIGNED USE CASES (CENTER)
+' =====================================================
+rectangle "HR Management Platform - Screenshots & Input Activity" {
+    
+    ' High-Level Screenshot Monitoring Group
+    usecase "Monitor Screen Activity" as UC_PROD01
+    usecase "Protect Screen Privacy" as UC_PROD01B
+    usecase "Sync Encrypted Screenshots" as UC_PROD01C
+
+    UC_PROD01 -[hidden]down-> UC_PROD01B
+    UC_PROD01B -[hidden]down-> UC_PROD01C
+
+    ' High-Level Input Activity Group
+    usecase "Track Input Activity" as UC_PROD02
+    usecase "Analyze Active Work Ratio" as UC_PROD02A
+
+    UC_PROD02 -[hidden]down-> UC_PROD02A
 }
 
 ' =====================================================
-' SECONDARY ACTORS (RIGHT SIDE)
+' SECONDARY ACTORS (OUTSIDE BOUNDARY - RIGHT SIDE)
 ' =====================================================
 actor "Desktop Agent App" as DESK_APP
 actor "Cloud Storage" as CLOUD
 
+DESK_APP -[hidden]down-> CLOUD
+
 ' =====================================================
-' ACTOR CONNECTIONS
+' NON-OVERLAPPING ACTOR CONNECTIONS
 ' =====================================================
-' Left Actors to Use Cases
 SYS_SVC --> UC_PROD01
 EMP --> UC_PROD02
 
-' Use Cases to Right Actors
-UC_PROD01A --> DESK_APP
-UC_PROD01B --> DESK_APP
+UC_PROD01 --> DESK_APP
 UC_PROD01C --> DESK_APP
 UC_PROD01C --> CLOUD
 
 ' =====================================================
 ' INCLUDE & EXTEND RELATIONSHIPS
 ' =====================================================
-UC_PROD01 ..> UC_PROD01A : <<include>>
 UC_PROD01 ..> UC_PROD01C : <<include>>
-UC_PROD01B ..> UC_PROD01A : <<extend>>
+UC_PROD01B ..> UC_PROD01 : <<extend>>
 
 UC_PROD02 ..> UC_PROD02A : <<include>>
 
-@enduml
+@endl
 ```

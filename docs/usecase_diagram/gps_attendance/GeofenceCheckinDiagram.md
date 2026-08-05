@@ -1,6 +1,6 @@
-# SCHEDULING & TIME-OFF - LEAVE MANAGEMENT USE CASE DIAGRAM
+# GPS ATTENDANCE - GEOFENCED CHECK-IN USE CASE DIAGRAM
 
-This document contains the **PlantUML** code and diagram for **Managing Time-Off Requests & Approving Multi-Level Leave** within the Scheduling & Time-Off subsystem, compatible with Draw.io.
+This document contains the **PlantUML** code and diagram for **Checking In via Geofenced GPS & Configuring Branch Radius** within the GPS Attendance subsystem, compatible with Draw.io.
 
 ---
 
@@ -35,36 +35,35 @@ skinparam actor {
 ' ACTORS
 ' =====================================================
 actor "Staff" as EMP
-actor "Manager" as MGR
 actor "Admin-Tenant" as ADMIN
-actor "Leave Service" as LEAVE_SVC
+actor "Location Service" as LOC_SVC
 
 ' =====================================================
 ' SYSTEM BOUNDARY & USE CASES
 ' =====================================================
-rectangle "HR Management Platform - Leave Management Subsystem" {
+rectangle "HR Management Platform - Geofenced GPS Check-in Subsystem" {
     
-    usecase "(UC-SCHED-02)\nManage Time-off & Leave Requests" as UC_SCHED02
-    usecase "(UC-SCHED-02a)\nVerify Available Leave Balances" as UC_SCHED02A
-    usecase "(UC-SCHED-02b)\nAttach Medical Note Documentation" as UC_SCHED02B
-    usecase "(UC-SCHED-02c)\nApprove Multi-level Leave Requests" as UC_SCHED02C
+    usecase "(UC-GPS-01)\nCheck In via Geofenced GPS" as UC_GPS01
+    usecase "(UC-GPS-01a)\nConfigure Branch Geofence Radius" as UC_GPS01A
+    usecase "(UC-GPS-01b)\nVerify Real-time GPS Location" as UC_GPS01B
+    usecase "(UC-GPS-01c)\nReject Out-of-Bounds Check-ins" as UC_GPS01C
 }
 
 ' =====================================================
 ' ACTOR CONNECTIONS
 ' =====================================================
-EMP --> UC_SCHED02
-MGR --> UC_SCHED02C
-ADMIN --> UC_SCHED02C
+EMP --> UC_GPS01
+ADMIN --> UC_GPS01A
 
-LEAVE_SVC --> UC_SCHED02A
+LOC_SVC --> UC_GPS01B
+LOC_SVC --> UC_GPS01C
 
 ' =====================================================
 ' INCLUDE & EXTEND RELATIONSHIPS
 ' =====================================================
-UC_SCHED02 ..> UC_SCHED02A : <<include>>
-UC_SCHED02 ..> UC_SCHED02C : <<include>>
-UC_SCHED02B ..> UC_SCHED02 : <<extend>>
+UC_GPS01 ..> UC_GPS01B : <<include>>
+UC_GPS01A ..> UC_GPS01 : <<include>>
+UC_GPS01C ..> UC_GPS01B : <<extend>>
 
 @enduml
 ```

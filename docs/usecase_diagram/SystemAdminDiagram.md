@@ -1,6 +1,6 @@
 # HR MANAGEMENT PLATFORM - SYSTEM-ADMIN DETAILED USE CASE DIAGRAM
 
-Tài liệu này chứa mã **PlantUML** và sơ đồ **Use Case Chi tiết cho Actor System-Admin (System-Admin Detailed Use Case Diagram)** của hệ thống HR Management Platform, hoàn toàn đồng bộ mã UC-ID và tên Use Case với [`ListUsecase.md`](file:///d:/Monitoring_HR/docs/usecase_diagram/ListUsecase.md).
+This document contains the **PlantUML** code and diagram for the **System-Admin Detailed Use Case Diagram** of the HR Management Platform, synchronized with [`ListUsecase.md`](file:///d:/Monitoring_HR/docs/usecase_diagram/ListUsecase.md).
 
 ![System-Admin Detailed Use Case Diagram](../images/System-Admin.png)
 
@@ -96,35 +96,35 @@ actor "System Service" as SYS
 MAIL -[hidden]down-> SYS
 
 ' =====================================================
-' PRIMARY ACTOR CONNECTIONS (BÊN TRÁI HƯỚNG SANG PHẢI)
+' PRIMARY ACTOR CONNECTIONS
 ' =====================================================
-SA -right-> UC_PROV
-SA -right-> UC_PLAN
-SA -right-> UC_AUDIT
-SA -right-> UC_API
+SA --> UC_PROV
+SA --> UC_PLAN
+SA --> UC_AUDIT
+SA --> UC_API
 
 ' =====================================================
-' SECONDARY ACTOR CONNECTIONS (BÊN PHẢI HƯỚNG SANG TRÁI)
+' SECONDARY ACTOR CONNECTIONS
 ' =====================================================
-UC_EMAIL <-left- MAIL
-UC_PAY <-left- SYS
-UC_VAL <-left- SYS
+UC_EMAIL --> MAIL
+UC_PAY --> SYS
+UC_VAL --> SYS
 
 ' =====================================================
-' INCLUDE RELATIONSHIPS (CHỮ NẰM NGANG VUÔNG GÓC)
+' INCLUDE RELATIONSHIPS
 ' =====================================================
-UC_PROV .down.> UC_QUOTA : <<include>>
-UC_PROV .right.> UC_EMAIL : <<include>>
-UC_PLAN .down.> UC_PAY : <<include>>
-UC_AUDIT .down.> UC_FILT : <<include>>
-UC_API .down.> UC_VAL : <<include>>
+UC_PROV ..> UC_QUOTA : <<include>>
+UC_PROV ..> UC_EMAIL : <<include>>
+UC_PLAN ..> UC_PAY : <<include>>
+UC_AUDIT ..> UC_FILT : <<include>>
+UC_API ..> UC_VAL : <<include>>
 
 ' =====================================================
-' EXTEND RELATIONSHIPS (CHỮ NẰM NGANG VUÔNG GÓC)
+' EXTEND RELATIONSHIPS
 ' =====================================================
-UC_SUSP .up.> UC_PROV : <<extend>>
-UC_UPG .up.> UC_PLAN : <<extend>>
-UC_EXP .up.> UC_AUDIT : <<extend>>
+UC_SUSP ..> UC_PROV : <<extend>>
+UC_UPG ..> UC_PLAN : <<extend>>
+UC_EXP ..> UC_AUDIT : <<extend>>
 
 @enduml
 ```

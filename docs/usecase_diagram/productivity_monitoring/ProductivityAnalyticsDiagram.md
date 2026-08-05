@@ -1,6 +1,6 @@
-# SCHEDULING & TIME-OFF - LEAVE MANAGEMENT USE CASE DIAGRAM
+# PRODUCTIVITY MONITORING - SCORES & ANOMALY ALERTS USE CASE DIAGRAM
 
-This document contains the **PlantUML** code and diagram for **Managing Time-Off Requests & Approving Multi-Level Leave** within the Scheduling & Time-Off subsystem, compatible with Draw.io.
+This document contains the **PlantUML** code and diagram for **Calculating Team Activity Scores & Triggering Anomaly Alerts** within the Productivity Monitoring subsystem, compatible with Draw.io.
 
 ---
 
@@ -34,37 +34,39 @@ skinparam actor {
 ' =====================================================
 ' ACTORS
 ' =====================================================
-actor "Staff" as EMP
 actor "Manager" as MGR
-actor "Admin-Tenant" as ADMIN
-actor "Leave Service" as LEAVE_SVC
+actor "Director" as DIR
+actor "Productivity AI Engine" as AI_ENGINE
 
 ' =====================================================
 ' SYSTEM BOUNDARY & USE CASES
 ' =====================================================
-rectangle "HR Management Platform - Leave Management Subsystem" {
+rectangle "HR Management Platform - Productivity Analytics & Anomaly Subsystem" {
     
-    usecase "(UC-SCHED-02)\nManage Time-off & Leave Requests" as UC_SCHED02
-    usecase "(UC-SCHED-02a)\nVerify Available Leave Balances" as UC_SCHED02A
-    usecase "(UC-SCHED-02b)\nAttach Medical Note Documentation" as UC_SCHED02B
-    usecase "(UC-SCHED-02c)\nApprove Multi-level Leave Requests" as UC_SCHED02C
+    usecase "(UC-PROD-04)\nCalculate Team Activity Score" as UC_PROD04
+    usecase "(UC-PROD-04a)\nCompute Weighted Score Algorithm" as UC_PROD04A
+    usecase "(UC-PROD-04b)\nTrigger Low Productivity Alerts" as UC_PROD04B
+    usecase "(UC-PROD-02b)\nDetect Anti-Autoclicker Anomaly Activities" as UC_PROD02B
 }
 
 ' =====================================================
 ' ACTOR CONNECTIONS
 ' =====================================================
-EMP --> UC_SCHED02
-MGR --> UC_SCHED02C
-ADMIN --> UC_SCHED02C
+MGR --> UC_PROD04
+DIR --> UC_PROD04
 
-LEAVE_SVC --> UC_SCHED02A
+MGR --> UC_PROD04B
+MGR --> UC_PROD02B
+
+AI_ENGINE --> UC_PROD04A
+AI_ENGINE --> UC_PROD02B
 
 ' =====================================================
 ' INCLUDE & EXTEND RELATIONSHIPS
 ' =====================================================
-UC_SCHED02 ..> UC_SCHED02A : <<include>>
-UC_SCHED02 ..> UC_SCHED02C : <<include>>
-UC_SCHED02B ..> UC_SCHED02 : <<extend>>
+UC_PROD04 ..> UC_PROD04A : <<include>>
+UC_PROD04B ..> UC_PROD04 : <<extend>>
+UC_PROD02B ..> UC_PROD04 : <<extend>>
 
 @enduml
 ```

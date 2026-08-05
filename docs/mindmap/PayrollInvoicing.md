@@ -1,6 +1,6 @@
 # PAYROLL & CLIENT INVOICING - DETAILED FEATURE BREAKDOWN
 
-Tài liệu này bóc tách chi tiết phân hệ **Payroll & Client Invoicing (Tính lương tự động & Xuất hóa đơn Khách hàng)** từ sơ đồ kiến trúc `docs/mindmap/Architecture.md`.
+This document provides a detailed specification breakdown for the **Payroll & Client Invoicing** subsystem based on `docs/mindmap/Architecture.md`.
 
 ---
 
@@ -35,22 +35,22 @@ flowchart LR
 
 ## 2. DETAILED FEATURE SPECIFICATIONS
 
-### 5.1. Automated Salary Calculation (Tính lương tự động)
-* **Cấu hình công thức lương:** Cấu hình mức lương cơ bản (Base Salary), lương đóng bảo hiểm, lương tính theo ngày công chuẩn (22 hoặc 26 ngày) hoặc lương tính theo đơn giá giờ (Hourly Rate).
-* **Tích hợp tự động với Timesheet:** Hệ thống tự động kéo dữ liệu tổng số giờ làm việc thực tế đã được phê duyệt từ phân hệ Time Tracking mà không cần nhập liệu thủ công.
-* **Tự động khấu trừ vi phạm (Deductions):** Tự động áp dụng quy tắc khấu trừ tiền lương đối với số phút đi muộn, về sớm, nghỉ không phép hoặc số giờ idle bị loại bỏ.
-* **Xuất bảng lương & Phiếu lương (Paystub PDF):** Tạo bảng tổng hợp lương hàng tháng cho toàn bộ nhân viên và tự động xuất phiếu lương cá nhân (Paystub) gửi qua email/HR Portal cho từng nhân viên.
+### 5.1. Automated Salary Calculation
+* **Salary Formula Engine:** Configures base salary compensation rules, insured salary brackets, standard work day basis (22 or 26 days), or hourly compensation rates.
+* **Automated Timesheet Integration:** Fetches verified, approved working hours automatically from the Time Tracking subsystem without manual data re-entry.
+* **Automated Violation Deductions:** Automatically applies salary penalty deductions for late arrivals, early departures, unexcused absences, or discarded idle time blocks.
+* **Salary Sheet & Paystub PDF Generation:** Compiles monthly company-wide payroll summary sheets and generates individual password-encrypted PDF paystubs dispatched via email/HR Portal.
 
-### 5.2. Overtime Pay & Allowance Rules (Tính lương tăng ca & Phụ cấp)
-* **Quy tắc hệ số tăng ca (Overtime Multipliers):** Tự động nhân hệ số lương Overtime theo đúng Luật Lao động hoặc chính sách công ty:
-  * *Tăng ca ngày thường:* Hệ số **x1.5** (150%).
-  * *Tăng ca ngày nghỉ hàng tuần (Cuối tuần):* Hệ số **x2.0** (200%).
-  * *Tăng ca ngày Lễ, Tết:* Hệ số **x3.0** (300%).
-* **Cấu hình khoản phụ cấp (Allowances):** Quản lý các khoản phụ cấp cố định hoặc biến đổi (Phụ cấp ăn trưa, phụ cấp xăng xe/đi lại, phụ cấp điện thoại, phụ cấp trách nhiệm).
-* **Cảnh báo trần ngân sách Overtime:** Gửi thông báo cảnh báo đến Director & Manager khi chi phí lương tăng ca của một phòng ban/dự án chạm mức 80% và 100% trần ngân sách cho phép.
+### 5.2. Overtime Pay & Allowance Rules
+* **Overtime Multipliers Setup:** Automatically applies overtime compensation multipliers according to labor compliance laws or organizational policy:
+  * *Weekday Overtime:* **x1.5** multiplier (150%).
+  * *Weekend Overtime:* **x2.0** multiplier (200%).
+  * *Public Holiday Overtime:* **x3.0** multiplier (300%).
+* **Allowance Configuration:** Manages fixed and variable employee allowances (Meal/Lunch, Travel/Transit, Mobile Phone, Role-based responsibility allowance).
+* **Overtime Budget Cap Monitoring:** Dispatches warning notifications to C-Level Directors and Managers when department overtime expenditure reaches 80% and 100% of allocated budget caps.
 
-### 5.3. Client Invoicing & Billable Hours (Xuất hóa đơn Khách hàng & Giờ tính phí)
-* **Phê duyệt giờ tính phí (Billable Hours Approval):** Nhân viên gán nhãn giờ làm việc cho dự án khách hàng. Manager và Client rà soát, phê duyệt tổng số giờ Billable Hours hợp lệ theo tuần/tháng.
-* **Đơn giá tính phí theo Dự án/Vai trò (Billing Rates):** Cấu hình đơn giá tính phí theo giờ (Hourly Rate) áp dụng cho từng dự án hoặc từng vai trò nhân sự (ví dụ: Senior Dev $40/h, UI Designer $30/h).
-* **Xuất hóa đơn dịch vụ tự động (Client Invoice Generation):** Tự động nhân số giờ Billable Hours đã duyệt với đơn giá Billing Rate để tạo ra hóa đơn dịch vụ hoàn chỉnh (bao gồm Subtotal, Thuế VAT, Chiết khấu và Tổng tiền thanh toán).
-* **Cổng thông tin Khách hàng (Client Portal):** Khách hàng đăng nhập Client Portal để xem bảng kê chi tiết giờ làm (Time Log), xem và bấm duyệt hóa đơn, hoặc tải tệp hóa đơn PDF chính thức.
+### 5.3. Client Invoicing & Billable Hours
+* **Billable Hours Approval Workflow:** Tagged work hours on client projects are reviewed and approved by Managers and Clients on a weekly/monthly basis.
+* **Hourly Billing Rates per Project/Role:** Configures hourly billing rate cards per project or role tier (e.g., Senior Engineer $40/h, UI/UX Designer $30/h).
+* **Automated Client Invoice Generation:** Multiplies verified billable hours by billing rate cards to compile itemized invoice statements (Subtotal, VAT, Discounts, Grand Total).
+* **Client Portal Access:** Allows external clients to log into the dedicated Client Portal to review time log breakdowns, approve invoices, and download official PDF invoice statements.

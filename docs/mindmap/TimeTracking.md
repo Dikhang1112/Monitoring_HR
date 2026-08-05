@@ -1,6 +1,6 @@
 # TIME TRACKING & GPS ATTENDANCE - DETAILED FEATURE BREAKDOWN
 
-Tài liệu này bóc tách chi tiết phân hệ **Time Tracking & GPS Attendance (Theo dõi Thời gian & Chấm công)** từ sơ đồ kiến trúc `docs/mindmap/Architecture.md`.
+This document provides a detailed specification breakdown for the **Time Tracking & GPS Attendance** subsystem based on `docs/mindmap/Architecture.md`.
 
 ---
 
@@ -13,13 +13,13 @@ flowchart LR
     %% Branch 1: Desktop App Timer
     ROOT --> DESK["2.1. Desktop App Timer"]
     DESK --> D1["Real-time Start / Pause / Stop Timer Button"]
-    DESK --> D2["Active Project & Task Selection (Gán dự án & công việc)"]
+    DESK --> D2["Active Project & Task Selection"]
     DESK --> D3["System Tray Integration & Quick Hotkeys"]
     DESK --> D4["Offline Time Buffering & Sync when Reconnected"]
 
     %% Branch 2: Mobile App Timer
     ROOT --> MOB["2.2. Mobile App Timer"]
-    MOB --> M1["Mobile Clock In / Out (Chấm công trên Smartphone)"]
+    MOB --> M1["Mobile Clock In / Out (Smartphone Attendance)"]
     MOB --> M2["Touch Task Switcher & Work Notes"]
     MOB --> M3["Background Location & App Heartbeat Status"]
 
@@ -42,27 +42,27 @@ flowchart LR
 
 ## 2. DETAILED FEATURE SPECIFICATIONS
 
-### 2.1. Desktop App Timer (Bộ đếm thời gian trên Desktop)
-* **Nút bấm đếm giờ thời gian thực:** Bật (Start), Tạm dừng (Pause), và Kết thúc (Stop) ca làm việc trực tiếp trên phần mềm Desktop (Windows / macOS / Linux).
-* **Gán Dự án & Công việc (Project & Task Selector):** Bắt buộc nhân viên chọn đúng Dự án (Project) và Tác vụ (Task) trước khi bấm đếm giờ để lưu vết Timesheet.
-* **Chạy ngầm & Phím tắt:** Thu nhỏ dưới thanh System Tray, hỗ trợ tổ hợp phím tắt nhanh (`Ctrl + Shift + S` để Start/Stop).
-* **Đệm dữ liệu Offline (Offline Buffering):** Khi mất kết nối Internet, ứng dụng tự động lưu vết đếm giờ mã hóa vào bộ nhớ đệm cục bộ và tự động đồng bộ (Sync) lên Server ngay khi có mạng trở lại.
+### 2.1. Desktop App Timer
+* **Real-time Work Timer Controls:** Start, Pause, and Stop work session timers directly on desktop applications (Windows / macOS / Linux).
+* **Project & Task Selection:** Requires employees to select designated projects and active work items before initiating timer sessions for accurate timesheet logging.
+* **System Tray & Quick Hotkeys:** Minimizes to the System Tray with configurable global hotkeys (`Ctrl + Shift + S` to Start/Stop).
+* **Offline Time Buffering:** Stores encrypted work logs locally during network outages and automatically synchronizes with cloud servers upon reconnection.
 
-### 2.2. Mobile App Timer (Bộ đếm thời gian trên Mobile)
-* **Chấm công trên Smartphone:** Dành cho nhân viên làm việc từ xa, làm việc thị trường hoặc làm tại các công trình chi nhánh.
-* **Chuyển đổi tác vụ cảm ứng:** Giao diện đơn giản cho phép chọn công việc, ghi chú ngắn (Work Notes) và đính kèm hình ảnh thực địa.
-* **Trạng thái chạy ngầm (App Heartbeat):** Gửi tín hiệu nhịp tim (Heartbeat) định kỳ về máy chủ để xác nhận ứng dụng vẫn đang chạy trong ca làm việc.
+### 2.2. Mobile App Timer
+* **Smartphone Attendance:** Enables mobile check-in/out for remote staff, field technicians, and branch office workers.
+* **Touch Task Switcher & Notes:** Simple mobile interface to toggle active tasks, enter work notes, and attach field activity photos.
+* **Background App Heartbeat:** Transmits periodic heartbeat pings to verify active mobile app sessions during work shifts.
 
-### 2.3. Geofenced GPS Attendance (Chấm công định vị GPS)
-* **Cấu hình ranh giới GPS (Geofence Zones):** Quản trị viên thiết lập tọa độ địa lý (Vĩ độ/Kinh độ) và bán kính cho phép (ví dụ: 100m) xung quanh các trụ sở, chi nhánh hoặc công trình.
-* **Xác thực vị trí khi Chấm công:** Khi nhân viên bấm Clock In/Out trên Mobile App, hệ thống tự động đối chiếu tọa độ GPS thực tế của thiết bị với bán kính Geofence. Nếu nằm ngoài bán kính, hệ thống ngăn chặn chấm công và phát báo lỗi.
-* **Theo dõi vị trí Live Map:** Cho phép Manager xem vị trí hiện tại của các nhân viên dịch vụ thị trường trên bản đồ thời gian thực.
-* **Nhật ký Lộ trình (Route History Log):** Lưu trữ lịch sử di chuyển và bản đồ lộ trình của nhân viên trong suốt ca trực.
+### 2.3. Geofenced GPS Attendance
+* **Geofence Zone Setup:** Administrators configure geographical coordinates (Latitude/Longitude) and allowed perimeter radii (e.g., 100m) around office branches or project sites.
+* **Real-time GPS Verification:** Verifies device GPS position against the geofence perimeter using the Haversine algorithm upon Clock In/Out. Out-of-bounds check-ins are rejected.
+* **Live Map Location Tracking:** Displays real-time positions of active field service staff on an interactive live map.
+* **Shift Route History Log:** Logs chronological movement coordinates and route maps during active field shifts.
 
-### 2.4. Idle Detection & Manual Timesheet (Phát hiện Idle & Timesheet Thủ công)
-* **Cấu hình ngưỡng không tương tác (Idle Thresholds):** Đặt khoảng thời gian không gõ phím hoặc di chuyển chuột (ví dụ: 10 phút) để kích hoạt trạng thái tạm dừng.
-* **Popup Cảnh báo Inactive:** Hiển thị cửa sổ bật lên khi phát hiện nhân viên rời màn hình: *"Bạn đã không hoạt động trong 10 phút. Bạn muốn giữ hay xóa khoảng thời gian này?"*.
-* **Xử lý thời gian Idle:**
-  * **Giữ thời gian (Keep Idle Time):** Tính khoảng thời gian đó vào giờ làm việc (nếu là trao đổi công việc trực tiếp).
-  * **Xóa thời gian (Discard Idle Time):** Tự động trừ thời gian rảnh rỗi khỏi Timesheet.
-* **Duyệt Timesheet Thủ công (Manual Timesheet Submission):** Trường hợp quên bật đếm giờ hoặc làm việc offline, nhân viên gửi đơn giải trình kèm số giờ làm việc để Manager duyệt bổ sung.
+### 2.4. Idle Detection & Manual Timesheet
+* **Inactivity Threshold Setup:** Configures keyboard and mouse inactivity thresholds (e.g., 10 minutes) to trigger idle state detection.
+* **Idle Warning Popup:** Prompts interactive user dialog upon detecting idle state: *"You have been inactive for 10 minutes. Keep or discard this time block?"*.
+* **Idle Time Handling:**
+  * **Keep Idle Time:** Retains inactive time in timesheets for approved offline discussions.
+  * **Discard Idle Time:** Automatically deducts idle duration from recorded work hours.
+* **Manual Timesheet Submissions:** Allows staff to submit manual time adjustments with justifications for supervisor approval when timer toggles are missed.

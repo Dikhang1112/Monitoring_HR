@@ -1,6 +1,6 @@
-# SCHEDULING & TIME-OFF - LEAVE MANAGEMENT USE CASE DIAGRAM
+# PEOPLE MANAGEMENT - LIFECYCLE & RBAC USE CASE DIAGRAM
 
-This document contains the **PlantUML** code and diagram for **Managing Time-Off Requests & Approving Multi-Level Leave** within the Scheduling & Time-Off subsystem, compatible with Draw.io.
+This document contains the **PlantUML** code and diagram for **Executing Onboarding/Offboarding Workflows & Managing RBAC Roles** within the People Management subsystem, compatible with Draw.io.
 
 ---
 
@@ -34,37 +34,46 @@ skinparam actor {
 ' =====================================================
 ' ACTORS
 ' =====================================================
-actor "Staff" as EMP
-actor "Manager" as MGR
 actor "Admin-Tenant" as ADMIN
-actor "Leave Service" as LEAVE_SVC
+actor "System-Admin" as SYSADMIN
+actor "Manager" as MGR
+actor "Staff" as EMP
 
 ' =====================================================
 ' SYSTEM BOUNDARY & USE CASES
 ' =====================================================
-rectangle "HR Management Platform - Leave Management Subsystem" {
+rectangle "HR Management Platform - Lifecycle & RBAC Subsystem" {
     
-    usecase "(UC-SCHED-02)\nManage Time-off & Leave Requests" as UC_SCHED02
-    usecase "(UC-SCHED-02a)\nVerify Available Leave Balances" as UC_SCHED02A
-    usecase "(UC-SCHED-02b)\nAttach Medical Note Documentation" as UC_SCHED02B
-    usecase "(UC-SCHED-02c)\nApprove Multi-level Leave Requests" as UC_SCHED02C
+    ' Onboarding & Offboarding
+    usecase "(UC-PPL-03)\nExecute Onboarding Workflow" as UC_PPL03
+    usecase "(UC-PPL-03a)\nTrack Hardware Asset Handover" as UC_PPL03A
+    usecase "(UC-PPL-03b)\nProcess Offboarding & Archive Accounts" as UC_PPL03B
+
+    ' RBAC Roles & Permissions
+    usecase "(UC-PPL-04)\nManage Roles & Permissions (RBAC)" as UC_PPL04
+    usecase "(UC-PPL-04a)\nCreate Custom Role Groups" as UC_PPL04A
 }
 
 ' =====================================================
 ' ACTOR CONNECTIONS
 ' =====================================================
-EMP --> UC_SCHED02
-MGR --> UC_SCHED02C
-ADMIN --> UC_SCHED02C
+ADMIN --> UC_PPL03
+ADMIN --> UC_PPL04
 
-LEAVE_SVC --> UC_SCHED02A
+SYSADMIN --> UC_PPL04
+
+MGR --> UC_PPL03
+MGR --> UC_PPL03B
+
+EMP --> UC_PPL03A
 
 ' =====================================================
 ' INCLUDE & EXTEND RELATIONSHIPS
 ' =====================================================
-UC_SCHED02 ..> UC_SCHED02A : <<include>>
-UC_SCHED02 ..> UC_SCHED02C : <<include>>
-UC_SCHED02B ..> UC_SCHED02 : <<extend>>
+UC_PPL03 ..> UC_PPL03A : <<include>>
+UC_PPL03 ..> UC_PPL03B : <<include>>
+
+UC_PPL04A ..> UC_PPL04 : <<extend>>
 
 @enduml
 ```

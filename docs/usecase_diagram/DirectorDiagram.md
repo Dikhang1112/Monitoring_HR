@@ -1,6 +1,6 @@
 # HR MANAGEMENT PLATFORM - DIRECTOR DETAILED USE CASE DIAGRAM
 
-Tài liệu này chứa mã **PlantUML** và sơ đồ **Use Case Chi tiết cho Actor Director (Executive C-Level Detailed Use Case Diagram)** của hệ thống HR Management Platform.
+This document contains the **PlantUML** code and diagram for the **Executive C-Level Detailed Use Case Diagram** of the HR Management Platform.
 
 ---
 
@@ -87,30 +87,30 @@ MGR -[hidden]down-> AI
 ' =====================================================
 ' PRIMARY ACTOR CONNECTIONS
 ' =====================================================
-DIR -right-> UC_DASH
-DIR -right-> UC_AI
-DIR -right-> UC_OTCAP
-DIR -right-> UC_FINREP
+DIR --> UC_DASH
+DIR --> UC_AI
+DIR --> UC_OTCAP
+DIR --> UC_FINREP
 
 ' =====================================================
 ' SECONDARY ACTOR CONNECTIONS
 ' =====================================================
-UC_OTCAP <-left- MGR
-UC_AI <-left- AI
+UC_OTCAP --> MGR
+UC_AI --> AI
 
 ' =====================================================
-' INCLUDE RELATIONSHIPS (VUÔNG GÓC HƯỚNG XUỐNG)
+' INCLUDE RELATIONSHIPS
 ' =====================================================
-UC_DASH .down.> UC_KPI : <<include>>
-UC_AI .down.> UC_BURN : <<include>>
-UC_OTCAP .down.> UC_CAP : <<include>>
+UC_DASH ..> UC_KPI : <<include>>
+UC_AI ..> UC_BURN : <<include>>
+UC_OTCAP ..> UC_CAP : <<include>>
 
 ' =====================================================
-' EXTEND RELATIONSHIPS (VUÔNG GÓC HƯỚNG LÊN)
+' EXTEND RELATIONSHIPS
 ' =====================================================
-UC_TIPS .up.> UC_AI : <<extend>>
-UC_WARN .up.> UC_OTCAP : <<extend>>
-UC_EXCEL .up.> UC_FINREP : <<extend>>
+UC_TIPS ..> UC_AI : <<extend>>
+UC_WARN ..> UC_OTCAP : <<extend>>
+UC_EXCEL ..> UC_FINREP : <<extend>>
 
 @enduml
 ```

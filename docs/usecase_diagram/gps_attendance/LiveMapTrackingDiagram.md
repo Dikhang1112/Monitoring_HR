@@ -1,6 +1,6 @@
-# SCHEDULING & TIME-OFF - LEAVE MANAGEMENT USE CASE DIAGRAM
+# GPS ATTENDANCE - LIVE MAP & ROUTE TRACKING USE CASE DIAGRAM
 
-This document contains the **PlantUML** code and diagram for **Managing Time-Off Requests & Approving Multi-Level Leave** within the Scheduling & Time-Off subsystem, compatible with Draw.io.
+This document contains the **PlantUML** code and diagram for **Tracking Live Map Locations & Logging Shift Movement Routes** within the GPS Attendance subsystem, compatible with Draw.io.
 
 ---
 
@@ -34,37 +34,39 @@ skinparam actor {
 ' =====================================================
 ' ACTORS
 ' =====================================================
-actor "Staff" as EMP
 actor "Manager" as MGR
-actor "Admin-Tenant" as ADMIN
-actor "Leave Service" as LEAVE_SVC
+actor "Staff" as EMP
+actor "GPS Location Service" as GPS_SVC
 
 ' =====================================================
 ' SYSTEM BOUNDARY & USE CASES
 ' =====================================================
-rectangle "HR Management Platform - Leave Management Subsystem" {
+rectangle "HR Management Platform - Live Map & Route Tracking Subsystem" {
     
-    usecase "(UC-SCHED-02)\nManage Time-off & Leave Requests" as UC_SCHED02
-    usecase "(UC-SCHED-02a)\nVerify Available Leave Balances" as UC_SCHED02A
-    usecase "(UC-SCHED-02b)\nAttach Medical Note Documentation" as UC_SCHED02B
-    usecase "(UC-SCHED-02c)\nApprove Multi-level Leave Requests" as UC_SCHED02C
+    usecase "(UC-GPS-02)\nTrack Live Map Locations" as UC_GPS02
+    usecase "(UC-GPS-02a)\nLog Shift Movement Route History" as UC_GPS02A
+    usecase "(UC-GPS-02b)\nExport Shift Movement Route Log" as UC_GPS02B
+    usecase "(UC-GPS-02c)\nProtect Privacy Outside Shift Bounds" as UC_GPS02C
 }
 
 ' =====================================================
 ' ACTOR CONNECTIONS
 ' =====================================================
-EMP --> UC_SCHED02
-MGR --> UC_SCHED02C
-ADMIN --> UC_SCHED02C
+MGR --> UC_GPS02
+MGR --> UC_GPS02B
 
-LEAVE_SVC --> UC_SCHED02A
+EMP --> UC_GPS02A
+
+GPS_SVC --> UC_GPS02
+GPS_SVC --> UC_GPS02A
+GPS_SVC --> UC_GPS02C
 
 ' =====================================================
 ' INCLUDE & EXTEND RELATIONSHIPS
 ' =====================================================
-UC_SCHED02 ..> UC_SCHED02A : <<include>>
-UC_SCHED02 ..> UC_SCHED02C : <<include>>
-UC_SCHED02B ..> UC_SCHED02 : <<extend>>
+UC_GPS02 ..> UC_GPS02A : <<include>>
+UC_GPS02B ..> UC_GPS02 : <<extend>>
+UC_GPS02C ..> UC_GPS02A : <<extend>>
 
 @enduml
 ```

@@ -1,6 +1,6 @@
-# SCHEDULING & TIME-OFF - LEAVE MANAGEMENT USE CASE DIAGRAM
+# PRODUCTIVITY MONITORING - APP & WEB CLASSIFICATION USE CASE DIAGRAM
 
-This document contains the **PlantUML** code and diagram for **Managing Time-Off Requests & Approving Multi-Level Leave** within the Scheduling & Time-Off subsystem, compatible with Draw.io.
+This document contains the **PlantUML** code and diagram for **Classifying App & Website Productivity & Configuring Department Rules** within the Productivity Monitoring subsystem, compatible with Draw.io.
 
 ---
 
@@ -34,37 +34,38 @@ skinparam actor {
 ' =====================================================
 ' ACTORS
 ' =====================================================
-actor "Staff" as EMP
-actor "Manager" as MGR
 actor "Admin-Tenant" as ADMIN
-actor "Leave Service" as LEAVE_SVC
+actor "Manager" as MGR
+actor "Productivity AI Engine" as AI_ENGINE
 
 ' =====================================================
 ' SYSTEM BOUNDARY & USE CASES
 ' =====================================================
-rectangle "HR Management Platform - Leave Management Subsystem" {
+rectangle "HR Management Platform - App & Web Classification Subsystem" {
     
-    usecase "(UC-SCHED-02)\nManage Time-off & Leave Requests" as UC_SCHED02
-    usecase "(UC-SCHED-02a)\nVerify Available Leave Balances" as UC_SCHED02A
-    usecase "(UC-SCHED-02b)\nAttach Medical Note Documentation" as UC_SCHED02B
-    usecase "(UC-SCHED-02c)\nApprove Multi-level Leave Requests" as UC_SCHED02C
+    usecase "(UC-PROD-03)\nClassify App & Website Productivity" as UC_PROD03
+    usecase "(UC-PROD-03a)\nLabel Productive & Unproductive Domains" as UC_PROD03A
+    usecase "(UC-PROD-03b)\nConfigure Department Rule Overrides" as UC_PROD03B
+    usecase "(UC-PROD-03c)\nGenerate Social Media Usage Alerts" as UC_PROD03C
 }
 
 ' =====================================================
 ' ACTOR CONNECTIONS
 ' =====================================================
-EMP --> UC_SCHED02
-MGR --> UC_SCHED02C
-ADMIN --> UC_SCHED02C
+ADMIN --> UC_PROD03
+ADMIN --> UC_PROD03A
+ADMIN --> UC_PROD03B
 
-LEAVE_SVC --> UC_SCHED02A
+MGR --> UC_PROD03C
+
+AI_ENGINE --> UC_PROD03C
 
 ' =====================================================
 ' INCLUDE & EXTEND RELATIONSHIPS
 ' =====================================================
-UC_SCHED02 ..> UC_SCHED02A : <<include>>
-UC_SCHED02 ..> UC_SCHED02C : <<include>>
-UC_SCHED02B ..> UC_SCHED02 : <<extend>>
+UC_PROD03 ..> UC_PROD03A : <<include>>
+UC_PROD03B ..> UC_PROD03A : <<extend>>
+UC_PROD03C ..> UC_PROD03 : <<extend>>
 
 @enduml
 ```

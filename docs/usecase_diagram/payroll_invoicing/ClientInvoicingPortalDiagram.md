@@ -1,6 +1,6 @@
-# SCHEDULING & TIME-OFF - LEAVE MANAGEMENT USE CASE DIAGRAM
+# PAYROLL & CLIENT INVOICING - CLIENT INVOICING & PORTAL USE CASE DIAGRAM
 
-This document contains the **PlantUML** code and diagram for **Managing Time-Off Requests & Approving Multi-Level Leave** within the Scheduling & Time-Off subsystem, compatible with Draw.io.
+This document contains the **PlantUML** code and diagram for **Approving Client Invoices & Processing Payments via Client Portal** within the Payroll & Client Invoicing subsystem, compatible with Draw.io.
 
 ---
 
@@ -34,37 +34,38 @@ skinparam actor {
 ' =====================================================
 ' ACTORS
 ' =====================================================
-actor "Staff" as EMP
 actor "Manager" as MGR
-actor "Admin-Tenant" as ADMIN
-actor "Leave Service" as LEAVE_SVC
+actor "Client" as CLI
+actor "Billing Engine" as BILL_ENGINE
 
 ' =====================================================
 ' SYSTEM BOUNDARY & USE CASES
 ' =====================================================
-rectangle "HR Management Platform - Leave Management Subsystem" {
+rectangle "HR Management Platform - Client Invoicing & Portal Subsystem" {
     
-    usecase "(UC-SCHED-02)\nManage Time-off & Leave Requests" as UC_SCHED02
-    usecase "(UC-SCHED-02a)\nVerify Available Leave Balances" as UC_SCHED02A
-    usecase "(UC-SCHED-02b)\nAttach Medical Note Documentation" as UC_SCHED02B
-    usecase "(UC-SCHED-02c)\nApprove Multi-level Leave Requests" as UC_SCHED02C
+    usecase "(UC-PAY-03)\nApprove Client Project Invoices" as UC_PAY03
+    usecase "(UC-PAY-03a)\nFilter Project Billable Work Hours" as UC_PAY03A
+    usecase "(UC-PAY-03b)\nApply Hourly Billing Rate Cards" as UC_PAY03B
+    usecase "(UC-PAY-03c)\nPay Client Invoices via Client Portal" as UC_PAY03C
 }
 
 ' =====================================================
 ' ACTOR CONNECTIONS
 ' =====================================================
-EMP --> UC_SCHED02
-MGR --> UC_SCHED02C
-ADMIN --> UC_SCHED02C
+MGR --> UC_PAY03
+MGR --> UC_PAY03A
 
-LEAVE_SVC --> UC_SCHED02A
+CLI --> UC_PAY03C
+
+BILL_ENGINE --> UC_PAY03B
+BILL_ENGINE --> UC_PAY03C
 
 ' =====================================================
 ' INCLUDE & EXTEND RELATIONSHIPS
 ' =====================================================
-UC_SCHED02 ..> UC_SCHED02A : <<include>>
-UC_SCHED02 ..> UC_SCHED02C : <<include>>
-UC_SCHED02B ..> UC_SCHED02 : <<extend>>
+UC_PAY03 ..> UC_PAY03A : <<include>>
+UC_PAY03 ..> UC_PAY03B : <<include>>
+UC_PAY03C ..> UC_PAY03 : <<extend>>
 
 @enduml
 ```

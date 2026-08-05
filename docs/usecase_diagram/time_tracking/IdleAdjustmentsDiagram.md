@@ -1,6 +1,6 @@
-# SCHEDULING & TIME-OFF - LEAVE MANAGEMENT USE CASE DIAGRAM
+# TIME TRACKING - IDLE DETECTION & MANUAL TIMESHEETS USE CASE DIAGRAM
 
-This document contains the **PlantUML** code and diagram for **Managing Time-Off Requests & Approving Multi-Level Leave** within the Scheduling & Time-Off subsystem, compatible with Draw.io.
+This document contains the **PlantUML** code and diagram for **Detecting Inactivity & Approving Manual Timesheets** within the Time Tracking subsystem, compatible with Draw.io.
 
 ---
 
@@ -36,35 +36,34 @@ skinparam actor {
 ' =====================================================
 actor "Staff" as EMP
 actor "Manager" as MGR
-actor "Admin-Tenant" as ADMIN
-actor "Leave Service" as LEAVE_SVC
+actor "Desktop Agent Service" as DESK_SVC
 
 ' =====================================================
 ' SYSTEM BOUNDARY & USE CASES
 ' =====================================================
-rectangle "HR Management Platform - Leave Management Subsystem" {
+rectangle "HR Management Platform - Idle & Manual Timesheet Subsystem" {
     
-    usecase "(UC-SCHED-02)\nManage Time-off & Leave Requests" as UC_SCHED02
-    usecase "(UC-SCHED-02a)\nVerify Available Leave Balances" as UC_SCHED02A
-    usecase "(UC-SCHED-02b)\nAttach Medical Note Documentation" as UC_SCHED02B
-    usecase "(UC-SCHED-02c)\nApprove Multi-level Leave Requests" as UC_SCHED02C
+    usecase "(UC-TIME-03)\nDetect Inactivity & Idle State" as UC_TIME03
+    usecase "(UC-TIME-03a)\nPrompt Idle Warning Popup" as UC_TIME03A
+    usecase "(UC-TIME-03b)\nApprove Manual Timesheets" as UC_TIME03B
 }
 
 ' =====================================================
 ' ACTOR CONNECTIONS
 ' =====================================================
-EMP --> UC_SCHED02
-MGR --> UC_SCHED02C
-ADMIN --> UC_SCHED02C
+EMP --> UC_TIME03
+EMP --> UC_TIME03B
 
-LEAVE_SVC --> UC_SCHED02A
+MGR --> UC_TIME03B
+
+DESK_SVC --> UC_TIME03
+DESK_SVC --> UC_TIME03A
 
 ' =====================================================
 ' INCLUDE & EXTEND RELATIONSHIPS
 ' =====================================================
-UC_SCHED02 ..> UC_SCHED02A : <<include>>
-UC_SCHED02 ..> UC_SCHED02C : <<include>>
-UC_SCHED02B ..> UC_SCHED02 : <<extend>>
+UC_TIME03 ..> UC_TIME03A : <<include>>
+UC_TIME03B ..> UC_TIME03 : <<extend>>
 
 @enduml
 ```

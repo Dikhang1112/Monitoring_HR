@@ -1,6 +1,6 @@
 # HR MANAGEMENT PLATFORM - CLIENT DETAILED USE CASE DIAGRAM
 
-Tài liệu này chứa mã **PlantUML** và sơ đồ **Use Case Chi tiết cho Actor Client (External Client Detailed Use Case Diagram)** của hệ thống HR Management Platform.
+This document contains the **PlantUML** code and diagram for the **External Client Detailed Use Case Diagram** of the HR Management Platform.
 
 ---
 
@@ -84,28 +84,28 @@ MGR -[hidden]down-> BILL
 ' =====================================================
 ' PRIMARY ACTOR CONNECTIONS
 ' =====================================================
-CLI -right-> UC_PORTAL
-CLI -right-> UC_BILL
-CLI -right-> UC_INV
+CLI --> UC_PORTAL
+CLI --> UC_BILL
+CLI --> UC_INV
 
 ' =====================================================
 ' SECONDARY ACTOR CONNECTIONS
 ' =====================================================
-UC_PORTAL <-left- MGR
-UC_BILL <-left- MGR
-UC_INV <-left- BILL
+UC_PORTAL --> MGR
+UC_BILL --> MGR
+UC_INV --> BILL
 
 ' =====================================================
-' INCLUDE RELATIONSHIPS (VUÔNG GÓC HƯỚNG XUỐNG)
+' INCLUDE RELATIONSHIPS
 ' =====================================================
-UC_PORTAL .down.> UC_KANBAN : <<include>>
-UC_PORTAL .down.> UC_SEC : <<include>>
-UC_BILL .down.> UC_LINE : <<include>>
+UC_PORTAL ..> UC_KANBAN : <<include>>
+UC_PORTAL ..> UC_SEC : <<include>>
+UC_BILL ..> UC_LINE : <<include>>
 
 ' =====================================================
-' EXTEND RELATIONSHIPS (VUÔNG GÓC HƯỚNG LÊN)
+' EXTEND RELATIONSHIPS
 ' =====================================================
-UC_PDF .up.> UC_INV : <<extend>>
+UC_PDF ..> UC_INV : <<extend>>
 
 @enduml
 ```

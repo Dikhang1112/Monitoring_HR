@@ -1,6 +1,6 @@
 # SCHEDULING & TIME-OFF - SHIFT PLANNING & RULES USE CASE DIAGRAM
 
-This document contains the **PlantUML** code and diagram for **Planning Weekly Work Shifts & Reconciling Attendance Rules** within the Scheduling & Time-Off subsystem, compatible with Draw.io.
+This document contains the **PlantUML** code and diagram for **Planning Weekly Work Shifts & Reconciling Attendance Rules** within the Scheduling & Time-Off subsystem, formatted for Draw.io (Left Primary Actors | Center Boundary | Right Secondary Actors).
 
 ---
 
@@ -32,15 +32,14 @@ skinparam actor {
 }
 
 ' =====================================================
-' ACTORS
+' PRIMARY ACTORS (LEFT SIDE)
 ' =====================================================
 actor "Manager" as MGR
 actor "Staff" as EMP
 actor "Admin-Tenant" as ADMIN
-actor "Scheduling Engine" as SCHED_ENGINE
 
 ' =====================================================
-' SYSTEM BOUNDARY & USE CASES
+' SYSTEM BOUNDARY & USE CASES (CENTER)
 ' =====================================================
 rectangle "HR Management Platform - Shift Planning & Rules Subsystem" {
     
@@ -58,16 +57,23 @@ rectangle "HR Management Platform - Shift Planning & Rules Subsystem" {
 }
 
 ' =====================================================
+' SECONDARY ACTORS (RIGHT SIDE)
+' =====================================================
+actor "Scheduling Engine" as SCHED_ENGINE
+
+' =====================================================
 ' ACTOR CONNECTIONS
 ' =====================================================
+' Left Actors to Use Cases
 MGR --> UC_SCHED01
 EMP --> UC_SCHED01B
 
 ADMIN --> UC_SCHED03A
 
-SCHED_ENGINE --> UC_SCHED01C
-SCHED_ENGINE --> UC_SCHED03B
-SCHED_ENGINE --> UC_SCHED03C
+' Use Cases to Right Actors
+UC_SCHED01C --> SCHED_ENGINE
+UC_SCHED03B --> SCHED_ENGINE
+UC_SCHED03C --> SCHED_ENGINE
 
 ' =====================================================
 ' INCLUDE & EXTEND RELATIONSHIPS

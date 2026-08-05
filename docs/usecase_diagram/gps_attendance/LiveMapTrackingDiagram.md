@@ -1,6 +1,6 @@
 # GPS ATTENDANCE - LIVE MAP & ROUTE TRACKING USE CASE DIAGRAM
 
-This document contains the **PlantUML** code and diagram for **Tracking Live Map Locations & Logging Shift Movement Routes** within the GPS Attendance subsystem, compatible with Draw.io.
+This document contains the **PlantUML** code and diagram for **Tracking Live Map Locations & Logging Shift Movement Routes** within the GPS Attendance subsystem, formatted for Draw.io (Left Primary Actors | Center Boundary | Right Secondary Actors).
 
 ---
 
@@ -32,14 +32,13 @@ skinparam actor {
 }
 
 ' =====================================================
-' ACTORS
+' PRIMARY ACTORS (LEFT SIDE)
 ' =====================================================
 actor "Manager" as MGR
 actor "Staff" as EMP
-actor "GPS Location Service" as GPS_SVC
 
 ' =====================================================
-' SYSTEM BOUNDARY & USE CASES
+' SYSTEM BOUNDARY & USE CASES (CENTER)
 ' =====================================================
 rectangle "HR Management Platform - Live Map & Route Tracking Subsystem" {
     
@@ -50,16 +49,23 @@ rectangle "HR Management Platform - Live Map & Route Tracking Subsystem" {
 }
 
 ' =====================================================
+' SECONDARY ACTORS (RIGHT SIDE)
+' =====================================================
+actor "GPS Location Service" as GPS_SVC
+
+' =====================================================
 ' ACTOR CONNECTIONS
 ' =====================================================
+' Left Actors to Use Cases
 MGR --> UC_GPS02
 MGR --> UC_GPS02B
 
 EMP --> UC_GPS02A
 
-GPS_SVC --> UC_GPS02
-GPS_SVC --> UC_GPS02A
-GPS_SVC --> UC_GPS02C
+' Use Cases to Right Actors
+UC_GPS02 --> GPS_SVC
+UC_GPS02A --> GPS_SVC
+UC_GPS02C --> GPS_SVC
 
 ' =====================================================
 ' INCLUDE & EXTEND RELATIONSHIPS

@@ -1,6 +1,6 @@
 # PAYROLL & CLIENT INVOICING - CLIENT INVOICING & PORTAL USE CASE DIAGRAM
 
-This document contains the **PlantUML** code and diagram for **Approving Client Invoices & Processing Payments via Client Portal** within the Payroll & Client Invoicing subsystem, compatible with Draw.io.
+This document contains the **PlantUML** code and diagram for **Approving Client Invoices & Processing Payments via Client Portal** within the Payroll & Client Invoicing subsystem, formatted for Draw.io (Left Primary Actors | Center Boundary | Right Secondary Actors).
 
 ---
 
@@ -32,14 +32,13 @@ skinparam actor {
 }
 
 ' =====================================================
-' ACTORS
+' PRIMARY ACTORS (LEFT SIDE)
 ' =====================================================
 actor "Manager" as MGR
 actor "Client" as CLI
-actor "Billing Engine" as BILL_ENGINE
 
 ' =====================================================
-' SYSTEM BOUNDARY & USE CASES
+' SYSTEM BOUNDARY & USE CASES (CENTER)
 ' =====================================================
 rectangle "HR Management Platform - Client Invoicing & Portal Subsystem" {
     
@@ -50,15 +49,22 @@ rectangle "HR Management Platform - Client Invoicing & Portal Subsystem" {
 }
 
 ' =====================================================
+' SECONDARY ACTORS (RIGHT SIDE)
+' =====================================================
+actor "Billing Engine" as BILL_ENGINE
+
+' =====================================================
 ' ACTOR CONNECTIONS
 ' =====================================================
+' Left Actors to Use Cases
 MGR --> UC_PAY03
 MGR --> UC_PAY03A
 
 CLI --> UC_PAY03C
 
-BILL_ENGINE --> UC_PAY03B
-BILL_ENGINE --> UC_PAY03C
+' Use Cases to Right Actors
+UC_PAY03B --> BILL_ENGINE
+UC_PAY03C --> BILL_ENGINE
 
 ' =====================================================
 ' INCLUDE & EXTEND RELATIONSHIPS

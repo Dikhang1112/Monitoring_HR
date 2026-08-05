@@ -1,6 +1,6 @@
 # PRODUCTIVITY MONITORING - SCORES & ANOMALY ALERTS USE CASE DIAGRAM
 
-This document contains the **PlantUML** code and diagram for **Calculating Team Activity Scores & Triggering Anomaly Alerts** within the Productivity Monitoring subsystem, compatible with Draw.io.
+This document contains the **PlantUML** code and diagram for **Calculating Team Activity Scores & Triggering Anomaly Alerts** within the Productivity Monitoring subsystem, formatted for Draw.io (Left Primary Actors | Center Boundary | Right Secondary Actors).
 
 ---
 
@@ -32,14 +32,13 @@ skinparam actor {
 }
 
 ' =====================================================
-' ACTORS
+' PRIMARY ACTORS (LEFT SIDE)
 ' =====================================================
 actor "Manager" as MGR
 actor "Director" as DIR
-actor "Productivity AI Engine" as AI_ENGINE
 
 ' =====================================================
-' SYSTEM BOUNDARY & USE CASES
+' SYSTEM BOUNDARY & USE CASES (CENTER)
 ' =====================================================
 rectangle "HR Management Platform - Productivity Analytics & Anomaly Subsystem" {
     
@@ -50,16 +49,23 @@ rectangle "HR Management Platform - Productivity Analytics & Anomaly Subsystem" 
 }
 
 ' =====================================================
+' SECONDARY ACTORS (RIGHT SIDE)
+' =====================================================
+actor "Productivity AI Engine" as AI_ENGINE
+
+' =====================================================
 ' ACTOR CONNECTIONS
 ' =====================================================
+' Left Actors to Use Cases
 MGR --> UC_PROD04
 DIR --> UC_PROD04
 
 MGR --> UC_PROD04B
 MGR --> UC_PROD02B
 
-AI_ENGINE --> UC_PROD04A
-AI_ENGINE --> UC_PROD02B
+' Use Cases to Right Actors
+UC_PROD04A --> AI_ENGINE
+UC_PROD02B --> AI_ENGINE
 
 ' =====================================================
 ' INCLUDE & EXTEND RELATIONSHIPS

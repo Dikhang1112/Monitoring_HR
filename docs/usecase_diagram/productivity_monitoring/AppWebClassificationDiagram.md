@@ -1,6 +1,6 @@
 # PRODUCTIVITY MONITORING - APP & WEB CLASSIFICATION USE CASE DIAGRAM
 
-This document contains the **PlantUML** code and diagram for **Classifying App & Website Productivity & Configuring Department Rules** within the Productivity Monitoring subsystem, compatible with Draw.io.
+This document contains the **PlantUML** code and diagram for **Classifying App & Website Productivity & Configuring Department Rules** within the Productivity Monitoring subsystem, formatted for Draw.io (Left Primary Actors | Center Boundary | Right Secondary Actors).
 
 ---
 
@@ -32,14 +32,13 @@ skinparam actor {
 }
 
 ' =====================================================
-' ACTORS
+' PRIMARY ACTORS (LEFT SIDE)
 ' =====================================================
 actor "Admin-Tenant" as ADMIN
 actor "Manager" as MGR
-actor "Productivity AI Engine" as AI_ENGINE
 
 ' =====================================================
-' SYSTEM BOUNDARY & USE CASES
+' SYSTEM BOUNDARY & USE CASES (CENTER)
 ' =====================================================
 rectangle "HR Management Platform - App & Web Classification Subsystem" {
     
@@ -50,15 +49,22 @@ rectangle "HR Management Platform - App & Web Classification Subsystem" {
 }
 
 ' =====================================================
+' SECONDARY ACTORS (RIGHT SIDE)
+' =====================================================
+actor "Productivity AI Engine" as AI_ENGINE
+
+' =====================================================
 ' ACTOR CONNECTIONS
 ' =====================================================
+' Left Actors to Use Cases
 ADMIN --> UC_PROD03
 ADMIN --> UC_PROD03A
 ADMIN --> UC_PROD03B
 
 MGR --> UC_PROD03C
 
-AI_ENGINE --> UC_PROD03C
+' Use Cases to Right Actors
+UC_PROD03C --> AI_ENGINE
 
 ' =====================================================
 ' INCLUDE & EXTEND RELATIONSHIPS

@@ -1,6 +1,6 @@
 # TIME TRACKING - IDLE DETECTION & MANUAL TIMESHEETS USE CASE DIAGRAM
 
-This document contains the **PlantUML** code and diagram for **Detecting Inactivity & Approving Manual Timesheets** within the Time Tracking subsystem, compatible with Draw.io.
+This document contains the **PlantUML** code and diagram for **Detecting Inactivity & Approving Manual Timesheets** within the Time Tracking subsystem, formatted for Draw.io (Left Primary Actors | Center Boundary | Right Secondary Actors).
 
 ---
 
@@ -32,14 +32,12 @@ skinparam actor {
 }
 
 ' =====================================================
-' ACTORS
+' PRIMARY ACTORS (LEFT SIDE)
 ' =====================================================
 actor "Staff" as EMP
-actor "Manager" as MGR
-actor "Desktop Agent Service" as DESK_SVC
 
 ' =====================================================
-' SYSTEM BOUNDARY & USE CASES
+' SYSTEM BOUNDARY & USE CASES (CENTER)
 ' =====================================================
 rectangle "HR Management Platform - Idle & Manual Timesheet Subsystem" {
     
@@ -49,15 +47,22 @@ rectangle "HR Management Platform - Idle & Manual Timesheet Subsystem" {
 }
 
 ' =====================================================
+' SECONDARY ACTORS (RIGHT SIDE)
+' =====================================================
+actor "Manager" as MGR
+actor "Desktop Agent Service" as DESK_SVC
+
+' =====================================================
 ' ACTOR CONNECTIONS
 ' =====================================================
+' Left Actors to Use Cases
 EMP --> UC_TIME03
 EMP --> UC_TIME03B
 
-MGR --> UC_TIME03B
-
-DESK_SVC --> UC_TIME03
-DESK_SVC --> UC_TIME03A
+' Use Cases to Right Actors
+UC_TIME03B --> MGR
+UC_TIME03 --> DESK_SVC
+UC_TIME03A --> DESK_SVC
 
 ' =====================================================
 ' INCLUDE & EXTEND RELATIONSHIPS

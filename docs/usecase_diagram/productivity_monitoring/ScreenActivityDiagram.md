@@ -1,6 +1,6 @@
 # PRODUCTIVITY MONITORING - SCREENSHOT & INPUT ACTIVITY USE CASE DIAGRAM
 
-This document contains the **PlantUML** code and diagram for **Capturing Automated Screenshots & Tracking Input Activity** within the Productivity Monitoring subsystem, compatible with Draw.io.
+This document contains the **PlantUML** code and diagram for **Capturing Automated Screenshots & Tracking Input Activity** within the Productivity Monitoring subsystem, formatted for Draw.io (Left Primary Actors | Center Boundary | Right Secondary Actors).
 
 ---
 
@@ -32,15 +32,13 @@ skinparam actor {
 }
 
 ' =====================================================
-' ACTORS
+' PRIMARY ACTORS (LEFT SIDE)
 ' =====================================================
 actor "System Service" as SYS_SVC
 actor "Staff" as EMP
-actor "Desktop Agent App" as DESK_APP
-actor "Cloud Storage" as CLOUD
 
 ' =====================================================
-' SYSTEM BOUNDARY & USE CASES
+' SYSTEM BOUNDARY & USE CASES (CENTER)
 ' =====================================================
 rectangle "HR Management Platform - Screenshot & Input Activity Subsystem" {
     
@@ -56,16 +54,23 @@ rectangle "HR Management Platform - Screenshot & Input Activity Subsystem" {
 }
 
 ' =====================================================
+' SECONDARY ACTORS (RIGHT SIDE)
+' =====================================================
+actor "Desktop Agent App" as DESK_APP
+actor "Cloud Storage" as CLOUD
+
+' =====================================================
 ' ACTOR CONNECTIONS
 ' =====================================================
+' Left Actors to Use Cases
 SYS_SVC --> UC_PROD01
 EMP --> UC_PROD02
 
-DESK_APP --> UC_PROD01A
-DESK_APP --> UC_PROD01B
-DESK_APP --> UC_PROD01C
-
-CLOUD --> UC_PROD01C
+' Use Cases to Right Actors
+UC_PROD01A --> DESK_APP
+UC_PROD01B --> DESK_APP
+UC_PROD01C --> DESK_APP
+UC_PROD01C --> CLOUD
 
 ' =====================================================
 ' INCLUDE & EXTEND RELATIONSHIPS

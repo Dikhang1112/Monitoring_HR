@@ -1,6 +1,6 @@
 # PEOPLE MANAGEMENT - EMPLOYEE PROFILES & ORG STRUCTURE USE CASE DIAGRAM
 
-This document contains the **PlantUML** code and diagram for **Managing Employee Profiles & Setting Up Organizational Structure** within the People Management subsystem, compatible with Draw.io.
+This document contains the **PlantUML** code and diagram for **Managing Employee Profiles & Setting Up Organizational Structure** within the People Management subsystem, formatted for Draw.io (Left Primary Actors | Center Boundary | Right Secondary Actors).
 
 ---
 
@@ -32,14 +32,13 @@ skinparam actor {
 }
 
 ' =====================================================
-' PRIMARY ACTORS
+' PRIMARY ACTORS (LEFT SIDE)
 ' =====================================================
 actor "Admin-Tenant" as ADMIN
 actor "Manager" as MGR
-actor "Staff" as EMP
 
 ' =====================================================
-' SYSTEM BOUNDARY & USE CASES
+' SYSTEM BOUNDARY & USE CASES (CENTER)
 ' =====================================================
 rectangle "HR Management Platform - People Management (Profiles & Org)" {
     
@@ -56,15 +55,22 @@ rectangle "HR Management Platform - People Management (Profiles & Org)" {
 }
 
 ' =====================================================
+' SECONDARY ACTORS (RIGHT SIDE)
+' =====================================================
+actor "Staff" as EMP
+
+' =====================================================
 ' ACTOR CONNECTIONS
 ' =====================================================
+' Left Actors to Use Cases
 ADMIN --> UC_PPL01
 ADMIN --> UC_PPL02
 
 MGR --> UC_PPL01
 MGR --> UC_PPL02
 
-EMP --> UC_PPL01C
+' Use Cases to Right Actor
+UC_PPL01C --> EMP
 
 ' =====================================================
 ' INCLUDE & EXTEND RELATIONSHIPS

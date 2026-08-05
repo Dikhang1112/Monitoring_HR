@@ -1,6 +1,6 @@
 # PEOPLE MANAGEMENT - LIFECYCLE & RBAC USE CASE DIAGRAM
 
-This document contains the **PlantUML** code and diagram for **Executing Onboarding/Offboarding Workflows & Managing RBAC Roles** within the People Management subsystem, compatible with Draw.io.
+This document contains the **PlantUML** code and diagram for **Executing Onboarding/Offboarding Workflows & Managing RBAC Roles** within the People Management subsystem, formatted for Draw.io (Left Primary Actors | Center Boundary | Right Secondary Actors).
 
 ---
 
@@ -32,15 +32,13 @@ skinparam actor {
 }
 
 ' =====================================================
-' ACTORS
+' PRIMARY ACTORS (LEFT SIDE)
 ' =====================================================
 actor "Admin-Tenant" as ADMIN
 actor "System-Admin" as SYSADMIN
-actor "Manager" as MGR
-actor "Staff" as EMP
 
 ' =====================================================
-' SYSTEM BOUNDARY & USE CASES
+' SYSTEM BOUNDARY & USE CASES (CENTER)
 ' =====================================================
 rectangle "HR Management Platform - Lifecycle & RBAC Subsystem" {
     
@@ -55,17 +53,24 @@ rectangle "HR Management Platform - Lifecycle & RBAC Subsystem" {
 }
 
 ' =====================================================
+' SECONDARY ACTORS (RIGHT SIDE)
+' =====================================================
+actor "Manager" as MGR
+actor "Staff" as EMP
+
+' =====================================================
 ' ACTOR CONNECTIONS
 ' =====================================================
+' Left Actors to Use Cases
 ADMIN --> UC_PPL03
 ADMIN --> UC_PPL04
 
 SYSADMIN --> UC_PPL04
 
-MGR --> UC_PPL03
-MGR --> UC_PPL03B
-
-EMP --> UC_PPL03A
+' Use Cases to Right Actors
+UC_PPL03 --> MGR
+UC_PPL03B --> MGR
+UC_PPL03A --> EMP
 
 ' =====================================================
 ' INCLUDE & EXTEND RELATIONSHIPS

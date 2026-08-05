@@ -1,6 +1,6 @@
 # PAYROLL & CLIENT INVOICING - AUTOMATED PAYROLL USE CASE DIAGRAM
 
-This document contains the **PlantUML** code and diagram for **Calculating Automated Monthly Salaries & Managing Overtime Rules** within the Payroll & Client Invoicing subsystem, compatible with Draw.io.
+This document contains the **PlantUML** code and diagram for **Calculating Automated Monthly Salaries & Managing Overtime Rules** within the Payroll & Client Invoicing subsystem, formatted for Draw.io (Left Primary Actors | Center Boundary | Right Secondary Actors).
 
 ---
 
@@ -32,15 +32,13 @@ skinparam actor {
 }
 
 ' =====================================================
-' ACTORS
+' PRIMARY ACTORS (LEFT SIDE)
 ' =====================================================
 actor "Admin-Tenant" as ADMIN
 actor "Director" as DIR
-actor "Staff" as EMP
-actor "Payroll Engine" as PAY_ENGINE
 
 ' =====================================================
-' SYSTEM BOUNDARY & USE CASES
+' SYSTEM BOUNDARY & USE CASES (CENTER)
 ' =====================================================
 rectangle "HR Management Platform - Automated Payroll & Overtime Subsystem" {
     
@@ -60,8 +58,15 @@ rectangle "HR Management Platform - Automated Payroll & Overtime Subsystem" {
 }
 
 ' =====================================================
+' SECONDARY ACTORS (RIGHT SIDE)
+' =====================================================
+actor "Staff" as EMP
+actor "Payroll Engine" as PAY_ENGINE
+
+' =====================================================
 ' ACTOR CONNECTIONS
 ' =====================================================
+' Left Actors to Use Cases
 ADMIN --> UC_PAY01
 ADMIN --> UC_PAY01C
 ADMIN --> UC_PAY02A
@@ -69,12 +74,13 @@ ADMIN --> UC_PAY02A
 DIR --> UC_PAY01C
 DIR --> UC_PAY02D
 
-EMP --> UC_PAY01D
+' Use Cases to Right Actors
+UC_PAY01D --> EMP
 
-PAY_ENGINE --> UC_PAY01A
-PAY_ENGINE --> UC_PAY01B
-PAY_ENGINE --> UC_PAY02B
-PAY_ENGINE --> UC_PAY02C
+UC_PAY01A --> PAY_ENGINE
+UC_PAY01B --> PAY_ENGINE
+UC_PAY02B --> PAY_ENGINE
+UC_PAY02C --> PAY_ENGINE
 
 ' =====================================================
 ' INCLUDE & EXTEND RELATIONSHIPS

@@ -1,6 +1,6 @@
 # SCHEDULING & TIME-OFF - LEAVE MANAGEMENT USE CASE DIAGRAM
 
-This document contains the **PlantUML** code and diagram for **Managing Time-Off Requests & Approving Multi-Level Leave** within the Scheduling & Time-Off subsystem, compatible with Draw.io.
+This document contains the **PlantUML** code and diagram for **Managing Time-Off Requests & Approving Multi-Level Leave** within the Scheduling & Time-Off subsystem, formatted for Draw.io (Left Primary Actors | Center Boundary | Right Secondary Actors).
 
 ---
 
@@ -32,15 +32,12 @@ skinparam actor {
 }
 
 ' =====================================================
-' ACTORS
+' PRIMARY ACTORS (LEFT SIDE)
 ' =====================================================
 actor "Staff" as EMP
-actor "Manager" as MGR
-actor "Admin-Tenant" as ADMIN
-actor "Leave Service" as LEAVE_SVC
 
 ' =====================================================
-' SYSTEM BOUNDARY & USE CASES
+' SYSTEM BOUNDARY & USE CASES (CENTER)
 ' =====================================================
 rectangle "HR Management Platform - Leave Management Subsystem" {
     
@@ -51,13 +48,22 @@ rectangle "HR Management Platform - Leave Management Subsystem" {
 }
 
 ' =====================================================
+' SECONDARY ACTORS (RIGHT SIDE)
+' =====================================================
+actor "Manager" as MGR
+actor "Admin-Tenant" as ADMIN
+actor "Leave Service" as LEAVE_SVC
+
+' =====================================================
 ' ACTOR CONNECTIONS
 ' =====================================================
+' Left Actors to Use Cases
 EMP --> UC_SCHED02
-MGR --> UC_SCHED02C
-ADMIN --> UC_SCHED02C
 
-LEAVE_SVC --> UC_SCHED02A
+' Use Cases to Right Actors
+UC_SCHED02C --> MGR
+UC_SCHED02C --> ADMIN
+UC_SCHED02A --> LEAVE_SVC
 
 ' =====================================================
 ' INCLUDE & EXTEND RELATIONSHIPS

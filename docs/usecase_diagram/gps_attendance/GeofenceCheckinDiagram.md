@@ -1,6 +1,6 @@
 # GPS ATTENDANCE - GEOFENCED CHECK-IN USE CASE DIAGRAM
 
-This document contains the **PlantUML** code and diagram for **Checking In via Geofenced GPS & Configuring Branch Radius** within the GPS Attendance subsystem, compatible with Draw.io.
+This document contains the **PlantUML** code and diagram for **Checking In via Geofenced GPS & Configuring Branch Radius** within the GPS Attendance subsystem, formatted for Draw.io (Left Primary Actors | Center Boundary | Right Secondary Actors).
 
 ---
 
@@ -32,14 +32,13 @@ skinparam actor {
 }
 
 ' =====================================================
-' ACTORS
+' PRIMARY ACTORS (LEFT SIDE)
 ' =====================================================
 actor "Staff" as EMP
 actor "Admin-Tenant" as ADMIN
-actor "Location Service" as LOC_SVC
 
 ' =====================================================
-' SYSTEM BOUNDARY & USE CASES
+' SYSTEM BOUNDARY & USE CASES (CENTER)
 ' =====================================================
 rectangle "HR Management Platform - Geofenced GPS Check-in Subsystem" {
     
@@ -50,13 +49,20 @@ rectangle "HR Management Platform - Geofenced GPS Check-in Subsystem" {
 }
 
 ' =====================================================
+' SECONDARY ACTORS (RIGHT SIDE)
+' =====================================================
+actor "Location Service" as LOC_SVC
+
+' =====================================================
 ' ACTOR CONNECTIONS
 ' =====================================================
+' Left Actors to Use Cases
 EMP --> UC_GPS01
 ADMIN --> UC_GPS01A
 
-LOC_SVC --> UC_GPS01B
-LOC_SVC --> UC_GPS01C
+' Use Cases to Right Actors
+UC_GPS01B --> LOC_SVC
+UC_GPS01C --> LOC_SVC
 
 ' =====================================================
 ' INCLUDE & EXTEND RELATIONSHIPS

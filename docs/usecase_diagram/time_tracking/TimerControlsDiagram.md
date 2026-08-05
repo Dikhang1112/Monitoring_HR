@@ -1,6 +1,6 @@
 # TIME TRACKING - WORK TIMER CONTROLS USE CASE DIAGRAM
 
-This document contains the **PlantUML** code and diagram for **Controlling Desktop & Mobile Work Timers** within the Time Tracking subsystem, compatible with Draw.io.
+This document contains the **PlantUML** code and diagram for **Controlling Desktop & Mobile Work Timers** within the Time Tracking subsystem, formatted for Draw.io (Left Primary Actors | Center Boundary | Right Secondary Actors).
 
 ---
 
@@ -32,14 +32,12 @@ skinparam actor {
 }
 
 ' =====================================================
-' ACTORS
+' PRIMARY ACTORS (LEFT SIDE)
 ' =====================================================
 actor "Staff" as EMP
-actor "Desktop Agent Service" as DESK_SVC
-actor "Mobile Service" as MOB_SVC
 
 ' =====================================================
-' SYSTEM BOUNDARY & USE CASES
+' SYSTEM BOUNDARY & USE CASES (CENTER)
 ' =====================================================
 rectangle "HR Management Platform - Work Timer Controls Subsystem" {
     
@@ -56,17 +54,25 @@ rectangle "HR Management Platform - Work Timer Controls Subsystem" {
 }
 
 ' =====================================================
+' SECONDARY ACTORS (RIGHT SIDE)
+' =====================================================
+actor "Desktop Agent Service" as DESK_SVC
+actor "Mobile Service" as MOB_SVC
+
+' =====================================================
 ' ACTOR CONNECTIONS
 ' =====================================================
+' Left Actors to Use Cases
 EMP --> UC_TIME01
 EMP --> UC_TIME02
 
-DESK_SVC --> UC_TIME01
-DESK_SVC --> UC_TIME01B
-DESK_SVC --> UC_TIME01C
+' Use Cases to Right Actors
+UC_TIME01 --> DESK_SVC
+UC_TIME01B --> DESK_SVC
+UC_TIME01C --> DESK_SVC
 
-MOB_SVC --> UC_TIME02
-MOB_SVC --> UC_TIME02B
+UC_TIME02 --> MOB_SVC
+UC_TIME02B --> MOB_SVC
 
 ' =====================================================
 ' INCLUDE & EXTEND RELATIONSHIPS

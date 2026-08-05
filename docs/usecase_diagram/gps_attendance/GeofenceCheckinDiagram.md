@@ -1,6 +1,6 @@
 # GPS ATTENDANCE - GEOFENCED CHECK-IN USE CASE DIAGRAM
 
-This document contains the **PlantUML** code and diagram for **Checking In via Geofenced GPS & Configuring Branch Radius** within the GPS Attendance subsystem, formatted for Draw.io (Left Primary Actors | Center Boundary | Right Secondary Actors).
+This document contains the **PlantUML** code and diagram for **Checking In via Geofenced GPS & Configuring Branch Radius** within the GPS Attendance subsystem, formatted for Draw.io with active verb high-level Use Cases, non-overlapping orthogonal arrows, and external Actors.
 
 ---
 
@@ -13,12 +13,13 @@ skinparam packageStyle rectangle
 skinparam backgroundColor #ffffff
 skinparam shadowing false
 skinparam actorStyle stickman
+skinparam linetype ortho
 
 skinparam usecase {
   BackgroundColor #EFF6FF
   BorderColor #2563EB
-  BorderThickness 1.5
-  FontSize 12
+  BorderThickness 2
+  FontSize 14
   FontStyle bold
   FontName "Segoe UI"
 }
@@ -26,50 +27,50 @@ skinparam usecase {
 skinparam actor {
   BackgroundColor #0F172A
   BorderColor #0284C7
-  FontSize 12
+  FontSize 13
   FontStyle bold
   FontName "Segoe UI"
 }
 
 ' =====================================================
-' PRIMARY ACTORS (LEFT SIDE)
+' PRIMARY ACTORS (OUTSIDE BOUNDARY - LEFT SIDE)
 ' =====================================================
 actor "Staff" as EMP
 actor "Admin-Tenant" as ADMIN
 
+EMP -[hidden]down-> ADMIN
+
 ' =====================================================
-' SYSTEM BOUNDARY & USE CASES (CENTER)
+' SYSTEM BOUNDARY & ALIGNED USE CASES (CENTER)
 ' =====================================================
-rectangle "HR Management Platform - Geofenced GPS Check-in Subsystem" {
+rectangle "HR Management Platform - Geofenced Check-in" {
     
-    usecase "(UC-GPS-01)\nCheck In via Geofenced GPS" as UC_GPS01
-    usecase "(UC-GPS-01a)\nConfigure Branch Geofence Radius" as UC_GPS01A
-    usecase "(UC-GPS-01b)\nVerify Real-time GPS Location" as UC_GPS01B
-    usecase "(UC-GPS-01c)\nReject Out-of-Bounds Check-ins" as UC_GPS01C
+    usecase "Track Geofenced Attendance" as UC_GPS01
+    usecase "Configure Branch Geofence" as UC_GPS01A
+    usecase "Verify Location Bounds" as UC_GPS01B
+
+    UC_GPS01 -[hidden]down-> UC_GPS01A
+    UC_GPS01A -[hidden]down-> UC_GPS01B
 }
 
 ' =====================================================
-' SECONDARY ACTORS (RIGHT SIDE)
+' SECONDARY ACTORS (OUTSIDE BOUNDARY - RIGHT SIDE)
 ' =====================================================
 actor "Location Service" as LOC_SVC
 
 ' =====================================================
-' ACTOR CONNECTIONS
+' NON-OVERLAPPING ACTOR CONNECTIONS
 ' =====================================================
-' Left Actors to Use Cases
 EMP --> UC_GPS01
 ADMIN --> UC_GPS01A
 
-' Use Cases to Right Actors
 UC_GPS01B --> LOC_SVC
-UC_GPS01C --> LOC_SVC
 
 ' =====================================================
 ' INCLUDE & EXTEND RELATIONSHIPS
 ' =====================================================
 UC_GPS01 ..> UC_GPS01B : <<include>>
 UC_GPS01A ..> UC_GPS01 : <<include>>
-UC_GPS01C ..> UC_GPS01B : <<extend>>
 
-@enduml
+@endl
 ```

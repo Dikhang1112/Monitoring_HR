@@ -19,7 +19,7 @@ This document serves as the **Master Architecture Documentation** for the HR Man
 ### Consolidated Use Case Diagrams
 
 #### 1. Employee Profiles & Organizational Structure Diagram
-![Employee Profiles & Org Structure Diagram](images/usecase_diagram/people_manager/Employee_Profile_Org.png)
+![Employee Profiles & Org Structure Diagram](images/usecase_diagram/people_manager/Manage_Employee.png)
 
 #### 2. Onboarding, Offboarding & RBAC Permissions Diagram
 ![Onboarding, Offboarding & RBAC Diagram](images/usecase_diagram/people_manager/RBAC.png)
@@ -68,7 +68,7 @@ This document serves as the **Master Architecture Documentation** for the HR Man
 ### Consolidated Use Case Diagrams
 
 #### 1. Geofenced GPS Check-in Diagram
-![Geofenced GPS Check-in Diagram](images/usecase_diagram/gps_attendence/Gps_Geofence.png)
+![Geofenced GPS Check-in Diagram](images/usecase_diagram/gps_attendence/GPS_Geofence.png)
 
 #### 2. Live Map & Route History Tracking Diagram
 ![Live Map & Route History Diagram](images/usecase_diagram/gps_attendence/Live_Route.png)
@@ -117,10 +117,10 @@ This document serves as the **Master Architecture Documentation** for the HR Man
 ### Consolidated Use Case Diagrams
 
 #### 1. Weekly Shift Planning & Attendance Rules Diagram
-![Weekly Shift Planning & Attendance Rules Diagram](images/usecase_diagram/scheduling_leave/Shift_Planning.png)
+![Weekly Shift Planning & Attendance Rules Diagram](images/usecase_diagram/scheduling/Shift_Scheduling.png)
 
 #### 2. Time-off & Leave Management Approval Diagram
-![Time-off & Leave Management Diagram](images/usecase_diagram/scheduling_leave/LeaveManagerment.png)
+![Time-off & Leave Management Diagram](images/usecase_diagram/scheduling/Leave_Scheduling.png)
 
 ### Process Swimlane (Activity) Diagrams
 
@@ -143,7 +143,7 @@ This document serves as the **Master Architecture Documentation** for the HR Man
 ![Automated Monthly Salary & Overtime Diagram](images/usecase_diagram/payroll_invoicing/Payroll.png)
 
 #### 2. Client Invoicing & Portal Payment Diagram
-![Client Invoicing & Portal Payment Diagram](images/usecase_diagram/payroll_invoicing/Client_Invoicing.png)
+![Client Invoicing & Portal Payment Diagram](images/usecase_diagram/payroll_invoicing/Client_Invocing.png)
 
 ### Process Swimlane (Activity) Diagrams
 

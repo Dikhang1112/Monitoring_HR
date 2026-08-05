@@ -1,6 +1,6 @@
 # PAYROLL & CLIENT INVOICING - CLIENT INVOICING & PORTAL USE CASE DIAGRAM
 
-This document contains the **PlantUML** code and diagram for **Approving Client Invoices & Processing Payments via Client Portal** within the Payroll & Client Invoicing subsystem, formatted for Draw.io (Left Primary Actors | Center Boundary | Right Secondary Actors).
+This document contains the **PlantUML** code and diagram for **Approving Client Invoices & Processing Payments via Client Portal** within the Payroll & Client Invoicing subsystem, formatted for Draw.io with active verb high-level Use Cases, non-overlapping orthogonal arrows, and external Actors.
 
 ---
 
@@ -13,12 +13,13 @@ skinparam packageStyle rectangle
 skinparam backgroundColor #ffffff
 skinparam shadowing false
 skinparam actorStyle stickman
+skinparam linetype ortho
 
 skinparam usecase {
   BackgroundColor #EFF6FF
   BorderColor #2563EB
-  BorderThickness 1.5
-  FontSize 12
+  BorderThickness 2
+  FontSize 14
   FontStyle bold
   FontName "Segoe UI"
 }
@@ -26,52 +27,53 @@ skinparam usecase {
 skinparam actor {
   BackgroundColor #0F172A
   BorderColor #0284C7
-  FontSize 12
+  FontSize 13
   FontStyle bold
   FontName "Segoe UI"
 }
 
 ' =====================================================
-' PRIMARY ACTORS (LEFT SIDE)
+' PRIMARY ACTORS (OUTSIDE BOUNDARY - LEFT SIDE)
 ' =====================================================
 actor "Manager" as MGR
 actor "Client" as CLI
 
+MGR -[hidden]down-> CLI
+
 ' =====================================================
-' SYSTEM BOUNDARY & USE CASES (CENTER)
+' SYSTEM BOUNDARY & ALIGNED USE CASES (CENTER)
 ' =====================================================
-rectangle "HR Management Platform - Client Invoicing & Portal Subsystem" {
+rectangle "HR Management Platform - Client Invoicing & Portal" {
     
-    usecase "(UC-PAY-03)\nApprove Client Project Invoices" as UC_PAY03
-    usecase "(UC-PAY-03a)\nFilter Project Billable Work Hours" as UC_PAY03A
-    usecase "(UC-PAY-03b)\nApply Hourly Billing Rate Cards" as UC_PAY03B
-    usecase "(UC-PAY-03c)\nPay Client Invoices via Client Portal" as UC_PAY03C
+    usecase "Track Billable Project Hours" as UC_PAY03A
+    usecase "Approve Client Invoices" as UC_PAY03
+    usecase "Process Client Portal Payments" as UC_PAY03C
+
+    UC_PAY03A -[hidden]down-> UC_PAY03
+    UC_PAY03 -[hidden]down-> UC_PAY03C
 }
 
 ' =====================================================
-' SECONDARY ACTORS (RIGHT SIDE)
+' SECONDARY ACTORS (OUTSIDE BOUNDARY - RIGHT SIDE)
 ' =====================================================
 actor "Billing Engine" as BILL_ENGINE
 
 ' =====================================================
-' ACTOR CONNECTIONS
+' NON-OVERLAPPING ACTOR CONNECTIONS
 ' =====================================================
-' Left Actors to Use Cases
-MGR --> UC_PAY03
 MGR --> UC_PAY03A
+MGR --> UC_PAY03
 
 CLI --> UC_PAY03C
 
-' Use Cases to Right Actors
-UC_PAY03B --> BILL_ENGINE
+UC_PAY03 --> BILL_ENGINE
 UC_PAY03C --> BILL_ENGINE
 
 ' =====================================================
 ' INCLUDE & EXTEND RELATIONSHIPS
 ' =====================================================
 UC_PAY03 ..> UC_PAY03A : <<include>>
-UC_PAY03 ..> UC_PAY03B : <<include>>
 UC_PAY03C ..> UC_PAY03 : <<extend>>
 
-@enduml
+@endl
 ```

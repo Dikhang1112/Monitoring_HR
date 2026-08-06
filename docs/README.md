@@ -14,6 +14,9 @@ This document serves as the **Master Architecture Diagram Documentation** for th
 #### Onboarding, Offboarding & RBAC Permissions Diagram
 ![Onboarding, Offboarding & RBAC Diagram](images/usecase_diagram/people_manager/RBAC.png)
 
+#### Recruitment & Applicant Tracking System (ATS) Diagram
+![Recruitment & Applicant Tracking System Diagram](images/usecase_diagram/people_manager/Recruiter.png)
+
 ---
 
 ### 1.2. Time Tracking Subsystem
@@ -41,8 +44,11 @@ This document serves as the **Master Architecture Diagram Documentation** for th
 #### Automated Screenshots & Input Activity Diagram
 ![Automated Screenshots & Input Activity Diagram](images/usecase_diagram/productivity_monitoring/ScreenshotActivity.png)
 
-#### App/Web Classification, Scores & Anomaly Alerts Diagram
-![App/Web Classification, Scores & Anomaly Alerts Diagram](images/usecase_diagram/productivity_monitoring/UsecaseDiagram.png)
+#### App & Website Classification Diagram
+![App & Website Classification Diagram](images/usecase_diagram/productivity_monitoring/WebAppClassifiy.png)
+
+#### Productivity Scores & Anomaly Alerts Diagram
+![Productivity Scores & Anomaly Alerts Diagram](images/usecase_diagram/productivity_monitoring/Productivity.png)
 
 ---
 

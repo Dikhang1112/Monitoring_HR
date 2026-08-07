@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>People Management - Wireframe System</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Monochrome Wireframe Design System */
+        :root {
+            --primary: #09090b;
+            --primary-hover: #27272a;
+            --primary-active: #18181b;
+            --primary-light: #f4f4f5;
+            --primary-subtle: #e4e4e7;
+            --primary-border: #71717a;
+
+            --bg-app: #fafafa;
+            --bg-card: #ffffff;
+            --bg-hover: #f4f4f5;
+
+            --text-main: #09090b;
+            --text-muted: #71717a;
+            --text-light: #a1a1aa;
+
+            --border-color: #e4e4e7;
+            --border-strong: #18181b;
+            --border-dashed: #d4d4d8;
+
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+
+            --shadow-wireframe: 0 1px 3px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background: var(--bg-app);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .app {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* ================= Sidebar (Monochrome Wireframe) ================= */
+        .sidebar {
+            width: 260px;
+            background: var(--bg-card);
+            border-right: 1px solid var(--border-color);
+            padding: 24px 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+
+        .sidebar-top {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 32px;
+            padding: 0 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: -0.3px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            background: var(--bg-card);
+            color: var(--primary);
+        }
+
+        .menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .menu-item {
+            padding: 10px 14px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 13px;
+            transition: all 0.15s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            user-select: none;
+            border: 1px solid transparent;
+        }
+
+        .menu-item svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--text-muted);
+            stroke-width: 2;
+            fill: none;
+            transition: stroke 0.15s ease;
+        }
+
+        .menu-item:hover {
+            background: var(--primary-light);
+            color: var(--text-main);
+            border-color: var(--border-color);
+        }
+
+        .menu-item:hover svg {
+            stroke: var(--text-main);
+        }
+
+        .menu-item.active {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            border-color: var(--primary);
+        }
+
+        .menu-item.active svg {
+            stroke: white;
+        }
+
+        /* Sidebar Bottom Profile & Popup */
+        .sidebar-footer {
+            position: relative;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .user-profile-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 10px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            background: var(--bg-card);
+        }
+
+        .user-profile-bar:hover {
+            background: var(--primary-light);
+            border-color: var(--border-strong);
+        }
+
+        .avatar-small {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-sm);
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .user-name {
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-role {
+            font-size: 10.5px;
+            color: var(--text-muted);
+        }
+
+        .dropdown-chevron {
+            width: 14px;
+            height: 14px;
+            stroke: var(--text-muted);
+            fill: none;
+            stroke-width: 2;
+        }
+
+        /* User Popup Menu */
+        .user-popup {
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-hover);
+            padding: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            z-index: 100;
+            transition: all 0.15s ease;
+        }
+
+        .user-popup.hidden {
+            display: none;
+        }
+
+        .popup-item {
+            width: 100%;
+            padding: 8px 10px;
+            border: none;
+            background: transparent;
+            border-radius: var(--radius-sm);
+            color: var(--text-main);
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-align: left;
+            transition: background 0.12s ease;
+        }
+
+        .popup-item svg {
+            width: 15px;
+            height: 15px;
+            stroke: var(--text-main);
+        }
+
+        .popup-item:hover {
+            background: var(--primary-light);
+        }
+
+        .popup-divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 4px 0;
+        }
+
+        .popup-item.logout-item {
+            color: #dc2626;
+        }
+
+        .popup-item.logout-item svg {
+            stroke: #dc2626;
+        }
+
+        .popup-item.logout-item:hover {
+            background: #fef2f2;
+        }
+
+        /* ================= Content Area ================= */
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Header */
+        .header {
+            height: 80px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 32px;
+            flex-shrink: 0;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .welcome-text {
+            font-size: 30px;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-left: 20px;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+        }
+
+        .welcome-text strong {
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        .search-container {
+            position: relative;
+            width: 320px;
+        }
+
+        .search {
+            width: 100%;
+            height: 40px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 0 16px 0 38px;
+            font-size: 13px;
+            outline: none;
+            background: var(--bg-app);
+            color: var(--text-main);
+            transition: all 0.15s ease;
+        }
+
+        .search:focus {
+            border-color: var(--border-strong);
+            background: var(--bg-card);
+            box-shadow: 0 0 0 2px var(--primary-subtle);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            stroke: var(--text-muted);
+            pointer-events: none;
+            width: 16px;
+            height: 16px;
+        }
+
+        .profile {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            margin-right: 40px;
+        }
+
+        .icon-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.15s ease;
+            color: var(--text-main);
+        }
+
+        .icon-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--text-main);
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .icon-btn:hover {
+            background: var(--primary-light);
+            border-color: var(--border-strong);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 7px;
+            height: 7px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        .avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: var(--radius-md);
+            border: 1.5px solid var(--primary);
+            background: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .avatar:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Main View */
+        .main {
+            padding: 32px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .page-header {
+            margin-bottom: 24px;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 4px;
+            letter-spacing: -0.4px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* KPI Cards with Trend Indicators positioned on Right Side of Header */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-wireframe);
+            transition: all 0.15s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            border-color: var(--border-strong);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .card h3 {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .card-subtitle {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* Trend Badge on Right Side of Card Header */
+        .trend-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            padding: 3px 7px;
+            border-radius: var(--radius-sm);
+            font-size: 11px;
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+            background: var(--bg-app);
+            color: var(--text-main);
+        }
+
+        .trend-badge svg {
+            width: 12px;
+            height: 12px;
+            stroke-width: 2.5;
+        }
+
+        .trend-up svg {
+            stroke: var(--text-main);
+        }
+
+        .trend-down svg {
+            stroke: var(--text-muted);
+        }
+
+        /* Management Modules */
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 14px;
+            letter-spacing: -0.2px;
+        }
+
+        .modules {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .module {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 22px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-wireframe);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.15s ease;
+        }
+
+        .module:hover {
+            border-color: var(--border-strong);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .module-title-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .module-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            background: var(--bg-app);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .module-icon svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--text-main);
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .module h2 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .module p {
+            color: var(--text-muted);
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 18px;
+        }
+
+        .btn-wireframe {
+            padding: 9px 16px;
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-md);
+            background: var(--bg-card);
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            align-self: flex-start;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-wireframe:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Bottom Section: Kanban + Quick Actions Wireframe */
+        .bottom {
+            display: grid;
+            grid-template-columns: 2.3fr 1fr;
+            gap: 18px;
+        }
+
+        .panel {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 22px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-wireframe);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .panel-header h2 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        /* ================= Wireframe Kanban Board ================= */
+        .kanban-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .kanban-column {
+            background: var(--bg-app);
+            border-radius: var(--radius-md);
+            padding: 12px;
+            border: 1px dashed var(--border-dashed);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-height: 250px;
+        }
+
+        .column-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 2px;
+        }
+
+        .column-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .column-title svg {
+            width: 14px;
+            height: 14px;
+            stroke: var(--text-main);
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .column-count {
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-main);
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 10px;
+        }
+
+        .kanban-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-sm);
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-wireframe);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .kanban-card:hover {
+            border-color: var(--border-strong);
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-1px);
+        }
+
+        .card-text {
+            font-size: 12.5px;
+            font-weight: 500;
+            color: var(--text-main);
+            line-height: 1.4;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .badge-tag {
+            border: 1px solid var(--border-color);
+            background: var(--bg-app);
+            color: var(--text-main);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        /* Wireframe Quick Actions */
+        .quick-actions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .btn-action {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background: var(--bg-card);
+            color: var(--text-main);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.15s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .btn-action-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-action-left svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--text-main);
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .btn-action:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .btn-action:hover svg {
+            stroke: white;
+        }
+
+        .btn-action svg.arrow {
+            width: 14px;
+            height: 14px;
+            transition: transform 0.15s ease;
+        }
+
+        .btn-action:hover svg.arrow {
+            transform: translateX(3px);
+        }
+
+        /* Dynamic Toast Notification (Wireframe Style) */
+        .toast-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .toast {
+            background: var(--bg-card);
+            color: var(--text-main);
+            padding: 12px 18px;
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            border: 1px solid var(--border-strong);
+            box-shadow: var(--shadow-hover);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .toast svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--text-main);
+            fill: none;
+            stroke-width: 2;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="sidebar-top">
+                <div class="logo">
+                    <div class="logo-icon">HR</div>
+                    HR Platform
+                </div>
+
+                <ul class="menu" id="sidebarMenu">
+                    <li class="menu-item" data-page="Home">
+                        <svg viewBox="0 0 24 24">
+                            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                            <polyline points="9 22 9 12 15 12 15 22" />
+                        </svg>
+                        Home
+                    </li>
+                    <li class="menu-item active" data-page="People Management">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                        </svg>
+                        People Management
+                    </li>
+                    <li class="menu-item" data-page="Recruitment">
+                        <svg viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10" />
+                            <circle cx="12" cy="12" r="6" />
+                            <circle cx="12" cy="12" r="2" />
+                        </svg>
+                        Recruitment
+                    </li>
+                    <li class="menu-item" data-page="Onboarding">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.71 1.1-1.31 1.5-2" />
+                            <path d="M12 15l-3-3 3-3" />
+                            <path d="M9 12h12" />
+                        </svg>
+                        Onboarding
+                    </li>
+                    <li class="menu-item" data-page="Offboarding">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                            <polyline points="16 17 21 12 16 7" />
+                            <line x1="21" y1="12" x2="9" y2="12" />
+                        </svg>
+                        Offboarding
+                    </li>
+                    <li class="menu-item" data-page="Attendance">
+                        <svg viewBox="0 0 24 24">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                            <line x1="16" y1="2" x2="16" y2="6" />
+                            <line x1="8" y1="2" x2="8" y2="6" />
+                            <line x1="3" y1="10" x2="21" y2="10" />
+                        </svg>
+                        Attendance
+                    </li>
+                    <li class="menu-item" data-page="Payroll">
+                        <svg viewBox="0 0 24 24">
+                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                            <line x1="1" y1="10" x2="23" y2="10" />
+                        </svg>
+                        Payroll
+                    </li>
+                    <li class="menu-item" data-page="Performance">
+                        <svg viewBox="0 0 24 24">
+                            <line x1="18" y1="20" x2="18" y2="10" />
+                            <line x1="12" y1="20" x2="12" y2="4" />
+                            <line x1="6" y1="20" x2="6" y2="14" />
+                        </svg>
+                        Performance
+                    </li>
+                    <li class="menu-item" data-page="Settings">
+                        <svg viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="3" />
+                            <path
+                                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                        </svg>
+                        Settings
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Bottom Avatar & User Profile Popup -->
+            <div class="sidebar-footer">
+                <div class="user-profile-bar" id="sidebarUserProfile" title="Lucia Doan Profile">
+                    <div class="avatar-small">LD</div>
+                    <div class="user-info">
+                        <span class="user-name">Lucia Doan</span>
+                        <span class="user-role">HR Manager</span>
+                    </div>
+                    <svg class="dropdown-chevron" viewBox="0 0 24 24">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+
+                <!-- Profile Popup Menu -->
+                <div class="user-popup hidden" id="userPopup">
+                    <button class="popup-item" id="btnUpdateVersion">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21.5 2v6h-6" />
+                            <path d="M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" />
+                        </svg>
+                        Update Version
+                    </button>
+                    <button class="popup-item" id="btnHelp">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                            <line x1="12" y1="17" x2="12.01" y2="17" />
+                        </svg>
+                        Help
+                    </button>
+                    <div class="popup-divider"></div>
+                    <button class="popup-item logout-item" id="btnSignOut">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                            <polyline points="16 17 21 12 16 7" />
+                            <line x1="21" y1="12" x2="9" y2="12" />
+                        </svg>
+                        Sign Out
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="content">
+
+            <!-- Header -->
+            <div class="header">
+                <div class="header-left">
+                    <div class="search-container">
+                        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8" />
+                            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                        </svg>
+                        <input class="search" id="searchInput" placeholder="Search employees, tasks, departments...">
+                    </div>
+                    <div class="welcome-text">Welcome back, <strong>Lucia Doan</strong></div>
+                </div>
+
+                <div class="profile">
+                    <button class="icon-btn" id="notifBtn" title="Notifications">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                        </svg>
+                        <span class="notification-badge"></span>
+                    </button>
+
+                    <div class="avatar" id="userAvatar" title="User Profile">
+                        LD
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scrollable Main View -->
+            <div class="main">
+
+                <div class="page-header">
+                    <h1 class="title" id="pageTitle">People Management</h1>
+                    <p class="subtitle" id="pageSubtitle">Manage employees, departments, and employee requests in one
+                        wireframe dashboard.</p>
+                </div>
+
+                <!-- KPI Metric Cards with Trend Badges on Right Side of Header -->
+                <div class="cards">
+                    <div class="card">
+                        <div class="card-header-row">
+                            <h3>Total Employees</h3>
+                            <div class="trend-badge trend-up">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <line x1="7" y1="17" x2="17" y2="7" />
+                                    <polyline points="7 7 17 7 17 17" />
+                                </svg>
+                                +5.2%
+                            </div>
+                        </div>
+                        <h1>428</h1>
+                        <span class="card-subtitle">vs last month</span>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header-row">
+                            <h3>Active Employees</h3>
+                            <div class="trend-badge trend-up">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <line x1="7" y1="17" x2="17" y2="7" />
+                                    <polyline points="7 7 17 7 17 17" />
+                                </svg>
+                                +3.1%
+                            </div>
+                        </div>
+                        <h1>401</h1>
+                        <span class="card-subtitle">vs last month</span>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header-row">
+                            <h3>Departments</h3>
+                            <div class="trend-badge">
+                                0.0%
+                            </div>
+                        </div>
+                        <h1>16</h1>
+                        <span class="card-subtitle">vs last quarter</span>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header-row">
+                            <h3>Pending Requests</h3>
+                            <div class="trend-badge trend-down">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <line x1="7" y1="7" x2="17" y2="17" />
+                                    <polyline points="17 7 17 17 7 17" />
+                                </svg>
+                                -12.5%
+                            </div>
+                        </div>
+                        <h1>27</h1>
+                        <span class="card-subtitle">vs last week</span>
+                    </div>
+                </div>
+
+                <!-- Management Modules -->
+                <h2 class="section-title">Management Modules</h2>
+                <div class="modules">
+                    <div class="module">
+                        <div>
+                            <div class="module-title-row">
+                                <div class="module-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                        <polyline points="14 2 14 8 20 8" />
+                                        <line x1="16" y1="13" x2="8" y2="13" />
+                                        <line x1="16" y1="17" x2="8" y2="17" />
+                                    </svg>
+                                </div>
+                                <h2>Employee Directory</h2>
+                            </div>
+                            <p>Browse and manage employee profiles, contact details, and organization records.</p>
+                        </div>
+                        <button class="btn-wireframe module-btn" data-module="Employee Directory">
+                            Open Module
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12" />
+                                <polyline points="12 5 19 12 12 19" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="module">
+                        <div>
+                            <div class="module-title-row">
+                                <div class="module-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                                        <polyline points="2 17 12 22 22 17" />
+                                        <polyline points="2 12 12 17 22 12" />
+                                    </svg>
+                                </div>
+                                <h2>Organization Structure</h2>
+                            </div>
+                            <p>Visualize departments, reporting hierarchy, and structural organizational charts.</p>
+                        </div>
+                        <button class="btn-wireframe module-btn" data-module="Organization Structure">
+                            Open Module
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12" />
+                                <polyline points="12 5 19 12 12 19" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="module">
+                        <div>
+                            <div class="module-title-row">
+                                <div class="module-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                        <polyline points="22 4 12 14.01 9 11.01" />
+                                    </svg>
+                                </div>
+                                <h2>Employee Requests</h2>
+                            </div>
+                            <p>Track leave requests, approvals, profile updates, and internal HR workflows.</p>
+                        </div>
+                        <button class="btn-wireframe module-btn" data-module="Employee Requests">
+                            Open Module
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12" />
+                                <polyline points="12 5 19 12 12 19" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bottom Grid: Wireframe Kanban Board + Quick Actions -->
+                <div class="bottom">
+
+                    <!-- Wireframe Kanban Board -->
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h2>Task Activity Board</h2>
+                            <span class="badge-tag">Kanban Format</span>
+                        </div>
+
+                        <div class="kanban-board">
+                            <!-- Task / To Do Column -->
+                            <div class="kanban-column" id="col-todo">
+                                <div class="column-header">
+                                    <span class="column-title">
+                                        <svg viewBox="0 0 24 24">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <line x1="12" y1="8" x2="12" y2="12" />
+                                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                                        </svg>
+                                        Task
+                                    </span>
+                                    <span class="column-count">2</span>
+                                </div>
+                                <div class="kanban-card" data-task-id="1">
+                                    <div class="card-text">Lucia Doan updated profile photo</div>
+                                    <div class="card-meta">
+                                        <span class="badge-tag">HR Update</span>
+                                        <span>Today</span>
+                                    </div>
+                                </div>
+                                <div class="kanban-card" data-task-id="2">
+                                    <div class="card-text">New onboarding document for Engineering</div>
+                                    <div class="card-meta">
+                                        <span class="badge-tag">Docs</span>
+                                        <span>Today</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- In Progress Column -->
+                            <div class="kanban-column" id="col-inprogress">
+                                <div class="column-header">
+                                    <span class="column-title">
+                                        <svg viewBox="0 0 24 24">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <polyline points="12 6 12 12 16 14" />
+                                        </svg>
+                                        In Progress
+                                    </span>
+                                    <span class="column-count">2</span>
+                                </div>
+                                <div class="kanban-card" data-task-id="3">
+                                    <div class="card-text">New employee joined Marketing team</div>
+                                    <div class="card-meta">
+                                        <span class="badge-tag">Onboarding</span>
+                                        <span>Today</span>
+                                    </div>
+                                </div>
+                                <div class="kanban-card" data-task-id="4">
+                                    <div class="card-text">Department Manager assignment review</div>
+                                    <div class="card-meta">
+                                        <span class="badge-tag">Review</span>
+                                        <span>Yesterday</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Done Column -->
+                            <div class="kanban-column" id="col-done">
+                                <div class="column-header">
+                                    <span class="column-title">
+                                        <svg viewBox="0 0 24 24">
+                                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                            <polyline points="22 4 12 14.01 9 11.01" />
+                                        </svg>
+                                        Done
+                                    </span>
+                                    <span class="column-count">1</span>
+                                </div>
+                                <div class="kanban-card" data-task-id="5">
+                                    <div class="card-text">Employee transfer request completed</div>
+                                    <div class="card-meta">
+                                        <span class="badge-tag">Completed</span>
+                                        <span>Yesterday</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions Panel -->
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h2>Quick Actions</h2>
+                        </div>
+
+                        <div class="quick-actions-list">
+                            <button class="btn-action" data-action="Add Employee">
+                                <div class="btn-action-left">
+                                    <svg viewBox="0 0 24 24">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <line x1="12" y1="8" x2="12" y2="16" />
+                                        <line x1="8" y1="12" x2="16" y2="12" />
+                                    </svg>
+                                    <span>Add Employee</span>
+                                </div>
+                                <svg class="arrow" viewBox="0 0 24 24">
+                                    <line x1="5" y1="12" x2="19" y2="12" />
+                                    <polyline points="12 5 19 12 12 19" />
+                                </svg>
+                            </button>
+                            <button class="btn-action" data-action="Create Department">
+                                <div class="btn-action-left">
+                                    <svg viewBox="0 0 24 24">
+                                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                                    </svg>
+                                    <span>Create Department</span>
+                                </div>
+                                <svg class="arrow" viewBox="0 0 24 24">
+                                    <line x1="5" y1="12" x2="19" y2="12" />
+                                    <polyline points="12 5 19 12 12 19" />
+                                </svg>
+                            </button>
+                            <button class="btn-action" data-action="Submit Request">
+                                <div class="btn-action-left">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                    </svg>
+                                    <span>Submit Request</span>
+                                </div>
+                                <svg class="arrow" viewBox="0 0 24 24">
+                                    <line x1="5" y1="12" x2="19" y2="12" />
+                                    <polyline points="12 5 19 12 12 19" />
+                                </svg>
+                            </button>
+                            <button class="btn-action" data-action="Import Employee Data">
+                                <div class="btn-action-left">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                        <polyline points="7 10 12 15 17 10" />
+                                        <line x1="12" y1="15" x2="12" y2="3" />
+                                    </svg>
+                                    <span>Import Employees</span>
+                                </div>
+                                <svg class="arrow" viewBox="0 0 24 24">
+                                    <line x1="5" y1="12" x2="19" y2="12" />
+                                    <polyline points="12 5 19 12 12 19" />
+                                </svg>
+                            </button>
+                            <button class="btn-action" data-action="Export Employee Data">
+                                <div class="btn-action-left">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                        <polyline points="17 8 12 3 7 8" />
+                                        <line x1="12" y1="3" x2="12" y2="15" />
+                                    </svg>
+                                    <span>Export Employees</span>
+                                </div>
+                                <svg class="arrow" viewBox="0 0 24 24">
+                                    <line x1="5" y1="12" x2="19" y2="12" />
+                                    <polyline points="12 5 19 12 12 19" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- External JavaScript File -->
+    <script src="../js/PeopleManagement.js"></script>
+</body>
+
+</html>

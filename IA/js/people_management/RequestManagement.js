@@ -82,6 +82,9 @@ document.addEventListener('DOMContentLoaded', () => {
         btnSignOut.addEventListener('click', () => {
             if (userPopup) userPopup.classList.add('hidden');
             showToast('Signing out Lucia Doan...');
+            setTimeout(() => {
+                window.location.href = '../Login.html';
+            }, 800);
         });
     }
 

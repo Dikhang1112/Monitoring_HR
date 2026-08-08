@@ -493,34 +493,34 @@ This matrix provides a complete breakdown of **High-Level Use Cases (Level 1)** 
 All diagrams are modeled in PlantUML and rendered in standard high resolution.
 
 ### 1. System Overview High-Level Use Case Diagram
-![Overview High-Level Use Case Diagram](docs/images/overview.png)
+![Overview High-Level Use Case Diagram](IA/Overview.png)
 
 ---
 
 ### 2. System-Admin Detailed Use Case Diagram
-![System-Admin Detailed Use Case Diagram](docs/images/System-Admin.png)
+![System-Admin Detailed Use Case Diagram](images/System-Admin.png)
 
 ---
 
 ### 3. Admin-Tenant (HR Admin) Detailed Use Case Diagram
-![Admin-Tenant Detailed Use Case Diagram](docs/images/Admin-Tenant.png)
+![Admin-Tenant Detailed Use Case Diagram](images/Admin-Tenant.png)
 
 ---
 
 ### 4. Director Detailed Use Case Diagram
-![Director Detailed Use Case Diagram](docs/images/Director.png)
+![Director Detailed Use Case Diagram](images/Director.png)
 
 ---
 
 ### 5. Manager Detailed Use Case Diagram
-![Manager Detailed Use Case Diagram](docs/images/Manager.png)
+![Manager Detailed Use Case Diagram](images/Manager.png)
 
 ---
 
 ### 6. Staff (Employee) Detailed Use Case Diagram
-![Staff Detailed Use Case Diagram](docs/images/Staff.png)
+![Staff Detailed Use Case Diagram](images/Staff.png)
 
 ---
 
 ### 7. Client Detailed Use Case Diagram
-![Client Detailed Use Case Diagram](docs/images/Client.png)
+![Client Detailed Use Case Diagram](images/Client.png)

@@ -10,8 +10,8 @@
 ## 📁 Implemented Prototype Structure
 
 ### 1. People Management Dashboard
-- **HTML**: [`docs/html/PeopleManagement.html`](file:///d:/Monitoring_HR/docs/html/PeopleManagement.html)
-- **JS**: [`docs/js/PeopleManagement.js`](file:///d:/Monitoring_HR/docs/js/PeopleManagement.js)
+- **HTML**: [`IA/html/PeopleManagement.html`](html/PeopleManagement.html)
+- **JS**: [`IA/js/PeopleManagement.js`](js/PeopleManagement.js)
 
 ![People Management Dashboard](./people_management/PeopleManagement.png)
 
@@ -25,8 +25,8 @@
   - Task Activity Board in Kanban format (`Task` $\rightarrow$ `In Progress` $\rightarrow$ `Done`). Click cards to transition to Tracking Request.
 
 ### 2. Employee Requests Module
-- **HTML**: [`docs/html/people_management/RequestManagement.html`](file:///d:/Monitoring_HR/docs/html/people_management/RequestManagement.html)
-- **JS**: [`docs/js/people_management/RequestManagement.js`](file:///d:/Monitoring_HR/docs/js/people_management/RequestManagement.js)
+- **HTML**: [`IA/html/people_management/RequestManagement.html`](html/people_management/RequestManagement.html)
+- **JS**: [`IA/js/people_management/RequestManagement.js`](js/people_management/RequestManagement.js)
 
 ![Employee Requests Management Board](./people_management/RequestManagement.png)
 
@@ -37,8 +37,8 @@
   - Side Drawer Modal showing full request details, timeline, and quick `Approve` / `Reject` / `Track Timeline` actions.
 
 ### 3. Tracking Request Workflow Timeline
-- **HTML**: [`docs/html/people_management/TrackingRequest.html`](file:///d:/Monitoring_HR/docs/html/people_management/TrackingRequest.html)
-- **JS**: [`docs/js/people_management/TrackingRequest.js`](file:///d:/Monitoring_HR/docs/js/people_management/TrackingRequest.js)
+- **HTML**: [`IA/html/people_management/TrackingRequest.html`](html/people_management/TrackingRequest.html)
+- **JS**: [`IA/js/people_management/TrackingRequest.js`](js/people_management/TrackingRequest.js)
 
 ![Tracking Request Stepper Timeline](./people_management/TrackingRequest.png)
 
@@ -49,8 +49,8 @@
   - Symmetric Sized Action Buttons (`Approve Request` & `Reject`).
 
 ### 4. Create New HR Request (Dynamic Smart Form)
-- **HTML**: [`docs/html/people_management/CreateRequest.html`](file:///d:/Monitoring_HR/docs/html/people_management/CreateRequest.html)
-- **JS**: [`docs/js/people_management/CreateRequest.js`](file:///d:/Monitoring_HR/docs/js/people_management/CreateRequest.js)
+- **HTML**: [`IA/html/people_management/CreateRequest.html`](html/people_management/CreateRequest.html)
+- **JS**: [`IA/js/people_management/CreateRequest.js`](js/people_management/CreateRequest.js)
 
 ![Create New HR Request Smart Form](./people_management/CreateForm.png)
 

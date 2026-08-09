@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal - Assign Hardware Asset & Software License</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #09090b;
+            --bg-card: #ffffff;
+            --text-main: #09090b;
+            --text-muted: #71717a;
+            --border-color: #e4e4e7;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background: #f4f4f5; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 40px 20px; }
+
+        .modal-card {
+            width: 100%; max-width: 600px; background: #ffffff; border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); overflow: hidden;
+            display: flex; flex-direction: column;
+        }
+
+        .modal-header { padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        .modal-title { font-size: 17px; font-weight: 700; color: var(--text-main); }
+        .modal-subtitle { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+
+        .modal-body { padding: 24px; display: flex; flex-direction: column; gap: 18px; }
+
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-label { font-size: 12.5px; font-weight: 600; color: var(--text-main); }
+        .form-control {
+            padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color);
+            font-size: 13px; outline: none; background: #ffffff; color: var(--text-main); font-weight: 500;
+        }
+        .form-control:focus { border-color: var(--primary); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+        .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border-color); background: #fafafa; display: flex; justify-content: flex-end; gap: 12px; }
+        .btn-cancel { padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-main); }
+        .btn-submit { padding: 9px 18px; border-radius: 8px; border: none; background: var(--primary); color: white; font-size: 13px; font-weight: 600; cursor: pointer; }
+    </style>
+</head>
+
+<body>
+    <div class="modal-card">
+        <div class="modal-header">
+            <div>
+                <h2 class="modal-title">Assign Asset & License</h2>
+                <p class="modal-subtitle">Allocate IT equipment and software access to onboarding employee</p>
+            </div>
+        </div>
+
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="form-label">Select Employee *</label>
+                <select class="form-control">
+                    <option selected>Alexander Wright (Senior Fullstack Engineer)</option>
+                    <option>David Lawson (Principal Architect)</option>
+                    <option>Tu Nguyen (DevOps Engineer)</option>
+                    <option>Phuong Mai (HR Business Partner)</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Hardware Device Asset *</label>
+                    <select class="form-control">
+                        <option selected>MacBook Pro M3 Max (SN: C02G901XMD6R)</option>
+                        <option>Dell UltraSharp 27" 4K Monitor</option>
+                        <option>YubiKey 5C Security Badge</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Device Serial Number</label>
+                    <input type="text" class="form-control" value="C02G901XMD6R" readonly>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Software SaaS Licenses to Provision</label>
+                <div style="display:flex; flex-direction:column; gap:8px; margin-top:4px;">
+                    <label style="font-size:13px; display:flex; align-items:center; gap:8px;">
+                        <input type="checkbox" checked style="accent-color:#09090b;"> Google Workspace Enterprise SSO
+                    </label>
+                    <label style="font-size:13px; display:flex; align-items:center; gap:8px;">
+                        <input type="checkbox" checked style="accent-color:#09090b;"> Slack Enterprise Grid Workspace
+                    </label>
+                    <label style="font-size:13px; display:flex; align-items:center; gap:8px;">
+                        <input type="checkbox" checked style="accent-color:#09090b;"> GitHub Enterprise Org Access
+                    </label>
+                    <label style="font-size:13px; display:flex; align-items:center; gap:8px;">
+                        <input type="checkbox" checked style="accent-color:#09090b;"> Figma Design Editor Seat
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn-cancel">Cancel</button>
+            <button class="btn-submit">Confirm Asset Assignment</button>
+        </div>
+    </div>
+</body>
+
+</html>

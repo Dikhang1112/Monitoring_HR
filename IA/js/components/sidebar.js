@@ -13,9 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentLoc = window.location.pathname;
     const isPeopleFolder = currentLoc.includes('people_management');
     const isRecruitmentFolder = currentLoc.includes('recruitment');
+    const isOnboardingFolder = currentLoc.includes('onboarding');
 
     const peoplePath = isPeopleFolder ? '' : (isSubfolder ? '../people_management/' : 'people_management/');
     const recruitmentPath = isRecruitmentFolder ? '' : (isSubfolder ? '../recruitment/' : 'recruitment/');
+    const onboardingPath = isOnboardingFolder ? '' : (isSubfolder ? '../onboarding/' : 'onboarding/');
 
     const activePage = sidebarContainer.getAttribute('data-active') || '';
     const activeSubpage = sidebarContainer.getAttribute('data-subpage') || '';
@@ -400,10 +402,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span>Interview & Offer</span>
                     </a>
                 </ul>
-                <li class="menu-item ${activePage === 'Onboarding' ? 'active' : ''}" data-page="Onboarding" title="Onboarding">
+                <a href="${onboardingPath}NewHireOnboarding.html" class="menu-item ${activePage === 'Onboarding' ? 'active' : ''}" data-page="Onboarding" title="Onboarding">
                     <svg viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.71 1.1-1.31 1.5-2"/><path d="M12 15l-3-3 3-3"/><path d="M9 12h12"/></svg>
                     <span>Onboarding</span>
-                </li>
+                </a>
                 <li class="menu-item ${activePage === 'Offboarding' ? 'active' : ''}" data-page="Offboarding" title="Offboarding">
                     <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
                     <span>Offboarding</span>

@@ -1,0 +1,154 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal - Manage Enterprise SaaS Software Licenses</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #09090b;
+            --bg-card: #ffffff;
+            --text-main: #09090b;
+            --text-muted: #71717a;
+            --border-color: #e4e4e7;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background: #f4f4f5; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 40px 20px; }
+
+        .modal-card {
+            width: 100%; max-width: 660px; background: #ffffff; border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); overflow: hidden;
+            display: flex; flex-direction: column;
+        }
+
+        .modal-header { padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        .modal-title { font-size: 17px; font-weight: 700; color: var(--text-main); }
+        .modal-subtitle { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+
+        .modal-body { padding: 24px; display: flex; flex-direction: column; gap: 20px; max-height: 75vh; overflow-y: auto; }
+
+        /* Add SaaS Form Card */
+        .add-saas-box { background: #fafafa; border: 1px dashed #cbd5e1; border-radius: var(--radius-md); padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+        .box-title { font-size: 13px; font-weight: 700; color: var(--text-main); }
+
+        .form-row-3 { display: grid; grid-template-columns: 2fr 1.5fr 1fr; gap: 10px; align-items: end; }
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        .form-label { font-size: 12px; font-weight: 600; color: var(--text-main); }
+        .form-control {
+            padding: 9px 12px; border-radius: 6px; border: 1px solid var(--border-color);
+            font-size: 13px; outline: none; background: #ffffff; color: var(--text-main);
+        }
+
+        .btn-add-saas { padding: 9px 14px; border-radius: 6px; border: none; background: var(--primary); color: white; font-size: 12.5px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
+
+        /* Active List Table */
+        .saas-table { width: 100%; border-collapse: collapse; margin-top: 4px; }
+        .saas-table th { padding: 10px 14px; font-size: 11.5px; font-weight: 700; color: var(--text-muted); background: #fafafa; border-bottom: 1px solid var(--border-color); text-transform: uppercase; text-align: left; }
+        .saas-table td { padding: 12px 14px; font-size: 13px; border-bottom: 1px solid var(--border-color); color: var(--text-main); vertical-align: middle; }
+
+        .btn-danger-sm { padding: 5px 10px; border-radius: 6px; border: 1px solid #fecaca; background: #fef2f2; font-size: 11.5px; font-weight: 600; cursor: pointer; color: #dc2626; }
+        .btn-danger-sm:hover { background: #fee2e2; }
+
+        .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border-color); background: #fafafa; display: flex; justify-content: flex-end; gap: 12px; }
+        .btn-cancel { padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-main); }
+        .btn-submit { padding: 9px 18px; border-radius: 8px; border: none; background: var(--primary); color: white; font-size: 13px; font-weight: 600; cursor: pointer; }
+    </style>
+</head>
+
+<body>
+    <div class="modal-card">
+        <div class="modal-header">
+            <div>
+                <h2 class="modal-title">Manage Enterprise SaaS Software Products</h2>
+                <p class="modal-subtitle">Add new SaaS subscriptions or remove active company software licenses</p>
+            </div>
+        </div>
+
+        <div class="modal-body">
+            <!-- Add New Product Form Box -->
+            <div class="add-saas-box">
+                <div class="box-title">+ Add New Company SaaS Product</div>
+                <div class="form-row-3">
+                    <div class="form-group">
+                        <label class="form-label">SaaS Software Name</label>
+                        <input type="text" class="form-control" placeholder="e.g. Notion Enterprise Workspace">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">License Tier</label>
+                        <input type="text" class="form-control" placeholder="e.g. Enterprise Org Plan">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Total Seats</label>
+                        <input type="number" class="form-control" placeholder="50">
+                    </div>
+                </div>
+                <div style="display:flex; justify-content:flex-end;">
+                    <button class="btn-add-saas">+ Add SaaS Product</button>
+                </div>
+            </div>
+
+            <!-- Active Products List Table -->
+            <div>
+                <div style="font-weight: 700; font-size: 13.5px; margin-bottom: 8px;">Active Company SaaS Products (4 Active)</div>
+                <table class="saas-table">
+                    <thead>
+                        <tr>
+                            <th>Software Name</th>
+                            <th>Tier</th>
+                            <th>Seat Capacity</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div style="font-weight:600;">Google Workspace Enterprise</div>
+                                <div style="font-size:11.5px; color:var(--text-muted);">SSO Authentication</div>
+                            </td>
+                            <td>Enterprise Plus</td>
+                            <td><span style="font-weight:700;">150 Seats</span></td>
+                            <td><button class="btn-danger-sm">🗑️ Remove</button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="font-weight:600;">Slack Enterprise Grid</div>
+                                <div style="font-size:11.5px; color:var(--text-muted);">Internal Workspace</div>
+                            </td>
+                            <td>Grid Org Seat</td>
+                            <td><span style="font-weight:700;">150 Seats</span></td>
+                            <td><button class="btn-danger-sm">🗑️ Remove</button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="font-weight:600;">Figma Enterprise Design</div>
+                                <div style="font-size:11.5px; color:var(--text-muted);">Product UI/UX Team</div>
+                            </td>
+                            <td>Editor Seat</td>
+                            <td><span style="font-weight:700;">20 Seats</span></td>
+                            <td><button class="btn-danger-sm">🗑️ Remove</button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="font-weight:600;">Jira Software Enterprise</div>
+                                <div style="font-size:11.5px; color:var(--text-muted);">Engineering Tracker</div>
+                            </td>
+                            <td>Cloud Premium</td>
+                            <td><span style="font-weight:700;">100 Seats</span></td>
+                            <td><button class="btn-danger-sm">🗑️ Remove</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn-cancel">Close</button>
+            <button class="btn-submit">Save SaaS Configuration</button>
+        </div>
+    </div>
+
+
+
+</body></html>

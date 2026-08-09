@@ -1,0 +1,91 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Interview Modal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background: #f4f4f5; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+
+        .modal-card {
+            width: 100%; max-width: 580px; background: #ffffff; border: 1px solid #e4e4e7;
+            border-radius: 14px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); overflow: hidden;
+            display: flex; flex-direction: column;
+        }
+
+        .modal-header { padding: 20px 24px; border-bottom: 1px solid #e4e4e7; display: flex; justify-content: space-between; align-items: center; }
+        .modal-title { font-size: 17px; font-weight: 700; color: #09090b; }
+        .modal-subtitle { font-size: 12.5px; color: #71717a; margin-top: 2px; }
+
+        .modal-body { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-label { font-size: 13px; font-weight: 600; color: #09090b; }
+        .form-input, .form-select {
+            width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid #e4e4e7;
+            font-size: 13px; color: #09090b; outline: none; background: #ffffff;
+        }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+        .modal-footer { padding: 16px 24px; border-top: 1px solid #e4e4e7; background: #fafafa; display: flex; justify-content: flex-end; gap: 12px; }
+        .btn-cancel { padding: 9px 16px; border-radius: 8px; border: 1px solid #e4e4e7; background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: #09090b; }
+        .btn-submit { padding: 9px 18px; border-radius: 8px; border: none; background: #09090b; color: white; font-size: 13px; font-weight: 600; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="modal-card">
+        <div class="modal-header">
+            <div>
+                <h2 class="modal-title">Schedule Interview Session</h2>
+                <p class="modal-subtitle">Google Calendar &amp; Outlook Calendar Sync Integration</p>
+            </div>
+        </div>
+
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="form-label">Select Candidate *</label>
+                <select class="form-select">
+                    <option selected="">Sofia Rodriguez — Senior Fullstack Engineer Candidate</option>
+                    <option>Emily Chen — Senior Product Designer Candidate</option>
+                    <option>Marcus Vance — Head of System Admin Candidate</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Interview Date *</label>
+                    <input type="date" class="form-input" value="2026-08-10">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Time Slot *</label>
+                    <select class="form-select">
+                        <option selected="">02:00 PM - 03:00 PM (ICT)</option>
+                        <option>10:00 AM - 11:00 AM (ICT)</option>
+                        <option>04:00 PM - 05:00 PM (ICT)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Assigned Panel Interviewers *</label>
+                <input type="text" class="form-input" value="Dao Vo (CTO), Lucia Doan (HR Manager)" placeholder="Search employee names...">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Meeting Type &amp; Location *</label>
+                <select class="form-select">
+                    <option selected="">Google Meet Video Call (Auto-generate Link)</option>
+                    <option>On-site HQ Meeting Room 4A</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn-cancel">Cancel</button>
+            <button class="btn-submit">Dispatch Calendar Invite &amp; Send Email</button>
+        </div>
+    </div>
+
+
+</body></html>

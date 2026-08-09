@@ -1,0 +1,728 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Platform - Job Openings &amp; Requisitions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #09090b;
+            --primary-hover: #27272a;
+            --primary-light: #f4f4f5;
+            --bg-app: #fafafa;
+            --bg-card: #ffffff;
+            --text-main: #09090b;
+            --text-muted: #71717a;
+            --border-color: #e4e4e7;
+            --border-strong: #18181b;
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.08);
+            --sidebar-width: 260px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg-app); color: var(--text-main); font-size: 14px; line-height: 1.5; min-height: 100vh; }
+        .app { display: flex; min-height: 100vh; }
+
+        /* Unified Sidebar CSS Overrides */
+        .sidebar {
+            width: var(--sidebar-width); background: var(--bg-card); border-right: 1px solid var(--border-color);
+            display: flex; flex-direction: column; justify-content: space-between; position: fixed;
+            top: 0; bottom: 0; left: 0; z-index: 100; padding: 20px 16px;
+        }
+        .sidebar-top { display: flex; flex-direction: column; gap: 24px; }
+        .logo { font-size: 18px; font-weight: 700; display: flex; align-items: center; gap: 10px; padding: 0 8px; color: var(--primary); }
+        .logo-icon { width: 32px; height: 32px; background: var(--primary); color: white; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; }
+        
+        .menu { display: flex; flex-direction: column; gap: 4px; list-style: none; }
+        .menu-item {
+            display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; border-radius: var(--radius-md);
+            color: var(--text-muted); font-weight: 500; font-size: 13.5px; text-decoration: none; cursor: pointer; transition: all 0.15s ease;
+        }
+        .menu-item:hover, .menu-item.active { background: var(--primary-light); color: var(--primary); font-weight: 600; }
+        .menu-item svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; flex-shrink: 0; }
+        
+        .submenu { display: flex; flex-direction: column; gap: 2px; padding-left: 28px; margin-top: 2px; list-style: none; }
+        .submenu.hidden { display: none; }
+        .submenu-item {
+            display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: var(--radius-sm);
+            color: var(--text-muted); font-size: 13px; text-decoration: none; transition: all 0.15s ease;
+        }
+        .submenu-item:hover, .submenu-item.active { color: var(--primary); font-weight: 600; background: var(--primary-light); }
+
+        .dropdown-chevron { width: 16px; height: 16px; stroke: currentColor; transition: transform 0.2s ease; }
+        .menu-item.collapsed .dropdown-chevron { transform: rotate(-90deg); }
+
+        .sidebar-footer { position: relative; border-top: 1px solid var(--border-color); padding-top: 16px; }
+        .user-profile-bar { display: flex; align-items: center; justify-content: space-between; padding: 8px; border-radius: var(--radius-md); cursor: pointer; }
+        .user-profile-bar:hover { background: var(--primary-light); }
+        .avatar-small { width: 36px; height: 36px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; }
+        .user-info { display: flex; flex-direction: column; gap: 1px; flex: 1; margin-left: 10px; }
+        .user-name { font-size: 13px; font-weight: 600; color: var(--text-main); }
+        .user-role { font-size: 11.5px; color: var(--text-muted); }
+
+        .user-popup { position: absolute; bottom: 60px; left: 0; right: 0; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); box-shadow: var(--shadow-hover); padding: 6px; z-index: 200; display: flex; flex-direction: column; gap: 2px; }
+        .user-popup.hidden { display: none; }
+        .popup-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border: none; background: transparent; font-size: 13px; color: var(--text-main); font-weight: 500; cursor: pointer; border-radius: var(--radius-sm); text-align: left; width: 100%; }
+        .popup-item:hover { background: var(--primary-light); }
+        .popup-divider { height: 1px; background: var(--border-color); margin: 4px 0; }
+
+        /* Main Workspace Content */
+        .content { margin-left: var(--sidebar-width); flex: 1; padding: 32px 40px; display: flex; flex-direction: column; gap: 28px; }
+
+        .header { display: flex; justify-content: space-between; align-items: center; }
+        .header-left { display: flex; flex-direction: column; gap: 4px; }
+        .page-title { font-size: 22px; font-weight: 700; color: var(--text-main); letter-spacing: -0.5px; }
+        .page-desc { font-size: 13px; color: var(--text-muted); }
+        .header-right { display: flex; align-items: center; gap: 12px; }
+
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: var(--radius-md);
+            background: var(--primary); color: white; border: none; font-size: 13px; font-weight: 600; cursor: pointer;
+            transition: all 0.15s ease; box-shadow: var(--shadow-sm);
+        }
+        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
+        .btn-secondary {
+            display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: var(--radius-md);
+            background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); font-size: 13px; font-weight: 600; cursor: pointer;
+        }
+
+        /* KPI Cards Grid */
+        .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .kpi-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 20px; display: flex; flex-direction: column; gap: 8px; box-shadow: var(--shadow-sm); }
+        .kpi-header { display: flex; justify-content: space-between; align-items: center; }
+        .kpi-title { font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .kpi-icon { width: 32px; height: 32px; border-radius: var(--radius-md); background: var(--primary-light); display: flex; align-items: center; justify-content: center; }
+        .kpi-icon svg { width: 16px; height: 16px; stroke: var(--primary); fill: none; stroke-width: 2; }
+        .kpi-value { font-size: 26px; font-weight: 700; color: var(--text-main); }
+        .kpi-sub { font-size: 12px; color: var(--text-muted); }
+
+        /* Filter Controls Bar */
+        .filter-bar { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; box-shadow: var(--shadow-sm); }
+        .search-box { display: flex; align-items: center; gap: 10px; background: var(--bg-app); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 8px 14px; flex: 1; max-width: 380px; }
+        .search-box svg { width: 16px; height: 16px; stroke: var(--text-muted); fill: none; stroke-width: 2; }
+        .search-box input { border: none; background: transparent; outline: none; font-size: 13px; color: var(--text-main); width: 100%; }
+
+        .filter-controls { display: flex; align-items: center; gap: 12px; }
+        .select-filter { padding: 8px 14px; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: var(--bg-card); font-size: 13px; color: var(--text-main); outline: none; cursor: pointer; }
+
+        /* Job Requisitions Table */
+        .table-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
+        .table-header { padding: 18px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        .table-title { font-size: 15px; font-weight: 700; color: var(--text-main); }
+
+        .job-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+        .job-table th { padding: 12px 20px; background: var(--bg-app); border-bottom: 1px solid var(--border-color); font-weight: 600; color: var(--text-muted); font-size: 12px; text-transform: uppercase; }
+        .job-table td { padding: 16px 20px; border-bottom: 1px solid var(--border-color); color: var(--text-main); vertical-align: middle; }
+        .job-table tr:last-child td { border-bottom: none; }
+        .job-table tr:hover td { background: #fafafa; }
+
+        .job-name { font-weight: 700; color: var(--text-main); font-size: 14px; }
+        .job-code { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+        .manager-info { display: flex; align-items: center; gap: 8px; }
+        .manager-avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--primary); color: white; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+
+        .badge-pill { display: inline-flex; padding: 4px 10px; border-radius: 12px; font-size: 11.5px; font-weight: 600; }
+        .badge-active { background: #f4f4f5; color: #09090b; border: 1px solid #18181b; }
+        .badge-draft { background: #f4f4f5; color: #71717a; border: 1px solid #e4e4e7; }
+        .badge-closed { background: #fafafa; color: #a1a1aa; border: 1px solid #e4e4e7; }
+
+        .action-btns { display: flex; align-items: center; gap: 8px; }
+        .icon-btn { width: 30px; height: 30px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: white; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .icon-btn hover { background: var(--primary-light); }
+        .icon-btn svg { width: 14px; height: 14px; stroke: var(--text-main); fill: none; stroke-width: 2; }
+
+        /* Toast Notifications Container */
+        .toast-container { position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; gap: 10px; z-index: 1000; }
+        .toast { background: var(--bg-card); color: var(--text-main); padding: 12px 18px; border-radius: var(--radius-md); font-size: 13px; border: 1px solid var(--border-strong); box-shadow: var(--shadow-hover); display: flex; align-items: center; gap: 10px; }
+    </style>
+<style id="sidebarGlobalStyle">
+            #sidebarContainer {
+                width: 260px !important;
+                background: #ffffff !important;
+                border-right: 1px solid #e4e4e7 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: space-between !important;
+                position: fixed !important;
+                top: 0 !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                z-index: 100 !important;
+                padding: 20px 16px !important;
+                box-sizing: border-box !important;
+            }
+            #sidebarContainer .sidebar-top {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 24px !important;
+            }
+            #sidebarContainer .logo {
+                font-size: 18px !important;
+                font-weight: 700 !important;
+                display: flex !important;
+                align-items: center !important;
+                gap: 10px !important;
+                padding: 0 8px !important;
+                color: #09090b !important;
+            }
+            #sidebarContainer .logo-icon {
+                width: 32px !important;
+                height: 32px !important;
+                background: #09090b !important;
+                color: #ffffff !important;
+                border-radius: 10px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                font-size: 14px !important;
+                font-weight: 700 !important;
+            }
+            #sidebarContainer .menu {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 4px !important;
+                list-style: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            #sidebarContainer .menu-item {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: flex-start !important;
+                gap: 12px !important;
+                padding: 10px 12px !important;
+                border-radius: 10px !important;
+                color: #71717a !important;
+                font-weight: 500 !important;
+                font-size: 13.5px !important;
+                text-decoration: none !important;
+                cursor: pointer !important;
+                transition: all 0.15s ease !important;
+            }
+            #sidebarContainer .menu-item:hover, #sidebarContainer .menu-item.active {
+                background: #f4f4f5 !important;
+                color: #09090b !important;
+                font-weight: 600 !important;
+            }
+            #sidebarContainer svg {
+                width: 18px !important;
+                height: 18px !important;
+                min-width: 18px !important;
+                min-height: 18px !important;
+                max-width: 18px !important;
+                max-height: 18px !important;
+                flex-shrink: 0 !important;
+                stroke: currentColor !important;
+                fill: none !important;
+                stroke-width: 2 !important;
+                display: inline-block !important;
+            }
+            #sidebarContainer .dropdown-chevron {
+                width: 16px !important;
+                height: 16px !important;
+                min-width: 16px !important;
+                min-height: 16px !important;
+                max-width: 16px !important;
+                max-height: 16px !important;
+                margin-left: auto !important;
+                transition: transform 0.2s ease !important;
+            }
+            #sidebarContainer .menu-item.collapsed .dropdown-chevron {
+                transform: rotate(-90deg) !important;
+            }
+            #sidebarContainer .submenu {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 2px !important;
+                padding-left: 28px !important;
+                margin-top: 2px !important;
+                list-style: none !important;
+            }
+            #sidebarContainer .submenu.hidden {
+                display: none !important;
+            }
+            #sidebarContainer .submenu-item {
+                display: flex !important;
+                align-items: center !important;
+                gap: 10px !important;
+                padding: 8px 12px !important;
+                border-radius: 6px !important;
+                color: #71717a !important;
+                font-size: 13px !important;
+                text-decoration: none !important;
+                transition: all 0.15s ease !important;
+            }
+            #sidebarContainer .submenu-item:hover, #sidebarContainer .submenu-item.active {
+                color: #09090b !important;
+                font-weight: 600 !important;
+                background: #f4f4f5 !important;
+            }
+            #sidebarContainer .submenu-item svg {
+                width: 16px !important;
+                height: 16px !important;
+                min-width: 16px !important;
+                min-height: 16px !important;
+                max-width: 16px !important;
+                max-height: 16px !important;
+            }
+            #sidebarContainer .sidebar-footer {
+                position: relative !important;
+                border-top: 1px solid #e4e4e7 !important;
+                padding-top: 16px !important;
+            }
+            #sidebarContainer .user-profile-bar {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                padding: 8px !important;
+                border-radius: 10px !important;
+                cursor: pointer !important;
+            }
+            #sidebarContainer .user-profile-bar:hover {
+                background: #f4f4f5 !important;
+            }
+            #sidebarContainer .avatar-small {
+                width: 36px !important;
+                height: 36px !important;
+                border-radius: 50% !important;
+                background: #09090b !important;
+                color: #ffffff !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                font-weight: 700 !important;
+                font-size: 13px !important;
+            }
+            #sidebarContainer .user-info {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 1px !important;
+                flex: 1 !important;
+                margin-left: 10px !important;
+            }
+            #sidebarContainer .user-name {
+                font-size: 13px !important;
+                font-weight: 600 !important;
+                color: #09090b !important;
+            }
+            #sidebarContainer .user-role {
+                font-size: 11.5px !important;
+                color: #71717a !important;
+            }
+            #sidebarContainer .user-popup {
+                position: absolute !important;
+                bottom: 60px !important;
+                left: 0 !important;
+                right: 0 !important;
+                background: #ffffff !important;
+                border: 1px solid #e4e4e7 !important;
+                border-radius: 10px !important;
+                box-shadow: 0 6px 16px rgba(0,0,0,0.08) !important;
+                padding: 6px !important;
+                z-index: 200 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 2px !important;
+            }
+            #sidebarContainer .user-popup.hidden {
+                display: none !important;
+            }
+            #sidebarContainer .popup-item {
+                display: flex !important;
+                align-items: center !important;
+                gap: 10px !important;
+                padding: 9px 12px !important;
+                border: none !important;
+                background: transparent !important;
+                font-size: 13px !important;
+                color: #09090b !important;
+                font-weight: 500 !important;
+                cursor: pointer !important;
+                border-radius: 6px !important;
+                text-align: left !important;
+                width: 100% !important;
+            }
+            #sidebarContainer .popup-item:hover {
+                background: #f4f4f5 !important;
+            }
+            #sidebarContainer .popup-divider {
+                height: 1px !important;
+                background: #e4e4e7 !important;
+                margin: 4px 0 !important;
+            }
+        </style></head>
+
+<body>
+    <div class="app">
+        <!-- Sidebar Container -->
+        <div class="sidebar" id="sidebarContainer" data-active="Recruitment" data-subpage="Job Openings" data-is-subfolder="true">
+        <div class="sidebar-top">
+            <div class="logo">
+                <div class="logo-icon">HR</div>
+                HR Platform
+            </div>
+
+            <ul class="menu" id="sidebarMenu">
+                <a href="../Home.html" class="menu-item " data-page="Home">
+                    <svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    Home
+                </a>
+
+                <!-- People Management Accordion -->
+                <li class="menu-item " id="peopleMenuToggle" data-page="People Management" style="cursor: pointer;">
+                    <div style="display:flex; align-items:center; gap:12px; flex:1;">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                        <span>People Management</span>
+                    </div>
+                    <svg class="dropdown-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </li>
+                <ul class="submenu hidden" id="peopleSubmenu">
+                    <a href="../people_management/EmployeeDirectory.html" class="submenu-item " data-subpage="Employee Directory">
+                        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                        Employee Directory
+                    </a>
+                    <a href="../people_management/OrgDepartment.html" class="submenu-item " data-subpage="Organization &amp; Department">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                        Organization &amp; Department
+                    </a>
+                    <a href="../people_management/RequestManagement.html" class="submenu-item " data-subpage="Request Management">
+                        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                        Request Management
+                    </a>
+                </ul>
+
+                <!-- Recruitment Accordion -->
+                <li class="menu-item active" id="recruitmentMenuToggle" data-page="Recruitment" style="cursor: pointer;">
+                    <div style="display:flex; align-items:center; gap:12px; flex:1;">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                        <span>Recruitment &amp; ATS</span>
+                    </div>
+                    <svg class="dropdown-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </li>
+                <ul class="submenu " id="recruitmentSubmenu">
+                    <a href="JobOpenings.html" class="submenu-item active" data-subpage="Job Openings">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                        Job Openings Board
+                    </a>
+                    <a href="CandidatePipeline.html" class="submenu-item " data-subpage="Candidate Pipeline">
+                        <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path></svg>
+                        Candidate Pipeline
+                    </a>
+                    <a href="InterviewOffer.html" class="submenu-item " data-subpage="Interview &amp; Offer">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        Interview &amp; Offer
+                    </a>
+                </ul>
+                <li class="menu-item " data-page="Onboarding">
+                    <svg viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.71 1.1-1.31 1.5-2"></path><path d="M12 15l-3-3 3-3"></path><path d="M9 12h12"></path></svg>
+                    Onboarding
+                </li>
+                <li class="menu-item " data-page="Offboarding">
+                    <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    Offboarding
+                </li>
+                <li class="menu-item " data-page="Payroll">
+                    <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                    Payroll
+                </li>
+                <li class="menu-item " data-page="Performance">
+                    <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                    Performance
+                </li>
+                <li class="menu-item " data-page="Settings">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    Settings
+                </li>
+            </ul>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="user-profile-bar" id="sidebarUserProfile" title="Lucia Doan Profile">
+                <div class="avatar-small">LD</div>
+                <div class="user-info">
+                    <span class="user-name">Lucia Doan</span>
+                    <span class="user-role">HR Manager</span>
+                </div>
+                <svg class="dropdown-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+
+            <div class="user-popup hidden" id="userPopup">
+                <button class="popup-item" id="btnUpdateVersion">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6"></path><path d="M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+                    Update Version
+                </button>
+                <button class="popup-item" id="btnHelp">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    Help
+                </button>
+                <div class="popup-divider"></div>
+                <button class="popup-item logout-item" id="btnSignOut">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    Sign Out
+                </button>
+            </div>
+        </div>
+    </div>
+
+        <!-- Main Content Area -->
+        <div class="content">
+            <!-- Header -->
+            <div class="header">
+                <div class="header-left">
+                    <h1 class="page-title">Job Openings &amp; Requisitions</h1>
+                    <div class="page-desc">Manage active hiring requisitions, recruitment quotas, and job postings.</div>
+                </div>
+                <div class="header-right">
+                    <button class="btn-secondary" id="btnExportCSV">Export List</button>
+                    <button class="btn-primary" id="btnCreateJob">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        Create Job Requisition
+                    </button>
+                </div>
+            </div>
+
+            <!-- KPI Metric Cards -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <span class="kpi-title">Active Openings</span>
+                        <div class="kpi-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg></div>
+                    </div>
+                    <div class="kpi-value">12</div>
+                    <div class="kpi-sub">Across 5 departments</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <span class="kpi-title">Total Applicants</span>
+                        <div class="kpi-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path></svg></div>
+                    </div>
+                    <div class="kpi-value">148</div>
+                    <div class="kpi-sub">+24 new candidates this week</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <span class="kpi-title">Offers Pending</span>
+                        <div class="kpi-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></div>
+                    </div>
+                    <div class="kpi-value">4</div>
+                    <div class="kpi-sub">Awaiting candidate e-signature</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <span class="kpi-title">Avg Time to Hire</span>
+                        <div class="kpi-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+                    </div>
+                    <div class="kpi-value">18 Days</div>
+                    <div class="kpi-sub">2 days faster than target SLA</div>
+                </div>
+            </div>
+
+            <!-- Filter Controls Bar -->
+            <div class="filter-bar">
+                <div class="search-box">
+                    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="jobSearchInput" placeholder="Search by job title, job code, or manager...">
+                </div>
+
+                <div class="filter-controls">
+                    <select class="select-filter" id="deptFilter">
+                        <option value="ALL">All Departments</option>
+                        <option value="Tech">Technology &amp; Software</option>
+                        <option value="SysAdmin">System Administration</option>
+                        <option value="HR">People &amp; Culture (HR)</option>
+                        <option value="Finance">Finance &amp; Accounting</option>
+                    </select>
+
+                    <select class="select-filter" id="statusFilter">
+                        <option value="ALL">All Statuses</option>
+                        <option value="Published">Published / Active</option>
+                        <option value="Draft">Draft Requisition</option>
+                        <option value="Closed">Closed / Filled</option>
+                    </select>
+
+                    <select class="select-filter" id="locationFilter">
+                        <option value="ALL">All Locations</option>
+                        <option value="HQ">Headquarters (HCMC)</option>
+                        <option value="Hanoi">Hanoi Branch</option>
+                        <option value="Remote">Remote Workforce</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Job Requisitions Table -->
+            <div class="table-card">
+                <div class="table-header">
+                    <div class="table-title">Active Hiring Requisitions</div>
+                    <div style="font-size:12.5px; color:var(--text-muted);">Showing 5 of 12 Requisitions</div>
+                </div>
+
+                <table class="job-table">
+                    <thead>
+                        <tr>
+                            <th>Job Requisition Title</th>
+                            <th>Department</th>
+                            <th>Hiring Lead</th>
+                            <th>Headcount Quota</th>
+                            <th>Applicants</th>
+                            <th>Salary Range ($ USD)</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="job-name">Senior Fullstack Engineer (React / Node)</div>
+                                <div class="job-code">JOB-2026-01 • Posted 12 days ago</div>
+                            </td>
+                            <td>Technology &amp; Software</td>
+                            <td>
+                                <div class="manager-info">
+                                    <div class="manager-avatar">DV</div>
+                                    <span>Dao Vo (CTO)</span>
+                                </div>
+                            </td>
+                            <td><strong>2 / 3</strong> Filled</td>
+                            <td><span style="font-weight:700;">42</span> Candidates</td>
+                            <td>$3,500 - $4,800</td>
+                            <td><span class="badge-pill badge-active">Published</span></td>
+                            <td>
+                                <div class="action-btns">
+                                    <a href="CandidatePipeline.html" class="icon-btn" title="View Candidate Pipeline">
+                                        <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path></svg>
+                                    </a>
+                                    <button class="icon-btn" title="Edit Requisition">
+                                        <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <div class="job-name">Head of System Administration</div>
+                                <div class="job-code">JOB-2026-02 • Posted 5 days ago</div>
+                            </td>
+                            <td>System Administration</td>
+                            <td>
+                                <div class="manager-info">
+                                    <div class="manager-avatar">DN</div>
+                                    <span>Dung Nguyen</span>
+                                </div>
+                            </td>
+                            <td><strong>1 / 1</strong> Filled</td>
+                            <td><span style="font-weight:700;">18</span> Candidates</td>
+                            <td>$4,000 - $5,500</td>
+                            <td><span class="badge-pill badge-active">Published</span></td>
+                            <td>
+                                <div class="action-btns">
+                                    <a href="CandidatePipeline.html" class="icon-btn" title="View Candidate Pipeline">
+                                        <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path></svg>
+                                    </a>
+                                    <button class="icon-btn" title="Edit Requisition">
+                                        <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <div class="job-name">Senior Product UI/UX Designer</div>
+                                <div class="job-code">JOB-2026-03 • Draft</div>
+                            </td>
+                            <td>Technology &amp; Software</td>
+                            <td>
+                                <div class="manager-info">
+                                    <div class="manager-avatar">LD</div>
+                                    <span>Lucia Doan (HR)</span>
+                                </div>
+                            </td>
+                            <td><strong>0 / 2</strong> Filled</td>
+                            <td><span style="font-weight:700;">0</span> Candidates</td>
+                            <td>$2,800 - $3,800</td>
+                            <td><span class="badge-pill badge-draft">Draft</span></td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="icon-btn" title="Edit Requisition">
+                                        <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <div class="job-name">DevOps &amp; Cloud Security Specialist</div>
+                                <div class="job-code">JOB-2026-04 • Posted 20 days ago</div>
+                            </td>
+                            <td>System Administration</td>
+                            <td>
+                                <div class="manager-info">
+                                    <div class="manager-avatar">DN</div>
+                                    <span>Dung Nguyen</span>
+                                </div>
+                            </td>
+                            <td><strong>1 / 2</strong> Filled</td>
+                            <td><span style="font-weight:700;">31</span> Candidates</td>
+                            <td>$3,200 - $4,200</td>
+                            <td><span class="badge-pill badge-active">Published</span></td>
+                            <td>
+                                <div class="action-btns">
+                                    <a href="CandidatePipeline.html" class="icon-btn" title="View Candidate Pipeline">
+                                        <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path></svg>
+                                    </a>
+                                    <button class="icon-btn" title="Edit Requisition">
+                                        <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <div class="job-name">Senior Financial Analyst</div>
+                                <div class="job-code">JOB-2026-05 • Closed</div>
+                            </td>
+                            <td>Finance &amp; Accounting</td>
+                            <td>
+                                <div class="manager-info">
+                                    <div class="manager-avatar">LD</div>
+                                    <span>Lucia Doan</span>
+                                </div>
+                            </td>
+                            <td><strong>1 / 1</strong> Filled</td>
+                            <td><span style="font-weight:700;">57</span> Candidates</td>
+                            <td>$2,500 - $3,500</td>
+                            <td><span class="badge-pill badge-closed">Closed</span></td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="icon-btn" title="View Archive">
+                                        <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="../../js/components/sidebar.js"></script>
+    <script src="../../js/recruitment/JobOpenings.js"></script>
+
+
+
+</body></html>

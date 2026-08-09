@@ -1,11 +1,12 @@
 <!DOCTYPE html><html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Onboarding - New Hire Tracker</title>
+    <title>Offboarding &amp; Resignation Management - HR Platform</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #09090b;
+            --primary-hover: #27272a;
             --bg-app: #f4f4f5;
             --bg-card: #ffffff;
             --text-main: #09090b;
@@ -13,76 +14,65 @@
             --border-color: #e4e4e7;
             --radius-md: 10px;
             --radius-lg: 14px;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        body { background: var(--bg-app); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; }
+        body { background: var(--bg-app); color: var(--text-main); min-height: 100vh; display: flex; }
 
-        .app { display: flex; min-height: 100vh; }
-        .sidebar { width: 260px; background: var(--bg-card); border-right: 1px solid var(--border-color); flex-shrink: 0; }
-        .content-area { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+        .app-container { display: flex; width: 100%; min-height: 100vh; }
+        .main-wrapper { flex: 1; display: flex; flex-direction: column; min-width: 0; }
 
-        .header { height: 64px; background: var(--bg-card); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 0 28px; }
-        .header-search { display: flex; align-items: center; gap: 10px; background: var(--bg-app); padding: 8px 14px; border-radius: var(--radius-md); width: 320px; border: 1px solid var(--border-color); }
-        .header-search input { border: none; background: transparent; outline: none; font-size: 13px; width: 100%; color: var(--text-main); }
-        .header-actions { display: flex; align-items: center; gap: 12px; }
-        .icon-btn { width: 36px; height: 36px; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: var(--bg-card); display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-main); position: relative; }
-        .notification-badge { position: absolute; top: 6px; right: 6px; width: 8px; height: 8px; background: #ef4444; border-radius: 50%; }
+        .top-header {
+            height: 64px; background: var(--bg-card); border-bottom: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: space-between; padding: 0 28px;
+            position: sticky; top: 0; z-index: 10;
+        }
+        .header-title { font-size: 15px; font-weight: 700; color: var(--text-main); }
+        .header-actions { display: flex; align-items: center; gap: 14px; }
+        .icon-btn { background: none; border: none; cursor: pointer; color: var(--text-muted); position: relative; }
 
         .main { padding: 28px; display: flex; flex-direction: column; gap: 24px; }
-        .page-header-row { display: flex; justify-content: space-between; align-items: center; }
-        .title { font-size: 22px; font-weight: 700; color: var(--text-main); letter-spacing: -0.5px; }
+        .page-header-row { display: flex; justify-content: space-between; align-items: flex-start; }
+        .title { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
         .subtitle { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
 
-        .header-btn-group { display: flex; gap: 10px; }
-        .btn-primary { padding: 9px 16px; border-radius: var(--radius-md); background: var(--primary); color: white; border: none; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; }
-        .btn-secondary { padding: 9px 14px; border-radius: var(--radius-md); background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: var(--radius-md);
+            background: var(--primary); color: white; border: none; font-size: 13px; font-weight: 600; cursor: pointer;
+            transition: all 0.15s ease; box-shadow: var(--shadow-sm);
+        }
+        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
+        .btn-secondary {
+            display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: var(--radius-md);
+            background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none;
+        }
 
-        /* Navigation Subtabs */
-        .subnav-tabs { display: flex; gap: 8px; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; }
-        .tab-item { padding: 8px 16px; border-radius: var(--radius-md); font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; transition: all 0.15s ease; }
-        .tab-item:hover, .tab-item.active { background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); }
+        .subnav-tabs { display: flex; border-bottom: 1px solid var(--border-color); gap: 24px; }
+        .tab-item { padding: 10px 4px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; border-bottom: 2px solid transparent; }
+        .tab-item.active { color: var(--text-main); border-bottom-color: var(--primary); }
 
-        /* KPI Cards Grid */
-        .cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-        .card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 18px 20px; display: flex; flex-direction: column; gap: 6px; }
-        .card-header-row { display: flex; justify-content: space-between; align-items: center; }
-        .card-title { font-size: 12.5px; font-weight: 600; color: var(--text-muted); }
-        .card-val { font-size: 24px; font-weight: 700; color: var(--text-main); }
-        .badge-trend { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 12px; background: #f4f4f5; color: var(--text-main); }
+        .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .kpi-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 20px; display: flex; flex-direction: column; gap: 8px; box-shadow: var(--shadow-sm); }
+        .kpi-title { font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .kpi-value { font-size: 26px; font-weight: 700; color: var(--text-main); }
+        .kpi-sub { font-size: 12px; color: var(--text-muted); }
 
-        /* Table Card Container */
-        .table-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; }
-        .table-toolbar { padding: 16px 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
-        .table-filter-group { display: flex; gap: 12px; align-items: center; }
-        .filter-select { padding: 7px 12px; border-radius: var(--radius-md); border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff; color: var(--text-main); font-weight: 500; }
+        .card-panel { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
+        .panel-header { padding: 18px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        .panel-title { font-size: 15px; font-weight: 700; }
 
-        table { width: 100%; border-collapse: collapse; text-align: left; }
-        th { padding: 12px 20px; font-size: 12px; font-weight: 700; color: var(--text-muted); background: #fafafa; border-bottom: 1px solid var(--border-color); text-transform: uppercase; letter-spacing: 0.5px; }
-        td { padding: 14px 20px; font-size: 13.5px; border-bottom: 1px solid var(--border-color); color: var(--text-main); vertical-align: middle; }
-        tr:last-child td { border-bottom: none; }
-        tr:hover td { background: #fafafa; }
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+        th { padding: 12px 20px; background: var(--bg-app); border-bottom: 1px solid var(--border-color); font-weight: 600; color: var(--text-muted); font-size: 12px; text-transform: uppercase; }
+        td { padding: 16px 20px; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
 
-        .hire-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
-        .hire-info { display: flex; flex-direction: column; gap: 2px; }
-        .hire-name { font-weight: 600; color: var(--text-main); text-decoration: none; }
-        .hire-name:hover { text-decoration: underline; }
-        .hire-dept { font-size: 12px; color: var(--text-muted); }
+        .status-pill { padding: 4px 10px; border-radius: 12px; font-size: 11.5px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
+        .status-pending { background: #fef3c7; color: #d97706; }
+        .status-progress { background: #eff6ff; color: #2563eb; }
+        .status-completed { background: #f0fdf4; color: #16a34a; }
 
-        /* Progress Bar */
-        .progress-bar-bg { width: 120px; height: 8px; background: #e4e4e7; border-radius: 4px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; background: #09090b; border-radius: 4px; }
-
-        .stage-pill { padding: 4px 10px; border-radius: 20px; font-size: 11.5px; font-weight: 600; display: inline-block; }
-        .stage-pre { background: #eff6ff; color: #1d4ed8; }
-        .stage-orientation { background: #fef3c7; color: #b45309; }
-        .stage-it { background: #f3e8ff; color: #6b21a8; }
-        .stage-active { background: #f0fdf4; color: #15803d; }
-
-        .btn-action-sm { padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border-color); background: #ffffff; font-size: 12px; font-weight: 600; cursor: pointer; color: var(--text-main); text-decoration: none; }
+        .btn-action-sm { padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border-color); background: white; font-size: 12px; font-weight: 600; cursor: pointer; color: var(--text-main); }
         .btn-action-sm:hover { background: #f4f4f5; }
-
-        .toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 2000; display: flex; flex-direction: column; gap: 8px; }
     </style>
 <style id="sidebarGlobalStyle">
             #sidebarContainer {
@@ -389,9 +379,8 @@
         </style></head>
 
 <body>
-    <div class="app">
-        <!-- Central Sidebar -->
-        <div class="sidebar" id="sidebarContainer" data-active="Onboarding" data-subpage="NewHireOnboarding" data-is-subfolder="true">
+    <div class="app-container">
+        <div id="sidebarContainer" data-active="Offboarding" data-is-subfolder="true">
         <div class="sidebar-top">
             <div class="logo">
                 <div class="logo-left" style="display:flex; align-items:center; gap:10px;">
@@ -460,11 +449,11 @@
                         <span>Interview &amp; Offer</span>
                     </a>
                 </ul>
-                <a href="NewHireOnboarding.html" class="menu-item active" data-page="Onboarding" title="Onboarding">
+                <a href="../onboarding/NewHireOnboarding.html" class="menu-item " data-page="Onboarding" title="Onboarding">
                     <svg viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.71 1.1-1.31 1.5-2"></path><path d="M12 15l-3-3 3-3"></path><path d="M9 12h12"></path></svg>
                     <span>Onboarding</span>
                 </a>
-                <a href="../offboarding/OffboardingRequests.html" class="menu-item " data-page="Offboarding" title="Offboarding">
+                <a href="OffboardingRequests.html" class="menu-item active" data-page="Offboarding" title="Offboarding">
                     <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
                     <span>Offboarding</span>
                 </a>
@@ -511,17 +500,12 @@
         </div>
     </div>
 
-        <div class="content-area">
-            <header class="header">
-                <div class="header-search">
-                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    <input type="text" placeholder="Search new hires, mentors, or departments...">
-                </div>
-
+        <div class="main-wrapper">
+            <header class="top-header">
+                <div class="header-title">HR Platform • Offboarding Management</div>
                 <div class="header-actions">
-                    <button class="icon-btn" id="btnNotifications" title="Notifications">
+                    <button class="icon-btn" title="Notifications">
                         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-                        <span class="notification-badge"></span>
                     </button>
                 </div>
             </header>
@@ -529,196 +513,101 @@
             <main class="main">
                 <div class="page-header-row">
                     <div>
-                        <h1 class="title">Onboarding &amp; New Hire Management</h1>
-                        <p class="subtitle">Track orientation progress, IT asset provisioning, and 30-60-90 day milestone reviews.</p>
+                        <h1 class="title">Offboarding &amp; Exit Clearance Tracker</h1>
+                        <p class="subtitle">Manage resignation requests, cross-department clearance matrix, and automated Outlook notifications.</p>
                     </div>
 
-                    <div class="header-btn-group">
-                        <a href="AssetTracker.html" class="btn-secondary">
-                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-                            Asset &amp; License Tracker
-                        </a>
-                        <button class="btn-primary" id="btnCreateTemplate">
-                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                            <span>+ Create Onboarding Plan</span>
-                        </button>
+                    <div style="display:flex; gap:12px;">
+                        <a href="AssetHandoverClearance.html" class="btn-secondary">Asset &amp; Access Revocation</a>
+                        <button class="btn-primary" id="btnInitiateOffboard">+ Initiate Offboarding</button>
                     </div>
                 </div>
 
                 <!-- Subtab Navigation -->
                 <div class="subnav-tabs">
-                    <a href="NewHireOnboarding.html" class="tab-item active">New Hire Progress Tracker</a>
-                    <a href="AssetTracker.html" class="tab-item">Asset &amp; License Provisioning</a>
-                    <a href="CandidateDataConversion.html" class="tab-item">Candidate-to-Employee Conversion</a>
+                    <a href="OffboardingRequests.html" class="tab-item active">Offboarding Tracker</a>
+                    <a href="AssetHandoverClearance.html" class="tab-item">Asset &amp; SaaS Revocation</a>
+                    <a href="ExitSurveyInterview.html" class="tab-item">Exit Survey &amp; Analytics</a>
                 </div>
 
-                <!-- KPI Cards Grid -->
-                <div class="cards-grid">
-                    <div class="card">
-                        <div class="card-header-row">
-                            <span class="card-title">Active New Hires</span>
-                            <span class="badge-trend">+4 This Month</span>
-                        </div>
-                        <div class="card-val">14</div>
+                <!-- KPI Grid -->
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-title">Active Offboardings</div>
+                        <div class="kpi-value">3 Staff</div>
+                        <div class="kpi-sub">In-progress this month</div>
                     </div>
-                    <div class="card">
-                        <div class="card-header-row">
-                            <span class="card-title">Pending IT Setup</span>
-                            <span class="badge-trend">Action Req.</span>
-                        </div>
-                        <div class="card-val">3</div>
+                    <div class="kpi-card">
+                        <div class="kpi-title">Exit Surveys Pending</div>
+                        <div class="kpi-value">1 Survey</div>
+                        <div class="kpi-sub">Sent via Outlook Integration</div>
                     </div>
-                    <div class="card">
-                        <div class="card-header-row">
-                            <span class="card-title">Avg Onboarding Time</span>
-                            <span class="badge-trend">On Track</span>
-                        </div>
-                        <div class="card-val">12 Days</div>
+                    <div class="kpi-card">
+                        <div class="kpi-title">Asset Returns Pending</div>
+                        <div class="kpi-value">2 Laptops</div>
+                        <div class="kpi-sub">IT Hardware Inventory</div>
                     </div>
-                    <div class="card">
-                        <div class="card-header-row">
-                            <span class="card-title">Checklist Completion Rate</span>
-                            <span class="badge-trend">92% Overall</span>
-                        </div>
-                        <div class="card-val">92%</div>
+                    <div class="kpi-card">
+                        <div class="kpi-title">Completed Offboarding</div>
+                        <div class="kpi-value">12 Staff</div>
+                        <div class="kpi-sub">Year-to-date (2026)</div>
                     </div>
                 </div>
 
-                <!-- New Hire Roster Table -->
-                <div class="table-card">
-                    <div class="table-toolbar">
-                        <div style="font-weight: 700; font-size: 15px; color: var(--text-main);">New Hire Roster (14 Active)</div>
-                        <div class="table-filter-group">
-                            <select class="filter-select">
-                                <option>All Departments</option>
-                                <option>Software Engineering</option>
-                                <option>Product UI/UX</option>
-                                <option>People &amp; Culture</option>
-                            </select>
-                            <select class="filter-select">
-                                <option>All Stages</option>
-                                <option>Pre-boarding</option>
-                                <option>Day 1 Orientation</option>
-                                <option>IT Hardware &amp; Access Setup</option>
-                                <option>Completed Sign-off</option>
-                            </select>
-                        </div>
+                <!-- Data Table Panel -->
+                <div class="card-panel">
+                    <div class="panel-header">
+                        <span class="panel-title">Active Employee Offboarding Pipeline</span>
                     </div>
 
                     <table>
                         <thead>
                             <tr>
-                                <th>New Hire Employee</th>
-                                <th>Assigned Mentor</th>
-                                <th>Start Date</th>
-                                <th>Current Onboarding Stage</th>
-                                <th>Tasks Completed</th>
+                                <th>Employee &amp; Department</th>
+                                <th>Category &amp; Reason</th>
+                                <th>Last Working Day (LWD)</th>
+                                <th>Clearance Status</th>
+                                <th>Outlook Auto Sync</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>
-                                    <div style="display:flex; align-items:center; gap:12px;">
-                                        <div class="hire-avatar">AW</div>
-                                        <div class="hire-info">
-                                            <span class="hire-name btn-checklist-trigger" style="cursor:pointer;">Alexander Wright</span>
-                                            <span class="hire-dept">Senior Fullstack Engineer • Engineering</span>
-                                        </div>
+                                    <div style="font-weight:600;" class="btn-clearance-trigger">Brandon Vance</div>
+                                    <div style="font-size:12px; color:var(--text-muted);">Senior Systems Engineer • SysAdmin</div>
+                                </td>
+                                <td>
+                                    <div style="font-weight:600;">Voluntary Resignation</div>
+                                    <div style="font-size:11.5px; color:var(--text-muted);">Career Advancement</div>
+                                </td>
+                                <td>31/08/2026</td>
+                                <td><span class="status-pill status-progress">Clearance 75% (3/4)</span></td>
+                                <td><span style="font-size:12px; color:#16a34a; font-weight:600;">✓ Email Dispatched</span></td>
+                                <td>
+                                    <div style="display:flex; gap:8px;">
+                                        <button class="btn-action-sm btn-clearance-trigger">View Clearance</button>
+                                        <button class="btn-action-sm btn-settlement-trigger">Final Settlement</button>
                                     </div>
-                                </td>
-                                <td>
-                                    <div style="font-weight:600;">Dao Vo</div>
-                                    <div style="font-size:12px; color:var(--text-muted);">CTO</div>
-                                </td>
-                                <td>15/08/2026</td>
-                                <td><span class="stage-pill stage-it">IT Setup &amp; Access</span></td>
-                                <td>
-                                    <div style="display:flex; align-items:center; gap:10px;">
-                                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 75%;"></div></div>
-                                        <span style="font-size:12px; font-weight:700;">6/8 (75%)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <button class="btn-action-sm btn-checklist-trigger">View Checklist</button>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <div style="display:flex; align-items:center; gap:12px;">
-                                        <div class="hire-avatar">DL</div>
-                                        <div class="hire-info">
-                                            <span class="hire-name btn-checklist-trigger" style="cursor:pointer;">David Lawson</span>
-                                            <span class="hire-dept">Principal Architect • System Admin</span>
-                                        </div>
+                                    <div style="font-weight:600;" class="btn-clearance-trigger">Emily Chen</div>
+                                    <div style="font-size:12px; color:var(--text-muted);">Product UX Lead • Product Design</div>
+                                </td>
+                                <td>
+                                    <div style="font-weight:600;">Voluntary Resignation</div>
+                                    <div style="font-size:11.5px; color:var(--text-muted);">Relocation</div>
+                                </td>
+                                <td>15/09/2026</td>
+                                <td><span class="status-pill status-pending">Clearance 25% (1/4)</span></td>
+                                <td><span style="font-size:12px; color:#16a34a; font-weight:600;">✓ Calendar Synced</span></td>
+                                <td>
+                                    <div style="display:flex; gap:8px;">
+                                        <button class="btn-action-sm btn-clearance-trigger">View Clearance</button>
+                                        <button class="btn-action-sm btn-settlement-trigger">Final Settlement</button>
                                     </div>
-                                </td>
-                                <td>
-                                    <div style="font-weight:600;">Dung Nguyen</div>
-                                    <div style="font-size:12px; color:var(--text-muted);">Head of SysAdmin</div>
-                                </td>
-                                <td>18/08/2026</td>
-                                <td><span class="stage-pill stage-orientation">Day 1 Orientation</span></td>
-                                <td>
-                                    <div style="display:flex; align-items:center; gap:10px;">
-                                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 30%;"></div></div>
-                                        <span style="font-size:12px; font-weight:700;">3/10 (30%)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <button class="btn-action-sm btn-checklist-trigger">View Checklist</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div style="display:flex; align-items:center; gap:12px;">
-                                        <div class="hire-avatar">TN</div>
-                                        <div class="hire-info">
-                                            <span class="hire-name btn-checklist-trigger" style="cursor:pointer;">Tu Nguyen</span>
-                                            <span class="hire-dept">DevOps Engineer • Cloud Ops</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="font-weight:600;">Dung Nguyen</div>
-                                    <div style="font-size:12px; color:var(--text-muted);">Head of SysAdmin</div>
-                                </td>
-                                <td>01/08/2026</td>
-                                <td><span class="stage-pill stage-active">Completed Sign-off</span></td>
-                                <td>
-                                    <div style="display:flex; align-items:center; gap:10px;">
-                                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 100%;"></div></div>
-                                        <span style="font-size:12px; font-weight:700;">10/10 (100%)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <button class="btn-action-sm btn-checklist-trigger">View Checklist</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div style="display:flex; align-items:center; gap:12px;">
-                                        <div class="hire-avatar">PM</div>
-                                        <div class="hire-info">
-                                            <span class="hire-name btn-checklist-trigger" style="cursor:pointer;">Phuong Mai</span>
-                                            <span class="hire-dept">HR Business Partner • People &amp; Culture</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="font-weight:600;">Lucia Doan</div>
-                                    <div style="font-size:12px; color:var(--text-muted);">HR Manager</div>
-                                </td>
-                                <td>22/08/2026</td>
-                                <td><span class="stage-pill stage-pre">Pre-boarding</span></td>
-                                <td>
-                                    <div style="display:flex; align-items:center; gap:10px;">
-                                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 10%;"></div></div>
-                                        <span style="font-size:12px; font-weight:700;">1/10 (10%)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <button class="btn-action-sm btn-checklist-trigger">View Checklist</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -728,62 +617,95 @@
         </div>
     </div>
 
-    <!-- Onboarding Task Sign-off Checklist Slide-over Drawer Overlay -->
-    <div class="modal-overlay hidden" id="onboardingChecklistDrawerOverlay">
-        <div class="drawer-card" style="width: 100%; max-width: 540px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: 0 10px 25px rgba(0,0,0,0.08); overflow: hidden; display: flex; flex-direction: column; max-height: 85vh;">
+    <!-- Initiate Offboarding Modal Overlay -->
+    <div class="modal-overlay hidden" id="initiateOffboardingModalOverlay">
+        <div class="modal-card" style="width: 100%; max-width: 640px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); overflow: hidden; display: flex; flex-direction: column;">
+            <div class="modal-header" style="padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h2 style="font-size: 17px; font-weight: 700; color: var(--text-main);">Initiate Employee Offboarding Proposal</h2>
+                    <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 2px;">Submit formal resignation or employment contract termination notice</p>
+                </div>
+                <button class="btn-close-icon" id="btnCloseInitiateModal" style="background:none; border:none; font-size:16px; cursor:pointer; color:var(--text-muted);">✕</button>
+            </div>
+
+            <div class="modal-body" style="padding: 24px; display: flex; flex-direction: column; gap: 18px; max-height: 75vh; overflow-y: auto;">
+                <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 12px 14px; color: #16a34a; font-size: 12.5px; font-weight: 600; display: flex; align-items: center; gap: 10px;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    <span>📧 Autonomous Outlook Integration: Auto-dispatches email notification &amp; calendar sync to Manager &amp; HR Lead.</span>
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                    <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Select Employee *</label>
+                    <select class="form-control" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                        <option selected="">Brandon Vance (Senior Systems Engineer • System Admin)</option>
+                        <option>Emily Chen (Product UX Lead • Product Design)</option>
+                    </select>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Termination Category *</label>
+                        <select class="form-control" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                            <option selected="">Voluntary Resignation (Tự nguyện nghỉ việc)</option>
+                            <option>Contract Expiration (Hết hạn hợp đồng)</option>
+                        </select>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Last Working Day (LWD) *</label>
+                        <input type="date" class="form-control" value="2026-08-31" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer" style="padding: 16px 24px; border-top: 1px solid var(--border-color); background: #fafafa; display: flex; justify-content: flex-end; gap: 12px;">
+                <button class="btn-cancel" id="btnCancelInitiateModal" style="padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-main);">Cancel</button>
+                <button class="btn-submit" id="btnSubmitInitiateModal" style="padding: 9px 18px; border-radius: 8px; border: none; background: var(--primary); color: white; font-size: 13px; font-weight: 600; cursor: pointer;">Submit Proposal &amp; Notify via Outlook</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exit Clearance Drawer Overlay -->
+    <div class="modal-overlay hidden" id="exitClearanceDrawerOverlay">
+        <div class="drawer-card" style="width: 100%; max-width: 580px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); overflow: hidden; display: flex; flex-direction: column; max-height: 85vh;">
             <div class="drawer-header" style="padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: #fafafa;">
                 <div>
-                    <h2 style="font-size: 16px; font-weight: 700; color: var(--text-main);">Onboarding Task Sign-off Checklist</h2>
-                    <p style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">Alexander Wright • Senior Fullstack Engineer</p>
+                    <h2 style="font-size: 16px; font-weight: 700; color: var(--text-main);">Exit Clearance Sign-off Matrix</h2>
+                    <p style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">4-Pillar Cross-Departmental Handover &amp; Verification</p>
                 </div>
-                <button class="btn-close-icon" id="btnCloseChecklistDrawer" style="background:none; border:none; font-size:16px; cursor:pointer; color:var(--text-muted);">✕</button>
+                <button class="btn-close-icon" id="btnCloseClearanceDrawer" style="background:none; border:none; font-size:16px; cursor:pointer; color:var(--text-muted);">✕</button>
             </div>
 
             <div class="drawer-body" style="padding: 24px; display: flex; flex-direction: column; gap: 20px; overflow-y: auto;">
                 <div style="background: #fafafa; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 14px 16px; display: flex; align-items: center; gap: 14px;">
-                    <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px;">AW</div>
+                    <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px;">BV</div>
                     <div>
-                        <div style="font-weight:700; font-size:14px;">Alexander Wright</div>
-                        <div style="font-size:12.5px; color:var(--text-muted);">Assigned Mentor: Dao Vo (CTO)</div>
-                        <div style="font-size:12px; color:#16a34a; font-weight:600; margin-top:2px;">Overall Progress: 75% (6/8 Tasks)</div>
+                        <div style="font-weight:700; font-size:14px;">Brandon Vance</div>
+                        <div style="font-size:12.5px; color:var(--text-muted);">Senior Systems Engineer • System Admin</div>
+                        <div style="font-size:12px; color:#16a34a; font-weight:600; margin-top:2px;">Clearance Progress: 75% (3/4 Pillars Approved)</div>
                     </div>
                 </div>
 
                 <div>
-                    <div style="font-size: 13px; font-weight: 700; color: var(--text-main); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;">Phase 1: Pre-boarding &amp; Day 1 Orientation</div>
+                    <div style="font-size: 12.5px; font-weight: 700; color: var(--text-main); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;">1. Department Project &amp; Knowledge Handover</div>
                     <div style="display: flex; flex-direction: column; gap: 10px;">
-                        <div style="display: flex; align-items: flex-start; gap: 12px; padding: 10px 14px; border: 1px solid #bbf7d0; border-radius: 8px; background: #f0fdf4;">
+                        <div style="display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; border-radius: 8px; border: 1px solid #bbf7d0; background: #f0fdf4;">
                             <input type="checkbox" checked="" style="accent-color:var(--primary); margin-top:2px;">
                             <div>
-                                <div style="font-size: 13px; font-weight: 600;">Signed Employment Contract &amp; NDA</div>
-                                <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">Uploaded signed offer letter and non-disclosure agreement.</div>
-                            </div>
-                        </div>
-                        <div style="display: flex; align-items: flex-start; gap: 12px; padding: 10px 14px; border: 1px solid #bbf7d0; border-radius: 8px; background: #f0fdf4;">
-                            <input type="checkbox" checked="" style="accent-color:var(--primary); margin-top:2px;">
-                            <div>
-                                <div style="font-size: 13px; font-weight: 600;">Company Welcome Email &amp; Welcome Kit</div>
-                                <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">Sent corporate welcome email and dispatched welcome box.</div>
+                                <div style="font-size: 13px; font-weight: 600;">Project Repositories &amp; Credentials Handover</div>
+                                <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">Signed off by Direct Manager: Dung Nguyen (06/08/2026).</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div>
-                    <div style="font-size: 13px; font-weight: 700; color: var(--text-main); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;">Phase 2: IT Hardware &amp; SaaS Access</div>
+                    <div style="font-size: 12.5px; font-weight: 700; color: var(--text-main); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;">2. IT Hardware &amp; SaaS Account Revocation</div>
                     <div style="display: flex; flex-direction: column; gap: 10px;">
-                        <div style="display: flex; align-items: flex-start; gap: 12px; padding: 10px 14px; border: 1px solid #bbf7d0; border-radius: 8px; background: #f0fdf4;">
+                        <div style="display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; border-radius: 8px; border: 1px solid #bbf7d0; background: #f0fdf4;">
                             <input type="checkbox" checked="" style="accent-color:var(--primary); margin-top:2px;">
                             <div>
-                                <div style="font-size: 13px; font-weight: 600;">Laptop &amp; Peripheral Provisioning</div>
-                                <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">MacBook Pro M3 Max assigned &amp; configured by IT Admin.</div>
-                            </div>
-                        </div>
-                        <div style="display: flex; align-items: flex-start; gap: 12px; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: 8px; background: #ffffff;">
-                            <input type="checkbox" style="accent-color:var(--primary); margin-top:2px;">
-                            <div>
-                                <div style="font-size: 13px; font-weight: 600;">GitHub Enterprise &amp; Jira Access Grant</div>
-                                <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">Grant repository write access and invite to engineering team.</div>
+                                <div style="font-size: 13px; font-weight: 600;">Laptop &amp; Security Token Returned</div>
+                                <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">MacBook Pro (SN: C02G901X) returned to IT Lead.</div>
                             </div>
                         </div>
                     </div>
@@ -791,58 +713,44 @@
             </div>
 
             <div class="drawer-footer" style="padding: 16px 24px; border-top: 1px solid var(--border-color); background: #fafafa; display: flex; justify-content: flex-end; gap: 12px;">
-                <button class="btn-cancel" id="btnCancelChecklistDrawer" style="padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-main);">Close</button>
-                <button class="btn-submit" id="btnSignOffTasks" style="padding: 9px 18px; border-radius: 8px; border: none; background: var(--primary); color: white; font-size: 13px; font-weight: 600; cursor: pointer;">Sign Off Checked Tasks</button>
+                <button class="btn-cancel" id="btnCancelClearanceDrawer" style="padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-main);">Close</button>
+                <button class="btn-submit" id="btnSaveClearanceDrawer" style="padding: 9px 18px; border-radius: 8px; border: none; background: var(--primary); color: white; font-size: 13px; font-weight: 600; cursor: pointer;">Sign Off Clearance Items</button>
             </div>
         </div>
     </div>
 
-    <!-- Create Onboarding Plan Template Inline Modal Overlay -->
-    <div class="modal-overlay hidden" id="onboardingTemplateModalOverlay">
-        <div class="modal-card" style="width: 100%; max-width: 620px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: 0 10px 25px rgba(0,0,0,0.08); overflow: hidden; display: flex; flex-direction: column;">
+    <!-- Final Settlement Modal Overlay -->
+    <div class="modal-overlay hidden" id="finalSettlementModalOverlay">
+        <div class="modal-card" style="width: 100%; max-width: 660px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); overflow: hidden; display: flex; flex-direction: column;">
             <div class="modal-header" style="padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
                 <div>
-                    <h2 style="font-size: 17px; font-weight: 700; color: var(--text-main);">Create Onboarding Plan Template</h2>
-                    <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 2px;">Configure department-specific onboarding milestone checklist</p>
+                    <h2 style="font-size: 17px; font-weight: 700; color: var(--text-main);">Final Financial Settlement &amp; Pay Slip Calculation</h2>
+                    <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 2px;">Calculate final proration salary, unused PTO conversion, and social insurance status</p>
                 </div>
-                <button class="btn-close-icon" id="btnCloseTemplateModal" style="background:none; border:none; font-size:16px; cursor:pointer; color:var(--text-muted);">✕</button>
+                <button class="btn-close-icon" id="btnCloseSettlementModal" style="background:none; border:none; font-size:16px; cursor:pointer; color:var(--text-muted);">✕</button>
             </div>
 
-            <div class="modal-body" style="padding: 24px; display: flex; flex-direction: column; gap: 18px;">
-                <div style="display:flex; flex-direction:column; gap:6px;">
-                    <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Template Title *</label>
-                    <input type="text" id="templateTitleInput" class="form-control" value="Engineering 30-60-90 Day Onboarding Roadmap" placeholder="e.g. Engineering Onboarding" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+            <div class="modal-body" style="padding: 24px; display: flex; flex-direction: column; gap: 18px; max-height: 75vh; overflow-y: auto;">
+                <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 12px 14px; color: #16a34a; font-size: 12.5px; font-weight: 600; display: flex; align-items: center; gap: 10px;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    <span>📧 Automated Outlook Dispatch: Payslip PDF &amp; Termination Decision will be auto-emailed to Employee &amp; Accounting.</span>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                    <div style="display:flex; flex-direction:column; gap:6px;">
-                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Target Department *</label>
-                        <select class="form-control" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
-                            <option selected="">Software Engineering</option>
-                            <option>System Administration</option>
-                            <option>Product UI/UX</option>
-                            <option>People &amp; Culture</option>
-                        </select>
+                <div style="background: #fafafa; border: 1px solid var(--border-color); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 10px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                        <span>Employee Name</span>
+                        <strong style="font-size:14px;">Brandon Vance (EMP-2026-042)</strong>
                     </div>
-                    <div style="display:flex; flex-direction:column; gap:6px;">
-                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Target Completion Duration</label>
-                        <select class="form-control" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
-                            <option selected="">30 Days (Standard)</option>
-                            <option>60 Days (Extended)</option>
-                            <option>90 Days (Executive)</option>
-                        </select>
+                    <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                        <span>Net Settlement Amount</span>
+                        <strong style="font-size:16px; color:#16a34a;">$3,854.50 USD</strong>
                     </div>
-                </div>
-
-                <div style="display:flex; flex-direction:column; gap:6px;">
-                    <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Default Checklist Items (Comma Separated)</label>
-                    <textarea class="form-control" rows="4" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">Signed Contract &amp; NDA, Company Orientation Video, IT Laptop Setup, Access Grant GitHub &amp; Jira, Mentor Introduction, First Sprint Planning, 30-Day Probation Sync</textarea>
                 </div>
             </div>
 
             <div class="modal-footer" style="padding: 16px 24px; border-top: 1px solid var(--border-color); background: #fafafa; display: flex; justify-content: flex-end; gap: 12px;">
-                <button class="btn-cancel" id="btnCancelTemplateModal" style="padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-main);">Cancel</button>
-                <button class="btn-submit" id="btnSaveTemplateModal" style="padding: 9px 18px; border-radius: 8px; border: none; background: var(--primary); color: white; font-size: 13px; font-weight: 600; cursor: pointer;">Save Template</button>
+                <button class="btn-cancel" id="btnCancelSettlementModal" style="padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-main);">Cancel</button>
+                <button class="btn-submit" id="btnSubmitSettlementModal" style="padding: 9px 18px; border-radius: 8px; border: none; background: var(--primary); color: white; font-size: 13px; font-weight: 600; cursor: pointer;">Approve Settlement &amp; Dispatch via Outlook</button>
             </div>
         </div>
     </div>
@@ -860,7 +768,7 @@
     <div class="toast-container" id="toastContainer"></div>
 
     <script src="../../js/components/sidebar.js"></script>
-    <script src="../../js/onboarding/NewHireOnboarding.js"></script>
+    <script src="../../js/offboarding/OffboardingRequests.js"></script>
 
 
 

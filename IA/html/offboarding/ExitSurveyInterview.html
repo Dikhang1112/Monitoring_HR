@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exit Survey & Turnover Analytics - HR Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #09090b;
+            --primary-hover: #27272a;
+            --bg-app: #f4f4f5;
+            --bg-card: #ffffff;
+            --text-main: #09090b;
+            --text-muted: #71717a;
+            --border-color: #e4e4e7;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg-app); color: var(--text-main); min-height: 100vh; display: flex; }
+
+        .app-container { display: flex; width: 100%; min-height: 100vh; }
+        .main-wrapper { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+
+        .top-header {
+            height: 64px; background: var(--bg-card); border-bottom: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: space-between; padding: 0 28px;
+            position: sticky; top: 0; z-index: 10;
+        }
+        .header-title { font-size: 15px; font-weight: 700; color: var(--text-main); }
+        .header-actions { display: flex; align-items: center; gap: 14px; }
+        .icon-btn { background: none; border: none; cursor: pointer; color: var(--text-muted); }
+
+        .main { padding: 28px; display: flex; flex-direction: column; gap: 24px; }
+        .page-header-row { display: flex; justify-content: space-between; align-items: flex-start; }
+        .title { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
+        .subtitle { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: var(--radius-md);
+            background: var(--primary); color: white; border: none; font-size: 13px; font-weight: 600; cursor: pointer;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .subnav-tabs { display: flex; border-bottom: 1px solid var(--border-color); gap: 24px; }
+        .tab-item { padding: 10px 4px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; border-bottom: 2px solid transparent; }
+        .tab-item.active { color: var(--text-main); border-bottom-color: var(--primary); }
+
+        .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+        .card-panel { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
+        .panel-header { padding: 18px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        .panel-title { font-size: 15px; font-weight: 700; }
+
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+        th { padding: 12px 20px; background: var(--bg-app); border-bottom: 1px solid var(--border-color); font-weight: 600; color: var(--text-muted); font-size: 12px; text-transform: uppercase; }
+        td { padding: 14px 20px; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
+
+        .btn-action-sm { padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border-color); background: white; font-size: 12px; font-weight: 600; cursor: pointer; color: var(--text-main); }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <div id="sidebarContainer" data-active="Offboarding" data-is-subfolder="true"></div>
+
+        <div class="main-wrapper">
+            <header class="top-header">
+                <div class="header-title">HR Platform • Exit Survey & Turnover Analytics</div>
+                <div class="header-actions">
+                    <button class="icon-btn" title="Notifications">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    </button>
+                </div>
+            </header>
+
+            <main class="main">
+                <div class="page-header-row">
+                    <div>
+                        <h1 class="title">Exit Survey & Turnover Rate Analytics</h1>
+                        <p class="subtitle">Gather resignation feedback, record Exit Interview ratings, and analyze attrition drivers.</p>
+                    </div>
+
+                    <button class="btn-primary" id="btnDispatchOutlookSurvey">📧 Dispatch Outlook Exit Survey</button>
+                </div>
+
+                <!-- Subtab Navigation -->
+                <div class="subnav-tabs">
+                    <a href="OffboardingRequests.html" class="tab-item">Offboarding Tracker</a>
+                    <a href="AssetHandoverClearance.html" class="tab-item">Asset & SaaS Revocation</a>
+                    <a href="ExitSurveyInterview.html" class="tab-item active">Exit Survey & Analytics</a>
+                </div>
+
+                <div class="grid-2col">
+                    <!-- Exit Interviews List -->
+                    <div class="card-panel">
+                        <div class="panel-header">
+                            <span class="panel-title">📋 Exit Interview Records</span>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Employee</th>
+                                    <th>Rating</th>
+                                    <th>Outlook Mail Sync</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div style="font-weight:600;">Brandon Vance</div>
+                                        <div style="font-size:11.5px; color:var(--text-muted);">brandon.vance@company.com</div>
+                                    </td>
+                                    <td>★★★★☆ <span style="font-weight:700; font-size:12px;">4.0</span></td>
+                                    <td><span style="font-size:12px; color:#16a34a; font-weight:600;">✓ Survey Completed</span></td>
+                                    <td><button class="btn-action-sm btn-survey-trigger">View Feedback</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="font-weight:600;">Emily Chen</div>
+                                        <div style="font-size:11.5px; color:var(--text-muted);">emily.chen@company.com</div>
+                                    </td>
+                                    <td>☆☆☆☆☆ <span style="font-size:12px; color:var(--text-muted);">Pending</span></td>
+                                    <td><span style="font-size:12px; color:#2563eb; font-weight:600;">Sent via Outlook</span></td>
+                                    <td><button class="btn-action-sm btn-survey-trigger">Conduct Interview</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Turnover Reasons Breakdown -->
+                    <div class="card-panel">
+                        <div class="panel-header">
+                            <span class="panel-title">📊 Top Resignation Reasons Breakdown</span>
+                        </div>
+                        <div style="padding:20px; display:flex; flex-direction:column; gap:14px;">
+                            <div>
+                                <div style="display:flex; justify-content:space-between; font-size:13px; font-weight:600; margin-bottom:4px;">
+                                    <span>Career Growth & Salary Package</span>
+                                    <span>55% of exits</span>
+                                </div>
+                                <div style="height:8px; background:#e4e4e7; border-radius:4px; overflow:hidden;">
+                                    <div style="width:55%; height:100%; background:#09090b;"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div style="display:flex; justify-content:space-between; font-size:13px; font-weight:600; margin-bottom:4px;">
+                                    <span>Relocation & Personal Circumstances</span>
+                                    <span>30% of exits</span>
+                                </div>
+                                <div style="height:8px; background:#e4e4e7; border-radius:4px; overflow:hidden;">
+                                    <div style="width:30%; height:100%; background:#71717a;"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div style="display:flex; justify-content:space-between; font-size:13px; font-weight:600; margin-bottom:4px;">
+                                    <span>Work-Life Balance</span>
+                                    <span>15% of exits</span>
+                                </div>
+                                <div style="height:8px; background:#e4e4e7; border-radius:4px; overflow:hidden;">
+                                    <div style="width:15%; height:100%; background:#a1a1aa;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Conduct Exit Interview Modal Overlay -->
+    <div class="modal-overlay hidden" id="conductExitInterviewModalOverlay">
+        <div class="modal-card" style="width: 100%; max-width: 640px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); overflow: hidden; display: flex; flex-direction: column;">
+            <div class="modal-header" style="padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h2 style="font-size: 17px; font-weight: 700; color: var(--text-main);">Conduct Exit Interview & Survey Record</h2>
+                    <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 2px;">Record employee exit feedback, satisfaction score, and recommendations</p>
+                </div>
+                <button class="btn-close-icon" id="btnCloseSurveyModal" style="background:none; border:none; font-size:16px; cursor:pointer; color:var(--text-muted);">✕</button>
+            </div>
+
+            <div class="modal-body" style="padding: 24px; display: flex; flex-direction: column; gap: 18px; max-height: 75vh; overflow-y: auto;">
+                <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 12px 14px; color: #16a34a; font-size: 12.5px; font-weight: 600; display: flex; align-items: center; gap: 10px;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    <span>📧 Automated Outlook Survey Dispatched to Brandon Vance (brandon.vance@company.com)</span>
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                    <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Employee Name & Role</label>
+                    <input type="text" value="Brandon Vance (Senior Systems Engineer • System Admin)" readonly style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #f4f4f5;">
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                    <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Overall Company Experience Rating (1 - 5 Stars)</label>
+                    <div style="display: flex; gap: 10px; font-size: 20px; color: #eab308; cursor: pointer;">★★★★☆ <span style="font-size:13px; color:var(--text-muted); font-weight:600;">(4.0 / 5.0 Rating)</span></div>
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                    <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Employee Feedback & Recommendations</label>
+                    <textarea rows="3" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">Great team culture and strong technical leadership. Suggest providing clearer senior promotion frameworks.</textarea>
+                </div>
+            </div>
+
+            <div class="modal-footer" style="padding: 16px 24px; border-top: 1px solid var(--border-color); background: #fafafa; display: flex; justify-content: flex-end; gap: 12px;">
+                <button class="btn-cancel" id="btnCancelSurveyModal" style="padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-main);">Cancel</button>
+                <button class="btn-submit" id="btnSubmitSurveyModal" style="padding: 9px 18px; border-radius: 8px; border: none; background: var(--primary); color: white; font-size: 13px; font-weight: 600; cursor: pointer;">Save Exit Interview Record</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Overlay Backdrop CSS -->
+    <style>
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(9, 9, 11, 0.4); backdrop-filter: blur(4px);
+            z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px;
+        }
+        .modal-overlay.hidden { display: none !important; }
+    </style>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="../../js/components/sidebar.js"></script>
+    <script src="../../js/offboarding/ExitSurveyInterview.js"></script>
+</body>
+
+</html>

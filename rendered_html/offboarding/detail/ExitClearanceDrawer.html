@@ -1,0 +1,129 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawer - Exit Clearance Sign-off Matrix</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #09090b;
+            --bg-card: #ffffff;
+            --text-main: #09090b;
+            --text-muted: #71717a;
+            --border-color: #e4e4e7;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background: #f4f4f5; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 40px 20px; }
+
+        .drawer-card {
+            width: 100%; max-width: 580px; background: #ffffff; border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); overflow: hidden;
+            display: flex; flex-direction: column;
+        }
+
+        .drawer-header { padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: #fafafa; }
+        .drawer-title { font-size: 16px; font-weight: 700; color: var(--text-main); }
+        .drawer-subtitle { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+        .drawer-body { padding: 24px; display: flex; flex-direction: column; gap: 20px; max-height: 75vh; overflow-y: auto; }
+
+        .employee-banner {
+            background: #fafafa; border: 1px solid var(--border-color); border-radius: var(--radius-md);
+            padding: 14px 16px; display: flex; align-items: center; gap: 14px;
+        }
+        .avatar-lg { width: 44px; height: 44px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
+
+        .pillar-title { font-size: 12.5px; font-weight: 700; color: var(--text-main); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+        .task-list { display: flex; flex-direction: column; gap: 10px; }
+
+        .task-item {
+            display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; border-radius: 8px; border: 1px solid var(--border-color); background: #ffffff;
+        }
+        .task-item.completed { border-color: #bbf7d0; background: #f0fdf4; }
+
+        .drawer-footer { padding: 16px 24px; border-top: 1px solid var(--border-color); background: #fafafa; display: flex; justify-content: flex-end; gap: 12px; }
+        .btn-cancel { padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-main); }
+        .btn-submit { padding: 9px 18px; border-radius: 8px; border: none; background: var(--primary); color: white; font-size: 13px; font-weight: 600; cursor: pointer; }
+    </style>
+</head>
+
+<body>
+    <div class="drawer-card">
+        <div class="drawer-header">
+            <div>
+                <h2 class="drawer-title">Exit Clearance Sign-off Matrix</h2>
+                <p class="drawer-subtitle">4-Pillar Cross-Departmental Handover &amp; Verification Drawer</p>
+            </div>
+        </div>
+
+        <div class="drawer-body">
+            <div class="employee-banner">
+                <div class="avatar-lg">BV</div>
+                <div>
+                    <div style="font-weight:700; font-size:14px;">Brandon Vance</div>
+                    <div style="font-size:12.5px; color:var(--text-muted);">Senior Systems Engineer • System Admin</div>
+                    <div style="font-size:12px; color:#16a34a; font-weight:600; margin-top:2px;">Clearance Progress: 75% (3/4 Pillars Approved)</div>
+                </div>
+            </div>
+
+            <!-- Pillar 1: Department Handover -->
+            <div>
+                <div class="pillar-title">1. Department Project &amp; Knowledge Handover</div>
+                <div class="task-list">
+                    <div class="task-item completed">
+                        <input type="checkbox" checked="" style="accent-color:var(--primary); margin-top:2px;">
+                        <div>
+                            <div style="font-size: 13px; font-weight: 600;">Project Repositories &amp; Credentials Handover</div>
+                            <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">Signed off by Direct Manager: Dung Nguyen (06/08/2026).</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pillar 2: IT Hardware & Access -->
+            <div>
+                <div class="pillar-title">2. IT Hardware &amp; SaaS Account Revocation</div>
+                <div class="task-list">
+                    <div class="task-item completed">
+                        <input type="checkbox" checked="" style="accent-color:var(--primary); margin-top:2px;">
+                        <div>
+                            <div style="font-size: 13px; font-weight: 600;">Laptop &amp; Security Token Returned</div>
+                            <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">MacBook Pro (SN: C02G901X) returned to IT Lead.</div>
+                        </div>
+                    </div>
+                    <div class="task-item completed">
+                        <input type="checkbox" checked="" style="accent-color:var(--primary); margin-top:2px;">
+                        <div>
+                            <div style="font-size: 13px; font-weight: 600;">Google SSO &amp; Slack Account Terminated</div>
+                            <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">Autonomous Outlook trigger executed. Accounts archived.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pillar 3: Finance Settlement -->
+            <div>
+                <div class="pillar-title">3. Finance Loan &amp; Expense Settlement</div>
+                <div class="task-list">
+                    <div class="task-item">
+                        <input type="checkbox" style="accent-color:var(--primary); margin-top:2px;">
+                        <div>
+                            <div style="font-size: 13px; font-weight: 600;">Corporate Credit Card &amp; Expense Settlement</div>
+                            <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">Pending Finance Accountant sign-off for travel expense.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="drawer-footer">
+            <button class="btn-cancel">Close</button>
+            <button class="btn-submit">Sign Off Checked Clearance Items</button>
+        </div>
+    </div>
+
+
+
+</body></html>

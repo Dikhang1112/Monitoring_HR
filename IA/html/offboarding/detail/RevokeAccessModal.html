@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal - IT Hardware Recollection & Account Revocation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #09090b;
+            --bg-card: #ffffff;
+            --text-main: #09090b;
+            --text-muted: #71717a;
+            --border-color: #e4e4e7;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background: #f4f4f5; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 40px 20px; }
+
+        .modal-card {
+            width: 100%; max-width: 620px; background: #ffffff; border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); overflow: hidden;
+            display: flex; flex-direction: column;
+        }
+
+        .modal-header { padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        .modal-title { font-size: 17px; font-weight: 700; color: var(--text-main); }
+        .modal-subtitle { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+
+        .modal-body { padding: 24px; display: flex; flex-direction: column; gap: 18px; max-height: 75vh; overflow-y: auto; }
+
+        .auto-badge {
+            background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 12px 14px;
+            color: #2563eb; font-size: 12.5px; font-weight: 600; display: flex; align-items: center; gap: 10px;
+        }
+
+        .checklist-box { background: #fafafa; border: 1px solid var(--border-color); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+        .check-item { display: flex; align-items: center; justify-content: space-between; font-size: 13px; font-weight: 600; }
+
+        .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border-color); background: #fafafa; display: flex; justify-content: flex-end; gap: 12px; }
+        .btn-cancel { padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-main); }
+        .btn-submit { padding: 9px 18px; border-radius: 8px; border: none; background: #dc2626; color: white; font-size: 13px; font-weight: 600; cursor: pointer; }
+    </style>
+</head>
+
+<body>
+    <div class="modal-card">
+        <div class="modal-header">
+            <div>
+                <h2 class="modal-title">IT Hardware Recollection & Account Revocation</h2>
+                <p class="modal-subtitle">Execute security kill-switch and hardware serial log for offboarding employee</p>
+            </div>
+        </div>
+
+        <div class="modal-body">
+            <div class="auto-badge">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <span>⚡ Outlook & Active Directory Autonomous Revocation Trigger Ready</span>
+            </div>
+
+            <div>
+                <div style="font-size:12.5px; font-weight:700; margin-bottom:8px;">Recollect Assigned Hardware Devices</div>
+                <div class="checklist-box">
+                    <div class="check-item">
+                        <span>💻 MacBook Pro M3 Max (SN: C02G901XMD6R)</span>
+                        <span style="color:#16a34a;">✓ Checked in Inventory</span>
+                    </div>
+                    <div class="check-item">
+                        <span>🔑 YubiKey 5C NFC Security Badge (SN: YK-908221)</span>
+                        <span style="color:#16a34a;">✓ Checked in Inventory</span>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div style="font-size:12.5px; font-weight:700; margin-bottom:8px;">SaaS Enterprise Account Access Kill-switch</div>
+                <div class="checklist-box">
+                    <label class="check-item"><span style="display:flex; gap:8px; align-items:center;"><input type="checkbox" checked style="accent-color:#dc2626;"> Revoke Google Workspace & Archive Mailbox</span> <span style="font-size:11.5px; color:var(--text-muted);">Auto-forward to Manager</span></label>
+                    <label class="check-item"><span style="display:flex; gap:8px; align-items:center;"><input type="checkbox" checked style="accent-color:#dc2626;"> Deactivate Slack Grid Account</span> <span style="font-size:11.5px; color:var(--text-muted);">Instant Sign-out</span></label>
+                    <label class="check-item"><span style="display:flex; gap:8px; align-items:center;"><input type="checkbox" checked style="accent-color:#dc2626;"> Revoke GitHub & Jira Software Licenses</span> <span style="font-size:11.5px; color:var(--text-muted);">Free Seat Capacity</span></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn-cancel">Cancel</button>
+            <button class="btn-submit">Execute Access Revocation & Archive</button>
+        </div>
+    </div>
+</body>
+
+</html>

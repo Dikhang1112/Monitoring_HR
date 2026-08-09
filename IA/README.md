@@ -126,6 +126,16 @@ flowchart LR
 | **2. Asset & License Tracker** | IT equipment and enterprise SaaS license provisioning board for new hires. | Click "Manage" Button on SaaS Product Row | **2.2. Manage Enterprise SaaS Products Modal** | Interactive modal form for adding new company SaaS subscriptions or removing active software licenses with real-time seat capacity editing. |
 | **3. Candidate Data Conversion** | Workspace for converting offer-accepted candidates into official HR Directory employee records. | Click "Convert to Employee" Action Button | **3.1. Candidate Profile Data Conversion Modal** | Confirmation modal displaying mapped fields from ATS candidate record to official HR Employee Directory record with automated duplicate check. |
 
+### 2.4. Offboarding & Exit Management Mapping Table
+
+| Main Screen | Main Screen Description | User Action / Trigger (Thao tác kích hoạt) | Detail Screen / PopUp / Form | Component Functionality & Description |
+|---|---|---|---|---|
+| **1. Offboarding Tracker** | Master offboarding dashboard tracking employee resignations and clearance progress. | Click "+ Initiate Offboarding" Button | **1.1. Initiate Offboarding Proposal Modal** | Form modal for initiating employee resignation notice with autonomous Outlook notification trigger to manager and HR lead. |
+| **1. Offboarding Tracker** | Master offboarding dashboard tracking employee resignations and clearance progress. | Click "View Clearance" Action Button | **1.2. Exit Clearance Sign-off Matrix Drawer** | Slide-over drawer presenting 4-pillar cross-department clearance sign-off (Manager, IT, Finance, HR). |
+| **1. Offboarding Tracker** | Master offboarding dashboard tracking employee resignations and clearance progress. | Click "Final Settlement" Action Button | **1.3. Final Financial Settlement & Pay Slip Modal** | Calculation modal for final prorated salary, unused PTO encashment, and social insurance chốt sổ BHXH status. |
+| **2. Asset & SaaS Revocation** | IT hardware device recollection and SaaS account security kill-switch board. | Click "Execute Revocation Kill-switch" Button | **2.1. IT Hardware Recollection & Revocation Modal** | Security modal for checking in hardware device serial numbers and executing instant SaaS access deactivation via Active Directory / Outlook. |
+| **3. Exit Survey & Analytics** | Exit interview feedback collection and turnover rate attrition analytics. | Click "Conduct / View Exit Survey" Button | **3.1. Conduct Exit Interview & Survey Record Modal** | Rating & feedback form modal recording employee experience ratings and primary resignation drivers. |
+
 ---
 
 ## 📸 3. UI/UX Screen Showcase & Detail Components
@@ -353,3 +363,57 @@ Workspace for converting offer-accepted candidates into official HR Directory em
   *Trigger:* Click "Convert to Employee" action button on candidate row.  
   *Description:* Confirmation modal displaying mapped fields from ATS candidate record to official HR Employee Directory record with automated duplicate check.  
   ![Candidate Profile Data Conversion Modal](../ui_ux/onboarding/ProfileConversionModal.png)
+
+---
+
+### 3.5. Offboarding & Exit Management Showcase
+
+#### 3.5.1. Offboarding Master Tracker
+Master offboarding dashboard tracking employee resignations, clearance progress, and automated Outlook notifications.
+
+![Offboarding Tracker](../ui_ux/offboarding/OffboardingRequests.png)
+
+##### 🔹 Sub-components & Interaction Triggers:
+
+- **1.1. Initiate Offboarding Proposal Modal**  
+  *Trigger:* Click "+ Initiate Offboarding" action button.  
+  *Description:* Form modal for submitting employee resignation notice with autonomous Outlook email notification and calendar sync trigger.  
+  ![Initiate Offboarding Proposal Modal](../ui_ux/offboarding/InitiateOffboardingModal.png)
+
+- **1.2. Exit Clearance Sign-off Matrix Drawer**  
+  *Trigger:* Click "View Clearance" action button or employee name.  
+  *Description:* Slide-over drawer presenting 4-pillar cross-department clearance sign-off (Manager, IT, Finance, HR).  
+  ![Exit Clearance Sign-off Matrix Drawer](../ui_ux/offboarding/ExitClearanceDrawer.png)
+
+- **1.3. Final Financial Settlement & Pay Slip Modal**  
+  *Trigger:* Click "Final Settlement" action button.  
+  *Description:* Calculation modal for final prorated salary, unused PTO encashment, and social insurance status with automated payslip email dispatch.  
+  ![Final Financial Settlement & Pay Slip Modal](../ui_ux/offboarding/FinalSettlementModal.png)
+
+---
+
+#### 3.5.2. IT Asset & SaaS Access Revocation Tracker
+IT hardware device recollection and SaaS account security kill-switch board.
+
+![Asset & SaaS Revocation](../ui_ux/offboarding/AssetHandoverClearance.png)
+
+##### 🔹 Sub-components & Interaction Triggers:
+
+- **2.1. IT Hardware Recollection & Revocation Modal**  
+  *Trigger:* Click "Execute Revocation Kill-switch" action button.  
+  *Description:* Security modal for checking in hardware device serial numbers and executing instant SaaS access deactivation.  
+  ![IT Hardware Recollection & Revocation Modal](../ui_ux/offboarding/RevokeAccessModal.png)
+
+---
+
+#### 3.5.3. Exit Survey & Turnover Analytics
+Exit interview feedback collection and turnover rate attrition analytics workspace.
+
+![Exit Survey & Analytics](../ui_ux/offboarding/ExitSurveyInterview.png)
+
+##### 🔹 Sub-components & Interaction Triggers:
+
+- **3.1. Conduct Exit Interview & Survey Record Modal**  
+  *Trigger:* Click "Conduct / View Exit Survey" action button.  
+  *Description:* Rating & feedback form modal recording employee experience ratings and primary resignation drivers.  
+  ![Conduct Exit Interview & Survey Record Modal](../ui_ux/offboarding/ConductExitInterviewModal.png)

@@ -1,0 +1,694 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Platform - Candidate Pipeline Kanban</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #09090b;
+            --primary-hover: #27272a;
+            --primary-light: #f4f4f5;
+            --bg-app: #fafafa;
+            --bg-card: #ffffff;
+            --text-main: #09090b;
+            --text-muted: #71717a;
+            --border-color: #e4e4e7;
+            --border-strong: #18181b;
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.08);
+            --sidebar-width: 260px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg-app); color: var(--text-main); font-size: 14px; min-height: 100vh; }
+        .app { display: flex; min-height: 100vh; }
+
+        .sidebar {
+            width: var(--sidebar-width); background: var(--bg-card); border-right: 1px solid var(--border-color);
+            display: flex; flex-direction: column; justify-content: space-between; position: fixed;
+            top: 0; bottom: 0; left: 0; z-index: 100; padding: 20px 16px;
+        }
+
+        .content { margin-left: var(--sidebar-width); flex: 1; padding: 32px 40px; display: flex; flex-direction: column; gap: 24px; overflow-x: auto; }
+
+        .header { display: flex; justify-content: space-between; align-items: center; }
+        .page-title { font-size: 22px; font-weight: 700; color: var(--text-main); letter-spacing: -0.5px; }
+        .page-desc { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+        .btn-primary { padding: 9px 16px; border-radius: var(--radius-md); background: var(--primary); color: white; border: none; font-size: 13px; font-weight: 600; cursor: pointer; }
+        .btn-secondary { padding: 9px 14px; border-radius: var(--radius-md); background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); font-size: 13px; font-weight: 600; cursor: pointer; }
+
+        .filter-header-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--bg-card); border: 1px solid var(--border-color); padding: 14px 20px; border-radius: var(--radius-lg); }
+        .role-selector { display: flex; align-items: center; gap: 12px; }
+        .role-label { font-size: 13px; font-weight: 600; color: var(--text-muted); }
+        .select-role { padding: 8px 14px; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: var(--bg-card); font-size: 13.5px; font-weight: 600; outline: none; }
+
+        /* Kanban Board Grid */
+        .kanban-board { display: grid; grid-template-columns: repeat(5, 320px); gap: 16px; padding-bottom: 20px; }
+        .kanban-col { background: var(--bg-app); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 600px; }
+        .col-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); }
+        .col-title { font-size: 13px; font-weight: 700; color: var(--text-main); text-transform: uppercase; letter-spacing: 0.5px; }
+        .col-count { width: 22px; height: 22px; border-radius: 50%; background: var(--border-color); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+
+        .candidate-card {
+            background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md);
+            padding: 16px; display: flex; flex-direction: column; gap: 10px; box-shadow: var(--shadow-sm);
+            cursor: grab; transition: all 0.15s ease;
+        }
+        .candidate-card:hover { border-color: var(--border-strong); transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+
+        .card-top { display: flex; justify-content: space-between; align-items: flex-start; }
+        .cand-avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--primary); color: white; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+        .cand-name { font-size: 14px; font-weight: 700; color: var(--text-main); }
+        .cand-role { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
+
+        .match-score { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 10px; background: #f4f4f5; border: 1px solid #18181b; }
+
+        .card-meta { display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: var(--text-muted); pt: 6px; border-top: 1px solid #f4f4f5; }
+        .score-star { font-weight: 700; color: var(--text-main); }
+
+        .toast-container { position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; gap: 10px; z-index: 1000; }
+        .toast { background: var(--bg-card); color: var(--text-main); padding: 12px 18px; border-radius: var(--radius-md); font-size: 13px; border: 1px solid var(--border-strong); box-shadow: var(--shadow-hover); }
+    </style>
+<style id="sidebarGlobalStyle">
+            #sidebarContainer {
+                width: 260px !important;
+                background: #ffffff !important;
+                border-right: 1px solid #e4e4e7 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: space-between !important;
+                position: fixed !important;
+                top: 0 !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                z-index: 100 !important;
+                padding: 20px 16px !important;
+                box-sizing: border-box !important;
+                transition: width 0.25s ease-in-out, padding 0.25s ease-in-out !important;
+            }
+
+            /* Ensure main content container is pushed right and never overlaps sidebar */
+            #sidebarContainer ~ * {
+                margin-left: 260px !important;
+                transition: margin-left 0.25s ease-in-out !important;
+            }
+
+            #sidebarContainer .sidebar-top {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 24px !important;
+            }
+
+            #sidebarContainer .logo {
+                font-size: 18px !important;
+                font-weight: 700 !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                padding: 0 4px !important;
+                color: #09090b !important;
+            }
+
+            #sidebarContainer .logo-icon {
+                width: 32px !important;
+                height: 32px !important;
+                background: #09090b !important;
+                color: #ffffff !important;
+                border-radius: 10px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                font-size: 14px !important;
+                font-weight: 700 !important;
+            }
+
+            /* Toggle Button Styling */
+            #sidebarContainer .sidebar-toggle-btn {
+                background: #f4f4f5 !important;
+                border: 1px solid #e4e4e7 !important;
+                border-radius: 6px !important;
+                width: 26px !important;
+                height: 26px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                cursor: pointer !important;
+                color: #71717a !important;
+                transition: all 0.15s ease !important;
+            }
+            #sidebarContainer .sidebar-toggle-btn:hover {
+                background: #e4e4e7 !important;
+                color: #09090b !important;
+            }
+            #sidebarContainer .sidebar-toggle-btn svg {
+                width: 14px !important;
+                height: 14px !important;
+            }
+
+            #sidebarContainer .menu {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 4px !important;
+                list-style: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            #sidebarContainer .menu-item {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: flex-start !important;
+                gap: 12px !important;
+                padding: 10px 12px !important;
+                border-radius: 10px !important;
+                color: #71717a !important;
+                font-weight: 500 !important;
+                font-size: 13.5px !important;
+                text-decoration: none !important;
+                cursor: pointer !important;
+                transition: all 0.15s ease !important;
+            }
+            #sidebarContainer .menu-item:hover, #sidebarContainer .menu-item.active {
+                background: #f4f4f5 !important;
+                color: #09090b !important;
+                font-weight: 600 !important;
+            }
+            #sidebarContainer svg {
+                width: 18px !important;
+                height: 18px !important;
+                min-width: 18px !important;
+                min-height: 18px !important;
+                max-width: 18px !important;
+                max-height: 18px !important;
+                flex-shrink: 0 !important;
+                stroke: currentColor !important;
+                fill: none !important;
+                stroke-width: 2 !important;
+                display: inline-block !important;
+            }
+            #sidebarContainer .dropdown-chevron {
+                width: 16px !important;
+                height: 16px !important;
+                min-width: 16px !important;
+                min-height: 16px !important;
+                max-width: 16px !important;
+                max-height: 16px !important;
+                margin-left: auto !important;
+                transition: transform 0.2s ease !important;
+            }
+            #sidebarContainer .menu-item.collapsed .dropdown-chevron {
+                transform: rotate(-90deg) !important;
+            }
+            #sidebarContainer .submenu {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 2px !important;
+                padding-left: 28px !important;
+                margin-top: 2px !important;
+                list-style: none !important;
+            }
+            #sidebarContainer .submenu.hidden {
+                display: none !important;
+            }
+            #sidebarContainer .submenu-item {
+                display: flex !important;
+                align-items: center !important;
+                gap: 10px !important;
+                padding: 8px 12px !important;
+                border-radius: 6px !important;
+                color: #71717a !important;
+                font-size: 13px !important;
+                text-decoration: none !important;
+                transition: all 0.15s ease !important;
+            }
+            #sidebarContainer .submenu-item:hover, #sidebarContainer .submenu-item.active {
+                color: #09090b !important;
+                font-weight: 600 !important;
+                background: #f4f4f5 !important;
+            }
+            #sidebarContainer .submenu-item svg {
+                width: 16px !important;
+                height: 16px !important;
+                min-width: 16px !important;
+                min-height: 16px !important;
+                max-width: 16px !important;
+                max-height: 16px !important;
+            }
+            #sidebarContainer .sidebar-footer {
+                position: relative !important;
+                border-top: 1px solid #e4e4e7 !important;
+                padding-top: 16px !important;
+            }
+            #sidebarContainer .user-profile-bar {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                padding: 8px !important;
+                border-radius: 10px !important;
+                cursor: pointer !important;
+            }
+            #sidebarContainer .user-profile-bar:hover {
+                background: #f4f4f5 !important;
+            }
+            #sidebarContainer .avatar-small {
+                width: 36px !important;
+                height: 36px !important;
+                border-radius: 50% !important;
+                background: #09090b !important;
+                color: #ffffff !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                font-weight: 700 !important;
+                font-size: 13px !important;
+            }
+            #sidebarContainer .user-info {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 1px !important;
+                flex: 1 !important;
+                margin-left: 10px !important;
+            }
+            #sidebarContainer .user-name {
+                font-size: 13px !important;
+                font-weight: 600 !important;
+                color: #09090b !important;
+            }
+            #sidebarContainer .user-role {
+                font-size: 11.5px !important;
+                color: #71717a !important;
+            }
+            #sidebarContainer .user-popup {
+                position: absolute !important;
+                bottom: 60px !important;
+                left: 0 !important;
+                right: 0 !important;
+                background: #ffffff !important;
+                border: 1px solid #e4e4e7 !important;
+                border-radius: 10px !important;
+                box-shadow: 0 6px 16px rgba(0,0,0,0.08) !important;
+                padding: 6px !important;
+                z-index: 200 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 2px !important;
+            }
+            #sidebarContainer .user-popup.hidden {
+                display: none !important;
+            }
+            #sidebarContainer .popup-item {
+                display: flex !important;
+                align-items: center !important;
+                gap: 10px !important;
+                padding: 9px 12px !important;
+                border: none !important;
+                background: transparent !important;
+                font-size: 13px !important;
+                color: #09090b !important;
+                font-weight: 500 !important;
+                cursor: pointer !important;
+                border-radius: 6px !important;
+                text-align: left !important;
+                width: 100% !important;
+            }
+            #sidebarContainer .popup-item:hover {
+                background: #f4f4f5 !important;
+            }
+            #sidebarContainer .popup-divider {
+                height: 1px !important;
+                background: #e4e4e7 !important;
+                margin: 4px 0 !important;
+            }
+            #sidebarContainer .hidden {
+                display: none !important;
+            }
+
+            /* ========================================================= */
+            /* COLLAPSED STATE (72px Icon-Only Sidebar) */
+            /* ========================================================= */
+            #sidebarContainer.collapsed {
+                width: 72px !important;
+                padding: 20px 10px !important;
+            }
+
+            #sidebarContainer.collapsed ~ * {
+                margin-left: 72px !important;
+            }
+
+            #sidebarContainer.collapsed .logo-text,
+            #sidebarContainer.collapsed .menu-item span,
+            #sidebarContainer.collapsed .submenu-item span,
+            #sidebarContainer.collapsed .dropdown-chevron,
+            #sidebarContainer.collapsed .user-info,
+            #sidebarContainer.collapsed .user-profile-bar .dropdown-chevron {
+                display: none !important;
+            }
+
+            #sidebarContainer.collapsed .logo {
+                padding: 0 !important;
+                justify-content: center !important;
+                position: relative !important;
+            }
+
+            #sidebarContainer.collapsed .logo-left {
+                display: none !important;
+            }
+
+            #sidebarContainer.collapsed .sidebar-toggle-btn {
+                margin: 0 auto !important;
+            }
+
+            #sidebarContainer.collapsed .menu-item,
+            #sidebarContainer.collapsed .submenu-item {
+                justify-content: center !important;
+                padding: 10px 0 !important;
+            }
+
+            #sidebarContainer.collapsed .submenu {
+                padding-left: 0 !important;
+            }
+
+            #sidebarContainer.collapsed .user-profile-bar {
+                justify-content: center !important;
+                padding: 8px 0 !important;
+            }
+        </style></head>
+
+<body>
+    <div class="app">
+        <!-- Sidebar Container -->
+        <div class="sidebar" id="sidebarContainer" data-active="Recruitment" data-subpage="Candidate Pipeline" data-is-subfolder="true">
+        <div class="sidebar-top">
+            <div class="logo">
+                <div class="logo-left" style="display:flex; align-items:center; gap:10px;">
+                    <div class="logo-icon">HR</div>
+                    <span class="logo-text">HR Platform</span>
+                </div>
+                <button class="sidebar-toggle-btn" id="sidebarToggleBtn" title="Toggle Sidebar Collapse">
+                    <svg class="toggle-icon-left" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    <svg class="toggle-icon-right hidden" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+            </div>
+
+            <ul class="menu" id="sidebarMenu">
+                <a href="../Home.html" class="menu-item " data-page="Home" title="Home">
+                    <svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    <span>Home</span>
+                </a>
+
+                <!-- People Management Accordion -->
+                <li class="menu-item " id="peopleMenuToggle" data-page="People Management" title="People Management" style="cursor: pointer;">
+                    <div style="display:flex; align-items:center; gap:12px; flex:1;">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                        <span>People Management</span>
+                    </div>
+                    <svg class="dropdown-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </li>
+                <ul class="submenu hidden" id="peopleSubmenu">
+                    <a href="../people_management/EmployeeDirectory.html" class="submenu-item " data-subpage="Employee Directory" title="Employee Directory">
+                        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                        <span>Employee Directory</span>
+                    </a>
+                    <a href="../people_management/OrgDepartment.html" class="submenu-item " data-subpage="Organization &amp; Department" title="Organization &amp; Department">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                        <span>Organization &amp; Department</span>
+                    </a>
+                    <a href="../people_management/RequestManagement.html" class="submenu-item " data-subpage="Request Management" title="Request Management">
+                        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                        <span>Request Management</span>
+                    </a>
+                </ul>
+
+                <!-- Recruitment Accordion -->
+                <li class="menu-item active" id="recruitmentMenuToggle" data-page="Recruitment" title="Recruitment &amp; ATS" style="cursor: pointer;">
+                    <div style="display:flex; align-items:center; gap:12px; flex:1;">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                        <span>Recruitment &amp; ATS</span>
+                    </div>
+                    <svg class="dropdown-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </li>
+                <ul class="submenu " id="recruitmentSubmenu">
+                    <a href="JobOpenings.html" class="submenu-item " data-subpage="Job Openings" title="Job Openings Board">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                        <span>Job Openings Board</span>
+                    </a>
+                    <a href="CandidatePipeline.html" class="submenu-item active" data-subpage="Candidate Pipeline" title="Candidate Pipeline">
+                        <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path></svg>
+                        <span>Candidate Pipeline</span>
+                    </a>
+                    <a href="InterviewOffer.html" class="submenu-item " data-subpage="Interview &amp; Offer" title="Interview &amp; Offer">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        <span>Interview &amp; Offer</span>
+                    </a>
+                </ul>
+                <li class="menu-item " data-page="Onboarding" title="Onboarding">
+                    <svg viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.71 1.1-1.31 1.5-2"></path><path d="M12 15l-3-3 3-3"></path><path d="M9 12h12"></path></svg>
+                    <span>Onboarding</span>
+                </li>
+                <li class="menu-item " data-page="Offboarding" title="Offboarding">
+                    <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    <span>Offboarding</span>
+                </li>
+                <li class="menu-item " data-page="Payroll" title="Payroll">
+                    <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                    <span>Payroll</span>
+                </li>
+                <li class="menu-item " data-page="Performance" title="Performance">
+                    <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                    <span>Performance</span>
+                </li>
+                <li class="menu-item " data-page="Settings" title="Settings">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    <span>Settings</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="user-profile-bar" id="sidebarUserProfile" title="Lucia Doan Profile">
+                <div class="avatar-small">LD</div>
+                <div class="user-info">
+                    <span class="user-name">Lucia Doan</span>
+                    <span class="user-role">HR Manager</span>
+                </div>
+                <svg class="dropdown-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+
+            <div class="user-popup hidden" id="userPopup">
+                <button class="popup-item" id="btnUpdateVersion">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6"></path><path d="M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+                    <span>Update Version</span>
+                </button>
+                <button class="popup-item" id="btnHelp">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    <span>Help</span>
+                </button>
+                <div class="popup-divider"></div>
+                <button class="popup-item logout-item" id="btnSignOut">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    <span>Sign Out</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+        <!-- Main Content Area -->
+        <div class="content">
+            <div class="header">
+                <div>
+                    <h1 class="page-title">Candidate Pipeline Kanban</h1>
+                    <div class="page-desc">Track applicants across evaluation stages from Screening to Offer acceptance.</div>
+                </div>
+                <div style="display:flex; gap:10px;">
+                    <a href="detail/CandidateProfileDrawer.html" class="btn-secondary">View Candidate Drawer</a>
+                    <button class="btn-primary" id="btnAddCandidate">+ Add Candidate</button>
+                </div>
+            </div>
+
+            <div class="filter-header-bar">
+                <div class="role-selector">
+                    <span class="role-label">Active Requisition:</span>
+                    <select class="select-role" id="reqSelect">
+                        <option selected="">JOB-2026-01: Senior Fullstack Engineer (React / Node)</option>
+                        <option>JOB-2026-02: Head of System Administration</option>
+                        <option>JOB-2026-03: Senior Product UI/UX Designer</option>
+                    </select>
+                </div>
+                <div style="font-size:12.5px; color:var(--text-muted);">42 Total Applicants • Drag &amp; drop cards to transition stage</div>
+            </div>
+
+            <!-- Kanban Board Grid -->
+            <div class="kanban-board">
+                <!-- Column 1: Applied -->
+                <div class="kanban-col">
+                    <div class="col-header">
+                        <span class="col-title">1. Applied (18)</span>
+                        <span class="col-count">18</span>
+                    </div>
+
+                    <a href="detail/CandidateProfileDrawer.html" style="text-decoration:none;">
+                        <div class="candidate-card">
+                            <div class="card-top">
+                                <div style="display:flex; gap:10px; align-items:center;">
+                                    <div class="cand-avatar">AW</div>
+                                    <div>
+                                        <div class="cand-name">Alexander Wright</div>
+                                        <div class="cand-role">Fullstack Engineer • 7 yrs</div>
+                                    </div>
+                                </div>
+                                <span class="match-score">96% Match</span>
+                            </div>
+                            <div class="card-meta">
+                                <span>Applied 2 days ago</span>
+                                <span class="score-star">★ 4.9 Score</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="detail/CandidateProfileDrawer.html" style="text-decoration:none;">
+                        <div class="candidate-card">
+                            <div class="card-top">
+                                <div style="display:flex; gap:10px; align-items:center;">
+                                    <div class="cand-avatar">MV</div>
+                                    <div>
+                                        <div class="cand-name">Marcus Vance</div>
+                                        <div class="cand-role">Node.js Specialist • 5 yrs</div>
+                                    </div>
+                                </div>
+                                <span class="match-score">88% Match</span>
+                            </div>
+                            <div class="card-meta">
+                                <span>Applied 3 days ago</span>
+                                <span class="score-star">★ 4.5 Score</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Column 2: Screening -->
+                <div class="kanban-col">
+                    <div class="col-header">
+                        <span class="col-title">2. HR Screening (8)</span>
+                        <span class="col-count">8</span>
+                    </div>
+
+                    <a href="detail/CandidateProfileDrawer.html" style="text-decoration:none;">
+                        <div class="candidate-card">
+                            <div class="card-top">
+                                <div style="display:flex; gap:10px; align-items:center;">
+                                    <div class="cand-avatar">EC</div>
+                                    <div>
+                                        <div class="cand-name">Emily Chen</div>
+                                        <div class="cand-role">Frontend Lead • 8 yrs</div>
+                                    </div>
+                                </div>
+                                <span class="match-score">92% Match</span>
+                            </div>
+                            <div class="card-meta">
+                                <span>Screening Completed</span>
+                                <span class="score-star">★ 4.7 Score</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Column 3: Tech Interview -->
+                <div class="kanban-col">
+                    <div class="col-header">
+                        <span class="col-title">3. Tech Interview (5)</span>
+                        <span class="col-count">5</span>
+                    </div>
+
+                    <a href="detail/CandidateProfileDrawer.html" style="text-decoration:none;">
+                        <div class="candidate-card">
+                            <div class="card-top">
+                                <div style="display:flex; gap:10px; align-items:center;">
+                                    <div class="cand-avatar">SR</div>
+                                    <div>
+                                        <div class="cand-name">Sofia Rodriguez</div>
+                                        <div class="cand-role">Senior Fullstack • 6 yrs</div>
+                                    </div>
+                                </div>
+                                <span class="match-score">94% Match</span>
+                            </div>
+                            <div class="card-meta">
+                                <span>Scheduled with Dao Vo</span>
+                                <span class="score-star">★ 4.8 Score</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Column 4: Offer Stage -->
+                <div class="kanban-col">
+                    <div class="col-header">
+                        <span class="col-title">4. Offer Stage (2)</span>
+                        <span class="col-count">2</span>
+                    </div>
+
+                    <a href="detail/CandidateProfileDrawer.html" style="text-decoration:none;">
+                        <div class="candidate-card">
+                            <div class="card-top">
+                                <div style="display:flex; gap:10px; align-items:center;">
+                                    <div class="cand-avatar">DL</div>
+                                    <div>
+                                        <div class="cand-name">David Lawson</div>
+                                        <div class="cand-role">Principal Engineer • 10 yrs</div>
+                                    </div>
+                                </div>
+                                <span class="match-score">98% Match</span>
+                            </div>
+                            <div class="card-meta">
+                                <span>Offer Sent ($4.5k)</span>
+                                <span class="score-star">★ 5.0 Score</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Column 5: Hired -->
+                <div class="kanban-col">
+                    <div class="col-header">
+                        <span class="col-title">5. Hired / Onboard (4)</span>
+                        <span class="col-count">4</span>
+                    </div>
+
+                    <a href="detail/CandidateProfileDrawer.html" style="text-decoration:none;">
+                        <div class="candidate-card">
+                            <div class="card-top">
+                                <div style="display:flex; gap:10px; align-items:center;">
+                                    <div class="cand-avatar">TN</div>
+                                    <div>
+                                        <div class="cand-name">Tu Nguyen</div>
+                                        <div class="cand-role">System Engineer</div>
+                                    </div>
+                                </div>
+                                <span class="match-score">95% Match</span>
+                            </div>
+                            <div class="card-meta">
+                                <span>Joined 01/08/2026</span>
+                                <span class="score-star">★ Hired</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="../../js/components/sidebar.js"></script>
+    <script src="../../js/recruitment/CandidatePipeline.js"></script>
+
+
+
+</body></html>

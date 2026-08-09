@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Platform - Candidate Pipeline Kanban</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #09090b;
+            --primary-hover: #27272a;
+            --primary-light: #f4f4f5;
+            --bg-app: #fafafa;
+            --bg-card: #ffffff;
+            --text-main: #09090b;
+            --text-muted: #71717a;
+            --border-color: #e4e4e7;
+            --border-strong: #18181b;
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.08);
+            --sidebar-width: 260px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg-app); color: var(--text-main); font-size: 14px; min-height: 100vh; }
+        .app { display: flex; min-height: 100vh; }
+
+        .sidebar {
+            width: var(--sidebar-width); background: var(--bg-card); border-right: 1px solid var(--border-color);
+            display: flex; flex-direction: column; justify-content: space-between; position: fixed;
+            top: 0; bottom: 0; left: 0; z-index: 100; padding: 20px 16px;
+        }
+
+        .content { margin-left: var(--sidebar-width); flex: 1; padding: 32px 40px; display: flex; flex-direction: column; gap: 24px; overflow-x: auto; }
+
+        .header { display: flex; justify-content: space-between; align-items: center; }
+        .page-title { font-size: 22px; font-weight: 700; color: var(--text-main); letter-spacing: -0.5px; }
+        .page-desc { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+        .btn-primary { padding: 9px 16px; border-radius: var(--radius-md); background: var(--primary); color: white; border: none; font-size: 13px; font-weight: 600; cursor: pointer; }
+        .btn-secondary { padding: 9px 14px; border-radius: var(--radius-md); background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); font-size: 13px; font-weight: 600; cursor: pointer; }
+
+        .filter-header-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--bg-card); border: 1px solid var(--border-color); padding: 14px 20px; border-radius: var(--radius-lg); }
+        .role-selector { display: flex; align-items: center; gap: 12px; }
+        .role-label { font-size: 13px; font-weight: 600; color: var(--text-muted); }
+        .select-role { padding: 8px 14px; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: var(--bg-card); font-size: 13.5px; font-weight: 600; outline: none; }
+
+        /* Kanban Board Grid */
+        .kanban-board { display: grid; grid-template-columns: repeat(5, 320px); gap: 16px; padding-bottom: 20px; }
+        .kanban-col { background: var(--bg-app); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 600px; }
+        .col-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); }
+        .col-title { font-size: 13px; font-weight: 700; color: var(--text-main); text-transform: uppercase; letter-spacing: 0.5px; }
+        .col-count { width: 22px; height: 22px; border-radius: 50%; background: var(--border-color); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+
+        .candidate-card {
+            background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md);
+            padding: 16px; display: flex; flex-direction: column; gap: 10px; box-shadow: var(--shadow-sm);
+            cursor: grab; transition: all 0.15s ease;
+        }
+        .candidate-card:hover { border-color: var(--border-strong); transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+
+        .card-top { display: flex; justify-content: space-between; align-items: flex-start; }
+        .cand-avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--primary); color: white; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+        .cand-name { font-size: 14px; font-weight: 700; color: var(--text-main); }
+        .cand-role { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
+
+        .match-score { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 10px; background: #f4f4f5; border: 1px solid #18181b; }
+
+        .card-meta { display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: var(--text-muted); pt: 6px; border-top: 1px solid #f4f4f5; }
+        .score-star { font-weight: 700; color: var(--text-main); }
+
+        .toast-container { position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; gap: 10px; z-index: 1000; }
+        .toast { background: var(--bg-card); color: var(--text-main); padding: 12px 18px; border-radius: var(--radius-md); font-size: 13px; border: 1px solid var(--border-strong); box-shadow: var(--shadow-hover); }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <!-- Sidebar Container -->
+        <div class="sidebar" id="sidebarContainer" data-active="Recruitment" data-subpage="Candidate Pipeline" data-is-subfolder="true"></div>
+
+        <!-- Main Content Area -->
+        <div class="content">
+            <div class="header">
+                <div>
+                    <h1 class="page-title">Candidate Pipeline Kanban</h1>
+                    <div class="page-desc">Track applicants across evaluation stages from Screening to Offer acceptance.</div>
+                </div>
+                <div style="display:flex; gap:10px;">
+                    <a href="detail/CandidateProfileDrawer.html" class="btn-secondary">View Candidate Drawer</a>
+                    <button class="btn-primary" id="btnAddCandidate">+ Add Candidate</button>
+                </div>
+            </div>
+
+            <div class="filter-header-bar">
+                <div class="role-selector">
+                    <span class="role-label">Active Requisition:</span>
+                    <select class="select-role" id="reqSelect">
+                        <option selected>JOB-2026-01: Senior Fullstack Engineer (React / Node)</option>
+                        <option>JOB-2026-02: Head of System Administration</option>
+                        <option>JOB-2026-03: Senior Product UI/UX Designer</option>
+                    </select>
+                </div>
+                <div style="font-size:12.5px; color:var(--text-muted);">42 Total Applicants • Drag & drop cards to transition stage</div>
+            </div>
+
+            <!-- Kanban Board Grid -->
+            <div class="kanban-board">
+                <!-- Column 1: Applied -->
+                <div class="kanban-col">
+                    <div class="col-header">
+                        <span class="col-title">1. Applied (18)</span>
+                        <span class="col-count">18</span>
+                    </div>
+
+                    <a href="detail/CandidateProfileDrawer.html" style="text-decoration:none;">
+                        <div class="candidate-card">
+                            <div class="card-top">
+                                <div style="display:flex; gap:10px; align-items:center;">
+                                    <div class="cand-avatar">AW</div>
+                                    <div>
+                                        <div class="cand-name">Alexander Wright</div>
+                                        <div class="cand-role">Fullstack Engineer • 7 yrs</div>
+                                    </div>
+                                </div>
+                                <span class="match-score">96% Match</span>
+                            </div>
+                            <div class="card-meta">
+                                <span>Applied 2 days ago</span>
+                                <span class="score-star">★ 4.9 Score</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="detail/CandidateProfileDrawer.html" style="text-decoration:none;">
+                        <div class="candidate-card">
+                            <div class="card-top">
+                                <div style="display:flex; gap:10px; align-items:center;">
+                                    <div class="cand-avatar">MV</div>
+                                    <div>
+                                        <div class="cand-name">Marcus Vance</div>
+                                        <div class="cand-role">Node.js Specialist • 5 yrs</div>
+                                    </div>
+                                </div>
+                                <span class="match-score">88% Match</span>
+                            </div>
+                            <div class="card-meta">
+                                <span>Applied 3 days ago</span>
+                                <span class="score-star">★ 4.5 Score</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Column 2: Screening -->
+                <div class="kanban-col">
+                    <div class="col-header">
+                        <span class="col-title">2. HR Screening (8)</span>
+                        <span class="col-count">8</span>
+                    </div>
+
+                    <a href="detail/CandidateProfileDrawer.html" style="text-decoration:none;">
+                        <div class="candidate-card">
+                            <div class="card-top">
+                                <div style="display:flex; gap:10px; align-items:center;">
+                                    <div class="cand-avatar">EC</div>
+                                    <div>
+                                        <div class="cand-name">Emily Chen</div>
+                                        <div class="cand-role">Frontend Lead • 8 yrs</div>
+                                    </div>
+                                </div>
+                                <span class="match-score">92% Match</span>
+                            </div>
+                            <div class="card-meta">
+                                <span>Screening Completed</span>
+                                <span class="score-star">★ 4.7 Score</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Column 3: Tech Interview -->
+                <div class="kanban-col">
+                    <div class="col-header">
+                        <span class="col-title">3. Tech Interview (5)</span>
+                        <span class="col-count">5</span>
+                    </div>
+
+                    <a href="detail/CandidateProfileDrawer.html" style="text-decoration:none;">
+                        <div class="candidate-card">
+                            <div class="card-top">
+                                <div style="display:flex; gap:10px; align-items:center;">
+                                    <div class="cand-avatar">SR</div>
+                                    <div>
+                                        <div class="cand-name">Sofia Rodriguez</div>
+                                        <div class="cand-role">Senior Fullstack • 6 yrs</div>
+                                    </div>
+                                </div>
+                                <span class="match-score">94% Match</span>
+                            </div>
+                            <div class="card-meta">
+                                <span>Scheduled with Dao Vo</span>
+                                <span class="score-star">★ 4.8 Score</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Column 4: Offer Stage -->
+                <div class="kanban-col">
+                    <div class="col-header">
+                        <span class="col-title">4. Offer Stage (2)</span>
+                        <span class="col-count">2</span>
+                    </div>
+
+                    <a href="detail/CandidateProfileDrawer.html" style="text-decoration:none;">
+                        <div class="candidate-card">
+                            <div class="card-top">
+                                <div style="display:flex; gap:10px; align-items:center;">
+                                    <div class="cand-avatar">DL</div>
+                                    <div>
+                                        <div class="cand-name">David Lawson</div>
+                                        <div class="cand-role">Principal Engineer • 10 yrs</div>
+                                    </div>
+                                </div>
+                                <span class="match-score">98% Match</span>
+                            </div>
+                            <div class="card-meta">
+                                <span>Offer Sent ($4.5k)</span>
+                                <span class="score-star">★ 5.0 Score</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Column 5: Hired -->
+                <div class="kanban-col">
+                    <div class="col-header">
+                        <span class="col-title">5. Hired / Onboard (4)</span>
+                        <span class="col-count">4</span>
+                    </div>
+
+                    <a href="detail/CandidateProfileDrawer.html" style="text-decoration:none;">
+                        <div class="candidate-card">
+                            <div class="card-top">
+                                <div style="display:flex; gap:10px; align-items:center;">
+                                    <div class="cand-avatar">TN</div>
+                                    <div>
+                                        <div class="cand-name">Tu Nguyen</div>
+                                        <div class="cand-role">System Engineer</div>
+                                    </div>
+                                </div>
+                                <span class="match-score">95% Match</span>
+                            </div>
+                            <div class="card-meta">
+                                <span>Joined 01/08/2026</span>
+                                <span class="score-star">★ Hired</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Candidate Modal Overlay -->
+    <div class="modal-overlay hidden" id="addCandidateModalOverlay">
+        <div class="modal-card" style="width: 100%; max-width: 660px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); overflow: hidden; display: flex; flex-direction: column;">
+            <div class="modal-header">
+                <div class="modal-title">
+                    Add Candidate
+                    <span class="ai-badge" style="background:#f4f4f5; color:var(--text-main); font-size:11px; font-weight:700; padding:3px 8px; border-radius:6px; border:1px solid var(--border-color); text-transform:uppercase;">AI Resume Parser</span>
+                </div>
+                <button class="btn-close-icon" id="btnCloseModal" style="background:none; border:none; font-size:16px; cursor:pointer; color:var(--text-muted);">✕</button>
+            </div>
+
+            <div class="modal-body" style="padding: 24px; display: flex; flex-direction: column; gap: 18px; max-height: 75vh; overflow-y: auto;">
+                <!-- Drag & Drop Upload Zone -->
+                <div class="dropzone" id="cvDropzone" style="border: 2px dashed #cbd5e1; border-radius: var(--radius-md); padding: 22px; text-align: center; background: #fafafa; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                    <div style="width: 40px; height: 40px; border-radius: 50%; background: #ffffff; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; color: var(--primary);">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    </div>
+                    <div style="font-size: 14px; font-weight: 700; color: var(--text-main);">Drag & Drop Resume (PDF or DOCX)</div>
+                    <div style="font-size: 12px; color: var(--text-muted);">AI parser will extract profile info into editable fields below.</div>
+                    <button class="btn-sample" id="btnSampleCv" type="button" style="margin-top: 4px; padding: 6px 12px; font-size: 12px; font-weight: 600; background: #ffffff; border: 1px solid var(--border-color); border-radius: 6px; cursor: pointer; color: var(--text-main);">📄 Auto-fill Sample CV: Alexander_Wright_Resume.pdf</button>
+                </div>
+
+                <!-- AI Status Banner -->
+                <div class="ai-status-box" id="aiStatusBox" style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: var(--radius-md); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; color: #16a34a; font-size: 12.5px; font-weight: 600;">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span>CV Parsed Successfully! Review and edit any field manually if needed.</span>
+                    </div>
+                    <span>98% Match Score</span>
+                </div>
+
+                <!-- Manual Editable Candidate Form -->
+                <form class="form-grid" id="candidateForm" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div class="form-group" style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main); display: flex; justify-content: space-between;">Full Name <span style="color: #2563eb; font-size: 11px;">✓ Auto Extracted</span></label>
+                        <input type="text" class="form-control" id="candName" value="Alexander Wright" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;" required>
+                    </div>
+
+                    <div class="form-group" style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main); display: flex; justify-content: space-between;">Corporate Email <span style="color: #2563eb; font-size: 11px;">✓ Auto Extracted</span></label>
+                        <input type="email" class="form-control" id="candEmail" value="alexander.wright@devmail.io" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;" required>
+                    </div>
+
+                    <div class="form-group" style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main); display: flex; justify-content: space-between;">Phone Number <span style="color: #2563eb; font-size: 11px;">✓ Auto Extracted</span></label>
+                        <input type="text" class="form-control" id="candPhone" value="+84 908 123 456" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                    </div>
+
+                    <div class="form-group" style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Target Job Opening</label>
+                        <select class="form-control" id="candRole" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                            <option selected>Senior Fullstack Engineer (React / Node)</option>
+                            <option>HR Business Partner (Talent Acquisition)</option>
+                            <option>Product Marketing Manager</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main); display: flex; justify-content: space-between;">Current Company & Position <span style="color: #2563eb; font-size: 11px;">✓ Auto Extracted</span></label>
+                        <input type="text" class="form-control" id="candCurrentRole" value="Lead Fullstack Engineer @ Tech Corp" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                    </div>
+
+                    <div class="form-group" style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main); display: flex; justify-content: space-between;">Total Experience (Years) <span style="color: #2563eb; font-size: 11px;">✓ Auto Extracted</span></label>
+                        <input type="text" class="form-control" id="candExp" value="7 Years" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                    </div>
+
+                    <div class="form-group" style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Expected Monthly Salary ($ USD)</label>
+                        <input type="text" class="form-control" value="$3,500 / month" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                    </div>
+
+                    <div class="form-group" style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Notice Period / Availability</label>
+                        <input type="text" class="form-control" value="2 Weeks (Immediate)" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                    </div>
+
+                    <div class="form-group" style="grid-column: span 2; display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main); display: flex; justify-content: space-between;">Extracted Skill Tags <span style="color: #2563eb; font-size: 11px;">✓ Auto Extracted</span></label>
+                        <input type="text" class="form-control" value="React, Node.js, TypeScript, PostgreSQL, Docker, AWS, GraphQL" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                    </div>
+
+                    <div class="form-group" style="grid-column: span 2; display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main); display: flex; justify-content: space-between;">Candidate Summary / Cover Profile <span style="color: #2563eb; font-size: 11px;">✓ Auto Extracted</span></label>
+                        <textarea class="form-control" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff; min-height: 70px;">Senior Fullstack Architect with 7+ years building enterprise SaaS applications, high-performance microservices, and leading engineering teams.</textarea>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer" style="padding: 16px 24px; border-top: 1px solid var(--border-color); background: #fafafa; display: flex; justify-content: flex-end; gap: 12px;">
+                <button class="btn-cancel" id="btnCancelModal" style="padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-main);">Cancel</button>
+                <button class="btn-submit" id="btnSubmitCandidate" style="padding: 9px 18px; border-radius: 8px; border: none; background: var(--primary); color: white; font-size: 13px; font-weight: 600; cursor: pointer;">Save Candidate Profile</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Overlay Backdrop CSS -->
+    <style>
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(9, 9, 11, 0.4); backdrop-filter: blur(4px);
+            z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px;
+        }
+        .modal-overlay.hidden { display: none !important; }
+    </style>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="../../js/components/sidebar.js"></script>
+    <script src="../../js/recruitment/CandidatePipeline.js"></script>
+</body>
+
+</html>

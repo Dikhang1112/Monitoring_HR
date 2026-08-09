@@ -54,12 +54,43 @@ function getAllHtmlFiles(dirPath, arrayOfFiles = []) {
     });
     const page = await context.newPage();
 
+    const isForce = process.argv.includes('--force') || process.argv.includes('-f');
+    if (isForce) {
+        console.log('⚡ --force flag detected: Re-rendering ALL screens regardless of modification time.\n');
+    }
+
     let successCount = 0;
+    let skippedCount = 0;
 
     for (const filePath of htmlFiles) {
         const fileBasename = path.basename(filePath, '.html');
-        const outputImagePath = path.join(outputDir, `${fileBasename}.png`);
+        
+        // Determine subfolder based on source location (recruitment, people_management)
+        let subFolder = '';
+        if (filePath.includes('recruitment')) {
+            subFolder = 'recruitment';
+        } else if (filePath.includes('people_management')) {
+            subFolder = 'people_management';
+        }
+
+        const targetDir = subFolder ? path.join(outputDir, subFolder) : outputDir;
+        if (!fs.existsSync(targetDir)) {
+            fs.mkdirSync(targetDir, { recursive: true });
+        }
+
+        const outputImagePath = path.join(targetDir, `${fileBasename}.png`);
         const fileUrl = `file:///${filePath.replace(/\\/g, '/')}`;
+
+        // Smart Incremental Check: Skip if image exists and is newer than source HTML
+        if (!isForce && fs.existsSync(outputImagePath)) {
+            const htmlMtime = fs.statSync(filePath).mtimeMs;
+            const imgMtime = fs.statSync(outputImagePath).mtimeMs;
+            if (imgMtime >= htmlMtime) {
+                console.log(`⏭️  Skipped: [${fileBasename}] (Image is up-to-date)`);
+                skippedCount++;
+                continue;
+            }
+        }
 
         try {
             console.log(`📸 Exporting: [${fileBasename}] ...`);
@@ -95,6 +126,6 @@ function getAllHtmlFiles(dirPath, arrayOfFiles = []) {
 
     await browser.close();
 
-    console.log(`\n🎉 Done! Successfully exported ${successCount}/${htmlFiles.length} image(s) to:`);
-    console.log(`📂 ${outputDir}`);
+    console.log(`\n🎉 Done! Processed ${htmlFiles.length} file(s): ${successCount} exported, ${skippedCount} skipped (up-to-date).`);
+    console.log(`📂 Output folder: ${outputDir}`);
 })();

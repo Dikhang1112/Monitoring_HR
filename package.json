@@ -24,5 +24,8 @@
   "homepage": "https://github.com/Dikhang1112/Monitoring_HR#readme",
   "devDependencies": {
     "playwright": "^1.62.1"
+  },
+  "dependencies": {
+    "@figma/plugin-typings": "^1.133.0"
   }
 }

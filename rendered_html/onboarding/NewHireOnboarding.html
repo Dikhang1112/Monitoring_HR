@@ -622,7 +622,7 @@
                                     <div style="display:flex; align-items:center; gap:12px;">
                                         <div class="hire-avatar">AW</div>
                                         <div class="hire-info">
-                                            <a href="detail/OnboardingChecklistDrawer.html" class="hire-name">Alexander Wright</a>
+                                            <span class="hire-name btn-checklist-trigger" style="cursor:pointer;">Alexander Wright</span>
                                             <span class="hire-dept">Senior Fullstack Engineer • Engineering</span>
                                         </div>
                                     </div>
@@ -640,7 +640,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="detail/OnboardingChecklistDrawer.html" class="btn-action-sm">View Checklist</a>
+                                    <button class="btn-action-sm btn-checklist-trigger">View Checklist</button>
                                 </td>
                             </tr>
                             <tr>
@@ -648,7 +648,7 @@
                                     <div style="display:flex; align-items:center; gap:12px;">
                                         <div class="hire-avatar">DL</div>
                                         <div class="hire-info">
-                                            <a href="detail/OnboardingChecklistDrawer.html" class="hire-name">David Lawson</a>
+                                            <span class="hire-name btn-checklist-trigger" style="cursor:pointer;">David Lawson</span>
                                             <span class="hire-dept">Principal Architect • System Admin</span>
                                         </div>
                                     </div>
@@ -666,7 +666,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="detail/OnboardingChecklistDrawer.html" class="btn-action-sm">View Checklist</a>
+                                    <button class="btn-action-sm btn-checklist-trigger">View Checklist</button>
                                 </td>
                             </tr>
                             <tr>
@@ -674,7 +674,7 @@
                                     <div style="display:flex; align-items:center; gap:12px;">
                                         <div class="hire-avatar">TN</div>
                                         <div class="hire-info">
-                                            <a href="detail/OnboardingChecklistDrawer.html" class="hire-name">Tu Nguyen</a>
+                                            <span class="hire-name btn-checklist-trigger" style="cursor:pointer;">Tu Nguyen</span>
                                             <span class="hire-dept">DevOps Engineer • Cloud Ops</span>
                                         </div>
                                     </div>
@@ -692,7 +692,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="detail/OnboardingChecklistDrawer.html" class="btn-action-sm">View Checklist</a>
+                                    <button class="btn-action-sm btn-checklist-trigger">View Checklist</button>
                                 </td>
                             </tr>
                             <tr>
@@ -700,7 +700,7 @@
                                     <div style="display:flex; align-items:center; gap:12px;">
                                         <div class="hire-avatar">PM</div>
                                         <div class="hire-info">
-                                            <a href="detail/OnboardingChecklistDrawer.html" class="hire-name">Phuong Mai</a>
+                                            <span class="hire-name btn-checklist-trigger" style="cursor:pointer;">Phuong Mai</span>
                                             <span class="hire-dept">HR Business Partner • People &amp; Culture</span>
                                         </div>
                                     </div>
@@ -718,7 +718,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="detail/OnboardingChecklistDrawer.html" class="btn-action-sm">View Checklist</a>
+                                    <button class="btn-action-sm btn-checklist-trigger">View Checklist</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -727,6 +727,135 @@
             </main>
         </div>
     </div>
+
+    <!-- Onboarding Task Sign-off Checklist Slide-over Drawer Overlay -->
+    <div class="modal-overlay hidden" id="onboardingChecklistDrawerOverlay">
+        <div class="drawer-card" style="width: 100%; max-width: 540px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: 0 10px 25px rgba(0,0,0,0.08); overflow: hidden; display: flex; flex-direction: column; max-height: 85vh;">
+            <div class="drawer-header" style="padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: #fafafa;">
+                <div>
+                    <h2 style="font-size: 16px; font-weight: 700; color: var(--text-main);">Onboarding Task Sign-off Checklist</h2>
+                    <p style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">Alexander Wright • Senior Fullstack Engineer</p>
+                </div>
+                <button class="btn-close-icon" id="btnCloseChecklistDrawer" style="background:none; border:none; font-size:16px; cursor:pointer; color:var(--text-muted);">✕</button>
+            </div>
+
+            <div class="drawer-body" style="padding: 24px; display: flex; flex-direction: column; gap: 20px; overflow-y: auto;">
+                <div style="background: #fafafa; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 14px 16px; display: flex; align-items: center; gap: 14px;">
+                    <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px;">AW</div>
+                    <div>
+                        <div style="font-weight:700; font-size:14px;">Alexander Wright</div>
+                        <div style="font-size:12.5px; color:var(--text-muted);">Assigned Mentor: Dao Vo (CTO)</div>
+                        <div style="font-size:12px; color:#16a34a; font-weight:600; margin-top:2px;">Overall Progress: 75% (6/8 Tasks)</div>
+                    </div>
+                </div>
+
+                <div>
+                    <div style="font-size: 13px; font-weight: 700; color: var(--text-main); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;">Phase 1: Pre-boarding &amp; Day 1 Orientation</div>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <div style="display: flex; align-items: flex-start; gap: 12px; padding: 10px 14px; border: 1px solid #bbf7d0; border-radius: 8px; background: #f0fdf4;">
+                            <input type="checkbox" checked="" style="accent-color:var(--primary); margin-top:2px;">
+                            <div>
+                                <div style="font-size: 13px; font-weight: 600;">Signed Employment Contract &amp; NDA</div>
+                                <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">Uploaded signed offer letter and non-disclosure agreement.</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; gap: 12px; padding: 10px 14px; border: 1px solid #bbf7d0; border-radius: 8px; background: #f0fdf4;">
+                            <input type="checkbox" checked="" style="accent-color:var(--primary); margin-top:2px;">
+                            <div>
+                                <div style="font-size: 13px; font-weight: 600;">Company Welcome Email &amp; Welcome Kit</div>
+                                <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">Sent corporate welcome email and dispatched welcome box.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div style="font-size: 13px; font-weight: 700; color: var(--text-main); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;">Phase 2: IT Hardware &amp; SaaS Access</div>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <div style="display: flex; align-items: flex-start; gap: 12px; padding: 10px 14px; border: 1px solid #bbf7d0; border-radius: 8px; background: #f0fdf4;">
+                            <input type="checkbox" checked="" style="accent-color:var(--primary); margin-top:2px;">
+                            <div>
+                                <div style="font-size: 13px; font-weight: 600;">Laptop &amp; Peripheral Provisioning</div>
+                                <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">MacBook Pro M3 Max assigned &amp; configured by IT Admin.</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; gap: 12px; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: 8px; background: #ffffff;">
+                            <input type="checkbox" style="accent-color:var(--primary); margin-top:2px;">
+                            <div>
+                                <div style="font-size: 13px; font-weight: 600;">GitHub Enterprise &amp; Jira Access Grant</div>
+                                <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">Grant repository write access and invite to engineering team.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="drawer-footer" style="padding: 16px 24px; border-top: 1px solid var(--border-color); background: #fafafa; display: flex; justify-content: flex-end; gap: 12px;">
+                <button class="btn-cancel" id="btnCancelChecklistDrawer" style="padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-main);">Close</button>
+                <button class="btn-submit" id="btnSignOffTasks" style="padding: 9px 18px; border-radius: 8px; border: none; background: var(--primary); color: white; font-size: 13px; font-weight: 600; cursor: pointer;">Sign Off Checked Tasks</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Onboarding Plan Template Inline Modal Overlay -->
+    <div class="modal-overlay hidden" id="onboardingTemplateModalOverlay">
+        <div class="modal-card" style="width: 100%; max-width: 620px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: 0 10px 25px rgba(0,0,0,0.08); overflow: hidden; display: flex; flex-direction: column;">
+            <div class="modal-header" style="padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h2 style="font-size: 17px; font-weight: 700; color: var(--text-main);">Create Onboarding Plan Template</h2>
+                    <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 2px;">Configure department-specific onboarding milestone checklist</p>
+                </div>
+                <button class="btn-close-icon" id="btnCloseTemplateModal" style="background:none; border:none; font-size:16px; cursor:pointer; color:var(--text-muted);">✕</button>
+            </div>
+
+            <div class="modal-body" style="padding: 24px; display: flex; flex-direction: column; gap: 18px;">
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                    <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Template Title *</label>
+                    <input type="text" id="templateTitleInput" class="form-control" value="Engineering 30-60-90 Day Onboarding Roadmap" placeholder="e.g. Engineering Onboarding" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Target Department *</label>
+                        <select class="form-control" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                            <option selected="">Software Engineering</option>
+                            <option>System Administration</option>
+                            <option>Product UI/UX</option>
+                            <option>People &amp; Culture</option>
+                        </select>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Target Completion Duration</label>
+                        <select class="form-control" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                            <option selected="">30 Days (Standard)</option>
+                            <option>60 Days (Extended)</option>
+                            <option>90 Days (Executive)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                    <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Default Checklist Items (Comma Separated)</label>
+                    <textarea class="form-control" rows="4" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">Signed Contract &amp; NDA, Company Orientation Video, IT Laptop Setup, Access Grant GitHub &amp; Jira, Mentor Introduction, First Sprint Planning, 30-Day Probation Sync</textarea>
+                </div>
+            </div>
+
+            <div class="modal-footer" style="padding: 16px 24px; border-top: 1px solid var(--border-color); background: #fafafa; display: flex; justify-content: flex-end; gap: 12px;">
+                <button class="btn-cancel" id="btnCancelTemplateModal" style="padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-main);">Cancel</button>
+                <button class="btn-submit" id="btnSaveTemplateModal" style="padding: 9px 18px; border-radius: 8px; border: none; background: var(--primary); color: white; font-size: 13px; font-weight: 600; cursor: pointer;">Save Template</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Overlay Backdrop CSS -->
+    <style>
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(9, 9, 11, 0.4); backdrop-filter: blur(4px);
+            z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px;
+        }
+        .modal-overlay.hidden { display: none !important; }
+    </style>
 
     <div class="toast-container" id="toastContainer"></div>
 

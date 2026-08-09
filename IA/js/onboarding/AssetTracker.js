@@ -1,8 +1,14 @@
 /**
  * Asset & License Tracker Controller
- * Handles Manage SaaS Modal Inline PopUp, Add/Remove Products & Seat Management
+ * Handles Assign Asset & License Modal Inline PopUp, Manage SaaS Modal & Seat Management
  */
 document.addEventListener('DOMContentLoaded', () => {
+    const btnAssignAsset = document.getElementById('btnAssignAsset');
+    const assignAssetModalOverlay = document.getElementById('assignAssetModalOverlay');
+    const btnCloseAssignAssetModal = document.getElementById('btnCloseAssignAssetModal');
+    const btnCancelAssignAssetModal = document.getElementById('btnCancelAssignAssetModal');
+    const btnSubmitAssignAssetModal = document.getElementById('btnSubmitAssignAssetModal');
+
     const manageSaaSModalOverlay = document.getElementById('manageSaaSModalOverlay');
     const btnCloseSaaSModal = document.getElementById('btnCloseSaaSModal');
     const btnCancelSaaSModal = document.getElementById('btnCancelSaaSModal');
@@ -21,32 +27,51 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => toast.remove(), 3500);
     }
 
-    // Bind all "Manage" buttons to open inline SaaS Modal
+    const closeModal = () => {
+        if (assignAssetModalOverlay) assignAssetModalOverlay.classList.add('hidden');
+        if (manageSaaSModalOverlay) manageSaaSModalOverlay.classList.add('hidden');
+    };
+
+    // Bind Assign Asset Triggers
+    const assignTriggers = [btnAssignAsset, ...document.querySelectorAll('.btn-assign-asset-inline')].filter(Boolean);
+    assignTriggers.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (assignAssetModalOverlay) assignAssetModalOverlay.classList.remove('hidden');
+        });
+    });
+
+    if (btnCloseAssignAssetModal) btnCloseAssignAssetModal.addEventListener('click', closeModal);
+    if (btnCancelAssignAssetModal) btnCancelAssignAssetModal.addEventListener('click', closeModal);
+
+    if (btnSubmitAssignAssetModal) {
+        btnSubmitAssignAssetModal.addEventListener('click', () => {
+            closeModal();
+            showToast('Hardware equipment & SaaS credentials provisioned successfully!');
+        });
+    }
+
+    // Bind Manage SaaS Triggers
     const manageButtons = document.querySelectorAll('.btn-manage-saas');
     manageButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
-            if (manageSaaSModalOverlay) {
-                manageSaaSModalOverlay.classList.remove('hidden');
-            }
+            if (manageSaaSModalOverlay) manageSaaSModalOverlay.classList.remove('hidden');
         });
     });
 
-    // Close Modal helper
-    const closeSaaSModal = () => {
-        if (manageSaaSModalOverlay) {
-            manageSaaSModalOverlay.classList.add('hidden');
-        }
-    };
+    if (btnCloseSaaSModal) btnCloseSaaSModal.addEventListener('click', closeModal);
+    if (btnCancelSaaSModal) btnCancelSaaSModal.addEventListener('click', closeModal);
 
-    if (btnCloseSaaSModal) btnCloseSaaSModal.addEventListener('click', closeSaaSModal);
-    if (btnCancelSaaSModal) btnCancelSaaSModal.addEventListener('click', closeSaaSModal);
+    if (assignAssetModalOverlay) {
+        assignAssetModalOverlay.addEventListener('click', (e) => {
+            if (e.target === assignAssetModalOverlay) closeModal();
+        });
+    }
 
     if (manageSaaSModalOverlay) {
         manageSaaSModalOverlay.addEventListener('click', (e) => {
-            if (e.target === manageSaaSModalOverlay) {
-                closeSaaSModal();
-            }
+            if (e.target === manageSaaSModalOverlay) closeModal();
         });
     }
 
@@ -103,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (btnSaveSaaSModal) {
         btnSaveSaaSModal.addEventListener('click', () => {
-            closeSaaSModal();
+            closeModal();
             showToast('Saved Enterprise SaaS License Configuration!');
         });
     }

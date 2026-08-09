@@ -126,7 +126,7 @@
                                 <td><span style="font-family:monospace; font-weight:700;">EMP-2026-089</span></td>
                                 <td><span class="status-pill status-ready">✓ Passed (No Duplicate)</span></td>
                                 <td>
-                                    <a href="detail/ProfileConversionModal.html" class="btn-action-primary">Convert to Employee</a>
+                                    <button class="btn-action-primary btn-conversion-trigger">Convert to Employee</button>
                                 </td>
                             </tr>
                             <tr>
@@ -142,7 +142,7 @@
                                 <td><span style="font-family:monospace; font-weight:700;">EMP-2026-090</span></td>
                                 <td><span class="status-pill status-ready">✓ Passed (No Duplicate)</span></td>
                                 <td>
-                                    <a href="detail/ProfileConversionModal.html" class="btn-action-primary">Convert to Employee</a>
+                                    <button class="btn-action-primary btn-conversion-trigger">Convert to Employee</button>
                                 </td>
                             </tr>
                             <tr>
@@ -158,7 +158,7 @@
                                 <td><span style="font-family:monospace; font-weight:700;">EMP-2026-091</span></td>
                                 <td><span class="status-pill status-ready">✓ Passed (No Duplicate)</span></td>
                                 <td>
-                                    <a href="detail/ProfileConversionModal.html" class="btn-action-primary">Convert to Employee</a>
+                                    <button class="btn-action-primary btn-conversion-trigger">Convert to Employee</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -167,6 +167,79 @@
             </main>
         </div>
     </div>
+
+    <!-- Candidate Profile Data Conversion Inline Modal Overlay -->
+    <div class="modal-overlay hidden" id="profileConversionModalOverlay">
+        <div class="modal-card" style="width: 100%; max-width: 640px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); overflow: hidden; display: flex; flex-direction: column;">
+            <div class="modal-header" style="padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h2 style="font-size: 17px; font-weight: 700; color: var(--text-main);">Convert Candidate to Employee Profile</h2>
+                    <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 2px;">Review ATS field mapping and generate official employee directory entry</p>
+                </div>
+                <button class="btn-close-icon" id="btnCloseConversionModal" style="background:none; border:none; font-size:16px; cursor:pointer; color:var(--text-muted);">✕</button>
+            </div>
+
+            <div class="modal-body" style="padding: 24px; display: flex; flex-direction: column; gap: 18px; max-height: 75vh; overflow-y: auto;">
+                <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: var(--radius-md); padding: 14px 16px; color: #16a34a; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 10px;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span>Duplicate Check Passed: No existing employee record found for alexander.wright@devmail.io</span>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Employee Full Name</label>
+                        <input type="text" id="convName" class="form-control" value="Alexander Wright" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                    </div>
+
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">System Generated Employee ID</label>
+                        <input type="text" class="form-control" value="EMP-2026-089" readonly style="font-weight:700; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #f4f4f5;">
+                    </div>
+
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Official Work Email</label>
+                        <input type="email" class="form-control" value="alexander.wright@company.com" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                    </div>
+
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Job Title & Level</label>
+                        <input type="text" class="form-control" value="Senior Fullstack Engineer (L5)" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                    </div>
+
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Assigned Department</label>
+                        <select class="form-control" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                            <option selected>Software Engineering</option>
+                            <option>System Administration</option>
+                        </select>
+                    </div>
+
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Direct Reporting Line Manager</label>
+                        <select class="form-control" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                            <option selected>Dao Vo (CTO)</option>
+                            <option>Dung Nguyen (Head of SysAdmin)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer" style="padding: 16px 24px; border-top: 1px solid var(--border-color); background: #fafafa; display: flex; justify-content: flex-end; gap: 12px;">
+                <button class="btn-cancel" id="btnCancelConversionModal" style="padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-main);">Cancel</button>
+                <button class="btn-submit" id="btnSubmitConversionModal" style="padding: 9px 18px; border-radius: 8px; border: none; background: var(--primary); color: white; font-size: 13px; font-weight: 600; cursor: pointer;">Generate Employee Directory Record</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Overlay Backdrop CSS -->
+    <style>
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(9, 9, 11, 0.4); backdrop-filter: blur(4px);
+            z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px;
+        }
+        .modal-overlay.hidden { display: none !important; }
+    </style>
 
     <div class="toast-container" id="toastContainer"></div>
 

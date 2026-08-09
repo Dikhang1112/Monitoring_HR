@@ -509,10 +509,10 @@
                         <p class="subtitle">Assign laptop hardware, security badges, and enterprise SaaS licenses for onboarding new hires.</p>
                     </div>
 
-                    <a href="detail/AssignAssetModal.html" class="btn-primary" id="btnAssignAsset">
+                    <button class="btn-primary" id="btnAssignAsset">
                         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                         <span>+ Assign Asset &amp; License</span>
-                    </a>
+                    </button>
                 </div>
 
                 <!-- Subtab Navigation -->
@@ -550,7 +550,7 @@
                                         <div style="font-size:11.5px; color:var(--text-muted);">Engineering</div>
                                     </td>
                                     <td><span class="status-pill status-assigned">Assigned</span></td>
-                                    <td><a href="detail/AssignAssetModal.html" class="btn-action-sm">Edit</a></td>
+                                    <td><button class="btn-action-sm btn-assign-asset-inline">Edit</button></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -562,7 +562,7 @@
                                         <div style="font-size:11.5px; color:var(--text-muted);">SysAdmin</div>
                                     </td>
                                     <td><span class="status-pill status-pending">Pending Delivery</span></td>
-                                    <td><a href="detail/AssignAssetModal.html" class="btn-action-sm">Edit</a></td>
+                                    <td><button class="btn-action-sm btn-assign-asset-inline">Edit</button></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -574,7 +574,7 @@
                                         <div style="font-size:11.5px; color:var(--text-muted);">Cloud Ops</div>
                                     </td>
                                     <td><span class="status-pill status-assigned">Assigned</span></td>
-                                    <td><a href="detail/AssignAssetModal.html" class="btn-action-sm">Edit</a></td>
+                                    <td><button class="btn-action-sm btn-assign-asset-inline">Edit</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -628,6 +628,61 @@
                     </div>
                 </div>
             </main>
+        </div>
+    </div>
+
+    <!-- Assign Hardware Asset & Software License Inline Modal Overlay -->
+    <div class="modal-overlay hidden" id="assignAssetModalOverlay">
+        <div class="modal-card" style="width: 100%; max-width: 620px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); overflow: hidden; display: flex; flex-direction: column;">
+            <div class="modal-header" style="padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h2 style="font-size: 17px; font-weight: 700; color: var(--text-main);">Assign Hardware Equipment &amp; SaaS Credentials</h2>
+                    <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 2px;">Provision company devices, access badges, and software seat licenses to new hire</p>
+                </div>
+                <button class="btn-close-icon" id="btnCloseAssignAssetModal" style="background:none; border:none; font-size:16px; cursor:pointer; color:var(--text-muted);">✕</button>
+            </div>
+
+            <div class="modal-body" style="padding: 24px; display: flex; flex-direction: column; gap: 18px; max-height: 75vh; overflow-y: auto;">
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                    <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Select Employee / New Hire *</label>
+                    <select class="form-control" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                        <option selected="">Alexander Wright (Senior Fullstack Engineer)</option>
+                        <option>David Lawson (Principal Systems Architect)</option>
+                    </select>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Hardware Equipment</label>
+                        <select class="form-control" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                            <option selected="">MacBook Pro M3 Max (SN: C02G901XMD6R)</option>
+                            <option>Dell UltraSharp 27" 4K (SN: CN-0R7K98)</option>
+                        </select>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Security Access Token</label>
+                        <select class="form-control" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                            <option selected="">YubiKey 5C NFC Badge (SN: YK-908221)</option>
+                            <option>Building Smart Pass Keycard</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                    <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Provision Enterprise SaaS Licenses (Check all that apply)</label>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; background:#fafafa; border:1px solid var(--border-color); padding:14px; border-radius:8px;">
+                        <label style="display:flex; align-items:center; gap:8px; font-size:13px;"><input type="checkbox" checked="" style="accent-color:var(--primary);"> Google Workspace Enterprise</label>
+                        <label style="display:flex; align-items:center; gap:8px; font-size:13px;"><input type="checkbox" checked="" style="accent-color:var(--primary);"> Slack Enterprise Grid</label>
+                        <label style="display:flex; align-items:center; gap:8px; font-size:13px;"><input type="checkbox" checked="" style="accent-color:var(--primary);"> Figma Enterprise Design</label>
+                        <label style="display:flex; align-items:center; gap:8px; font-size:13px;"><input type="checkbox" checked="" style="accent-color:var(--primary);"> Jira Software Enterprise</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer" style="padding: 16px 24px; border-top: 1px solid var(--border-color); background: #fafafa; display: flex; justify-content: flex-end; gap: 12px;">
+                <button class="btn-cancel" id="btnCancelAssignAssetModal" style="padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-main);">Cancel</button>
+                <button class="btn-submit" id="btnSubmitAssignAssetModal" style="padding: 9px 18px; border-radius: 8px; border: none; background: var(--primary); color: white; font-size: 13px; font-weight: 600; cursor: pointer;">Save &amp; Dispatch Credentials</button>
+            </div>
         </div>
     </div>
 

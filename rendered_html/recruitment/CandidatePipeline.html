@@ -508,7 +508,7 @@
                     <div class="page-desc">Track applicants across evaluation stages from Screening to Offer acceptance.</div>
                 </div>
                 <div style="display:flex; gap:10px;">
-                    <a href="detail/CandidateProfileDrawer.html" class="btn-secondary">View Candidate Drawer</a>
+                    <button class="btn-secondary" id="btnViewDrawerHeader">View Candidate Drawer</button>
                     <button class="btn-primary" id="btnAddCandidate">+ Add Candidate</button>
                 </div>
             </div>
@@ -534,8 +534,7 @@
                         <span class="col-count">18</span>
                     </div>
 
-                    <a href="detail/CandidateProfileDrawer.html" style="text-decoration:none;">
-                        <div class="candidate-card">
+                    <div class="candidate-card candidate-profile-trigger" style="cursor:pointer;">
                             <div class="card-top">
                                 <div style="display:flex; gap:10px; align-items:center;">
                                     <div class="cand-avatar">AW</div>
@@ -551,10 +550,9 @@
                                 <span class="score-star">★ 4.9 Score</span>
                             </div>
                         </div>
-                    </a>
+                    
 
-                    <a href="detail/CandidateProfileDrawer.html" style="text-decoration:none;">
-                        <div class="candidate-card">
+                    <div class="candidate-card candidate-profile-trigger" style="cursor:pointer;">
                             <div class="card-top">
                                 <div style="display:flex; gap:10px; align-items:center;">
                                     <div class="cand-avatar">MV</div>
@@ -570,7 +568,7 @@
                                 <span class="score-star">★ 4.5 Score</span>
                             </div>
                         </div>
-                    </a>
+                    
                 </div>
 
                 <!-- Column 2: Screening -->
@@ -580,8 +578,7 @@
                         <span class="col-count">8</span>
                     </div>
 
-                    <a href="detail/CandidateProfileDrawer.html" style="text-decoration:none;">
-                        <div class="candidate-card">
+                    <div class="candidate-card candidate-profile-trigger" style="cursor:pointer;">
                             <div class="card-top">
                                 <div style="display:flex; gap:10px; align-items:center;">
                                     <div class="cand-avatar">EC</div>
@@ -597,7 +594,7 @@
                                 <span class="score-star">★ 4.7 Score</span>
                             </div>
                         </div>
-                    </a>
+                    
                 </div>
 
                 <!-- Column 3: Tech Interview -->
@@ -607,8 +604,7 @@
                         <span class="col-count">5</span>
                     </div>
 
-                    <a href="detail/CandidateProfileDrawer.html" style="text-decoration:none;">
-                        <div class="candidate-card">
+                    <div class="candidate-card candidate-profile-trigger" style="cursor:pointer;">
                             <div class="card-top">
                                 <div style="display:flex; gap:10px; align-items:center;">
                                     <div class="cand-avatar">SR</div>
@@ -624,7 +620,7 @@
                                 <span class="score-star">★ 4.8 Score</span>
                             </div>
                         </div>
-                    </a>
+                    
                 </div>
 
                 <!-- Column 4: Offer Stage -->
@@ -634,8 +630,7 @@
                         <span class="col-count">2</span>
                     </div>
 
-                    <a href="detail/CandidateProfileDrawer.html" style="text-decoration:none;">
-                        <div class="candidate-card">
+                    <div class="candidate-card candidate-profile-trigger" style="cursor:pointer;">
                             <div class="card-top">
                                 <div style="display:flex; gap:10px; align-items:center;">
                                     <div class="cand-avatar">DL</div>
@@ -651,7 +646,7 @@
                                 <span class="score-star">★ 5.0 Score</span>
                             </div>
                         </div>
-                    </a>
+                    
                 </div>
 
                 <!-- Column 5: Hired -->
@@ -661,8 +656,7 @@
                         <span class="col-count">4</span>
                     </div>
 
-                    <a href="detail/CandidateProfileDrawer.html" style="text-decoration:none;">
-                        <div class="candidate-card">
+                    <div class="candidate-card candidate-profile-trigger" style="cursor:pointer;">
                             <div class="card-top">
                                 <div style="display:flex; gap:10px; align-items:center;">
                                     <div class="cand-avatar">TN</div>
@@ -678,7 +672,7 @@
                                 <span class="score-star">★ Hired</span>
                             </div>
                         </div>
-                    </a>
+                    
                 </div>
             </div>
         </div>
@@ -776,6 +770,68 @@
             <div class="modal-footer" style="padding: 16px 24px; border-top: 1px solid var(--border-color); background: #fafafa; display: flex; justify-content: flex-end; gap: 12px;">
                 <button class="btn-cancel" id="btnCancelModal" style="padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-main);">Cancel</button>
                 <button class="btn-submit" id="btnSubmitCandidate" style="padding: 9px 18px; border-radius: 8px; border: none; background: var(--primary); color: white; font-size: 13px; font-weight: 600; cursor: pointer;">Save Candidate Profile</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Candidate Profile Slide-over Drawer Overlay -->
+    <div class="modal-overlay hidden" id="candidateProfileDrawerOverlay">
+        <div class="drawer-card" style="width: 100%; max-width: 720px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: 0 10px 25px rgba(0,0,0,0.08); overflow: hidden; display: flex; flex-direction: column; max-height: 85vh;">
+            <div class="drawer-header" style="padding: 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: #fafafa;">
+                <div style="display: flex; align-items: center; gap: 14px;">
+                    <div style="width: 48px; height: 48px; border-radius: 50%; background: #09090b; color: white; font-weight: 700; font-size: 16px; display: flex; align-items: center; justify-content: center;">AW</div>
+                    <div>
+                        <h2 style="font-size: 18px; font-weight: 700; color: #09090b;">Alexander Wright</h2>
+                        <p style="font-size: 13px; color: #71717a; margin-top: 1px;">Senior Fullstack Engineer Candidate • Requisition #JOB-2026-01</p>
+                    </div>
+                </div>
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <span style="padding: 4px 12px; border-radius: 12px; background: #09090b; color: white; font-weight: 700; font-size: 12px;">96% AI Match Score</span>
+                    <button class="btn-close-icon" id="btnCloseProfileDrawer" style="background:none; border:none; font-size:16px; cursor:pointer; color:var(--text-muted);">✕</button>
+                </div>
+            </div>
+
+            <div class="drawer-body" style="padding: 24px; display: flex; flex-direction: column; gap: 20px; overflow-y: auto;">
+                <div>
+                    <div style="font-size: 13px; font-weight: 700; color: #09090b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Candidate Contact &amp; Application Details</div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; background: #fafafa; padding: 16px; border-radius: 10px; border: 1px solid #e4e4e7;">
+                        <div>
+                            <div style="font-size: 11.5px; color: #71717a;">Email Address</div>
+                            <div style="font-size: 13px; font-weight: 600;">alexander.wright@devmail.io</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 11.5px; color: #71717a;">Phone Number</div>
+                            <div style="font-size: 13px; font-weight: 600;">+84 908 123 456</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 11.5px; color: #71717a;">Years of Experience</div>
+                            <div style="font-size: 13px; font-weight: 600;">7 Years (Senior Level)</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 11.5px; color: #71717a;">Notice Period</div>
+                            <div style="font-size: 13px; font-weight: 600;">2 Weeks (Immediate)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div style="font-size: 13px; font-weight: 700; color: #09090b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Evaluation Progress &amp; Activity Log</div>
+                    <div style="display: flex; flex-direction: column; gap: 12px; border-left: 2px solid #e4e4e7; padding-left: 16px; margin-left: 4px;">
+                        <div style="display: flex; flex-direction: column; gap: 2px; position: relative;">
+                            <div style="font-size: 13px; font-weight: 600; color: #09090b;">Applied via LinkedIn Referral</div>
+                            <div style="font-size: 12px; color: #71717a;">05/08/2026 • CV Auto-parsed with 96% Match</div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 2px; position: relative;">
+                            <div style="font-size: 13px; font-weight: 600; color: #09090b;">Screening Completed by HR Specialist</div>
+                            <div style="font-size: 12px; color: #71717a;">07/08/2026 • Score: 4.8 / 5.0 (Passed to Tech Interview)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="drawer-footer" style="padding: 16px 24px; border-top: 1px solid #e4e4e7; display: flex; justify-content: space-between; align-items: center; background:#fafafa;">
+                <button class="btn-action" id="btnDownloadCv" style="padding: 9px 16px; border-radius: 8px; border: 1px solid #e4e4e7; background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: #09090b;">📄 Download Parsed Resume</button>
+                <button class="btn-primary" id="btnAdvanceStage" style="padding: 9px 18px; border-radius: 8px; border: none; background: #09090b; color: white; font-size: 13px; font-weight: 600; cursor: pointer;">Advance Stage to Offer</button>
             </div>
         </div>
     </div>

@@ -80,15 +80,201 @@
                     <div class="page-desc">Schedule candidate interviews, send digital offer letters, and monitor e-signature statuses.</div>
                 </div>
                 <div style="display:flex; gap:12px;">
-                    <a href="detail/ScheduleInterviewModal.html" class="btn-secondary">
+                    <button class="btn-secondary" id="btnScheduleHeader">
                         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                         Schedule Interview
-                    </a>
-                    <a href="detail/SendOfferModal.html" class="btn-primary">
+                    </button>
+                    <button class="btn-primary" id="btnSendOfferHeader">
                         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
                         Send Offer Letter
-                    </a>
+                    </button>
                 </div>
+            </div>
+
+            <!-- Section 1: Upcoming Interview Schedule -->
+            <div class="card-section">
+                <div class="section-header">
+                    <h2 class="section-title">Upcoming Interview Sessions (4 Scheduled)</h2>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Candidate</th>
+                            <th>Interview Stage</th>
+                            <th>Date & Time</th>
+                            <th>Interviewers</th>
+                            <th>Meeting Link</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div>
+                                    <div style="font-weight:600;">Alexander Wright</div>
+                                    <div style="font-size:12px; color:var(--text-muted);">Senior Fullstack Engineer</div>
+                                </div>
+                            </td>
+                            <td><span class="badge-pill badge-stage">Technical Deep Dive</span></td>
+                            <td>12/08/2026 • 14:00 - 15:00</td>
+                            <td>Dao Vo (CTO), Dung Nguyen</td>
+                            <td><span class="link-text">meet.google.com/abc-xyz</span></td>
+                            <td><button class="btn-secondary btn-schedule-inline" style="padding:6px 12px; font-size:12px;">Reschedule</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Section 2: Offer Letters & E-Signatures -->
+            <div class="card-section" style="margin-top:24px;">
+                <div class="section-header">
+                    <h2 class="section-title">Digital Offer Letters & E-Signature Tracking</h2>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Candidate</th>
+                            <th>Job Title</th>
+                            <th>Offer Package ($ USD)</th>
+                            <th>Sent Date</th>
+                            <th>Expiry Date</th>
+                            <th>E-Signature Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div>
+                                    <div style="font-weight:600;">David Lawson</div>
+                                    <div style="font-size:12px; color:var(--text-muted);">david.lawson@devmail.io</div>
+                                </div>
+                            </td>
+                            <td>Principal Engineer</td>
+                            <td><strong>$4,500 USD / mo</strong></td>
+                            <td>08/08/2026</td>
+                            <td>15/08/2026 (3 days left)</td>
+                            <td><span class="badge-pill badge-signed">Signed & Accepted</span></td>
+                            <td><button class="btn-secondary btn-offer-inline" style="padding:6px 12px; font-size:12px;">View Offer Document</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Schedule Interview Inline Modal Overlay -->
+    <div class="modal-overlay hidden" id="scheduleInterviewModalOverlay">
+        <div class="modal-card" style="width: 100%; max-width: 620px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: 0 10px 25px rgba(0,0,0,0.08); overflow: hidden; display: flex; flex-direction: column;">
+            <div class="modal-header" style="padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h2 style="font-size: 17px; font-weight: 700; color: var(--text-main);">Schedule Interview Session</h2>
+                    <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 2px;">Set up Google Calendar meeting link and notify interview panel</p>
+                </div>
+                <button class="btn-close-icon" id="btnCloseScheduleModal" style="background:none; border:none; font-size:16px; cursor:pointer; color:var(--text-muted);">✕</button>
+            </div>
+
+            <div class="modal-body" style="padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                    <label style="font-size: 13px; font-weight: 600; color: var(--text-main);">Candidate Name *</label>
+                    <select class="form-select" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                        <option selected>Alexander Wright (Senior Fullstack Candidate)</option>
+                        <option>Marcus Vance (Product Designer Candidate)</option>
+                    </select>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 13px; font-weight: 600; color: var(--text-main);">Interview Stage</label>
+                        <select class="form-select" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                            <option selected>Technical Deep Dive (Round 2)</option>
+                            <option>Culture & Executive Fit (Round 3)</option>
+                        </select>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 13px; font-weight: 600; color: var(--text-main);">Interview Panel</label>
+                        <select class="form-select" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                            <option selected>Dao Vo (CTO) & Dung Nguyen</option>
+                            <option>Lucia Doan (HR Manager)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 13px; font-weight: 600; color: var(--text-main);">Date *</label>
+                        <input type="date" value="2026-08-12" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 13px; font-weight: 600; color: var(--text-main);">Time Window *</label>
+                        <input type="text" value="14:00 - 15:00 (60 mins)" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer" style="padding: 16px 24px; border-top: 1px solid var(--border-color); background: #fafafa; display: flex; justify-content: flex-end; gap: 12px;">
+                <button class="btn-cancel" id="btnCancelSchedule" style="padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: #09090b;">Cancel</button>
+                <button class="btn-submit" id="btnSubmitSchedule" style="padding: 9px 18px; border-radius: 8px; border: none; background: #09090b; color: white; font-size: 13px; font-weight: 600; cursor: pointer;">Send Google Calendar Invite</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Send Offer Letter Inline Modal Overlay -->
+    <div class="modal-overlay hidden" id="sendOfferModalOverlay">
+        <div class="modal-card" style="width: 100%; max-width: 640px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: 0 10px 25px rgba(0,0,0,0.08); overflow: hidden; display: flex; flex-direction: column;">
+            <div class="modal-header" style="padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h2 style="font-size: 17px; font-weight: 700; color: var(--text-main);">Send Digital Offer Letter</h2>
+                    <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 2px;">Generate employment offer package with automated E-Signature tracking</p>
+                </div>
+                <button class="btn-close-icon" id="btnCloseOfferModal" style="background:none; border:none; font-size:16px; cursor:pointer; color:var(--text-muted);">✕</button>
+            </div>
+
+            <div class="modal-body" style="padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                    <label style="font-size: 13px; font-weight: 600; color: var(--text-main);">Candidate Recipient *</label>
+                    <input type="text" value="David Lawson (david.lawson@cloudtech.com)" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 13px; font-weight: 600; color: var(--text-main);">Official Job Title</label>
+                        <input type="text" value="Principal Systems Architect" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 13px; font-weight: 600; color: var(--text-main);">Offered Monthly Salary ($ USD)</label>
+                        <input type="text" value="$4,500 USD / month" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 13px; font-weight: 600; color: var(--text-main);">Target Start Date</label>
+                        <input type="date" value="2026-09-01" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 13px; font-weight: 600; color: var(--text-main);">Offer Expiry Date</label>
+                        <input type="date" value="2026-08-15" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer" style="padding: 16px 24px; border-top: 1px solid var(--border-color); background: #fafafa; display: flex; justify-content: flex-end; gap: 12px;">
+                <button class="btn-cancel" id="btnCancelOffer" style="padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: #09090b;">Cancel</button>
+                <button class="btn-submit" id="btnSubmitOffer" style="padding: 9px 18px; border-radius: 8px; border: none; background: #09090b; color: white; font-size: 13px; font-weight: 600; cursor: pointer;">Dispatch Offer via E-Signature</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Overlay Backdrop CSS -->
+    <style>
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(9, 9, 11, 0.4); backdrop-filter: blur(4px);
+            z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px;
+        }
+        .modal-overlay.hidden { display: none !important; }
+    </style>
             </div>
 
             <!-- Section 1: Upcoming Interview Schedule -->

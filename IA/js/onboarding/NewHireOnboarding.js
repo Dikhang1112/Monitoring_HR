@@ -1,8 +1,19 @@
 /**
  * New Hire Onboarding Controller
+ * Handles Inline Onboarding Checklist Drawer & Template Modal Popups
  */
 document.addEventListener('DOMContentLoaded', () => {
     const btnCreateTemplate = document.getElementById('btnCreateTemplate');
+
+    const onboardingChecklistDrawerOverlay = document.getElementById('onboardingChecklistDrawerOverlay');
+    const btnCloseChecklistDrawer = document.getElementById('btnCloseChecklistDrawer');
+    const btnCancelChecklistDrawer = document.getElementById('btnCancelChecklistDrawer');
+    const btnSignOffTasks = document.getElementById('btnSignOffTasks');
+
+    const onboardingTemplateModalOverlay = document.getElementById('onboardingTemplateModalOverlay');
+    const btnCloseTemplateModal = document.getElementById('btnCloseTemplateModal');
+    const btnCancelTemplateModal = document.getElementById('btnCancelTemplateModal');
+    const btnSaveTemplateModal = document.getElementById('btnSaveTemplateModal');
 
     function showToast(msg) {
         const container = document.getElementById('toastContainer');
@@ -15,9 +26,56 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => toast.remove(), 3500);
     }
 
-    if (btnCreateTemplate) {
-        btnCreateTemplate.addEventListener('click', () => {
-            window.location.href = 'detail/OnboardingTemplateModal.html';
+    const closeModal = () => {
+        if (onboardingChecklistDrawerOverlay) onboardingChecklistDrawerOverlay.classList.add('hidden');
+        if (onboardingTemplateModalOverlay) onboardingTemplateModalOverlay.classList.add('hidden');
+    };
+
+    // Bind Checklist Triggers
+    const checklistTriggers = document.querySelectorAll('.btn-checklist-trigger');
+    checklistTriggers.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (onboardingChecklistDrawerOverlay) onboardingChecklistDrawerOverlay.classList.remove('hidden');
+        });
+    });
+
+    // Bind Create Template Modal Trigger
+    if (btnCreateTemplate && onboardingTemplateModalOverlay) {
+        btnCreateTemplate.addEventListener('click', (e) => {
+            e.preventDefault();
+            onboardingTemplateModalOverlay.classList.remove('hidden');
+        });
+    }
+
+    if (btnCloseChecklistDrawer) btnCloseChecklistDrawer.addEventListener('click', closeModal);
+    if (btnCancelChecklistDrawer) btnCancelChecklistDrawer.addEventListener('click', closeModal);
+    if (btnCloseTemplateModal) btnCloseTemplateModal.addEventListener('click', closeModal);
+    if (btnCancelTemplateModal) btnCancelTemplateModal.addEventListener('click', closeModal);
+
+    if (onboardingChecklistDrawerOverlay) {
+        onboardingChecklistDrawerOverlay.addEventListener('click', (e) => {
+            if (e.target === onboardingChecklistDrawerOverlay) closeModal();
+        });
+    }
+
+    if (onboardingTemplateModalOverlay) {
+        onboardingTemplateModalOverlay.addEventListener('click', (e) => {
+            if (e.target === onboardingTemplateModalOverlay) closeModal();
+        });
+    }
+
+    if (btnSignOffTasks) {
+        btnSignOffTasks.addEventListener('click', () => {
+            closeModal();
+            showToast('Onboarding tasks signed off successfully!');
+        });
+    }
+
+    if (btnSaveTemplateModal) {
+        btnSaveTemplateModal.addEventListener('click', () => {
+            closeModal();
+            showToast('Saved Onboarding Plan Template successfully!');
         });
     }
 });

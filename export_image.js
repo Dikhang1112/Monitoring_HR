@@ -73,6 +73,8 @@ function getAllHtmlFiles(dirPath, arrayOfFiles = []) {
             subFolder = 'people_management';
         } else if (filePath.includes('onboarding')) {
             subFolder = 'onboarding';
+        } else if (filePath.includes('offboarding')) {
+            subFolder = 'offboarding';
         }
 
         const targetDir = subFolder ? path.join(outputDir, subFolder) : outputDir;

@@ -1,11 +1,12 @@
 <!DOCTYPE html><html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Onboarding - Candidate Data Conversion</title>
+    <title>Asset &amp; SaaS Access Revocation Tracker - HR Platform</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #09090b;
+            --primary-hover: #27272a;
             --bg-app: #f4f4f5;
             --bg-card: #ffffff;
             --text-main: #09090b;
@@ -13,48 +14,58 @@
             --border-color: #e4e4e7;
             --radius-md: 10px;
             --radius-lg: 14px;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        body { background: var(--bg-app); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; }
+        body { background: var(--bg-app); color: var(--text-main); min-height: 100vh; display: flex; }
 
-        .app { display: flex; min-height: 100vh; }
-        .sidebar { width: 260px; background: var(--bg-card); border-right: 1px solid var(--border-color); flex-shrink: 0; }
-        .content-area { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+        .app-container { display: flex; width: 100%; min-height: 100vh; }
+        .main-wrapper { flex: 1; display: flex; flex-direction: column; min-width: 0; }
 
-        .header { height: 64px; background: var(--bg-card); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 0 28px; }
-        .header-search { display: flex; align-items: center; gap: 10px; background: var(--bg-app); padding: 8px 14px; border-radius: var(--radius-md); width: 320px; border: 1px solid var(--border-color); }
-        .header-search input { border: none; background: transparent; outline: none; font-size: 13px; width: 100%; color: var(--text-main); }
-        .header-actions { display: flex; align-items: center; gap: 12px; }
-        .icon-btn { width: 36px; height: 36px; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: var(--bg-card); display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-main); }
+        .top-header {
+            height: 64px; background: var(--bg-card); border-bottom: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: space-between; padding: 0 28px;
+            position: sticky; top: 0; z-index: 10;
+        }
+        .header-title { font-size: 15px; font-weight: 700; color: var(--text-main); }
+        .header-actions { display: flex; align-items: center; gap: 14px; }
+        .icon-btn { background: none; border: none; cursor: pointer; color: var(--text-muted); }
 
         .main { padding: 28px; display: flex; flex-direction: column; gap: 24px; }
-        .page-header-row { display: flex; justify-content: space-between; align-items: center; }
-        .title { font-size: 22px; font-weight: 700; color: var(--text-main); letter-spacing: -0.5px; }
+        .page-header-row { display: flex; justify-content: space-between; align-items: flex-start; }
+        .title { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
         .subtitle { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
 
-        /* Navigation Subtabs */
-        .subnav-tabs { display: flex; gap: 8px; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; }
-        .tab-item { padding: 8px 16px; border-radius: var(--radius-md); font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; transition: all 0.15s ease; }
-        .tab-item:hover, .tab-item.active { background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); }
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: var(--radius-md);
+            background: var(--primary); color: white; border: none; font-size: 13px; font-weight: 600; cursor: pointer;
+            box-shadow: var(--shadow-sm);
+        }
+        .btn-secondary {
+            display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: var(--radius-md);
+            background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none;
+        }
 
-        .table-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; }
-        .table-toolbar { padding: 16px 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        .subnav-tabs { display: flex; border-bottom: 1px solid var(--border-color); gap: 24px; }
+        .tab-item { padding: 10px 4px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; border-bottom: 2px solid transparent; }
+        .tab-item.active { color: var(--text-main); border-bottom-color: var(--primary); }
 
-        table { width: 100%; border-collapse: collapse; text-align: left; }
-        th { padding: 12px 20px; font-size: 12px; font-weight: 700; color: var(--text-muted); background: #fafafa; border-bottom: 1px solid var(--border-color); text-transform: uppercase; letter-spacing: 0.5px; }
-        td { padding: 14px 20px; font-size: 13.5px; border-bottom: 1px solid var(--border-color); color: var(--text-main); vertical-align: middle; }
-        tr:last-child td { border-bottom: none; }
-        tr:hover td { background: #fafafa; }
+        .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 
-        .status-pill { padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: 700; }
-        .status-ready { background: #f0fdf4; color: #16a34a; }
+        .card-panel { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
+        .panel-header { padding: 18px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        .panel-title { font-size: 15px; font-weight: 700; }
+
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+        th { padding: 12px 20px; background: var(--bg-app); border-bottom: 1px solid var(--border-color); font-weight: 600; color: var(--text-muted); font-size: 12px; text-transform: uppercase; }
+        td { padding: 14px 20px; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
+
+        .status-pill { padding: 4px 10px; border-radius: 12px; font-size: 11.5px; font-weight: 600; }
+        .status-recollected { background: #f0fdf4; color: #16a34a; }
         .status-pending { background: #fef3c7; color: #d97706; }
 
-        .btn-action-primary { padding: 6px 12px; border-radius: 6px; border: none; background: var(--primary); font-size: 12px; font-weight: 600; cursor: pointer; color: #ffffff; text-decoration: none; }
-        .btn-action-primary:hover { opacity: 0.9; }
-
-        .toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 2000; }
+        .btn-action-sm { padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border-color); background: white; font-size: 12px; font-weight: 600; cursor: pointer; color: var(--text-main); }
     </style>
 <style id="sidebarGlobalStyle">
             #sidebarContainer {
@@ -361,9 +372,8 @@
         </style></head>
 
 <body>
-    <div class="app">
-        <!-- Sidebar -->
-        <div class="sidebar" id="sidebarContainer" data-active="Onboarding" data-subpage="CandidateDataConversion" data-is-subfolder="true">
+    <div class="app-container">
+        <div id="sidebarContainer" data-active="Offboarding" data-is-subfolder="true">
         <div class="sidebar-top">
             <div class="logo">
                 <div class="logo-left" style="display:flex; align-items:center; gap:10px;">
@@ -432,11 +442,11 @@
                         <span>Interview &amp; Offer</span>
                     </a>
                 </ul>
-                <a href="NewHireOnboarding.html" class="menu-item active" data-page="Onboarding" title="Onboarding">
+                <a href="../onboarding/NewHireOnboarding.html" class="menu-item " data-page="Onboarding" title="Onboarding">
                     <svg viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.71 1.1-1.31 1.5-2"></path><path d="M12 15l-3-3 3-3"></path><path d="M9 12h12"></path></svg>
                     <span>Onboarding</span>
                 </a>
-                <a href="../offboarding/OffboardingRequests.html" class="menu-item " data-page="Offboarding" title="Offboarding">
+                <a href="OffboardingRequests.html" class="menu-item active" data-page="Offboarding" title="Offboarding">
                     <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
                     <span>Offboarding</span>
                 </a>
@@ -483,15 +493,11 @@
         </div>
     </div>
 
-        <div class="content-area">
-            <header class="header">
-                <div class="header-search">
-                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    <input type="text" placeholder="Search accepted candidates or requisition IDs...">
-                </div>
-
+        <div class="main-wrapper">
+            <header class="top-header">
+                <div class="header-title">HR Platform • IT Asset &amp; SaaS Account Revocation</div>
                 <div class="header-actions">
-                    <button class="icon-btn" id="btnNotifications">
+                    <button class="icon-btn" title="Notifications">
                         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
                     </button>
                 </div>
@@ -500,150 +506,128 @@
             <main class="main">
                 <div class="page-header-row">
                     <div>
-                        <h1 class="title">Candidate-to-Employee Data Conversion</h1>
-                        <p class="subtitle">Convert offer-accepted candidates from Recruitment ATS into official HR Directory profiles with automated duplicate checking.</p>
+                        <h1 class="title">IT Asset &amp; SaaS License Revocation Board</h1>
+                        <p class="subtitle">Execute security access kill-switch and hardware recollection logging for offboarding staff.</p>
                     </div>
+
+                    <button class="btn-primary" id="btnRevokeAccessHeader">⚡ Execute Revocation Kill-switch</button>
                 </div>
 
                 <!-- Subtab Navigation -->
                 <div class="subnav-tabs">
-                    <a href="NewHireOnboarding.html" class="tab-item">New Hire Progress Tracker</a>
-                    <a href="AssetTracker.html" class="tab-item">Asset &amp; License Provisioning</a>
-                    <a href="CandidateDataConversion.html" class="tab-item active">Candidate-to-Employee Conversion</a>
+                    <a href="OffboardingRequests.html" class="tab-item">Offboarding Tracker</a>
+                    <a href="AssetHandoverClearance.html" class="tab-item active">Asset &amp; SaaS Revocation</a>
+                    <a href="ExitSurveyInterview.html" class="tab-item">Exit Survey &amp; Analytics</a>
                 </div>
 
-                <!-- Candidate Conversion Table -->
-                <div class="table-card">
-                    <div class="table-toolbar">
-                        <div style="font-weight: 700; font-size: 15px; color: var(--text-main);">Offer-Accepted Candidates Waiting for HR Conversion (3 Pending)</div>
+                <div class="grid-2col">
+                    <!-- Hardware Recollection Board -->
+                    <div class="card-panel">
+                        <div class="panel-header">
+                            <span class="panel-title">💻 Hardware Device Recollection</span>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Asset &amp; Serial</th>
+                                    <th>Employee</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div style="font-weight:600;">MacBook Pro M3 Max</div>
+                                        <div style="font-size:11.5px; color:var(--text-muted);">SN: C02G901XMD6R</div>
+                                    </td>
+                                    <td>Brandon Vance</td>
+                                    <td><span class="status-pill status-recollected">✓ Recollected</span></td>
+                                    <td><button class="btn-action-sm btn-revoke-trigger">View Serial</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="font-weight:600;">Dell 27" 4K Monitor</div>
+                                        <div style="font-size:11.5px; color:var(--text-muted);">SN: CN-0R7K98</div>
+                                    </td>
+                                    <td>Emily Chen</td>
+                                    <td><span class="status-pill status-pending">Pending Return</span></td>
+                                    <td><button class="btn-action-sm btn-revoke-trigger">Recollect</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
 
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Candidate Name</th>
-                                <th>Target Position &amp; Department</th>
-                                <th>Offer Accepted Date</th>
-                                <th>Generated Employee ID</th>
-                                <th>Duplicate Check</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div style="font-weight:600;">Alexander Wright</div>
-                                    <div style="font-size:12px; color:var(--text-muted);">alexander.wright@devmail.io</div>
-                                </td>
-                                <td>
-                                    <div style="font-weight:600;">Senior Fullstack Engineer</div>
-                                    <div style="font-size:12px; color:var(--text-muted);">Software Engineering</div>
-                                </td>
-                                <td>10/08/2026</td>
-                                <td><span style="font-family:monospace; font-weight:700;">EMP-2026-089</span></td>
-                                <td><span class="status-pill status-ready">✓ Passed (No Duplicate)</span></td>
-                                <td>
-                                    <button class="btn-action-primary btn-conversion-trigger">Convert to Employee</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div style="font-weight:600;">David Lawson</div>
-                                    <div style="font-size:12px; color:var(--text-muted);">david.lawson@cloudtech.com</div>
-                                </td>
-                                <td>
-                                    <div style="font-weight:600;">Principal Systems Architect</div>
-                                    <div style="font-size:12px; color:var(--text-muted);">System Administration</div>
-                                </td>
-                                <td>12/08/2026</td>
-                                <td><span style="font-family:monospace; font-weight:700;">EMP-2026-090</span></td>
-                                <td><span class="status-pill status-ready">✓ Passed (No Duplicate)</span></td>
-                                <td>
-                                    <button class="btn-action-primary btn-conversion-trigger">Convert to Employee</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div style="font-weight:600;">Phuong Mai</div>
-                                    <div style="font-size:12px; color:var(--text-muted);">phuong.mai@hrconnect.vn</div>
-                                </td>
-                                <td>
-                                    <div style="font-weight:600;">HR Business Partner</div>
-                                    <div style="font-size:12px; color:var(--text-muted);">People &amp; Culture</div>
-                                </td>
-                                <td>14/08/2026</td>
-                                <td><span style="font-family:monospace; font-weight:700;">EMP-2026-091</span></td>
-                                <td><span class="status-pill status-ready">✓ Passed (No Duplicate)</span></td>
-                                <td>
-                                    <button class="btn-action-primary btn-conversion-trigger">Convert to Employee</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <!-- SaaS Account Revocation Board -->
+                    <div class="card-panel">
+                        <div class="panel-header">
+                            <span class="panel-title">🔐 Enterprise SaaS Accounts Kill-switch</span>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Platform &amp; Service</th>
+                                    <th>Target User</th>
+                                    <th>Outlook Auto Sync</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div style="font-weight:600;">Google Workspace Enterprise</div>
+                                        <div style="font-size:11.5px; color:var(--text-muted);">SSO Mailbox Forwarding</div>
+                                    </td>
+                                    <td>brandon.vance@company.com</td>
+                                    <td><span style="font-size:12px; color:#16a34a; font-weight:600;">✓ Outlook Triggered</span></td>
+                                    <td><button class="btn-action-sm btn-revoke-trigger">Revoke Access</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="font-weight:600;">Slack Enterprise Grid</div>
+                                        <div style="font-size:11.5px; color:var(--text-muted);">Workspace Deactivation</div>
+                                    </td>
+                                    <td>emily.chen@company.com</td>
+                                    <td><span style="font-size:12px; color:#2563eb; font-weight:600;">Scheduled LWD</span></td>
+                                    <td><button class="btn-action-sm btn-revoke-trigger">Revoke Access</button>
+                                </td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </main>
         </div>
     </div>
 
-    <!-- Candidate Profile Data Conversion Inline Modal Overlay -->
-    <div class="modal-overlay hidden" id="profileConversionModalOverlay">
-        <div class="modal-card" style="width: 100%; max-width: 640px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); overflow: hidden; display: flex; flex-direction: column;">
+    <!-- Revoke Access Modal Overlay -->
+    <div class="modal-overlay hidden" id="revokeAccessModalOverlay">
+        <div class="modal-card" style="width: 100%; max-width: 620px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); overflow: hidden; display: flex; flex-direction: column;">
             <div class="modal-header" style="padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
                 <div>
-                    <h2 style="font-size: 17px; font-weight: 700; color: var(--text-main);">Convert Candidate to Employee Profile</h2>
-                    <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 2px;">Review ATS field mapping and generate official employee directory entry</p>
+                    <h2 style="font-size: 17px; font-weight: 700; color: var(--text-main);">IT Hardware Recollection &amp; Account Revocation</h2>
+                    <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 2px;">Execute security kill-switch and hardware serial log for offboarding employee</p>
                 </div>
-                <button class="btn-close-icon" id="btnCloseConversionModal" style="background:none; border:none; font-size:16px; cursor:pointer; color:var(--text-muted);">✕</button>
+                <button class="btn-close-icon" id="btnCloseRevokeModal" style="background:none; border:none; font-size:16px; cursor:pointer; color:var(--text-muted);">✕</button>
             </div>
 
             <div class="modal-body" style="padding: 24px; display: flex; flex-direction: column; gap: 18px; max-height: 75vh; overflow-y: auto;">
-                <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: var(--radius-md); padding: 14px 16px; color: #16a34a; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 10px;">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                    <span>Duplicate Check Passed: No existing employee record found for alexander.wright@devmail.io</span>
+                <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 12px 14px; color: #2563eb; font-size: 12.5px; font-weight: 600; display: flex; align-items: center; gap: 10px;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    <span>⚡ Outlook &amp; Active Directory Autonomous Revocation Trigger Ready</span>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                    <div style="display:flex; flex-direction:column; gap:6px;">
-                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Employee Full Name</label>
-                        <input type="text" id="convName" class="form-control" value="Alexander Wright" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
-                    </div>
-
-                    <div style="display:flex; flex-direction:column; gap:6px;">
-                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">System Generated Employee ID</label>
-                        <input type="text" class="form-control" value="EMP-2026-089" readonly="" style="font-weight:700; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #f4f4f5;">
-                    </div>
-
-                    <div style="display:flex; flex-direction:column; gap:6px;">
-                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Official Work Email</label>
-                        <input type="email" class="form-control" value="alexander.wright@company.com" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
-                    </div>
-
-                    <div style="display:flex; flex-direction:column; gap:6px;">
-                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Job Title &amp; Level</label>
-                        <input type="text" class="form-control" value="Senior Fullstack Engineer (L5)" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
-                    </div>
-
-                    <div style="display:flex; flex-direction:column; gap:6px;">
-                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Assigned Department</label>
-                        <select class="form-control" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
-                            <option selected="">Software Engineering</option>
-                            <option>System Administration</option>
-                        </select>
-                    </div>
-
-                    <div style="display:flex; flex-direction:column; gap:6px;">
-                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Direct Reporting Line Manager</label>
-                        <select class="form-control" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
-                            <option selected="">Dao Vo (CTO)</option>
-                            <option>Dung Nguyen (Head of SysAdmin)</option>
-                        </select>
+                <div style="font-size:12.5px; font-weight:700;">Recollect Assigned Hardware Devices</div>
+                <div style="background: #fafafa; border: 1px solid var(--border-color); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 10px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; font-size: 13px; font-weight: 600;">
+                        <span>💻 MacBook Pro M3 Max (SN: C02G901XMD6R)</span>
+                        <span style="color:#16a34a;">✓ Checked in Inventory</span>
                     </div>
                 </div>
             </div>
 
             <div class="modal-footer" style="padding: 16px 24px; border-top: 1px solid var(--border-color); background: #fafafa; display: flex; justify-content: flex-end; gap: 12px;">
-                <button class="btn-cancel" id="btnCancelConversionModal" style="padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-main);">Cancel</button>
-                <button class="btn-submit" id="btnSubmitConversionModal" style="padding: 9px 18px; border-radius: 8px; border: none; background: var(--primary); color: white; font-size: 13px; font-weight: 600; cursor: pointer;">Generate Employee Directory Record</button>
+                <button class="btn-cancel" id="btnCancelRevokeModal" style="padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-main);">Cancel</button>
+                <button class="btn-submit" id="btnSubmitRevokeModal" style="padding: 9px 18px; border-radius: 8px; border: none; background: #dc2626; color: white; font-size: 13px; font-weight: 600; cursor: pointer;">Execute Access Revocation &amp; Archive</button>
             </div>
         </div>
     </div>
@@ -661,7 +645,7 @@
     <div class="toast-container" id="toastContainer"></div>
 
     <script src="../../js/components/sidebar.js"></script>
-    <script src="../../js/onboarding/CandidateDataConversion.js"></script>
+    <script src="../../js/offboarding/AssetHandoverClearance.js"></script>
 
 
 

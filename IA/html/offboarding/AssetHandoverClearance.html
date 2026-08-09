@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset & SaaS Access Revocation Tracker - HR Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #09090b;
+            --primary-hover: #27272a;
+            --bg-app: #f4f4f5;
+            --bg-card: #ffffff;
+            --text-main: #09090b;
+            --text-muted: #71717a;
+            --border-color: #e4e4e7;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg-app); color: var(--text-main); min-height: 100vh; display: flex; }
+
+        .app-container { display: flex; width: 100%; min-height: 100vh; }
+        .main-wrapper { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+
+        .top-header {
+            height: 64px; background: var(--bg-card); border-bottom: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: space-between; padding: 0 28px;
+            position: sticky; top: 0; z-index: 10;
+        }
+        .header-title { font-size: 15px; font-weight: 700; color: var(--text-main); }
+        .header-actions { display: flex; align-items: center; gap: 14px; }
+        .icon-btn { background: none; border: none; cursor: pointer; color: var(--text-muted); }
+
+        .main { padding: 28px; display: flex; flex-direction: column; gap: 24px; }
+        .page-header-row { display: flex; justify-content: space-between; align-items: flex-start; }
+        .title { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
+        .subtitle { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: var(--radius-md);
+            background: var(--primary); color: white; border: none; font-size: 13px; font-weight: 600; cursor: pointer;
+            box-shadow: var(--shadow-sm);
+        }
+        .btn-secondary {
+            display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: var(--radius-md);
+            background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none;
+        }
+
+        .subnav-tabs { display: flex; border-bottom: 1px solid var(--border-color); gap: 24px; }
+        .tab-item { padding: 10px 4px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; border-bottom: 2px solid transparent; }
+        .tab-item.active { color: var(--text-main); border-bottom-color: var(--primary); }
+
+        .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+        .card-panel { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
+        .panel-header { padding: 18px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        .panel-title { font-size: 15px; font-weight: 700; }
+
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+        th { padding: 12px 20px; background: var(--bg-app); border-bottom: 1px solid var(--border-color); font-weight: 600; color: var(--text-muted); font-size: 12px; text-transform: uppercase; }
+        td { padding: 14px 20px; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
+
+        .status-pill { padding: 4px 10px; border-radius: 12px; font-size: 11.5px; font-weight: 600; }
+        .status-recollected { background: #f0fdf4; color: #16a34a; }
+        .status-pending { background: #fef3c7; color: #d97706; }
+
+        .btn-action-sm { padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border-color); background: white; font-size: 12px; font-weight: 600; cursor: pointer; color: var(--text-main); }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <div id="sidebarContainer" data-active="Offboarding" data-is-subfolder="true"></div>
+
+        <div class="main-wrapper">
+            <header class="top-header">
+                <div class="header-title">HR Platform • IT Asset & SaaS Account Revocation</div>
+                <div class="header-actions">
+                    <button class="icon-btn" title="Notifications">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    </button>
+                </div>
+            </header>
+
+            <main class="main">
+                <div class="page-header-row">
+                    <div>
+                        <h1 class="title">IT Asset & SaaS License Revocation Board</h1>
+                        <p class="subtitle">Execute security access kill-switch and hardware recollection logging for offboarding staff.</p>
+                    </div>
+
+                    <button class="btn-primary" id="btnRevokeAccessHeader">⚡ Execute Revocation Kill-switch</button>
+                </div>
+
+                <!-- Subtab Navigation -->
+                <div class="subnav-tabs">
+                    <a href="OffboardingRequests.html" class="tab-item">Offboarding Tracker</a>
+                    <a href="AssetHandoverClearance.html" class="tab-item active">Asset & SaaS Revocation</a>
+                    <a href="ExitSurveyInterview.html" class="tab-item">Exit Survey & Analytics</a>
+                </div>
+
+                <div class="grid-2col">
+                    <!-- Hardware Recollection Board -->
+                    <div class="card-panel">
+                        <div class="panel-header">
+                            <span class="panel-title">💻 Hardware Device Recollection</span>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Asset & Serial</th>
+                                    <th>Employee</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div style="font-weight:600;">MacBook Pro M3 Max</div>
+                                        <div style="font-size:11.5px; color:var(--text-muted);">SN: C02G901XMD6R</div>
+                                    </td>
+                                    <td>Brandon Vance</td>
+                                    <td><span class="status-pill status-recollected">✓ Recollected</span></td>
+                                    <td><button class="btn-action-sm btn-revoke-trigger">View Serial</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="font-weight:600;">Dell 27" 4K Monitor</div>
+                                        <div style="font-size:11.5px; color:var(--text-muted);">SN: CN-0R7K98</div>
+                                    </td>
+                                    <td>Emily Chen</td>
+                                    <td><span class="status-pill status-pending">Pending Return</span></td>
+                                    <td><button class="btn-action-sm btn-revoke-trigger">Recollect</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- SaaS Account Revocation Board -->
+                    <div class="card-panel">
+                        <div class="panel-header">
+                            <span class="panel-title">🔐 Enterprise SaaS Accounts Kill-switch</span>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Platform & Service</th>
+                                    <th>Target User</th>
+                                    <th>Outlook Auto Sync</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div style="font-weight:600;">Google Workspace Enterprise</div>
+                                        <div style="font-size:11.5px; color:var(--text-muted);">SSO Mailbox Forwarding</div>
+                                    </td>
+                                    <td>brandon.vance@company.com</td>
+                                    <td><span style="font-size:12px; color:#16a34a; font-weight:600;">✓ Outlook Triggered</span></td>
+                                    <td><button class="btn-action-sm btn-revoke-trigger">Revoke Access</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="font-weight:600;">Slack Enterprise Grid</div>
+                                        <div style="font-size:11.5px; color:var(--text-muted);">Workspace Deactivation</div>
+                                    </td>
+                                    <td>emily.chen@company.com</td>
+                                    <td><span style="font-size:12px; color:#2563eb; font-weight:600;">Scheduled LWD</span></td>
+                                    <td><button class="btn-action-sm btn-revoke-trigger">Revoke Access</button>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Revoke Access Modal Overlay -->
+    <div class="modal-overlay hidden" id="revokeAccessModalOverlay">
+        <div class="modal-card" style="width: 100%; max-width: 620px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); overflow: hidden; display: flex; flex-direction: column;">
+            <div class="modal-header" style="padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h2 style="font-size: 17px; font-weight: 700; color: var(--text-main);">IT Hardware Recollection & Account Revocation</h2>
+                    <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 2px;">Execute security kill-switch and hardware serial log for offboarding employee</p>
+                </div>
+                <button class="btn-close-icon" id="btnCloseRevokeModal" style="background:none; border:none; font-size:16px; cursor:pointer; color:var(--text-muted);">✕</button>
+            </div>
+
+            <div class="modal-body" style="padding: 24px; display: flex; flex-direction: column; gap: 18px; max-height: 75vh; overflow-y: auto;">
+                <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 12px 14px; color: #2563eb; font-size: 12.5px; font-weight: 600; display: flex; align-items: center; gap: 10px;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    <span>⚡ Outlook & Active Directory Autonomous Revocation Trigger Ready</span>
+                </div>
+
+                <div style="font-size:12.5px; font-weight:700;">Recollect Assigned Hardware Devices</div>
+                <div style="background: #fafafa; border: 1px solid var(--border-color); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 10px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; font-size: 13px; font-weight: 600;">
+                        <span>💻 MacBook Pro M3 Max (SN: C02G901XMD6R)</span>
+                        <span style="color:#16a34a;">✓ Checked in Inventory</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer" style="padding: 16px 24px; border-top: 1px solid var(--border-color); background: #fafafa; display: flex; justify-content: flex-end; gap: 12px;">
+                <button class="btn-cancel" id="btnCancelRevokeModal" style="padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-main);">Cancel</button>
+                <button class="btn-submit" id="btnSubmitRevokeModal" style="padding: 9px 18px; border-radius: 8px; border: none; background: #dc2626; color: white; font-size: 13px; font-weight: 600; cursor: pointer;">Execute Access Revocation & Archive</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Overlay Backdrop CSS -->
+    <style>
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(9, 9, 11, 0.4); backdrop-filter: blur(4px);
+            z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px;
+        }
+        .modal-overlay.hidden { display: none !important; }
+    </style>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="../../js/components/sidebar.js"></script>
+    <script src="../../js/offboarding/AssetHandoverClearance.js"></script>
+</body>
+
+</html>

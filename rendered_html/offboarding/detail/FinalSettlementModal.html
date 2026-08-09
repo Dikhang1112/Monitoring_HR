@@ -1,0 +1,107 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal - Final Financial Settlement &amp; Termination Pay Slip</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #09090b;
+            --bg-card: #ffffff;
+            --text-main: #09090b;
+            --text-muted: #71717a;
+            --border-color: #e4e4e7;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background: #f4f4f5; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 40px 20px; }
+
+        .modal-card {
+            width: 100%; max-width: 660px; background: #ffffff; border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); overflow: hidden;
+            display: flex; flex-direction: column;
+        }
+
+        .modal-header { padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        .modal-title { font-size: 17px; font-weight: 700; color: var(--text-main); }
+        .modal-subtitle { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+
+        .modal-body { padding: 24px; display: flex; flex-direction: column; gap: 18px; max-height: 75vh; overflow-y: auto; }
+
+        .summary-box { background: #fafafa; border: 1px solid var(--border-color); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+        .summary-row { display: flex; justify-content: space-between; font-size: 13px; color: var(--text-main); }
+
+        .auto-mail-badge {
+            background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 12px 14px;
+            color: #16a34a; font-size: 12.5px; font-weight: 600; display: flex; align-items: center; gap: 10px;
+        }
+
+        .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border-color); background: #fafafa; display: flex; justify-content: flex-end; gap: 12px; }
+        .btn-cancel { padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-main); }
+        .btn-submit { padding: 9px 18px; border-radius: 8px; border: none; background: var(--primary); color: white; font-size: 13px; font-weight: 600; cursor: pointer; }
+    </style>
+</head>
+
+<body>
+    <div class="modal-card">
+        <div class="modal-header">
+            <div>
+                <h2 class="modal-title">Final Financial Settlement &amp; Pay Slip Calculation</h2>
+                <p class="modal-subtitle">Calculate final proration salary, unused PTO conversion, and social insurance status</p>
+            </div>
+        </div>
+
+        <div class="modal-body">
+            <div class="auto-mail-badge">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                <span>📧 Automated Outlook Dispatch: Payslip PDF &amp; Termination Decision will be auto-emailed to Employee &amp; Accounting.</span>
+            </div>
+
+            <div class="summary-box">
+                <div class="summary-row">
+                    <span>Employee Name</span>
+                    <strong style="font-size:14px;">Brandon Vance (EMP-2026-042)</strong>
+                </div>
+                <div class="summary-row">
+                    <span>Last Working Day (LWD)</span>
+                    <span>31/08/2026</span>
+                </div>
+            </div>
+
+            <div style="font-weight:700; font-size:13px; margin-bottom:4px;">Settlement Breakdown ($ USD)</div>
+            <div class="summary-box">
+                <div class="summary-row">
+                    <span>Prorated Worked Days Salary (22/22 days)</span>
+                    <span>$3,200.00 USD</span>
+                </div>
+                <div class="summary-row">
+                    <span>Unused Paid Time Off (PTO) Encashment (4.5 Days)</span>
+                    <span style="color:#16a34a; font-weight:700;">+$654.50 USD</span>
+                </div>
+                <div class="summary-row">
+                    <span>Outstanding Equipment Deductions / Loan Settlement</span>
+                    <span>-$0.00 USD</span>
+                </div>
+                <div style="height:1px; background:var(--border-color); margin:4px 0;"></div>
+                <div class="summary-row" style="font-size:15px; font-weight:700;">
+                    <span>Net Payable Settlement Amount</span>
+                    <span style="color:var(--text-main); font-size:16px;">$3,854.50 USD</span>
+                </div>
+            </div>
+
+            <div style="display:flex; align-items:center; gap:10px; font-size:12.5px; font-weight:600; color:#16a34a;">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Social Insurance Book Transfer Request (Labor Insurance Authority) Initialized.</span>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn-cancel">Cancel</button>
+            <button class="btn-submit">Approve Final Settlement &amp; Dispatch Payslip</button>
+        </div>
+    </div>
+
+
+
+</body></html>

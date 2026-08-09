@@ -14,10 +14,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const isPeopleFolder = currentLoc.includes('people_management');
     const isRecruitmentFolder = currentLoc.includes('recruitment');
     const isOnboardingFolder = currentLoc.includes('onboarding');
+    const isOffboardingFolder = currentLoc.includes('offboarding');
 
     const peoplePath = isPeopleFolder ? '' : (isSubfolder ? '../people_management/' : 'people_management/');
     const recruitmentPath = isRecruitmentFolder ? '' : (isSubfolder ? '../recruitment/' : 'recruitment/');
     const onboardingPath = isOnboardingFolder ? '' : (isSubfolder ? '../onboarding/' : 'onboarding/');
+    const offboardingPath = isOffboardingFolder ? '' : (isSubfolder ? '../offboarding/' : 'offboarding/');
 
     const activePage = sidebarContainer.getAttribute('data-active') || '';
     const activeSubpage = sidebarContainer.getAttribute('data-subpage') || '';
@@ -406,10 +408,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     <svg viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.71 1.1-1.31 1.5-2"/><path d="M12 15l-3-3 3-3"/><path d="M9 12h12"/></svg>
                     <span>Onboarding</span>
                 </a>
-                <li class="menu-item ${activePage === 'Offboarding' ? 'active' : ''}" data-page="Offboarding" title="Offboarding">
+                <a href="${offboardingPath}OffboardingRequests.html" class="menu-item ${activePage === 'Offboarding' ? 'active' : ''}" data-page="Offboarding" title="Offboarding">
                     <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
                     <span>Offboarding</span>
-                </li>
+                </a>
                 <li class="menu-item ${activePage === 'Payroll' ? 'active' : ''}" data-page="Payroll" title="Payroll">
                     <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
                     <span>Payroll</span>

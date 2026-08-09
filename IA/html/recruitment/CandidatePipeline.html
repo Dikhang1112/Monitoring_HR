@@ -267,6 +267,112 @@
         </div>
     </div>
 
+    <!-- Add Candidate Modal Overlay -->
+    <div class="modal-overlay hidden" id="addCandidateModalOverlay">
+        <div class="modal-card" style="width: 100%; max-width: 660px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); overflow: hidden; display: flex; flex-direction: column;">
+            <div class="modal-header">
+                <div class="modal-title">
+                    Add Candidate
+                    <span class="ai-badge" style="background:#f4f4f5; color:var(--text-main); font-size:11px; font-weight:700; padding:3px 8px; border-radius:6px; border:1px solid var(--border-color); text-transform:uppercase;">AI Resume Parser</span>
+                </div>
+                <button class="btn-close-icon" id="btnCloseModal" style="background:none; border:none; font-size:16px; cursor:pointer; color:var(--text-muted);">✕</button>
+            </div>
+
+            <div class="modal-body" style="padding: 24px; display: flex; flex-direction: column; gap: 18px; max-height: 75vh; overflow-y: auto;">
+                <!-- Drag & Drop Upload Zone -->
+                <div class="dropzone" id="cvDropzone" style="border: 2px dashed #cbd5e1; border-radius: var(--radius-md); padding: 22px; text-align: center; background: #fafafa; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                    <div style="width: 40px; height: 40px; border-radius: 50%; background: #ffffff; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; color: var(--primary);">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    </div>
+                    <div style="font-size: 14px; font-weight: 700; color: var(--text-main);">Drag & Drop Resume (PDF or DOCX)</div>
+                    <div style="font-size: 12px; color: var(--text-muted);">AI parser will extract profile info into editable fields below.</div>
+                    <button class="btn-sample" id="btnSampleCv" type="button" style="margin-top: 4px; padding: 6px 12px; font-size: 12px; font-weight: 600; background: #ffffff; border: 1px solid var(--border-color); border-radius: 6px; cursor: pointer; color: var(--text-main);">📄 Auto-fill Sample CV: Alexander_Wright_Resume.pdf</button>
+                </div>
+
+                <!-- AI Status Banner -->
+                <div class="ai-status-box" id="aiStatusBox" style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: var(--radius-md); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; color: #16a34a; font-size: 12.5px; font-weight: 600;">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span>CV Parsed Successfully! Review and edit any field manually if needed.</span>
+                    </div>
+                    <span>98% Match Score</span>
+                </div>
+
+                <!-- Manual Editable Candidate Form -->
+                <form class="form-grid" id="candidateForm" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div class="form-group" style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main); display: flex; justify-content: space-between;">Full Name <span style="color: #2563eb; font-size: 11px;">✓ Auto Extracted</span></label>
+                        <input type="text" class="form-control" id="candName" value="Alexander Wright" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;" required>
+                    </div>
+
+                    <div class="form-group" style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main); display: flex; justify-content: space-between;">Corporate Email <span style="color: #2563eb; font-size: 11px;">✓ Auto Extracted</span></label>
+                        <input type="email" class="form-control" id="candEmail" value="alexander.wright@devmail.io" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;" required>
+                    </div>
+
+                    <div class="form-group" style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main); display: flex; justify-content: space-between;">Phone Number <span style="color: #2563eb; font-size: 11px;">✓ Auto Extracted</span></label>
+                        <input type="text" class="form-control" id="candPhone" value="+84 908 123 456" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                    </div>
+
+                    <div class="form-group" style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Target Job Opening</label>
+                        <select class="form-control" id="candRole" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                            <option selected>Senior Fullstack Engineer (React / Node)</option>
+                            <option>HR Business Partner (Talent Acquisition)</option>
+                            <option>Product Marketing Manager</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main); display: flex; justify-content: space-between;">Current Company & Position <span style="color: #2563eb; font-size: 11px;">✓ Auto Extracted</span></label>
+                        <input type="text" class="form-control" id="candCurrentRole" value="Lead Fullstack Engineer @ Tech Corp" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                    </div>
+
+                    <div class="form-group" style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main); display: flex; justify-content: space-between;">Total Experience (Years) <span style="color: #2563eb; font-size: 11px;">✓ Auto Extracted</span></label>
+                        <input type="text" class="form-control" id="candExp" value="7 Years" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                    </div>
+
+                    <div class="form-group" style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Expected Monthly Salary ($ USD)</label>
+                        <input type="text" class="form-control" value="$3,500 / month" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                    </div>
+
+                    <div class="form-group" style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Notice Period / Availability</label>
+                        <input type="text" class="form-control" value="2 Weeks (Immediate)" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                    </div>
+
+                    <div class="form-group" style="grid-column: span 2; display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main); display: flex; justify-content: space-between;">Extracted Skill Tags <span style="color: #2563eb; font-size: 11px;">✓ Auto Extracted</span></label>
+                        <input type="text" class="form-control" value="React, Node.js, TypeScript, PostgreSQL, Docker, AWS, GraphQL" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                    </div>
+
+                    <div class="form-group" style="grid-column: span 2; display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: var(--text-main); display: flex; justify-content: space-between;">Candidate Summary / Cover Profile <span style="color: #2563eb; font-size: 11px;">✓ Auto Extracted</span></label>
+                        <textarea class="form-control" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff; min-height: 70px;">Senior Fullstack Architect with 7+ years building enterprise SaaS applications, high-performance microservices, and leading engineering teams.</textarea>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer" style="padding: 16px 24px; border-top: 1px solid var(--border-color); background: #fafafa; display: flex; justify-content: flex-end; gap: 12px;">
+                <button class="btn-cancel" id="btnCancelModal" style="padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-main);">Cancel</button>
+                <button class="btn-submit" id="btnSubmitCandidate" style="padding: 9px 18px; border-radius: 8px; border: none; background: var(--primary); color: white; font-size: 13px; font-weight: 600; cursor: pointer;">Save Candidate Profile</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Overlay Backdrop CSS -->
+    <style>
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(9, 9, 11, 0.4); backdrop-filter: blur(4px);
+            z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px;
+        }
+        .modal-overlay.hidden { display: none !important; }
+    </style>
+
     <div class="toast-container" id="toastContainer"></div>
 
     <script src="../../js/components/sidebar.js"></script>

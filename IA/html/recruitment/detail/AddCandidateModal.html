@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal Form - Add Candidate (AI Resume Parser)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #09090b;
+            --bg-card: #ffffff;
+            --text-main: #09090b;
+            --text-muted: #71717a;
+            --border-color: #e4e4e7;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background: #f4f4f5; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 40px 20px; }
+
+        .modal-card {
+            width: 100%; max-width: 660px; background: #ffffff; border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); overflow: hidden;
+            display: flex; flex-direction: column;
+        }
+
+        .modal-header { padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        .modal-title { font-size: 17px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
+        .ai-badge { background: #f4f4f5; color: var(--text-main); font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 6px; border: 1px solid var(--border-color); text-transform: uppercase; }
+
+        .modal-body { padding: 24px; display: flex; flex-direction: column; gap: 18px; max-height: 75vh; overflow-y: auto; }
+
+        /* Drag & Drop Upload Zone */
+        .dropzone {
+            border: 2px dashed #cbd5e1; border-radius: var(--radius-md);
+            padding: 22px; text-align: center; background: #fafafa;
+            cursor: pointer; transition: all 0.2s ease; display: flex;
+            flex-direction: column; align-items: center; gap: 8px;
+        }
+        .dropzone:hover { border-color: var(--primary); background: #f4f4f5; }
+        .dropzone-icon {
+            width: 40px; height: 40px; border-radius: 50%; background: #ffffff;
+            border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center;
+            color: var(--primary);
+        }
+        .dropzone-title { font-size: 14px; font-weight: 700; color: var(--text-main); }
+        .dropzone-desc { font-size: 12px; color: var(--text-muted); }
+        .btn-sample { margin-top: 4px; padding: 6px 12px; font-size: 12px; font-weight: 600; background: #ffffff; border: 1px solid var(--border-color); border-radius: 6px; cursor: pointer; color: var(--text-main); }
+
+        /* AI Status Banner */
+        .ai-status-box {
+            background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: var(--radius-md);
+            padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; color: #16a34a; font-size: 12.5px; font-weight: 600;
+        }
+
+        /* Form Grid */
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group.full-width { grid-column: span 2; }
+        .form-group label { font-size: 12.5px; font-weight: 600; color: var(--text-main); display: flex; justify-content: space-between; }
+        .auto-extracted-label { color: #2563eb; font-size: 11px; font-weight: 500; }
+        .form-control {
+            padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color);
+            font-size: 13px; outline: none; background: #ffffff; color: var(--text-main); font-weight: 500;
+        }
+        .form-control:focus { border-color: var(--primary); }
+        textarea.form-control { resize: vertical; min-height: 70px; }
+
+        .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border-color); background: #fafafa; display: flex; justify-content: flex-end; gap: 12px; }
+        .btn-cancel { padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-main); }
+        .btn-submit { padding: 9px 18px; border-radius: 8px; border: none; background: var(--primary); color: white; font-size: 13px; font-weight: 600; cursor: pointer; }
+    </style>
+</head>
+
+<body>
+    <div class="modal-card">
+        <div class="modal-header">
+            <div class="modal-title">
+                Add Candidate
+                <span class="ai-badge">AI Resume Parser</span>
+            </div>
+        </div>
+
+        <div class="modal-body">
+            <!-- Drag & Drop Upload Zone -->
+            <div class="dropzone">
+                <div class="dropzone-icon">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                </div>
+                <div class="dropzone-title">Drag & Drop Resume (PDF or DOCX)</div>
+                <div class="dropzone-desc">AI parser will extract profile info into editable fields below.</div>
+                <button class="btn-sample">📄 Auto-fill Sample CV: Alexander_Wright_Resume.pdf</button>
+            </div>
+
+            <!-- AI Status Banner -->
+            <div class="ai-status-box">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span>CV Parsed Successfully! Review and edit any field manually if needed.</span>
+                </div>
+                <span>98% Match Score</span>
+            </div>
+
+            <!-- Manual Editable Candidate Form -->
+            <form class="form-grid">
+                <div class="form-group">
+                    <label>Full Name <span class="auto-extracted-label">✓ Auto Extracted</span></label>
+                    <input type="text" class="form-control" value="Alexander Wright">
+                </div>
+
+                <div class="form-group">
+                    <label>Corporate Email <span class="auto-extracted-label">✓ Auto Extracted</span></label>
+                    <input type="email" class="form-control" value="alexander.wright@devmail.io">
+                </div>
+
+                <div class="form-group">
+                    <label>Phone Number <span class="auto-extracted-label">✓ Auto Extracted</span></label>
+                    <input type="text" class="form-control" value="+84 908 123 456">
+                </div>
+
+                <div class="form-group">
+                    <label>Target Job Opening</label>
+                    <select class="form-control">
+                        <option selected>Senior Fullstack Engineer (React / Node)</option>
+                        <option>HR Business Partner (Talent Acquisition)</option>
+                        <option>Product Marketing Manager</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Current Company & Position <span class="auto-extracted-label">✓ Auto Extracted</span></label>
+                    <input type="text" class="form-control" value="Lead Fullstack Engineer @ Tech Corp">
+                </div>
+
+                <div class="form-group">
+                    <label>Total Experience (Years) <span class="auto-extracted-label">✓ Auto Extracted</span></label>
+                    <input type="text" class="form-control" value="7 Years">
+                </div>
+
+                <div class="form-group">
+                    <label>Expected Monthly Salary ($ USD)</label>
+                    <input type="text" class="form-control" value="$3,500 / month">
+                </div>
+
+                <div class="form-group">
+                    <label>Notice Period / Availability</label>
+                    <input type="text" class="form-control" value="2 Weeks (Immediate)">
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Extracted Skill Tags <span class="auto-extracted-label">✓ Auto Extracted</span></label>
+                    <input type="text" class="form-control" value="React, Node.js, TypeScript, PostgreSQL, Docker, AWS, GraphQL">
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Candidate Summary / Cover Profile <span class="auto-extracted-label">✓ Auto Extracted</span></label>
+                    <textarea class="form-control">Senior Fullstack Architect with 7+ years building enterprise SaaS applications, high-performance microservices, and leading engineering teams.</textarea>
+                </div>
+            </form>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn-cancel">Cancel</button>
+            <button class="btn-submit">Save Candidate Profile</button>
+        </div>
+    </div>
+</body>
+
+</html>

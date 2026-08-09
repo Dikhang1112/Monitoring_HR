@@ -1,0 +1,249 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal Form - Add Candidate (AI Resume Parser)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            --accent-indigo: #6366f1;
+            --accent-violet: #8b5cf6;
+            --accent-light: #f5f3ff;
+            --success: #10b981;
+            --success-light: #ecfdf5;
+            --bg-card: #ffffff;
+            --bg-muted: #f8fafc;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 18px;
+            --shadow-premium: 0 20px 40px -15px rgba(99, 102, 241, 0.15), 0 0 1px rgba(15, 23, 42, 0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: #0f172a; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 40px 20px; }
+
+        .modal-preview {
+            width: 720px; background: var(--bg-card);
+            border-radius: var(--radius-lg); border: 1px solid rgba(226, 232, 240, 0.8);
+            overflow: hidden; box-shadow: var(--shadow-premium);
+            display: flex; flex-direction: column;
+            animation: modalFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .modal-header {
+            padding: 22px 28px; border-bottom: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: space-between;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+        }
+        .modal-title-group { display: flex; align-items: center; gap: 12px; }
+        .modal-title { font-size: 18px; font-weight: 800; color: var(--text-main); letter-spacing: -0.3px; }
+        .ai-badge {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: #ffffff; font-size: 11px; font-weight: 700; padding: 4px 10px;
+            border-radius: 20px; text-transform: uppercase; letter-spacing: 0.6px;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); display: inline-flex; align-items: center; gap: 4px;
+        }
+        .btn-close-modal {
+            width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border-color);
+            background: #ffffff; color: var(--text-muted); display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.15s ease;
+        }
+        .btn-close-modal:hover { background: #f1f5f9; color: var(--text-main); }
+
+        .modal-body { padding: 28px; display: flex; flex-direction: column; gap: 22px; max-height: 78vh; overflow-y: auto; }
+
+        /* Drag & Drop Upload Zone */
+        .dropzone {
+            border: 2px dashed #c7d2fe; border-radius: var(--radius-md);
+            padding: 28px; text-align: center; background: linear-gradient(180deg, #f5f3ff 0%, #faf5ff 100%);
+            cursor: pointer; transition: all 0.25s ease; display: flex;
+            flex-direction: column; align-items: center; gap: 10px;
+            position: relative;
+        }
+        .dropzone:hover { border-color: var(--accent-indigo); background: #eef2ff; transform: translateY(-2px); }
+        .dropzone-icon {
+            width: 52px; height: 52px; border-radius: 16px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: #ffffff; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 8px 16px rgba(99, 102, 241, 0.25);
+        }
+        .dropzone-title { font-size: 15px; font-weight: 700; color: var(--text-main); }
+        .dropzone-desc { font-size: 12.5px; color: var(--text-muted); }
+        .btn-sample {
+            margin-top: 6px; padding: 8px 16px; font-size: 12.5px; font-weight: 700;
+            background: #ffffff; border: 1px solid #c7d2fe; border-radius: var(--radius-sm);
+            cursor: pointer; color: var(--accent-indigo); transition: all 0.15s ease;
+            box-shadow: 0 2px 6px rgba(99, 102, 241, 0.1);
+        }
+        .btn-sample:hover { background: var(--accent-indigo); color: #ffffff; border-color: var(--accent-indigo); }
+
+        /* AI Parsing Status Box */
+        .ai-status-box {
+            background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%);
+            border: 1px solid #a7f3d0; border-radius: var(--radius-md);
+            padding: 14px 18px; display: flex; align-items: center; justify-content: space-between;
+            color: #047857; font-size: 13px; font-weight: 600;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.08);
+        }
+        .ai-status-left { display: flex; align-items: center; gap: 10px; }
+        .match-tag {
+            background: #10b981; color: #ffffff; font-size: 12px; font-weight: 800;
+            padding: 3px 10px; border-radius: 20px; box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Form Grid */
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+        .form-group { display: flex; flex-direction: column; gap: 7px; }
+        .form-group.full-width { grid-column: span 2; }
+        .form-group label { font-size: 12.5px; font-weight: 700; color: var(--text-main); display: flex; justify-content: space-between; align-items: center; }
+        .auto-extracted-label {
+            color: var(--accent-indigo); font-size: 11px; font-weight: 700; background: var(--accent-light);
+            padding: 2px 8px; border-radius: 4px; border: 1px solid #e0e7ff;
+        }
+        .form-control {
+            padding: 11px 15px; border-radius: var(--radius-md); border: 1px solid var(--border-color);
+            font-size: 13.5px; outline: none; background: #ffffff; color: var(--text-main); font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .form-control:focus { border-color: var(--accent-indigo); box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15); }
+        textarea.form-control { resize: vertical; min-height: 80px; line-height: 1.5; }
+
+        /* Skill Tags Pills Container */
+        .skills-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+        .skill-pill {
+            background: var(--accent-light); color: var(--accent-indigo); border: 1px solid #c7d2fe;
+            padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;
+        }
+
+        .modal-footer {
+            padding: 18px 28px; border-top: 1px solid var(--border-color);
+            display: flex; justify-content: flex-end; gap: 12px; background: #f8fafc;
+        }
+        .btn { padding: 11px 22px; border-radius: var(--radius-md); font-size: 13.5px; font-weight: 700; cursor: pointer; border: none; transition: all 0.2s ease; }
+        .btn-secondary { background: #ffffff; border: 1px solid var(--border-color); color: var(--text-main); }
+        .btn-secondary:hover { background: #f1f5f9; }
+        .btn-primary {
+            background: var(--primary-gradient); color: #ffffff;
+            box-shadow: 0 8px 16px rgba(99, 102, 241, 0.25); display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-primary:hover { opacity: 0.95; transform: translateY(-1px); box-shadow: 0 10px 20px rgba(99, 102, 241, 0.35); }
+    </style>
+</head>
+
+<body>
+    <div class="modal-preview">
+        <div class="modal-header">
+            <div class="modal-title-group">
+                <div class="modal-title">Add Candidate</div>
+                <span class="ai-badge">✨ AI Resume Parser 2.0</span>
+            </div>
+            <button class="btn-close-modal" title="Close Modal">✕</button>
+        </div>
+
+        <div class="modal-body">
+            <!-- Drag & Drop Upload Zone -->
+            <div class="dropzone" id="cvDropzone">
+                <div class="dropzone-icon">
+                    <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                </div>
+                <div class="dropzone-title">Drag &amp; Drop Resume File (PDF or DOCX)</div>
+                <div class="dropzone-desc">AI Engine parses candidate contact details, experience, skills, and summary automatically.</div>
+                <button class="btn-sample">⚡ Auto-parse Sample CV: Alexander_Wright_Resume.pdf</button>
+            </div>
+
+            <!-- AI Status Banner -->
+            <div class="ai-status-box">
+                <div class="ai-status-left">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span>CV Parsed Successfully! Review and edit any field manually before saving.</span>
+                </div>
+                <span class="match-tag">98% AI Match Score</span>
+            </div>
+
+            <!-- Manual Editable Candidate Form -->
+            <form class="form-grid">
+                <div class="form-group">
+                    <label>Full Name <span class="auto-extracted-label">✨ Auto Extracted</span></label>
+                    <input type="text" class="form-control" value="Alexander Wright">
+                </div>
+
+                <div class="form-group">
+                    <label>Corporate Email <span class="auto-extracted-label">✨ Auto Extracted</span></label>
+                    <input type="email" class="form-control" value="alexander.wright@devmail.io">
+                </div>
+
+                <div class="form-group">
+                    <label>Phone Number <span class="auto-extracted-label">✨ Auto Extracted</span></label>
+                    <input type="text" class="form-control" value="+84 908 123 456">
+                </div>
+
+                <div class="form-group">
+                    <label>Target Job Opening</label>
+                    <select class="form-control">
+                        <option selected="">Senior Fullstack Engineer (React / Node)</option>
+                        <option>HR Business Partner (Talent Acquisition)</option>
+                        <option>Product Marketing Manager</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Current Company &amp; Position <span class="auto-extracted-label">✨ Auto Extracted</span></label>
+                    <input type="text" class="form-control" value="Lead Fullstack Engineer @ Tech Corp">
+                </div>
+
+                <div class="form-group">
+                    <label>Total Experience (Years) <span class="auto-extracted-label">✨ Auto Extracted</span></label>
+                    <input type="text" class="form-control" value="7 Years">
+                </div>
+
+                <div class="form-group">
+                    <label>Expected Monthly Salary ($ USD)</label>
+                    <input type="text" class="form-control" value="$3,500 / month">
+                </div>
+
+                <div class="form-group">
+                    <label>Notice Period / Start Date</label>
+                    <input type="text" class="form-control" value="2 Weeks (Immediate)">
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Extracted Skill Tags <span class="auto-extracted-label">✨ Auto Extracted</span></label>
+                    <input type="text" class="form-control" value="React, Node.js, TypeScript, PostgreSQL, Docker, AWS, GraphQL">
+                    <div class="skills-pills">
+                        <span class="skill-pill">⚡ React</span>
+                        <span class="skill-pill">⚡ Node.js</span>
+                        <span class="skill-pill">⚡ TypeScript</span>
+                        <span class="skill-pill">⚡ PostgreSQL</span>
+                        <span class="skill-pill">⚡ Docker</span>
+                        <span class="skill-pill">⚡ AWS</span>
+                    </div>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Candidate Summary / Cover Profile <span class="auto-extracted-label">✨ Auto Extracted</span></label>
+                    <textarea class="form-control">Senior Fullstack Architect with 7+ years building enterprise SaaS applications, high-performance microservices, and leading tech teams.</textarea>
+                </div>
+            </form>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-secondary">Cancel</button>
+            <button class="btn btn-primary">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Save Candidate Profile
+            </button>
+        </div>
+    </div>
+
+
+
+</body></html>

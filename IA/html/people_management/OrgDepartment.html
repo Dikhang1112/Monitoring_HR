@@ -638,7 +638,7 @@
             background: var(--bg-card);
             color: var(--text-main);
             font-weight: 600;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
             border: 1px solid var(--border-color);
         }
 
@@ -1163,6 +1163,7 @@
                 opacity: 0;
                 transform: scale(0.95);
             }
+
             to {
                 opacity: 1;
                 transform: scale(1);
@@ -1212,20 +1213,28 @@
 <body>
     <div class="app">
         <!-- Sidebar Navigation (Unified Component) -->
-        <div class="sidebar" id="sidebarContainer" data-active="People Management" data-subpage="Organization & Department" data-is-subfolder="true"></div>
+        <div class="sidebar" id="sidebarContainer" data-active="People Management"
+            data-subpage="Organization & Department" data-is-subfolder="true"></div>
 
         <!-- ================= Main Workspace ================= -->
         <div class="content-area">
             <!-- Header -->
             <header class="header">
                 <div class="header-search">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                    <input type="text" id="deptSearchInput" placeholder="Search department, branch, or department lead...">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                    <input type="text" id="deptSearchInput"
+                        placeholder="Search department, branch, or department lead...">
                 </div>
 
                 <div class="header-actions">
                     <button class="icon-btn" id="btnNotifications" title="Notifications">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                        </svg>
                         <span class="notification-badge"></span>
                     </button>
                 </div>
@@ -1236,12 +1245,16 @@
                 <div class="page-header-row">
                     <div>
                         <h1 class="title">Organization & Department</h1>
-                        <p class="subtitle">Manage company structure, reporting lines, departments, and headcount allocations.</p>
+                        <p class="subtitle">Manage company structure, reporting lines, departments, and headcount
+                            allocations.</p>
                     </div>
 
                     <button class="btn-primary" id="btnCreateDept">
-                        <svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                        <span>+ Add Department</span>
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <line x1="12" y1="5" x2="12" y2="19" />
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg>
+                        <span> Add Department</span>
                     </button>
                 </div>
 
@@ -1288,11 +1301,21 @@
                 <div class="controls-bar">
                     <div class="tab-group" id="viewModeTabs">
                         <button class="tab-btn active" data-view="treeView">
-                            <svg viewBox="0 0 24 24" fill="none"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                            </svg>
                             <span>Org Tree View</span>
                         </button>
                         <button class="tab-btn" data-view="tableView">
-                            <svg viewBox="0 0 24 24" fill="none"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <line x1="8" y1="6" x2="21" y2="6" />
+                                <line x1="8" y1="12" x2="21" y2="12" />
+                                <line x1="8" y1="18" x2="21" y2="18" />
+                                <line x1="3" y1="6" x2="3.01" y2="6" />
+                                <line x1="3" y1="12" x2="3.01" y2="12" />
+                                <line x1="3" y1="18" x2="3.01" y2="18" />
+                            </svg>
                             <span>Roster Table</span>
                         </button>
                     </div>
@@ -1313,10 +1336,19 @@
                     <div class="tree-canvas-container">
                         <div class="tree-zoom-toolbar">
                             <button class="zoom-btn" id="btnZoomIn" title="Zoom In">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8" />
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                                    <line x1="11" y1="8" x2="11" y2="14" />
+                                    <line x1="8" y1="11" x2="14" y2="11" />
+                                </svg>
                             </button>
                             <button class="zoom-btn" id="btnZoomOut" title="Zoom Out">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8" />
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                                    <line x1="8" y1="11" x2="14" y2="11" />
+                                </svg>
                             </button>
                         </div>
 
@@ -1477,7 +1509,10 @@
                                     <td>
                                         <div class="dept-name-cell">
                                             <div class="dept-icon-box">
-                                                <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                                                    <polyline points="16 18 22 12 16 6" />
+                                                    <polyline points="8 6 2 12 8 18" />
+                                                </svg>
                                             </div>
                                             <span>Technology & Software Engineering</span>
                                         </div>
@@ -1489,7 +1524,8 @@
                                     <td><span class="status-pill active">Active</span></td>
                                     <td>
                                         <div class="table-actions">
-                                            <button class="btn-wireframe btn-edit-dept" data-id="engineering">Edit</button>
+                                            <button class="btn-wireframe btn-edit-dept"
+                                                data-id="engineering">Edit</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1497,7 +1533,10 @@
                                     <td>
                                         <div class="dept-name-cell">
                                             <div class="dept-icon-box">
-                                                <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                                    <circle cx="9" cy="7" r="4" />
+                                                </svg>
                                             </div>
                                             <span>Human Resources (People & Culture)</span>
                                         </div>
@@ -1517,7 +1556,11 @@
                                     <td>
                                         <div class="dept-name-cell">
                                             <div class="dept-icon-box">
-                                                <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                                                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                                                    <line x1="8" y1="21" x2="16" y2="21" />
+                                                    <line x1="12" y1="17" x2="12" y2="21" />
+                                                </svg>
                                             </div>
                                             <span>System Administration</span>
                                         </div>
@@ -1537,7 +1580,10 @@
                                     <td>
                                         <div class="dept-name-cell">
                                             <div class="dept-icon-box">
-                                                <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                                                    <line x1="12" y1="1" x2="12" y2="23" />
+                                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                                                </svg>
                                             </div>
                                             <span>Finance & Accounting</span>
                                         </div>
@@ -1567,14 +1613,18 @@
             <div class="drawer-header">
                 <h2 class="drawer-title" id="drawerTitle">Add New Department</h2>
                 <button class="icon-btn" id="btnCloseDrawer" title="Close Drawer">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
                 </button>
             </div>
 
             <form id="deptForm" class="drawer-body">
                 <div class="form-group">
                     <label for="deptNameInput">Department Name</label>
-                    <input type="text" id="deptNameInput" class="form-control" placeholder="e.g. Quality Assurance (QA)" required>
+                    <input type="text" id="deptNameInput" class="form-control" placeholder="e.g. Quality Assurance (QA)"
+                        required>
                 </div>
 
                 <div class="form-group">
@@ -1615,7 +1665,8 @@
 
                 <div class="form-group">
                     <label for="deptDescInput">Operational Description & Mandate</label>
-                    <textarea id="deptDescInput" class="form-control" placeholder="Specify department scope and responsibilities..."></textarea>
+                    <textarea id="deptDescInput" class="form-control"
+                        placeholder="Specify department scope and responsibilities..."></textarea>
                 </div>
             </form>
 
@@ -1642,7 +1693,8 @@
                     Status: <strong>Pending approval from CEO (Luu Duong)</strong>.
                 </div>
             </div>
-            <button class="btn-wireframe" id="btnCloseApprovalModal" style="padding: 9px 18px; font-size: 13px; font-weight: 600; background: var(--primary); color: white; border-color: var(--primary); width: 100%; border-radius: var(--radius-md); margin-top: 4px; cursor: pointer;">
+            <button class="btn-wireframe" id="btnCloseApprovalModal"
+                style="padding: 9px 18px; font-size: 13px; font-weight: 600; background: var(--primary); color: white; border-color: var(--primary); width: 100%; border-radius: var(--radius-md); margin-top: 4px; cursor: pointer;">
                 Got it
             </button>
         </div>

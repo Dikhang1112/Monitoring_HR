@@ -1,5 +1,6 @@
 /**
  * Reusable Unified Sidebar Component Loader for HR Platform
+ * Supports Expand/Collapse Toggle, Persistence, and Non-Overlapping Layout
  */
 document.addEventListener('DOMContentLoaded', () => {
     const sidebarContainer = document.getElementById('sidebarContainer');
@@ -19,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const activePage = sidebarContainer.getAttribute('data-active') || '';
     const activeSubpage = sidebarContainer.getAttribute('data-subpage') || '';
 
-    // Inject global sidebar SVG constraint styles to prevent icon ballooning
+    // Inject global sidebar SVG constraint and layout styles
     if (!document.getElementById('sidebarGlobalStyle')) {
         const style = document.createElement('style');
         style.id = 'sidebarGlobalStyle';
@@ -38,21 +39,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 z-index: 100 !important;
                 padding: 20px 16px !important;
                 box-sizing: border-box !important;
+                transition: width 0.25s ease-in-out, padding 0.25s ease-in-out !important;
             }
+
+            /* Ensure main content container is pushed right and never overlaps sidebar */
+            #sidebarContainer ~ * {
+                margin-left: 260px !important;
+                transition: margin-left 0.25s ease-in-out !important;
+            }
+
             #sidebarContainer .sidebar-top {
                 display: flex !important;
                 flex-direction: column !important;
                 gap: 24px !important;
             }
+
             #sidebarContainer .logo {
                 font-size: 18px !important;
                 font-weight: 700 !important;
                 display: flex !important;
                 align-items: center !important;
-                gap: 10px !important;
-                padding: 0 8px !important;
+                justify-content: space-between !important;
+                padding: 0 4px !important;
                 color: #09090b !important;
             }
+
             #sidebarContainer .logo-icon {
                 width: 32px !important;
                 height: 32px !important;
@@ -65,6 +76,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 font-size: 14px !important;
                 font-weight: 700 !important;
             }
+
+            /* Toggle Button Styling */
+            #sidebarContainer .sidebar-toggle-btn {
+                background: #f4f4f5 !important;
+                border: 1px solid #e4e4e7 !important;
+                border-radius: 6px !important;
+                width: 26px !important;
+                height: 26px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                cursor: pointer !important;
+                color: #71717a !important;
+                transition: all 0.15s ease !important;
+            }
+            #sidebarContainer .sidebar-toggle-btn:hover {
+                background: #e4e4e7 !important;
+                color: #09090b !important;
+            }
+            #sidebarContainer .sidebar-toggle-btn svg {
+                width: 14px !important;
+                height: 14px !important;
+            }
+
             #sidebarContainer .menu {
                 display: flex !important;
                 flex-direction: column !important;
@@ -238,6 +273,59 @@ document.addEventListener('DOMContentLoaded', () => {
                 background: #e4e4e7 !important;
                 margin: 4px 0 !important;
             }
+            #sidebarContainer .hidden {
+                display: none !important;
+            }
+
+            /* ========================================================= */
+            /* COLLAPSED STATE (72px Icon-Only Sidebar) */
+            /* ========================================================= */
+            #sidebarContainer.collapsed {
+                width: 72px !important;
+                padding: 20px 10px !important;
+            }
+
+            #sidebarContainer.collapsed ~ * {
+                margin-left: 72px !important;
+            }
+
+            #sidebarContainer.collapsed .logo-text,
+            #sidebarContainer.collapsed .menu-item span,
+            #sidebarContainer.collapsed .submenu-item span,
+            #sidebarContainer.collapsed .dropdown-chevron,
+            #sidebarContainer.collapsed .user-info,
+            #sidebarContainer.collapsed .user-profile-bar .dropdown-chevron {
+                display: none !important;
+            }
+
+            #sidebarContainer.collapsed .logo {
+                padding: 0 !important;
+                justify-content: center !important;
+                position: relative !important;
+            }
+
+            #sidebarContainer.collapsed .logo-left {
+                display: none !important;
+            }
+
+            #sidebarContainer.collapsed .sidebar-toggle-btn {
+                margin: 0 auto !important;
+            }
+
+            #sidebarContainer.collapsed .menu-item,
+            #sidebarContainer.collapsed .submenu-item {
+                justify-content: center !important;
+                padding: 10px 0 !important;
+            }
+
+            #sidebarContainer.collapsed .submenu {
+                padding-left: 0 !important;
+            }
+
+            #sidebarContainer.collapsed .user-profile-bar {
+                justify-content: center !important;
+                padding: 8px 0 !important;
+            }
         `;
         document.head.appendChild(style);
     }
@@ -246,18 +334,24 @@ document.addEventListener('DOMContentLoaded', () => {
     sidebarContainer.innerHTML = `
         <div class="sidebar-top">
             <div class="logo">
-                <div class="logo-icon">HR</div>
-                HR Platform
+                <div class="logo-left" style="display:flex; align-items:center; gap:10px;">
+                    <div class="logo-icon">HR</div>
+                    <span class="logo-text">HR Platform</span>
+                </div>
+                <button class="sidebar-toggle-btn" id="sidebarToggleBtn" title="Toggle Sidebar Collapse">
+                    <svg class="toggle-icon-left" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+                    <svg class="toggle-icon-right hidden" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
             </div>
 
             <ul class="menu" id="sidebarMenu">
-                <a href="${basePath}Home.html" class="menu-item ${activePage === 'Home' ? 'active' : ''}" data-page="Home">
+                <a href="${basePath}Home.html" class="menu-item ${activePage === 'Home' ? 'active' : ''}" data-page="Home" title="Home">
                     <svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                    Home
+                    <span>Home</span>
                 </a>
 
                 <!-- People Management Accordion -->
-                <li class="menu-item ${activePage === 'People Management' ? 'active' : ''}" id="peopleMenuToggle" data-page="People Management" style="cursor: pointer;">
+                <li class="menu-item ${activePage === 'People Management' ? 'active' : ''}" id="peopleMenuToggle" data-page="People Management" title="People Management" style="cursor: pointer;">
                     <div style="display:flex; align-items:center; gap:12px; flex:1;">
                         <svg viewBox="0 0 24 24">
                             <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
@@ -270,22 +364,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     <svg class="dropdown-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
                 </li>
                 <ul class="submenu ${activePage === 'People Management' ? '' : 'hidden'}" id="peopleSubmenu">
-                    <a href="${peoplePath}EmployeeDirectory.html" class="submenu-item ${activeSubpage === 'Employee Directory' ? 'active' : ''}" data-subpage="Employee Directory">
+                    <a href="${peoplePath}EmployeeDirectory.html" class="submenu-item ${activeSubpage === 'Employee Directory' ? 'active' : ''}" data-subpage="Employee Directory" title="Employee Directory">
                         <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                        Employee Directory
+                        <span>Employee Directory</span>
                     </a>
-                    <a href="${peoplePath}OrgDepartment.html" class="submenu-item ${activeSubpage === 'Organization & Department' ? 'active' : ''}" data-subpage="Organization & Department">
+                    <a href="${peoplePath}OrgDepartment.html" class="submenu-item ${activeSubpage === 'Organization & Department' ? 'active' : ''}" data-subpage="Organization & Department" title="Organization & Department">
                         <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-                        Organization & Department
+                        <span>Organization & Department</span>
                     </a>
-                    <a href="${peoplePath}RequestManagement.html" class="submenu-item ${activeSubpage === 'Request Management' ? 'active' : ''}" data-subpage="Request Management">
+                    <a href="${peoplePath}RequestManagement.html" class="submenu-item ${activeSubpage === 'Request Management' ? 'active' : ''}" data-subpage="Request Management" title="Request Management">
                         <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                        Request Management
+                        <span>Request Management</span>
                     </a>
                 </ul>
 
                 <!-- Recruitment Accordion -->
-                <li class="menu-item ${activePage === 'Recruitment' ? 'active' : ''}" id="recruitmentMenuToggle" data-page="Recruitment" style="cursor: pointer;">
+                <li class="menu-item ${activePage === 'Recruitment' ? 'active' : ''}" id="recruitmentMenuToggle" data-page="Recruitment" title="Recruitment & ATS" style="cursor: pointer;">
                     <div style="display:flex; align-items:center; gap:12px; flex:1;">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
                         <span>Recruitment & ATS</span>
@@ -293,38 +387,38 @@ document.addEventListener('DOMContentLoaded', () => {
                     <svg class="dropdown-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
                 </li>
                 <ul class="submenu ${activePage === 'Recruitment' ? '' : 'hidden'}" id="recruitmentSubmenu">
-                    <a href="${recruitmentPath}JobOpenings.html" class="submenu-item ${activeSubpage === 'Job Openings' ? 'active' : ''}" data-subpage="Job Openings">
+                    <a href="${recruitmentPath}JobOpenings.html" class="submenu-item ${activeSubpage === 'Job Openings' ? 'active' : ''}" data-subpage="Job Openings" title="Job Openings Board">
                         <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-                        Job Openings Board
+                        <span>Job Openings Board</span>
                     </a>
-                    <a href="${recruitmentPath}CandidatePipeline.html" class="submenu-item ${activeSubpage === 'Candidate Pipeline' ? 'active' : ''}" data-subpage="Candidate Pipeline">
+                    <a href="${recruitmentPath}CandidatePipeline.html" class="submenu-item ${activeSubpage === 'Candidate Pipeline' ? 'active' : ''}" data-subpage="Candidate Pipeline" title="Candidate Pipeline">
                         <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>
-                        Candidate Pipeline
+                        <span>Candidate Pipeline</span>
                     </a>
-                    <a href="${recruitmentPath}InterviewOffer.html" class="submenu-item ${activeSubpage === 'Interview & Offer' ? 'active' : ''}" data-subpage="Interview & Offer">
+                    <a href="${recruitmentPath}InterviewOffer.html" class="submenu-item ${activeSubpage === 'Interview & Offer' ? 'active' : ''}" data-subpage="Interview & Offer" title="Interview & Offer">
                         <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                        Interview & Offer
+                        <span>Interview & Offer</span>
                     </a>
                 </ul>
-                <li class="menu-item ${activePage === 'Onboarding' ? 'active' : ''}" data-page="Onboarding">
+                <li class="menu-item ${activePage === 'Onboarding' ? 'active' : ''}" data-page="Onboarding" title="Onboarding">
                     <svg viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.71 1.1-1.31 1.5-2"/><path d="M12 15l-3-3 3-3"/><path d="M9 12h12"/></svg>
-                    Onboarding
+                    <span>Onboarding</span>
                 </li>
-                <li class="menu-item ${activePage === 'Offboarding' ? 'active' : ''}" data-page="Offboarding">
+                <li class="menu-item ${activePage === 'Offboarding' ? 'active' : ''}" data-page="Offboarding" title="Offboarding">
                     <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-                    Offboarding
+                    <span>Offboarding</span>
                 </li>
-                <li class="menu-item ${activePage === 'Payroll' ? 'active' : ''}" data-page="Payroll">
+                <li class="menu-item ${activePage === 'Payroll' ? 'active' : ''}" data-page="Payroll" title="Payroll">
                     <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-                    Payroll
+                    <span>Payroll</span>
                 </li>
-                <li class="menu-item ${activePage === 'Performance' ? 'active' : ''}" data-page="Performance">
+                <li class="menu-item ${activePage === 'Performance' ? 'active' : ''}" data-page="Performance" title="Performance">
                     <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-                    Performance
+                    <span>Performance</span>
                 </li>
-                <li class="menu-item ${activePage === 'Settings' ? 'active' : ''}" data-page="Settings">
+                <li class="menu-item ${activePage === 'Settings' ? 'active' : ''}" data-page="Settings" title="Settings">
                     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-                    Settings
+                    <span>Settings</span>
                 </li>
             </ul>
         </div>
@@ -342,20 +436,50 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="user-popup hidden" id="userPopup">
                 <button class="popup-item" id="btnUpdateVersion">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6"/><path d="M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
-                    Update Version
+                    <span>Update Version</span>
                 </button>
                 <button class="popup-item" id="btnHelp">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                    Help
+                    <span>Help</span>
                 </button>
                 <div class="popup-divider"></div>
                 <button class="popup-item logout-item" id="btnSignOut">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-                    Sign Out
+                    <span>Sign Out</span>
                 </button>
             </div>
         </div>
     `;
+
+    // Toggle Sidebar Expand / Collapse
+    const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
+    const toggleIconLeft = sidebarContainer.querySelector('.toggle-icon-left');
+    const toggleIconRight = sidebarContainer.querySelector('.toggle-icon-right');
+
+    const setCollapsedState = (collapsed) => {
+        if (collapsed) {
+            sidebarContainer.classList.add('collapsed');
+            if (toggleIconLeft) toggleIconLeft.classList.add('hidden');
+            if (toggleIconRight) toggleIconRight.classList.remove('hidden');
+        } else {
+            sidebarContainer.classList.remove('collapsed');
+            if (toggleIconLeft) toggleIconLeft.classList.remove('hidden');
+            if (toggleIconRight) toggleIconRight.classList.add('hidden');
+        }
+    };
+
+    // Restore saved collapse state from localStorage
+    const savedState = localStorage.getItem('sidebar_collapsed') === 'true';
+    setCollapsedState(savedState);
+
+    if (sidebarToggleBtn) {
+        sidebarToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isNowCollapsed = !sidebarContainer.classList.contains('collapsed');
+            setCollapsedState(isNowCollapsed);
+            localStorage.setItem('sidebar_collapsed', isNowCollapsed);
+        });
+    }
 
     // Bind People Management Accordion Toggle
     const peopleMenuToggle = document.getElementById('peopleMenuToggle');
@@ -394,52 +518,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!userPopup.contains(e.target) && !sidebarUserProfile.contains(e.target)) {
                 userPopup.classList.add('hidden');
             }
-        });
-    }
-
-    // Toast helper inside sidebar scope if not global
-    function triggerSidebarToast(msg) {
-        const toastContainer = document.getElementById('toastContainer');
-        if (!toastContainer) {
-            alert(msg);
-            return;
-        }
-        const toast = document.createElement('div');
-        toast.className = 'toast';
-        toast.textContent = msg;
-        toastContainer.appendChild(toast);
-        setTimeout(() => {
-            toast.style.opacity = '0';
-            setTimeout(() => {
-                if (toastContainer.contains(toast)) toastContainer.removeChild(toast);
-            }, 300);
-        }, 2000);
-    }
-
-    const btnUpdateVersion = document.getElementById('btnUpdateVersion');
-    if (btnUpdateVersion) {
-        btnUpdateVersion.addEventListener('click', () => {
-            if (userPopup) userPopup.classList.add('hidden');
-            triggerSidebarToast('Checking for updates... Current Version: v2.4.0');
-        });
-    }
-
-    const btnHelp = document.getElementById('btnHelp');
-    if (btnHelp) {
-        btnHelp.addEventListener('click', () => {
-            if (userPopup) userPopup.classList.add('hidden');
-            triggerSidebarToast('Opening Help & Support Center');
-        });
-    }
-
-    const btnSignOut = document.getElementById('btnSignOut');
-    if (btnSignOut) {
-        btnSignOut.addEventListener('click', () => {
-            if (userPopup) userPopup.classList.add('hidden');
-            triggerSidebarToast('Signing out Lucia Doan...');
-            setTimeout(() => {
-                window.location.href = `${basePath}Login.html`;
-            }, 800);
         });
     }
 });

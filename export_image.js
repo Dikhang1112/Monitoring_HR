@@ -10,7 +10,7 @@ function getAllHtmlFiles(dirPath, arrayOfFiles = []) {
         const fullPath = path.join(dirPath, file);
         if (fs.statSync(fullPath).isDirectory()) {
             // Ignore images directory or node_modules
-            if (file !== 'images' && file !== 'node_modules') {
+            if (file !== 'images' && file !== 'node_modules' && file !== 'components') {
                 getAllHtmlFiles(fullPath, arrayOfFiles);
             }
         } else if (file.endsWith('.html')) {
@@ -68,12 +68,23 @@ function getAllHtmlFiles(dirPath, arrayOfFiles = []) {
             // Small delay to ensure all CSS fonts and dynamic JS render properly
             await page.waitForTimeout(600);
 
-            // Capture Full Page Screenshot
-            await page.screenshot({
-                path: outputImagePath,
-                fullPage: true,
-                type: 'png'
-            });
+            // Check if page contains standalone component/modal/drawer element
+            const targetElement = await page.$('.drawer-preview, .modal-card, .form-card, .timeline-card, .approval-modal');
+
+            if (targetElement && filePath.includes('detail')) {
+                // Crop directly to the component card to eliminate black/empty background
+                await targetElement.screenshot({
+                    path: outputImagePath,
+                    type: 'png'
+                });
+            } else {
+                // Capture Full Page Screenshot for main app screens
+                await page.screenshot({
+                    path: outputImagePath,
+                    fullPage: true,
+                    type: 'png'
+                });
+            }
 
             console.log(`   ✅ Saved -> ${path.relative(__dirname, outputImagePath)}`);
             successCount++;

@@ -1,7 +1,7 @@
 # Information Architecture & UI/UX Specifications
 
 >  **Design & Architecture Links:**
-> - **Figma UI/UX Design Wireframe**: [People Management Figma Wireframe](https://www.figma.com/design/D35Ut0x0TXeRGMjvLaNiIt/PeopleManagement?node-id=28-738&t=WYHn3MBdNy4BoqU3-0)
+> - **Figma UI/UX Design Wireframe**: [HR Platform Figma Wireframe](https://www.figma.com/design/cijZbom9gYKTRkBM1uHKeG/HR_Platform?node-id=4-2&p=f&t=PUDtE5omLIiE4SNM-0)
 > - **Relume Sitemap Project**: [Monitoring HR Relume Sitemap](https://www.relume.ai/app/project/P3513106_M_AsmXcsz2LE9p9i5egRRtV2aMuaJQ4-Pj5YjjiDkKo)
 
 ---

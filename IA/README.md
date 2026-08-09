@@ -406,8 +406,8 @@ mindmap
 ## 📁 Implemented Prototype Structure
 
 ### 1. People Management Dashboard
-- **HTML**: [`IA/html/PeopleManagement.html`](html/PeopleManagement.html)
-- **JS**: [`IA/js/PeopleManagement.js`](js/PeopleManagement.js)
+- **HTML**: [`IA/html/people_management/EmployeeDirectory.html`](html/people_management/EmployeeDirectory.html)
+- **JS**: [`IA/js/people_management/EmployeeDirectory.js`](js/people_management/EmployeeDirectory.js)
 
 ![People Management Dashboard](./people_management/PeopleManagement.png)
 

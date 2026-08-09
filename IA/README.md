@@ -1,24 +1,23 @@
-# Information Architecture & UI/UX Design Specifications
+# Information Architecture & UI/UX Specifications
 
-> 🎨 **Design & Architecture Links:**
+>**Design & Architecture Links:**
 > - **Figma UI/UX Design Wireframe**: [People Management Figma Wireframe](https://www.figma.com/design/D35Ut0x0TXeRGMjvLaNiIt/PeopleManagement?node-id=28-738&t=WYHn3MBdNy4BoqU3-0)
 > - **Relume Sitemap Project**: [Monitoring HR Relume Sitemap](https://www.relume.ai/app/project/P3513106_M_AsmXcsz2LE9p9i5egRRtV2aMuaJQ4-Pj5YjjiDkKo)
-> - **Full Sitemap Specifications File**: [IA/SITEMAP.md](SITEMAP.md)
 
 ---
 
 ## 🗺️ System Sitemap & Information Architecture
 
-This section provides the official Information Architecture (IA) and Sitemap for the **HR Management & Productivity Platform**, structured according to the full module hierarchy across **People Management**, **Recruitment & ATS**, **Onboarding**, and **Offboarding**.
+This document presents the official Information Architecture (IA) and visual UI/UX specifications for the **HR Management & Productivity Platform**, covering **People Management**, **Recruitment & ATS**, **Onboarding**, and **Offboarding**.
 
-### 1. Visual Sitemap Flowchart (Flowchart Diagram)
+### 1. Visual Sitemap Flowchart
 
 ![System Sitemap Diagram](Sitemap.png)
 
 ```mermaid
 flowchart LR
     %% Root Navigation Shell
-    ROOT["🏠 HR Platform Shell"]
+    ROOT["HR Platform"]
 
     %% Main Page Routes
     ROOT --> PPL["1. People Management"]
@@ -67,9 +66,9 @@ flowchart LR
 
 ## 📊 2. Comprehensive Screen & Detail Mapping Tables
 
-### 2.1. General Screens Mapping Table
+### 2.1. General Screens Mapping
 
-| Screen chính (Main Screen) | Description (Mô tả Screen chính) | Screen detail / PopUp / Form (Thành phần Con) | Description (Mô tả Detail / PopUp / Form) |
+| Main Screen | Main Screen Description | Detail Screen / PopUp / Form | Detail Component Description |
 |---|---|---|---|
 | **1. Home Dashboard** | Executive system dashboard displaying KPI widgets, clearance matrix, productivity analytics, task timeline, and upcoming schedule. | **1.1. User Profile Popup Menu** | Session management menu: Update Version (v2.4.0), Help & Support, Sign Out. |
 | **1. Home Dashboard** | Executive system dashboard displaying KPI widgets, clearance matrix, productivity analytics, task timeline, and upcoming schedule. | **1.2. Notifications Drawer** | Slide-over drawer displaying activity notifications, KPI updates, and pending task reminders. |
@@ -77,9 +76,9 @@ flowchart LR
 
 ---
 
-### 2.2. People Management Module Mapping Table
+### 2.2. People Management Module Mapping
 
-| Screen chính (Main Screen) | Description (Mô tả Screen chính) | Screen detail / PopUp / Form (Thành phần Con) | Description (Mô tả Detail / PopUp / Form) |
+| Main Screen | Main Screen Description | Detail Screen / PopUp / Form | Detail Component Description |
 |---|---|---|---|
 | **1. Employee Directory** | Master company-wide workforce directory featuring tabular roster, department filter, employment status filter, and real-time search bar. | **1.1. Profile Detail View - Overview & Personal Info** | Slide-over drawer presenting personal identification, emergency contacts, national identity card, address, and bank account details. |
 | **1. Employee Directory** | Master company-wide workforce directory featuring tabular roster, department filter, employment status filter, and real-time search bar. | **1.2. Profile Detail View - Contract & Document** | Slide-over drawer displaying employment contract specifications, contract type, join date, social insurance ID, and attached signed legal documents. |
@@ -101,9 +100,9 @@ flowchart LR
 
 ---
 
-### 2.3. Recruitment & ATS Module Mapping Table
+### 2.3. Recruitment & ATS Module Mapping
 
-| Screen chính (Main Screen) | Description (Mô tả Screen chính) | Screen detail / PopUp / Form (Thành phần Con) | Description (Mô tả Detail / PopUp / Form) |
+| Main Screen | Main Screen Description | Detail Screen / PopUp / Form | Detail Component Description |
 |---|---|---|---|
 | **1. Job Openings Board** | Master requisition management board tracking active hiring quotas, department openings, salary ranges, and applicant counts. | **1.1. Create Job Requisition Form Modal** | Form modal for submitting new hiring proposals, target headcount quotas, and job descriptions for management approval. |
 | **2. Candidate Pipeline Kanban** | Drag-and-drop Kanban board tracking applicants across evaluation stages (Applied ➔ Screening ➔ Tech Interview ➔ Manager Interview ➔ Offer ➔ Hired). | **2.1. Candidate Profile Detail Drawer** | Slide-over drawer presenting candidate resume parsing, AI match score, evaluator scorecards, and stage activity log. |
@@ -116,14 +115,14 @@ flowchart LR
 
 ### 3.1. General Screens Showcase
 
-#### 3.1.1. Home Dashboard (`Home.html`)
+#### 3.1.1. Home Dashboard
 Executive system dashboard displaying KPI widgets, clearance matrix, productivity analytics, task timeline, and upcoming schedule.
 
 ![Home Dashboard](../ui_ux/Home.png)
 
 ---
 
-#### 3.1.2. Login (`Login.html`)
+#### 3.1.2. Login Page
 Authentication screen for user login into HR Platform.
 
 ![Login Page](../ui_ux/Login.png)
@@ -132,12 +131,12 @@ Authentication screen for user login into HR Platform.
 
 ### 3.2. People Management Module Showcase
 
-#### 3.2.1. Employee Directory (`EmployeeDirectory.html`)
+#### 3.2.1. Employee Directory
 Master company-wide workforce directory featuring tabular roster, department filter, employment status filter, and real-time search bar.
 
 ![Employee Directory](../ui_ux/people_management/EmployeeDirectory.png)
 
-##### 🔹 Sub-components (Detail Drawers & PopUps):
+##### 🔹 Sub-components:
 
 - **1.1. Profile Detail View Drawer - Tab 1: Overview & Personal Info**  
   *Description:* Slide-over drawer presenting personal identification, emergency contacts, national identity card, address, and bank account details.
@@ -161,12 +160,12 @@ Master company-wide workforce directory featuring tabular roster, department fil
 
 ---
 
-#### 3.2.2. Organization & Department (`OrgDepartment.html`)
+#### 3.2.2. Organization & Department
 Organizational structure & department hierarchy management: supports dual view modes (Interactive Org Tree Canvas with Drag & Drop and Department Roster Table View).
 
 ![Organization & Department](../ui_ux/people_management/OrgDepartment.png)
 
-##### 🔹 Sub-components (Detail Drawers & PopUps):
+##### 🔹 Sub-components:
 
 - **2.1. CEO Approval Pending PopUp Modal**  
   *Description:* Notification popup triggering automatically after drag-and-drop org tree restructuring, requiring approval from CEO (Luu Duong).
@@ -178,12 +177,12 @@ Organizational structure & department hierarchy management: supports dual view m
 
 ---
 
-#### 3.2.3. Request Management (`RequestManagement.html`)
+#### 3.2.3. Request Management
 Workflow hub for receiving and reviewing employee administrative requests (annual leave, equipment requisition, department transfer, documents).
 
 ![Request Management](../ui_ux/people_management/RequestManagement.png)
 
-##### 🔹 Sub-components (Detail Drawers & PopUps):
+##### 🔹 Sub-components:
 
 - **3.1. Request Detail & Approval Timeline Drawer**  
   *Description:* Slide-over drawer displaying request specifications, handover plan, justification, and multi-tier approval stepper progress.
@@ -195,12 +194,12 @@ Workflow hub for receiving and reviewing employee administrative requests (annua
 
 ---
 
-#### 3.2.4. Create Request (`CreateRequest.html`)
+#### 3.2.4. Create Request
 Dedicated form screen for initiating new employee HR requests.
 
 ![Create Request Page](../ui_ux/people_management/CreateRequest.png)
 
-##### 🔹 Sub-components (Forms & Modals):
+##### 🔹 Sub-components:
 
 - **4.1. Multi-type Request Form Component**  
   *Description:* Multi-type smart form allowing users to select request type (Annual Leave, Equipment, Role Transfer), set start/end dates, assign handover colleagues, and attach proof files.
@@ -208,12 +207,12 @@ Dedicated form screen for initiating new employee HR requests.
 
 ---
 
-#### 3.2.5. Tracking Request (`TrackingRequest.html`)
+#### 3.2.5. Tracking Request
 Request status monitor tracking multi-level approval progress in real time.
 
 ![Tracking Request Page](../ui_ux/people_management/TrackingRequest.png)
 
-##### 🔹 Sub-components (Detail Views):
+##### 🔹 Sub-components:
 
 - **5.1. Request Stepper Timeline Component**  
   *Description:* Visual stepper timeline monitor tracking the 4 approval stages (Submitted ➔ Direct Manager Review ➔ HR Sign-off ➔ Final Settlement) and audit activity log.
@@ -223,12 +222,12 @@ Request status monitor tracking multi-level approval progress in real time.
 
 ### 3.3. Recruitment & ATS Module Showcase
 
-#### 3.3.1. Job Openings Board (`recruitment/JobOpenings.html`)
+#### 3.3.1. Job Openings Board
 Master requisition management board tracking active hiring quotas, department openings, salary ranges, and applicant counts.
 
 ![Job Openings Board](../ui_ux/recruitment/JobOpenings.png)
 
-##### 🔹 Sub-components (Detail Modals & Forms):
+##### 🔹 Sub-components:
 
 - **1.1. Create Job Requisition Form Modal**  
   *Description:* Form modal for submitting new hiring proposals, target headcount quotas, and job descriptions for management approval.
@@ -236,12 +235,12 @@ Master requisition management board tracking active hiring quotas, department op
 
 ---
 
-#### 3.3.2. Candidate Pipeline Kanban (`recruitment/CandidatePipeline.html`)
+#### 3.3.2. Candidate Pipeline Kanban
 Drag-and-drop Kanban board tracking applicants across evaluation stages (Applied ➔ Screening ➔ Tech Interview ➔ Manager Interview ➔ Offer ➔ Hired).
 
 ![Candidate Pipeline Kanban](../ui_ux/recruitment/CandidatePipeline.png)
 
-##### 🔹 Sub-components (Detail Drawers & Views):
+##### 🔹 Sub-components:
 
 - **2.1. Candidate Profile Detail Drawer**  
   *Description:* Slide-over drawer presenting candidate resume parsing, AI match score, evaluator scorecards, and stage activity log.
@@ -249,12 +248,12 @@ Drag-and-drop Kanban board tracking applicants across evaluation stages (Applied
 
 ---
 
-#### 3.3.3. Interview & Offer Management (`recruitment/InterviewOffer.html`)
+#### 3.3.3. Interview & Offer Management
 Interview scheduling hub and digital offer letter e-signature tracking board.
 
 ![Interview & Offer Management](../ui_ux/recruitment/InterviewOffer.png)
 
-##### 🔹 Sub-components (Detail Modals & Forms):
+##### 🔹 Sub-components:
 
 - **3.1. Schedule Interview Session Modal**  
   *Description:* Modal for scheduling panel interviews with Google Calendar & Outlook meeting link integration.
@@ -264,5 +263,4 @@ Interview scheduling hub and digital offer letter e-signature tracking board.
   *Description:* Modal for generating and dispatching digital employment offer letters with automated e-signature tracking.
   ![Auto Send Offer Letter Modal](../ui_ux/recruitment/SendOfferModal.png)
 
-
-
+---

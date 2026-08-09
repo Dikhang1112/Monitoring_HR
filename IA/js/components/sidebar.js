@@ -76,7 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
             #sidebarContainer .menu-item {
                 display: flex !important;
                 align-items: center !important;
-                justify-content: space-between !important;
+                justify-content: flex-start !important;
+                gap: 12px !important;
                 padding: 10px 12px !important;
                 border-radius: 10px !important;
                 color: #71717a !important;
@@ -111,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 min-height: 16px !important;
                 max-width: 16px !important;
                 max-height: 16px !important;
+                margin-left: auto !important;
                 transition: transform 0.2s ease !important;
             }
             #sidebarContainer .menu-item.collapsed .dropdown-chevron {

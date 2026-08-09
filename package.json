@@ -1,0 +1,28 @@
+{
+  "name": "monitoring_hr",
+  "version": "1.0.0",
+  "description": "```mermaid flowchart LR",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "export:images": "node export_image.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dikhang1112/Monitoring_HR.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Dikhang1112/Monitoring_HR/issues"
+  },
+  "homepage": "https://github.com/Dikhang1112/Monitoring_HR#readme",
+  "devDependencies": {
+    "playwright": "^1.62.1"
+  }
+}

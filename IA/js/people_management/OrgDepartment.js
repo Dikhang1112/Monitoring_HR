@@ -360,4 +360,82 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // -------------------------------------------------------------
+    // 9. Interactive Drag & Drop Org Tree Nodes & CEO Approval Popup
+    // -------------------------------------------------------------
+    const approvalModalOverlay = document.getElementById('approvalModalOverlay');
+    const btnCloseApprovalModal = document.getElementById('btnCloseApprovalModal');
+    let draggedNode = null;
+
+    if (btnCloseApprovalModal && approvalModalOverlay) {
+        btnCloseApprovalModal.addEventListener('click', () => {
+            approvalModalOverlay.classList.add('hidden');
+        });
+        approvalModalOverlay.addEventListener('click', (e) => {
+            if (e.target === approvalModalOverlay) {
+                approvalModalOverlay.classList.add('hidden');
+            }
+        });
+    }
+
+    function initOrgTreeDragAndDrop() {
+        const treeNodes = document.querySelectorAll('.tree-node');
+
+        treeNodes.forEach(node => {
+            node.addEventListener('dragstart', (e) => {
+                draggedNode = node;
+                node.classList.add('dragging');
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/plain', node.getAttribute('data-dept-id') || '');
+            });
+
+            node.addEventListener('dragend', () => {
+                node.classList.remove('dragging');
+                treeNodes.forEach(n => n.classList.remove('drag-over'));
+                draggedNode = null;
+            });
+
+            node.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+                if (draggedNode && draggedNode !== node) {
+                    node.classList.add('drag-over');
+                }
+            });
+
+            node.addEventListener('dragleave', () => {
+                node.classList.remove('drag-over');
+            });
+
+            node.addEventListener('drop', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                node.classList.remove('drag-over');
+
+                if (draggedNode && draggedNode !== node) {
+                    // Swap node positions in DOM
+                    const parentTarget = node.parentNode;
+                    const parentSource = draggedNode.parentNode;
+
+                    if (parentTarget && parentSource) {
+                        const targetNext = node.nextSibling === draggedNode ? node : node.nextSibling;
+                        parentSource.insertBefore(node, draggedNode);
+                        parentTarget.insertBefore(draggedNode, targetNext);
+                    }
+
+                    // Toast Notification
+                    showToast('Department tree structure updated.');
+
+                    // Trigger PopUp Modal: Pending approval from CEO (Luu Duong)
+                    if (approvalModalOverlay) {
+                        approvalModalOverlay.classList.remove('hidden');
+                    }
+                }
+            });
+        });
+    }
+
+    initOrgTreeDragAndDrop();
 });
+

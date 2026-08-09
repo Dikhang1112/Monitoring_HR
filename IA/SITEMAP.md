@@ -6,60 +6,54 @@ This document provides the official Information Architecture (IA) and Sitemap fo
 
 ## 1. Visual Sitemap Flowchart (Flowchart Diagram)
 
+![System Sitemap Diagram](Sitemap.png)
+
 ```mermaid
-flowchart TD
+flowchart LR
     %% Root Navigation Shell
     ROOT["🏠 HR Platform Shell"]
 
     %% Main Page Routes
-    ROOT --> HOME["1. Home (Executive Hub)"]
-    ROOT --> PPL["2. People Management"]
-    ROOT --> REC["3. Recruitment & ATS"]
-    ROOT --> ONB["4. Onboarding"]
-    ROOT --> OFF["5. Offboarding"]
+    ROOT --> PPL["1. People Management"]
+    ROOT --> REC["2. Recruitment & ATS"]
+    ROOT --> ONB["3. Onboarding"]
+    ROOT --> OFF["4. Offboarding"]
 
-    %% 1. Home Sub-pages & Components
-    HOME --> H_COMP["Clearance Matrix | Data Widgets | Statistics | Tasks | Upcoming Schedule"]
-    HOME -.-> PPL
-    HOME -.-> REC
-    HOME -.-> ONB
-    HOME -.-> OFF
+    %% 1. People Management Nodes
+    PPL --> P_EMP["1.1. Employee Directory"]
+    PPL --> P_ORG["1.2. Organizational Structure"]
+    PPL --> P_REQ["1.3. Employee Request Management"]
 
-    %% 2. People Management Nodes
-    PPL --> P_EMP["2.1. Employee Directory"]
-    PPL --> P_ORG["2.2. Organizational Structure & Hierarchy"]
-    PPL --> P_REQ["2.3. Employee Request Hub"]
+    P_EMP --> P_EMP_DET["Profile Detail Drawer (Contract, Personal Info, Time/Leave, Assets)"]
+    P_ORG --> P_ORG_MOD["Org Tree & Modals (Create/Edit Dept, Restructure)"]
+    P_REQ --> P_REQ_MOD["Request Forms & Approval Timeline Drawer"]
 
-    P_EMP --> P_EMP_DET["Profile View Detail Drawer (Contract, Personal Info, Time/Leave, Assets)"]
-    P_ORG --> P_ORG_MOD["Modals: Create/Edit Dept | Assign Leader | Dept Restructure"]
-    P_REQ --> P_REQ_MOD["Modals: Request Form | Approval Timeline Drawer"]
+    %% 2. Recruitment & ATS Nodes
+    REC --> R_JOB["2.1. Job Openings Board"]
+    REC --> R_KAN["2.2. Candidate Pipeline Kanban"]
+    REC --> R_INT["2.3. Interview & Offer Management"]
 
-    %% 3. Recruitment & ATS Nodes
-    REC --> R_JOB["3.1. Job Openings Board"]
-    REC --> R_KAN["3.2. Candidate Pipeline Kanban"]
-    REC --> R_INT["3.3. Interview & Offer Management"]
+    R_JOB --> R_JOB_MOD["Requisition & Job Post Forms"]
+    R_KAN --> R_KAN_DET["Candidate Profile & Resume Detail"]
+    R_INT --> R_INT_MOD["Schedule Interview & Offer Letter Modals"]
 
-    R_JOB --> R_JOB_MOD["Modals: Create/Edit Requisition | Job Post Approval"]
-    R_KAN --> R_KAN_DET["Candidate Profile Detail (Resume, Activity History, Scorecards)"]
-    R_INT --> R_INT_MOD["Modals: Schedule Interview | Auto Send Offer | E-Signature View"]
+    %% 3. Onboarding Nodes
+    ONB --> O_HUB["3.1. NewHire Onboarding Hub"]
+    ONB --> O_AST["3.2. Asset Tracker"]
+    ONB --> O_DAT["3.3. Candidate Data Conversion"]
 
-    %% 4. Onboarding Nodes
-    ONB --> O_HUB["4.1. NewHire Onboarding Hub"]
-    ONB --> O_AST["4.2. Asset Tracker"]
-    ONB --> O_DAT["4.3. Candidate Data Conversion"]
+    O_HUB --> O_HUB_MOD["Onboarding Templates & Task Sign-off"]
+    O_AST --> O_AST_MOD["Assign Hardware & Software Licenses"]
+    O_DAT --> O_DAT_MOD["Profile Conversion & Duplicate Check"]
 
-    O_HUB --> O_HUB_MOD["Modals: Onboarding Templates | Task Sign-off | Credential Sender"]
-    O_AST --> O_AST_MOD["Modals: Assign Hardware/License | Asset Receipt Form | E-Sign Contract"]
-    O_DAT --> O_DAT_MOD["Modals: Third-Party ATS Config | Duplicate Check | Convert Profile"]
+    %% 4. Offboarding Nodes
+    OFF --> F_RES["4.1. Resignation & Exit Requests"]
+    OFF --> F_CLR["4.2. Department Clearance"]
+    OFF --> F_SET["4.3. Access Revocation & Settlement"]
 
-    %% 5. Offboarding Nodes
-    OFF --> F_RES["5.1. Resignation & Exit Requests"]
-    OFF --> F_CLR["5.2. Department Clearance"]
-    OFF --> F_SET["5.3. Access Revocation & Settlement"]
-
-    F_RES --> F_RES_MOD["Modals: Resignation Form | Clearance Approval Drawer | Notice Period Config"]
-    F_CLR --> F_CLR_MOD["Modals: Asset Return Drawer | Knowledge Transfer | Department Sign-off"]
-    F_SET --> F_SET_MOD["Modals: Access Revocation | Severance Settlement"]
+    F_RES --> F_RES_MOD["Resignation Form & Clearance Approval Drawer"]
+    F_CLR --> F_CLR_MOD["Asset Return & Knowledge Transfer Drawer"]
+    F_SET --> F_SET_MOD["Access Revocation & Final Settlement Modals"]
 ```
 
 ---

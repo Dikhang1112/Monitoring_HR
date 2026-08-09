@@ -393,6 +393,76 @@
         </div>
     </div>
 
+    <!-- Create Job Requisition Inline Modal Overlay -->
+    <div class="modal-overlay hidden" id="jobReqModalOverlay">
+        <div class="modal-card" style="width: 100%; max-width: 640px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: 0 10px 25px rgba(0,0,0,0.08); overflow: hidden; display: flex; flex-direction: column;">
+            <div class="modal-header" style="padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h2 style="font-size: 17px; font-weight: 700; color: var(--text-main);">Create Job Requisition</h2>
+                    <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 2px;">Submit hiring proposal for Director and Finance Lead approval</p>
+                </div>
+                <button class="btn-close-icon" id="btnCloseJobReqModal" style="background:none; border:none; font-size:16px; cursor:pointer; color:var(--text-muted);">✕</button>
+            </div>
+
+            <div class="modal-body" style="padding: 24px; display: flex; flex-direction: column; gap: 18px;">
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                    <label style="font-size: 13px; font-weight: 600; color: var(--text-main);">Job Requisition Title *</label>
+                    <input type="text" id="reqTitleInput" class="form-input" value="Senior Cloud Infrastructure Engineer" placeholder="e.g. Senior Fullstack Engineer" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 13px; font-weight: 600; color: var(--text-main);">Hiring Department *</label>
+                        <select id="reqDeptSelect" class="form-select" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                            <option selected>System Administration</option>
+                            <option>Technology & Software</option>
+                            <option>People & Culture (HR)</option>
+                        </select>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 13px; font-weight: 600; color: var(--text-main);">Hiring Manager Lead *</label>
+                        <select id="reqLeadSelect" class="form-select" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                            <option selected>Dung Nguyen (Head of SysAdmin)</option>
+                            <option>Dao Vo (CTO)</option>
+                            <option>Lucia Doan (HR Manager)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 13px; font-weight: 600; color: var(--text-main);">Target Headcount Quota *</label>
+                        <input type="number" id="reqQuotaInput" class="form-input" value="2" min="1" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 13px; font-weight: 600; color: var(--text-main);">Target Monthly Salary Range ($ USD) *</label>
+                        <input type="text" id="reqSalaryInput" class="form-input" value="$3,500 - $4,800 USD" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                    </div>
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                    <label style="font-size: 13px; font-weight: 600; color: var(--text-main);">Job Description & Requirements Summary</label>
+                    <textarea id="reqDescInput" class="form-textarea" rows="3" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">Must have 5+ years of experience with Kubernetes, AWS Cloud Architecture, Terraform IaC, and CI/CD pipelines.</textarea>
+                </div>
+            </div>
+
+            <div class="modal-footer" style="padding: 16px 24px; border-top: 1px solid var(--border-color); background: #fafafa; display: flex; justify-content: flex-end; gap: 12px;">
+                <button class="btn-cancel" id="btnCancelJobReq" style="padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: #09090b;">Save as Draft</button>
+                <button class="btn-submit" id="btnSubmitJobReq" style="padding: 9px 18px; border-radius: 8px; border: none; background: #09090b; color: white; font-size: 13px; font-weight: 600; cursor: pointer;">Submit Requisition for Approval</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Overlay Backdrop CSS -->
+    <style>
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(9, 9, 11, 0.4); backdrop-filter: blur(4px);
+            z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px;
+        }
+        .modal-overlay.hidden { display: none !important; }
+    </style>
+
     <!-- Toast Notifications Container -->
     <div class="toast-container" id="toastContainer"></div>
 

@@ -1,6 +1,6 @@
 /**
  * Candidate Pipeline Kanban Controller
- * Handles Candidate Modal Opening, AI Resume Upload & Manual Editing
+ * Handles Candidate Modal Opening, Profile Drawer, AI Resume Upload & Manual Editing
  */
 document.addEventListener('DOMContentLoaded', () => {
     const btnAddCandidate = document.getElementById('btnAddCandidate');
@@ -10,6 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnSubmitCandidate = document.getElementById('btnSubmitCandidate');
     const btnSampleCv = document.getElementById('btnSampleCv');
     const reqSelect = document.getElementById('reqSelect');
+
+    const candidateProfileDrawerOverlay = document.getElementById('candidateProfileDrawerOverlay');
+    const btnCloseProfileDrawer = document.getElementById('btnCloseProfileDrawer');
+    const btnViewDrawerHeader = document.getElementById('btnViewDrawerHeader');
+    const btnDownloadCv = document.getElementById('btnDownloadCv');
+    const btnAdvanceStage = document.getElementById('btnAdvanceStage');
 
     function showToast(msg) {
         const container = document.getElementById('toastContainer');
@@ -31,20 +37,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Close Modal helper
     const closeModal = () => {
-        if (addCandidateModalOverlay) {
-            addCandidateModalOverlay.classList.add('hidden');
-        }
+        if (addCandidateModalOverlay) addCandidateModalOverlay.classList.add('hidden');
+        if (candidateProfileDrawerOverlay) candidateProfileDrawerOverlay.classList.add('hidden');
     };
 
     if (btnCloseModal) btnCloseModal.addEventListener('click', closeModal);
     if (btnCancelModal) btnCancelModal.addEventListener('click', closeModal);
+    if (btnCloseProfileDrawer) btnCloseProfileDrawer.addEventListener('click', closeModal);
+
+    // Open Candidate Profile Drawer inline
+    const profileTriggers = document.querySelectorAll('.candidate-profile-trigger');
+    profileTriggers.forEach(trigger => {
+        trigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (candidateProfileDrawerOverlay) {
+                candidateProfileDrawerOverlay.classList.remove('hidden');
+            }
+        });
+    });
+
+    if (btnViewDrawerHeader && candidateProfileDrawerOverlay) {
+        btnViewDrawerHeader.addEventListener('click', () => {
+            candidateProfileDrawerOverlay.classList.remove('hidden');
+        });
+    }
+
+    if (btnDownloadCv) {
+        btnDownloadCv.addEventListener('click', () => {
+            showToast('Downloading candidate resume: Alexander_Wright_CV.pdf');
+        });
+    }
+
+    if (btnAdvanceStage) {
+        btnAdvanceStage.addEventListener('click', () => {
+            closeModal();
+            showToast('Advanced candidate stage to Offer Stage successfully!');
+        });
+    }
 
     // Close on backdrop click
     if (addCandidateModalOverlay) {
         addCandidateModalOverlay.addEventListener('click', (e) => {
-            if (e.target === addCandidateModalOverlay) {
-                closeModal();
-            }
+            if (e.target === addCandidateModalOverlay) closeModal();
+        });
+    }
+    if (candidateProfileDrawerOverlay) {
+        candidateProfileDrawerOverlay.addEventListener('click', (e) => {
+            if (e.target === candidateProfileDrawerOverlay) closeModal();
         });
     }
 

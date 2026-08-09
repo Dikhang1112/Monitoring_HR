@@ -1,8 +1,13 @@
 /**
  * Job Openings & Requisitions Interactive Controller
+ * Handles Inline Job Requisition Modal Popup and Table Actions
  */
 document.addEventListener('DOMContentLoaded', () => {
     const btnCreateJob = document.getElementById('btnCreateJob');
+    const jobReqModalOverlay = document.getElementById('jobReqModalOverlay');
+    const btnCloseJobReqModal = document.getElementById('btnCloseJobReqModal');
+    const btnCancelJobReq = document.getElementById('btnCancelJobReq');
+    const btnSubmitJobReq = document.getElementById('btnSubmitJobReq');
     const btnExportCSV = document.getElementById('btnExportCSV');
     const jobSearchInput = document.getElementById('jobSearchInput');
     const deptFilter = document.getElementById('deptFilter');
@@ -13,14 +18,44 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!container) return;
         const toast = document.createElement('div');
         toast.className = 'toast';
-        toast.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>${msg}</span>`;
+        toast.style.cssText = 'background:#09090b; color:#ffffff; padding:10px 16px; border-radius:8px; font-size:13px; font-weight:600; display:flex; align-items:center; gap:8px; box-shadow:0 4px 12px rgba(0,0,0,0.15); margin-top:8px;';
+        toast.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>${msg}</span>`;
         container.appendChild(toast);
         setTimeout(() => toast.remove(), 3500);
     }
 
-    if (btnCreateJob) {
+    // Open Job Requisition Modal inline
+    if (btnCreateJob && jobReqModalOverlay) {
         btnCreateJob.addEventListener('click', () => {
-            window.location.href = 'detail/JobRequisitionModal.html';
+            jobReqModalOverlay.classList.remove('hidden');
+        });
+    }
+
+    // Close Modal helper
+    const closeJobReqModal = () => {
+        if (jobReqModalOverlay) {
+            jobReqModalOverlay.classList.add('hidden');
+        }
+    };
+
+    if (btnCloseJobReqModal) btnCloseJobReqModal.addEventListener('click', closeJobReqModal);
+    if (btnCancelJobReq) btnCancelJobReq.addEventListener('click', closeJobReqModal);
+
+    if (jobReqModalOverlay) {
+        jobReqModalOverlay.addEventListener('click', (e) => {
+            if (e.target === jobReqModalOverlay) {
+                closeJobReqModal();
+            }
+        });
+    }
+
+    if (btnSubmitJobReq) {
+        btnSubmitJobReq.addEventListener('click', (e) => {
+            e.preventDefault();
+            const titleInput = document.getElementById('reqTitleInput');
+            const titleVal = titleInput ? titleInput.value : 'Job Requisition';
+            closeJobReqModal();
+            showToast(`Job Requisition "${titleVal}" submitted for approval successfully!`);
         });
     }
 

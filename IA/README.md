@@ -116,6 +116,16 @@ flowchart LR
 | **3. Interview & Offer Management** | Interview scheduling hub and digital offer letter e-signature tracking board. | Click "Schedule Interview" Action Button | **3.1. Schedule Interview Session Modal** | Modal for scheduling panel interviews with Google Calendar & Outlook meeting link integration. |
 | **3. Interview & Offer Management** | Interview scheduling hub and digital offer letter e-signature tracking board. | Click "Send Offer Letter" Action Button | **3.2. Auto Send Offer Letter Modal** | Modal for generating and dispatching digital employment offer letters with automated e-signature tracking. |
 
+### 2.3. Module 3: Onboarding & New Hire Management
+
+| Main Screen | Main Screen Description | User Action / Trigger (Thao tác kích hoạt) | Detail Screen / PopUp / Form | Component Functionality & Description |
+|---|---|---|---|---|
+| **1. New Hire Onboarding Hub** | Master onboarding dashboard tracking new hires across stages (Pre-boarding ➔ Orientation ➔ IT Setup ➔ Department Integration ➔ 30-60-90 Review). | Click "View Checklist" Action Button on New Hire Row | **1.1. Onboarding Task Sign-off Checklist Drawer** | Slide-over drawer presenting step-by-step orientation checklist, mentor assignment, document uploads, and task completion sign-off. |
+| **1. New Hire Onboarding Hub** | Master onboarding dashboard tracking new hires across stages (Pre-boarding ➔ Orientation ➔ IT Setup ➔ Department Integration ➔ 30-60-90 Review). | Click "+ Create Onboarding Plan" Button | **1.2. Create Onboarding Plan Template Modal** | Form modal for creating or editing department-specific onboarding task templates (e.g. Engineering 30-60-90 Day Plan). |
+| **2. Asset & License Tracker** | IT equipment and enterprise SaaS license provisioning board for new hires. | Click "+ Assign Asset & License" Button | **2.1. Assign Hardware & Software License Modal** | Form modal for assigning specific laptop serial numbers, peripherals, and SaaS account credentials (Google, Slack, Jira, Figma) to new hires. |
+| **2. Asset & License Tracker** | IT equipment and enterprise SaaS license provisioning board for new hires. | Click "Manage" Button on SaaS Product Row | **2.2. Manage Enterprise SaaS Products Modal** | Interactive modal form for adding new company SaaS subscriptions or removing active software licenses with real-time seat capacity editing. |
+| **3. Candidate Data Conversion** | Workspace for converting offer-accepted candidates into official HR Directory employee records. | Click "Convert to Employee" Action Button | **3.1. Candidate Profile Data Conversion Modal** | Confirmation modal displaying mapped fields from ATS candidate record to official HR Employee Directory record with automated duplicate check. |
+
 ---
 
 ## 📸 3. UI/UX Screen Showcase & Detail Components
@@ -289,3 +299,57 @@ Interview scheduling hub and digital offer letter e-signature tracking board.
   *Trigger:* Click "Send Offer Letter" action button on offer stage row.  
   *Description:* Modal for generating and dispatching digital employment offer letters with automated e-signature tracking.  
   ![Auto Send Offer Letter Modal](../ui_ux/recruitment/SendOfferModal.png)
+
+---
+
+### 3.4. Module 3: Onboarding & New Hire Management Showcase
+
+#### 3.4.1. New Hire Onboarding Hub
+Master onboarding dashboard tracking new hires across orientation, IT setup, and milestone stages.
+
+![New Hire Onboarding Hub](../ui_ux/onboarding/NewHireOnboarding.png)
+
+##### 🔹 Sub-components & Interaction Triggers:
+
+- **1.1. Onboarding Task Sign-off Checklist Drawer**  
+  *Trigger:* Click "View Checklist" action button on new hire row.  
+  *Description:* Slide-over drawer presenting step-by-step orientation checklist, mentor assignment, document uploads, and task completion sign-off.  
+  ![Onboarding Task Sign-off Checklist Drawer](../ui_ux/onboarding/OnboardingChecklistDrawer.png)
+
+- **1.2. Create Onboarding Plan Template Modal**  
+  *Trigger:* Click "+ Create Onboarding Plan" button on header.  
+  *Description:* Form modal for creating or editing department-specific onboarding task templates.  
+  ![Create Onboarding Plan Template Modal](../ui_ux/onboarding/OnboardingTemplateModal.png)
+
+---
+
+#### 3.4.2. IT Asset & Software License Tracker
+IT equipment and enterprise SaaS license provisioning board for new hires.
+
+![IT Asset & License Tracker](../ui_ux/onboarding/AssetTracker.png)
+
+##### 🔹 Sub-components & Interaction Triggers:
+
+- **2.1. Assign Hardware & Software License Modal**  
+  *Trigger:* Click "+ Assign Asset & License" action button.  
+  *Description:* Form modal for assigning specific laptop serial numbers, peripherals, and SaaS account credentials (Google, Slack, Jira, Figma) to new hires.  
+  ![Assign Hardware & Software License Modal](../ui_ux/onboarding/AssignAssetModal.png)
+
+- **2.2. Manage Enterprise SaaS Products Modal**  
+  *Trigger:* Click "Manage" action button on any SaaS software row.  
+  *Description:* Centered inline modal form allowing HR/IT managers to add new SaaS software subscriptions or remove active company software licenses with real-time capacity editing.  
+  ![Manage Enterprise SaaS Products Modal](../ui_ux/onboarding/ManageSaaSModal.png)
+
+---
+
+#### 3.4.3. Candidate-to-Employee Data Conversion
+Workspace for converting offer-accepted candidates into official HR Directory employee records.
+
+![Candidate Data Conversion](../ui_ux/onboarding/CandidateDataConversion.png)
+
+##### 🔹 Sub-components & Interaction Triggers:
+
+- **3.1. Candidate Profile Data Conversion Modal**  
+  *Trigger:* Click "Convert to Employee" action button on candidate row.  
+  *Description:* Confirmation modal displaying mapped fields from ATS candidate record to official HR Employee Directory record with automated duplicate check.  
+  ![Candidate Profile Data Conversion Modal](../ui_ux/onboarding/ProfileConversionModal.png)

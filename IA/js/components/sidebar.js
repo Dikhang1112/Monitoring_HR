@@ -7,10 +7,238 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const isSubfolder = sidebarContainer.getAttribute('data-is-subfolder') === 'true';
     const basePath = isSubfolder ? '../' : '';
-    const peoplePath = isSubfolder ? '' : 'people_management/';
+    
+    // Path resolution based on current document location
+    const currentLoc = window.location.pathname;
+    const isPeopleFolder = currentLoc.includes('people_management');
+    const isRecruitmentFolder = currentLoc.includes('recruitment');
+
+    const peoplePath = isPeopleFolder ? '' : (isSubfolder ? '../people_management/' : 'people_management/');
+    const recruitmentPath = isRecruitmentFolder ? '' : (isSubfolder ? '../recruitment/' : 'recruitment/');
 
     const activePage = sidebarContainer.getAttribute('data-active') || '';
     const activeSubpage = sidebarContainer.getAttribute('data-subpage') || '';
+
+    // Inject global sidebar SVG constraint styles to prevent icon ballooning
+    if (!document.getElementById('sidebarGlobalStyle')) {
+        const style = document.createElement('style');
+        style.id = 'sidebarGlobalStyle';
+        style.innerHTML = `
+            #sidebarContainer {
+                width: 260px !important;
+                background: #ffffff !important;
+                border-right: 1px solid #e4e4e7 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: space-between !important;
+                position: fixed !important;
+                top: 0 !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                z-index: 100 !important;
+                padding: 20px 16px !important;
+                box-sizing: border-box !important;
+            }
+            #sidebarContainer .sidebar-top {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 24px !important;
+            }
+            #sidebarContainer .logo {
+                font-size: 18px !important;
+                font-weight: 700 !important;
+                display: flex !important;
+                align-items: center !important;
+                gap: 10px !important;
+                padding: 0 8px !important;
+                color: #09090b !important;
+            }
+            #sidebarContainer .logo-icon {
+                width: 32px !important;
+                height: 32px !important;
+                background: #09090b !important;
+                color: #ffffff !important;
+                border-radius: 10px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                font-size: 14px !important;
+                font-weight: 700 !important;
+            }
+            #sidebarContainer .menu {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 4px !important;
+                list-style: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            #sidebarContainer .menu-item {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                padding: 10px 12px !important;
+                border-radius: 10px !important;
+                color: #71717a !important;
+                font-weight: 500 !important;
+                font-size: 13.5px !important;
+                text-decoration: none !important;
+                cursor: pointer !important;
+                transition: all 0.15s ease !important;
+            }
+            #sidebarContainer .menu-item:hover, #sidebarContainer .menu-item.active {
+                background: #f4f4f5 !important;
+                color: #09090b !important;
+                font-weight: 600 !important;
+            }
+            #sidebarContainer svg {
+                width: 18px !important;
+                height: 18px !important;
+                min-width: 18px !important;
+                min-height: 18px !important;
+                max-width: 18px !important;
+                max-height: 18px !important;
+                flex-shrink: 0 !important;
+                stroke: currentColor !important;
+                fill: none !important;
+                stroke-width: 2 !important;
+                display: inline-block !important;
+            }
+            #sidebarContainer .dropdown-chevron {
+                width: 16px !important;
+                height: 16px !important;
+                min-width: 16px !important;
+                min-height: 16px !important;
+                max-width: 16px !important;
+                max-height: 16px !important;
+                transition: transform 0.2s ease !important;
+            }
+            #sidebarContainer .menu-item.collapsed .dropdown-chevron {
+                transform: rotate(-90deg) !important;
+            }
+            #sidebarContainer .submenu {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 2px !important;
+                padding-left: 28px !important;
+                margin-top: 2px !important;
+                list-style: none !important;
+            }
+            #sidebarContainer .submenu.hidden {
+                display: none !important;
+            }
+            #sidebarContainer .submenu-item {
+                display: flex !important;
+                align-items: center !important;
+                gap: 10px !important;
+                padding: 8px 12px !important;
+                border-radius: 6px !important;
+                color: #71717a !important;
+                font-size: 13px !important;
+                text-decoration: none !important;
+                transition: all 0.15s ease !important;
+            }
+            #sidebarContainer .submenu-item:hover, #sidebarContainer .submenu-item.active {
+                color: #09090b !important;
+                font-weight: 600 !important;
+                background: #f4f4f5 !important;
+            }
+            #sidebarContainer .submenu-item svg {
+                width: 16px !important;
+                height: 16px !important;
+                min-width: 16px !important;
+                min-height: 16px !important;
+                max-width: 16px !important;
+                max-height: 16px !important;
+            }
+            #sidebarContainer .sidebar-footer {
+                position: relative !important;
+                border-top: 1px solid #e4e4e7 !important;
+                padding-top: 16px !important;
+            }
+            #sidebarContainer .user-profile-bar {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                padding: 8px !important;
+                border-radius: 10px !important;
+                cursor: pointer !important;
+            }
+            #sidebarContainer .user-profile-bar:hover {
+                background: #f4f4f5 !important;
+            }
+            #sidebarContainer .avatar-small {
+                width: 36px !important;
+                height: 36px !important;
+                border-radius: 50% !important;
+                background: #09090b !important;
+                color: #ffffff !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                font-weight: 700 !important;
+                font-size: 13px !important;
+            }
+            #sidebarContainer .user-info {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 1px !important;
+                flex: 1 !important;
+                margin-left: 10px !important;
+            }
+            #sidebarContainer .user-name {
+                font-size: 13px !important;
+                font-weight: 600 !important;
+                color: #09090b !important;
+            }
+            #sidebarContainer .user-role {
+                font-size: 11.5px !important;
+                color: #71717a !important;
+            }
+            #sidebarContainer .user-popup {
+                position: absolute !important;
+                bottom: 60px !important;
+                left: 0 !important;
+                right: 0 !important;
+                background: #ffffff !important;
+                border: 1px solid #e4e4e7 !important;
+                border-radius: 10px !important;
+                box-shadow: 0 6px 16px rgba(0,0,0,0.08) !important;
+                padding: 6px !important;
+                z-index: 200 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 2px !important;
+            }
+            #sidebarContainer .user-popup.hidden {
+                display: none !important;
+            }
+            #sidebarContainer .popup-item {
+                display: flex !important;
+                align-items: center !important;
+                gap: 10px !important;
+                padding: 9px 12px !important;
+                border: none !important;
+                background: transparent !important;
+                font-size: 13px !important;
+                color: #09090b !important;
+                font-weight: 500 !important;
+                cursor: pointer !important;
+                border-radius: 6px !important;
+                text-align: left !important;
+                width: 100% !important;
+            }
+            #sidebarContainer .popup-item:hover {
+                background: #f4f4f5 !important;
+            }
+            #sidebarContainer .popup-divider {
+                height: 1px !important;
+                background: #e4e4e7 !important;
+                margin: 4px 0 !important;
+            }
+        `;
+        document.head.appendChild(style);
+    }
 
     // Unified Sidebar HTML Template
     sidebarContainer.innerHTML = `
@@ -25,6 +253,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                     Home
                 </a>
+
+                <!-- People Management Accordion -->
                 <li class="menu-item ${activePage === 'People Management' ? 'active' : ''}" id="peopleMenuToggle" data-page="People Management" style="cursor: pointer;">
                     <div style="display:flex; align-items:center; gap:12px; flex:1;">
                         <svg viewBox="0 0 24 24">
@@ -51,10 +281,29 @@ document.addEventListener('DOMContentLoaded', () => {
                         Request Management
                     </a>
                 </ul>
-                <li class="menu-item ${activePage === 'Recruitment' ? 'active' : ''}" data-page="Recruitment">
-                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-                    Recruitment
+
+                <!-- Recruitment Accordion -->
+                <li class="menu-item ${activePage === 'Recruitment' ? 'active' : ''}" id="recruitmentMenuToggle" data-page="Recruitment" style="cursor: pointer;">
+                    <div style="display:flex; align-items:center; gap:12px; flex:1;">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                        <span>Recruitment & ATS</span>
+                    </div>
+                    <svg class="dropdown-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
                 </li>
+                <ul class="submenu ${activePage === 'Recruitment' ? '' : 'hidden'}" id="recruitmentSubmenu">
+                    <a href="${recruitmentPath}JobOpenings.html" class="submenu-item ${activeSubpage === 'Job Openings' ? 'active' : ''}" data-subpage="Job Openings">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                        Job Openings Board
+                    </a>
+                    <a href="${recruitmentPath}CandidatePipeline.html" class="submenu-item ${activeSubpage === 'Candidate Pipeline' ? 'active' : ''}" data-subpage="Candidate Pipeline">
+                        <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>
+                        Candidate Pipeline
+                    </a>
+                    <a href="${recruitmentPath}InterviewOffer.html" class="submenu-item ${activeSubpage === 'Interview & Offer' ? 'active' : ''}" data-subpage="Interview & Offer">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        Interview & Offer
+                    </a>
+                </ul>
                 <li class="menu-item ${activePage === 'Onboarding' ? 'active' : ''}" data-page="Onboarding">
                     <svg viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.71 1.1-1.31 1.5-2"/><path d="M12 15l-3-3 3-3"/><path d="M9 12h12"/></svg>
                     Onboarding
@@ -110,9 +359,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const peopleMenuToggle = document.getElementById('peopleMenuToggle');
     const peopleSubmenu = document.getElementById('peopleSubmenu');
     if (peopleMenuToggle && peopleSubmenu) {
-        peopleMenuToggle.addEventListener('click', () => {
+        peopleMenuToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
             peopleMenuToggle.classList.toggle('collapsed');
             peopleSubmenu.classList.toggle('hidden');
+        });
+    }
+
+    // Bind Recruitment Accordion Toggle
+    const recruitmentMenuToggle = document.getElementById('recruitmentMenuToggle');
+    const recruitmentSubmenu = document.getElementById('recruitmentSubmenu');
+    if (recruitmentMenuToggle && recruitmentSubmenu) {
+        recruitmentMenuToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            recruitmentMenuToggle.classList.toggle('collapsed');
+            recruitmentSubmenu.classList.toggle('hidden');
         });
     }
 

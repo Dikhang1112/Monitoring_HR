@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Platform - Interview & Offer Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #09090b;
+            --primary-hover: #27272a;
+            --primary-light: #f4f4f5;
+            --bg-app: #fafafa;
+            --bg-card: #ffffff;
+            --text-main: #09090b;
+            --text-muted: #71717a;
+            --border-color: #e4e4e7;
+            --border-strong: #18181b;
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.08);
+            --sidebar-width: 260px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg-app); color: var(--text-main); font-size: 14px; min-height: 100vh; }
+        .app { display: flex; min-height: 100vh; }
+
+        .sidebar {
+            width: var(--sidebar-width); background: var(--bg-card); border-right: 1px solid var(--border-color);
+            display: flex; flex-direction: column; justify-content: space-between; position: fixed;
+            top: 0; bottom: 0; left: 0; z-index: 100; padding: 20px 16px;
+        }
+
+        .content { margin-left: var(--sidebar-width); flex: 1; padding: 32px 40px; display: flex; flex-direction: column; gap: 28px; }
+
+        .header { display: flex; justify-content: space-between; align-items: center; }
+        .page-title { font-size: 22px; font-weight: 700; color: var(--text-main); letter-spacing: -0.5px; }
+        .page-desc { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+        .btn-primary { padding: 10px 18px; border-radius: var(--radius-md); background: var(--primary); color: white; border: none; font-size: 13px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-secondary { padding: 10px 16px; border-radius: var(--radius-md); background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); font-size: 13px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+
+        .card-section { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
+        .card-header { padding: 18px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        .card-title { font-size: 15px; font-weight: 700; color: var(--text-main); }
+
+        .custom-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+        .custom-table th { padding: 12px 20px; background: var(--bg-app); border-bottom: 1px solid var(--border-color); font-weight: 600; color: var(--text-muted); font-size: 12px; text-transform: uppercase; }
+        .custom-table td { padding: 16px 20px; border-bottom: 1px solid var(--border-color); color: var(--text-main); vertical-align: middle; }
+        .custom-table tr:last-child td { border-bottom: none; }
+        .custom-table tr:hover td { background: #fafafa; }
+
+        .cand-name { font-weight: 700; color: var(--text-main); }
+        .cand-sub { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+
+        .badge-pill { display: inline-flex; padding: 4px 10px; border-radius: 12px; font-size: 11.5px; font-weight: 600; }
+        .badge-signed { background: #f4f4f5; color: #09090b; border: 1px solid #18181b; }
+        .badge-sent { background: #f4f4f5; color: #71717a; border: 1px solid #e4e4e7; }
+        .badge-declined { background: #fafafa; color: #a1a1aa; border: 1px solid #e4e4e7; }
+
+        .toast-container { position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; gap: 10px; z-index: 1000; }
+        .toast { background: var(--bg-card); color: var(--text-main); padding: 12px 18px; border-radius: var(--radius-md); font-size: 13px; border: 1px solid var(--border-strong); box-shadow: var(--shadow-hover); }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <!-- Sidebar Container -->
+        <div class="sidebar" id="sidebarContainer" data-active="Recruitment" data-subpage="Interview & Offer" data-is-subfolder="true"></div>
+
+        <!-- Main Content Area -->
+        <div class="content">
+            <div class="header">
+                <div>
+                    <h1 class="page-title">Interview & Offer Management</h1>
+                    <div class="page-desc">Schedule candidate interviews, send digital offer letters, and monitor e-signature statuses.</div>
+                </div>
+                <div style="display:flex; gap:12px;">
+                    <a href="detail/ScheduleInterviewModal.html" class="btn-secondary">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        Schedule Interview
+                    </a>
+                    <a href="detail/SendOfferModal.html" class="btn-primary">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                        Send Offer Letter
+                    </a>
+                </div>
+            </div>
+
+            <!-- Section 1: Upcoming Interview Schedule -->
+            <div class="card-section">
+                <div class="card-header">
+                    <div class="card-title">Upcoming Interview Schedule</div>
+                    <div style="font-size:12.5px; color:var(--text-muted);">3 Interviews Confirmed for Today</div>
+                </div>
+
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Candidate</th>
+                            <th>Applied Position</th>
+                            <th>Interview Date & Time</th>
+                            <th>Interviewers</th>
+                            <th>Type</th>
+                            <th>Meeting Room / Link</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="cand-name">Sofia Rodriguez</div>
+                                <div class="cand-sub">sofia.r@email.com</div>
+                            </td>
+                            <td>Senior Fullstack Engineer</td>
+                            <td><strong>Today • 02:00 PM - 03:00 PM</strong></td>
+                            <td>Dao Vo (CTO), Lucia Doan (HR)</td>
+                            <td>Tech Deep-dive</td>
+                            <td><a href="#" style="color:var(--text-main); font-weight:600;">meet.google.com/xyz-abc</a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="cand-name">Emily Chen</div>
+                                <div class="cand-sub">emily.chen@email.com</div>
+                            </td>
+                            <td>Senior Product UI/UX Designer</td>
+                            <td><strong>Today • 04:30 PM - 05:15 PM</strong></td>
+                            <td>Lucia Doan (HR Director)</td>
+                            <td>Culture Fit</td>
+                            <td><a href="#" style="color:var(--text-main); font-weight:600;">meet.google.com/hr-design</a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="cand-name">Marcus Vance</div>
+                                <div class="cand-sub">marcus.v@email.com</div>
+                            </td>
+                            <td>Head of System Administration</td>
+                            <td><strong>Tomorrow • 10:00 AM - 11:00 AM</strong></td>
+                            <td>Dung Nguyen (SysAdmin Lead)</td>
+                            <td>System Architecture</td>
+                            <td>HQ Meeting Room 4A</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Section 2: Offer Letter Tracker Table -->
+            <div class="card-section">
+                <div class="card-header">
+                    <div class="card-title">Digital Offer Letter E-Signature Tracker</div>
+                    <div style="font-size:12.5px; color:var(--text-muted);">4 Active Offers Pending Sign-off</div>
+                </div>
+
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Candidate</th>
+                            <th>Position Offered</th>
+                            <th>Offered Base Salary</th>
+                            <th>Sent Date</th>
+                            <th>Expiry Deadline</th>
+                            <th>E-Sign Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="cand-name">David Lawson</div>
+                                <div class="cand-sub">david.lawson@email.com</div>
+                            </td>
+                            <td>Principal Fullstack Engineer</td>
+                            <td><strong>$4,500 USD / mo</strong></td>
+                            <td>07/08/2026</td>
+                            <td>12/08/2026 (3 days left)</td>
+                            <td><span class="badge-pill badge-signed">Signed & Accepted</span></td>
+                            <td><button class="btn-secondary" style="padding:6px 12px; font-size:12px;">Download PDF</button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="cand-name">Nguyen Van Tu</div>
+                                <div class="cand-sub">tu.nguyen@email.com</div>
+                            </td>
+                            <td>DevOps & Cloud Security Lead</td>
+                            <td><strong>$4,200 USD / mo</strong></td>
+                            <td>08/08/2026</td>
+                            <td>13/08/2026 (4 days left)</td>
+                            <td><span class="badge-pill badge-sent">Viewed by Candidate</span></td>
+                            <td><button class="btn-secondary" style="padding:6px 12px; font-size:12px;">Resend Link</button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="cand-name">Jessica Miller</div>
+                                <div class="cand-sub">jessica.m@email.com</div>
+                            </td>
+                            <td>Senior Financial Analyst</td>
+                            <td><strong>$3,200 USD / mo</strong></td>
+                            <td>01/08/2026</td>
+                            <td>05/08/2026 (Expired)</td>
+                            <td><span class="badge-pill badge-declined">Declined / Expired</span></td>
+                            <td><button class="btn-secondary" style="padding:6px 12px; font-size:12px;">Revise Offer</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="../../js/components/sidebar.js"></script>
+    <script src="../../js/recruitment/InterviewOffer.js"></script>
+</body>
+
+</html>

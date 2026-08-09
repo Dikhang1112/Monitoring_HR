@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Send Offer Letter Modal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background: #f4f4f5; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+
+        .modal-card {
+            width: 100%; max-width: 620px; background: #ffffff; border: 1px solid #e4e4e7;
+            border-radius: 14px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); overflow: hidden;
+            display: flex; flex-direction: column;
+        }
+
+        .modal-header { padding: 20px 24px; border-bottom: 1px solid #e4e4e7; display: flex; justify-content: space-between; align-items: center; }
+        .modal-title { font-size: 17px; font-weight: 700; color: #09090b; }
+        .modal-subtitle { font-size: 12.5px; color: #71717a; margin-top: 2px; }
+
+        .modal-body { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-label { font-size: 13px; font-weight: 600; color: #09090b; }
+        .form-input, .form-select {
+            width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid #e4e4e7;
+            font-size: 13px; color: #09090b; outline: none; background: #ffffff;
+        }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+        .modal-footer { padding: 16px 24px; border-top: 1px solid #e4e4e7; background: #fafafa; display: flex; justify-content: flex-end; gap: 12px; }
+        .btn-cancel { padding: 9px 16px; border-radius: 8px; border: 1px solid #e4e4e7; background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: #09090b; }
+        .btn-submit { padding: 9px 18px; border-radius: 8px; border: none; background: #09090b; color: white; font-size: 13px; font-weight: 600; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="modal-card">
+        <div class="modal-header">
+            <div>
+                <h2 class="modal-title">Generate & Send Digital Offer Letter</h2>
+                <p class="modal-subtitle">Automated e-Signature tracking link dispatched via email</p>
+            </div>
+        </div>
+
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="form-label">Candidate Name & Email *</label>
+                <input type="text" class="form-input" value="David Lawson (david.lawson@email.com)">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Offered Job Title *</label>
+                    <input type="text" class="form-input" value="Principal Fullstack Engineer">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Department *</label>
+                    <input type="text" class="form-input" value="Technology & Software">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Offered Base Salary ($ USD / Mo) *</label>
+                    <input type="text" class="form-input" value="$4,500 USD / Month">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Official Start Date *</label>
+                    <input type="date" class="form-input" value="2026-09-01">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">E-Signature Expiry Deadline *</label>
+                <select class="form-select">
+                    <option selected>5 Business Days (Expires on 14/08/2026)</option>
+                    <option>7 Business Days</option>
+                    <option>3 Business Days</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn-cancel">Preview Offer PDF</button>
+            <button class="btn-submit">Dispatch Digital Offer & E-Sign Link</button>
+        </div>
+    </div>
+</body>
+</html>

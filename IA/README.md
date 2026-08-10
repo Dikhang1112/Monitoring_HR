@@ -9,11 +9,11 @@
 > [!IMPORTANT]
 > **System Screen Overview & Architecture Statistics:**
 > - **Main Screens:** `16` screens
-> - **Sub-screens / PopUps / Drawers / Forms:** `35` components
->   - *PopUp & Action Modals:* `21`
+> - **Sub-screens / PopUps / Drawers / Forms:** `36` components
+>   - *PopUp & Action Modals:* `22`
 >   - *Slide-over Detail Drawers:* `11`
 >   - *Embedded Forms & Timeline Components:* `3`
-> - **Grand Total UI Views:** `51` screens & interactive components
+> - **Grand Total UI Views:** `52` screens & interactive components
 
 ### Module Screen Breakdown Matrix
 
@@ -21,10 +21,10 @@
 |---|:---:|:---:|:---:|:---:|:---:|:---:|
 | **0. General / System Shell** | 2 | 1 | 1 | 1 | 3 | **5** |
 | **1. People Management** | 5 | 8 | 7 | 2 | 17 | **22** |
-| **2. Recruitment & ATS** | 3 | 4 | 1 | 0 | 5 | **8** |
+| **2. Recruitment & ATS** | 3 | 5 | 1 | 0 | 6 | **9** |
 | **3. Onboarding & New Hire** | 3 | 4 | 1 | 0 | 5 | **8** |
 | **4. Offboarding & Exit** | 3 | 4 | 1 | 0 | 5 | **8** |
-| **TOTAL** | **16** | **21** | **11** | **3** | **35** | **51** |
+| **TOTAL** | **16** | **22** | **11** | **3** | **36** | **52** |
 
 ---
 
@@ -137,6 +137,7 @@ flowchart LR
 | **2. Candidate Pipeline Kanban** | Drag-and-drop Kanban board tracking applicants across evaluation stages (Applied ➔ Screening ➔ Tech Interview ➔ Manager Interview ➔ Offer ➔ Hired). | Click "+ Add Candidate" Primary Button | **2.2. Add Candidate Modal (AI Resume Parser)** | Modal form with drag-and-drop CV/Resume upload (PDF/DOCX), automated AI information parsing, and manual edit controls for candidate profile fields. |
 | **3. Interview & Offer Management** | Interview scheduling hub and digital offer letter e-signature tracking board. | Click "Schedule Interview" Action Button | **3.1. Schedule Interview Session Modal** | Modal for scheduling panel interviews with Google Calendar & Outlook meeting link integration. |
 | **3. Interview & Offer Management** | Interview scheduling hub and digital offer letter e-signature tracking board. | Click "Send Offer Letter" Action Button | **3.2. Auto Send Offer Letter Modal** | Modal for generating and dispatching digital employment offer letters with automated e-signature tracking. |
+| **3. Interview & Offer Management** | Interview scheduling hub and digital offer letter e-signature tracking board. | Click "Offer Templates" Action Button | **3.3. Offer Letter Template & Document Editor Modal** | Modal form for configuring reusable contract templates, dynamic placeholders ({{Candidate_Name}}, {{Base_Salary}}), and legal benefit clauses. |
 
 ### 2.4. Onboarding & New Hire Management Mapping Table
 
@@ -331,6 +332,11 @@ Interview scheduling hub and digital offer letter e-signature tracking board.
   *Trigger:* Click "Send Offer Letter" action button on offer stage row.  
   *Description:* Modal for generating and dispatching digital employment offer letters with automated e-signature tracking.  
   ![Auto Send Offer Letter Modal](../ui_ux/recruitment/SendOfferModal.png)
+
+- **3.3. Offer Letter Template & Document Editor Modal**  
+  *Trigger:* Click "Offer Templates" action button in Interview & Offer header.  
+  *Description:* Modal for managing e-signature offer contract templates, dynamic parameters, and legal sign-off clauses.  
+  ![Offer Letter Template Modal](../ui_ux/recruitment/OfferTemplateModal.png)
 
 ---
 

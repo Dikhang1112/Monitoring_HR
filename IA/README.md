@@ -6,7 +6,29 @@
 
 ---
 
-## 🗺️ System Sitemap & Information Architecture
+> [!IMPORTANT]
+> **System Screen Overview & Architecture Statistics:**
+> - **Main Screens:** `16` screens
+> - **Sub-screens / PopUps / Drawers / Forms:** `35` components
+>   - *PopUp & Action Modals:* `21`
+>   - *Slide-over Detail Drawers:* `11`
+>   - *Embedded Forms & Timeline Components:* `3`
+> - **Grand Total UI Views:** `51` screens & interactive components
+
+### Module Screen Breakdown Matrix
+
+| Functional Module | Main Screens | PopUp Modals | Slide-over Drawers | Forms & Components | Total Sub-screens | Module Total |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|
+| **0. General / System Shell** | 2 | 1 | 1 | 1 | 3 | **5** |
+| **1. People Management** | 5 | 8 | 7 | 2 | 17 | **22** |
+| **2. Recruitment & ATS** | 3 | 4 | 1 | 0 | 5 | **8** |
+| **3. Onboarding & New Hire** | 3 | 4 | 1 | 0 | 5 | **8** |
+| **4. Offboarding & Exit** | 3 | 4 | 1 | 0 | 5 | **8** |
+| **TOTAL** | **16** | **21** | **11** | **3** | **35** | **51** |
+
+---
+
+## System Sitemap & Information Architecture
 
 This document presents the official Information Architecture (IA), User Interaction Flows, and visual UI/UX specifications for the **HR Management & Productivity Platform**, covering **People Management**, **Recruitment & ATS**, **Onboarding**, and **Offboarding**.
 
@@ -70,11 +92,11 @@ flowchart LR
 
 ---
 
-## 📊 2. Comprehensive Screen Mapping & User Interaction Trigger Tables
+## 2. Comprehensive Screen Mapping & User Interaction Trigger Tables
 
 ### 2.1. General Screens Mapping & Interaction Flow
 
-| Main Screen | Main Screen Description | User Action / Trigger (Thao tác kích hoạt) | Detail Screen / PopUp / Form | Component Functionality & Description |
+| Main Screen | Main Screen Description | User Action / Trigger | Detail Screen / PopUp / Form | Component Functionality & Description |
 |---|---|---|---|---|
 | **1. Home Dashboard** | Executive system dashboard displaying KPI widgets, clearance matrix, productivity analytics, task timeline, and upcoming schedule. | Click Top-Right User Avatar Profile | **1.1. User Profile Popup Menu** | Session management menu: Update Version (v2.4.0), Help & Support, Sign Out. |
 | **1. Home Dashboard** | Executive system dashboard displaying KPI widgets, clearance matrix, productivity analytics, task timeline, and upcoming schedule. | Click Bell Icon in Top Bar | **1.2. Notifications Drawer** | Slide-over drawer displaying activity notifications, KPI updates, and pending task reminders. |
@@ -84,7 +106,7 @@ flowchart LR
 
 ### 2.2. People Management Module Mapping & Interaction Flow
 
-| Main Screen | Main Screen Description | User Action / Trigger (Thao tác kích hoạt) | Detail Screen / PopUp / Form | Component Functionality & Description |
+| Main Screen | Main Screen Description | User Action / Trigger | Detail Screen / PopUp / Form | Component Functionality & Description |
 |---|---|---|---|---|
 | **1. Employee Directory** | Master company-wide workforce directory featuring tabular roster, department filter, employment status filter, and real-time search bar. | Click Any Employee Table Row | **1.1. Profile Detail View - Overview & Personal Info** | Slide-over drawer presenting personal identification, emergency contacts, national identity card, address, and bank account details. |
 | **1. Employee Directory** | Master company-wide workforce directory featuring tabular roster, department filter, employment status filter, and real-time search bar. | Switch to 'Contract & Document' Tab in Drawer | **1.2. Profile Detail View - Contract & Document** | Slide-over drawer displaying employment contract specifications, contract type, join date, social insurance ID, and attached signed legal documents. |
@@ -108,7 +130,7 @@ flowchart LR
 
 ### 2.3. Recruitment & ATS Module Mapping & Interaction Flow
 
-| Main Screen | Main Screen Description | User Action / Trigger (Thao tác kích hoạt) | Detail Screen / PopUp / Form | Component Functionality & Description |
+| Main Screen | Main Screen Description | User Action / Trigger | Detail Screen / PopUp / Form | Component Functionality & Description |
 |---|---|---|---|---|
 | **1. Job Openings Board** | Master requisition management board tracking active hiring quotas, department openings, salary ranges, and applicant counts. | Click "+ Create Job Requisition" Button | **1.1. Create Job Requisition Form Modal** | Form modal for submitting new hiring proposals, target headcount quotas, and job descriptions for management approval. |
 | **2. Candidate Pipeline Kanban** | Drag-and-drop Kanban board tracking applicants across evaluation stages (Applied ➔ Screening ➔ Tech Interview ➔ Manager Interview ➔ Offer ➔ Hired). | Click Any Candidate Card on Kanban Board | **2.1. Candidate Profile Detail Drawer** | Slide-over drawer presenting candidate resume parsing, AI match score, evaluator scorecards, and stage activity log. |
@@ -116,9 +138,9 @@ flowchart LR
 | **3. Interview & Offer Management** | Interview scheduling hub and digital offer letter e-signature tracking board. | Click "Schedule Interview" Action Button | **3.1. Schedule Interview Session Modal** | Modal for scheduling panel interviews with Google Calendar & Outlook meeting link integration. |
 | **3. Interview & Offer Management** | Interview scheduling hub and digital offer letter e-signature tracking board. | Click "Send Offer Letter" Action Button | **3.2. Auto Send Offer Letter Modal** | Modal for generating and dispatching digital employment offer letters with automated e-signature tracking. |
 
-### 2.3. Module 3: Onboarding & New Hire Management
+### 2.4. Onboarding & New Hire Management Mapping Table
 
-| Main Screen | Main Screen Description | User Action / Trigger (Thao tác kích hoạt) | Detail Screen / PopUp / Form | Component Functionality & Description |
+| Main Screen | Main Screen Description | User Action / Trigger | Detail Screen / PopUp / Form | Component Functionality & Description |
 |---|---|---|---|---|
 | **1. New Hire Onboarding Hub** | Master onboarding dashboard tracking new hires across stages (Pre-boarding ➔ Orientation ➔ IT Setup ➔ Department Integration ➔ 30-60-90 Review). | Click "View Checklist" Action Button on New Hire Row | **1.1. Onboarding Task Sign-off Checklist Drawer** | Slide-over drawer presenting step-by-step orientation checklist, mentor assignment, document uploads, and task completion sign-off. |
 | **1. New Hire Onboarding Hub** | Master onboarding dashboard tracking new hires across stages (Pre-boarding ➔ Orientation ➔ IT Setup ➔ Department Integration ➔ 30-60-90 Review). | Click "+ Create Onboarding Plan" Button | **1.2. Create Onboarding Plan Template Modal** | Form modal for creating or editing department-specific onboarding task templates (e.g. Engineering 30-60-90 Day Plan). |
@@ -126,19 +148,19 @@ flowchart LR
 | **2. Asset & License Tracker** | IT equipment and enterprise SaaS license provisioning board for new hires. | Click "Manage" Button on SaaS Product Row | **2.2. Manage Enterprise SaaS Products Modal** | Interactive modal form for adding new company SaaS subscriptions or removing active software licenses with real-time seat capacity editing. |
 | **3. Candidate Data Conversion** | Workspace for converting offer-accepted candidates into official HR Directory employee records. | Click "Convert to Employee" Action Button | **3.1. Candidate Profile Data Conversion Modal** | Confirmation modal displaying mapped fields from ATS candidate record to official HR Employee Directory record with automated duplicate check. |
 
-### 2.4. Offboarding & Exit Management Mapping Table
+### 2.5. Offboarding & Exit Management Mapping Table
 
-| Main Screen | Main Screen Description | User Action / Trigger (Thao tác kích hoạt) | Detail Screen / PopUp / Form | Component Functionality & Description |
+| Main Screen | Main Screen Description | User Action / Trigger | Detail Screen / PopUp / Form | Component Functionality & Description |
 |---|---|---|---|---|
 | **1. Offboarding Tracker** | Master offboarding dashboard tracking employee resignations and clearance progress. | Click "+ Initiate Offboarding" Button | **1.1. Initiate Offboarding Proposal Modal** | Form modal for initiating employee resignation notice with autonomous Outlook notification trigger to manager and HR lead. |
 | **1. Offboarding Tracker** | Master offboarding dashboard tracking employee resignations and clearance progress. | Click "View Clearance" Action Button | **1.2. Exit Clearance Sign-off Matrix Drawer** | Slide-over drawer presenting 4-pillar cross-department clearance sign-off (Manager, IT, Finance, HR). |
-| **1. Offboarding Tracker** | Master offboarding dashboard tracking employee resignations and clearance progress. | Click "Final Settlement" Action Button | **1.3. Final Financial Settlement & Pay Slip Modal** | Calculation modal for final prorated salary, unused PTO encashment, and social insurance chốt sổ BHXH status. |
+| **1. Offboarding Tracker** | Master offboarding dashboard tracking employee resignations and clearance progress. | Click "Final Settlement" Action Button | **1.3. Final Financial Settlement & Pay Slip Modal** | Calculation modal for final prorated salary, unused PTO encashment, and social insurance status & book closing. |
 | **2. Asset & SaaS Revocation** | IT hardware device recollection and SaaS account security kill-switch board. | Click "Execute Revocation Kill-switch" Button | **2.1. IT Hardware Recollection & Revocation Modal** | Security modal for checking in hardware device serial numbers and executing instant SaaS access deactivation via Active Directory / Outlook. |
 | **3. Exit Survey & Analytics** | Exit interview feedback collection and turnover rate attrition analytics. | Click "Conduct / View Exit Survey" Button | **3.1. Conduct Exit Interview & Survey Record Modal** | Rating & feedback form modal recording employee experience ratings and primary resignation drivers. |
 
 ---
 
-## 📸 3. UI/UX Screen Showcase & Detail Components
+## 3. UI/UX Screen Showcase & Detail Components
 
 ### 3.1. General Screens Showcase
 
@@ -163,7 +185,7 @@ Master company-wide workforce directory featuring tabular roster, department fil
 
 ![Employee Directory](../ui_ux/people_management/EmployeeDirectory.png)
 
-##### 🔹 Sub-components & Interaction Triggers:
+##### Sub-components & Interaction Triggers:
 
 - **1.1. Profile Detail View Drawer - Tab 1: Overview & Personal Info**  
   *Trigger:* Click any employee row in the directory table.  
@@ -197,7 +219,7 @@ Organizational structure & department hierarchy management: supports dual view m
 
 ![Organization & Department](../ui_ux/people_management/OrgDepartment.png)
 
-##### 🔹 Sub-components & Interaction Triggers:
+##### Sub-components & Interaction Triggers:
 
 - **2.1. CEO Approval Pending PopUp Modal**  
   *Trigger:* Drag-and-drop department node in org tree canvas to restructure division.  
@@ -216,7 +238,7 @@ Workflow hub for receiving and reviewing employee administrative requests (annua
 
 ![Request Management](../ui_ux/people_management/RequestManagement.png)
 
-##### 🔹 Sub-components & Interaction Triggers:
+##### Sub-components & Interaction Triggers:
 
 - **3.1. Request Detail & Approval Timeline Drawer**  
   *Trigger:* Click any request row in request management table.  
@@ -235,7 +257,7 @@ Dedicated form screen for initiating new employee HR requests.
 
 ![Create Request Page](../ui_ux/people_management/CreateRequest.png)
 
-##### 🔹 Sub-components & Interaction Triggers:
+##### Sub-components & Interaction Triggers:
 
 - **4.1. Multi-type Request Form Component**  
   *Trigger:* Select request type (Annual Leave, Equipment, Transfer) from dropdown.  
@@ -249,7 +271,7 @@ Request status monitor tracking multi-level approval progress in real time.
 
 ![Tracking Request Page](../ui_ux/people_management/TrackingRequest.png)
 
-##### 🔹 Sub-components & Interaction Triggers:
+##### Sub-components & Interaction Triggers:
 
 - **5.1. Request Stepper Timeline Component**  
   *Trigger:* Click any request item on tracking monitor list.  
@@ -265,7 +287,7 @@ Master requisition management board tracking active hiring quotas, department op
 
 ![Job Openings Board](../ui_ux/recruitment/JobOpenings.png)
 
-##### 🔹 Sub-components & Interaction Triggers:
+##### Sub-components & Interaction Triggers:
 
 - **1.1. Create Job Requisition Form Modal**  
   *Trigger:* Click "+ Create Job Requisition" primary button on top right of board.  
@@ -279,7 +301,7 @@ Drag-and-drop Kanban board tracking applicants across evaluation stages (Applied
 
 ![Candidate Pipeline Kanban](../ui_ux/recruitment/CandidatePipeline.png)
 
-##### 🔹 Sub-components & Interaction Triggers:
+##### Sub-components & Interaction Triggers:
 
 - **2.1. Candidate Profile Detail Drawer**  
   *Trigger:* Click any candidate card on the Kanban evaluation stage column.  
@@ -298,7 +320,7 @@ Interview scheduling hub and digital offer letter e-signature tracking board.
 
 ![Interview & Offer Management](../ui_ux/recruitment/InterviewOffer.png)
 
-##### 🔹 Sub-components & Interaction Triggers:
+##### Sub-components & Interaction Triggers:
 
 - **3.1. Schedule Interview Session Modal**  
   *Trigger:* Click "Schedule Interview" action button on candidate row.  
@@ -312,14 +334,14 @@ Interview scheduling hub and digital offer letter e-signature tracking board.
 
 ---
 
-### 3.4. Module 3: Onboarding & New Hire Management Showcase
+### 3.4. Onboarding & New Hire Management Showcase
 
 #### 3.4.1. New Hire Onboarding Hub
 Master onboarding dashboard tracking new hires across orientation, IT setup, and milestone stages.
 
 ![New Hire Onboarding Hub](../ui_ux/onboarding/NewHireOnboarding.png)
 
-##### 🔹 Sub-components & Interaction Triggers:
+##### Sub-components & Interaction Triggers:
 
 - **1.1. Onboarding Task Sign-off Checklist Drawer**  
   *Trigger:* Click "View Checklist" action button on new hire row.  
@@ -338,7 +360,7 @@ IT equipment and enterprise SaaS license provisioning board for new hires.
 
 ![IT Asset & License Tracker](../ui_ux/onboarding/AssetTracker.png)
 
-##### 🔹 Sub-components & Interaction Triggers:
+##### Sub-components & Interaction Triggers:
 
 - **2.1. Assign Hardware & Software License Modal**  
   *Trigger:* Click "+ Assign Asset & License" action button.  
@@ -357,7 +379,7 @@ Workspace for converting offer-accepted candidates into official HR Directory em
 
 ![Candidate Data Conversion](../ui_ux/onboarding/CandidateDataConversion.png)
 
-##### 🔹 Sub-components & Interaction Triggers:
+##### Sub-components & Interaction Triggers:
 
 - **3.1. Candidate Profile Data Conversion Modal**  
   *Trigger:* Click "Convert to Employee" action button on candidate row.  
@@ -373,7 +395,7 @@ Master offboarding dashboard tracking employee resignations, clearance progress,
 
 ![Offboarding Tracker](../ui_ux/offboarding/OffboardingRequests.png)
 
-##### 🔹 Sub-components & Interaction Triggers:
+##### Sub-components & Interaction Triggers:
 
 - **1.1. Initiate Offboarding Proposal Modal**  
   *Trigger:* Click "+ Initiate Offboarding" action button.  
@@ -397,7 +419,7 @@ IT hardware device recollection and SaaS account security kill-switch board.
 
 ![Asset & SaaS Revocation](../ui_ux/offboarding/AssetHandoverClearance.png)
 
-##### 🔹 Sub-components & Interaction Triggers:
+##### Sub-components & Interaction Triggers:
 
 - **2.1. IT Hardware Recollection & Revocation Modal**  
   *Trigger:* Click "Execute Revocation Kill-switch" action button.  
@@ -411,7 +433,7 @@ Exit interview feedback collection and turnover rate attrition analytics workspa
 
 ![Exit Survey & Analytics](../ui_ux/offboarding/ExitSurveyInterview.png)
 
-##### 🔹 Sub-components & Interaction Triggers:
+##### Sub-components & Interaction Triggers:
 
 - **3.1. Conduct Exit Interview & Survey Record Modal**  
   *Trigger:* Click "Conduct / View Exit Survey" action button.  

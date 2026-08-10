@@ -1,10 +1,16 @@
 /**
  * Interview & Offer Management Controller
- * Handles Inline Schedule Interview & Send Offer Modals
+ * Handles Inline Schedule Interview, Send Offer & Offer Template Modals
  */
 document.addEventListener('DOMContentLoaded', () => {
+    const btnOfferTemplatesHeader = document.getElementById('btnOfferTemplatesHeader');
     const btnScheduleHeader = document.getElementById('btnScheduleHeader');
     const btnSendOfferHeader = document.getElementById('btnSendOfferHeader');
+
+    const offerTemplateModalOverlay = document.getElementById('offerTemplateModalOverlay');
+    const btnCloseTemplateModal = document.getElementById('btnCloseTemplateModal');
+    const btnCancelTemplate = document.getElementById('btnCancelTemplate');
+    const btnSubmitTemplate = document.getElementById('btnSubmitTemplate');
 
     const scheduleInterviewModalOverlay = document.getElementById('scheduleInterviewModalOverlay');
     const btnCloseScheduleModal = document.getElementById('btnCloseScheduleModal');
@@ -28,9 +34,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const closeModal = () => {
+        if (offerTemplateModalOverlay) offerTemplateModalOverlay.classList.add('hidden');
         if (scheduleInterviewModalOverlay) scheduleInterviewModalOverlay.classList.add('hidden');
         if (sendOfferModalOverlay) sendOfferModalOverlay.classList.add('hidden');
     };
+
+    // Open Offer Template Modal
+    if (btnOfferTemplatesHeader) {
+        btnOfferTemplatesHeader.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (offerTemplateModalOverlay) offerTemplateModalOverlay.classList.remove('hidden');
+        });
+    }
 
     // Open Schedule Interview Modal
     const scheduleTriggers = [btnScheduleHeader, ...document.querySelectorAll('.btn-schedule-inline')].filter(Boolean);
@@ -50,10 +65,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    if (btnCloseTemplateModal) btnCloseTemplateModal.addEventListener('click', closeModal);
+    if (btnCancelTemplate) btnCancelTemplate.addEventListener('click', closeModal);
     if (btnCloseScheduleModal) btnCloseScheduleModal.addEventListener('click', closeModal);
     if (btnCancelSchedule) btnCancelSchedule.addEventListener('click', closeModal);
     if (btnCloseOfferModal) btnCloseOfferModal.addEventListener('click', closeModal);
     if (btnCancelOffer) btnCancelOffer.addEventListener('click', closeModal);
+
+    if (offerTemplateModalOverlay) {
+        offerTemplateModalOverlay.addEventListener('click', (e) => {
+            if (e.target === offerTemplateModalOverlay) closeModal();
+        });
+    }
 
     if (scheduleInterviewModalOverlay) {
         scheduleInterviewModalOverlay.addEventListener('click', (e) => {
@@ -64,6 +87,40 @@ document.addEventListener('DOMContentLoaded', () => {
     if (sendOfferModalOverlay) {
         sendOfferModalOverlay.addEventListener('click', (e) => {
             if (e.target === sendOfferModalOverlay) closeModal();
+        });
+    }
+
+    // Interactive Dynamic Placeholder Tag Insertion
+    const inlineTagPills = document.querySelectorAll('.inline-tag-pill');
+    const editorPaperInline = document.getElementById('editorPaperInline');
+
+    inlineTagPills.forEach(pill => {
+        pill.addEventListener('click', () => {
+            const tag = pill.getAttribute('data-tag');
+            if (!tag || !editorPaperInline) return;
+            
+            const span = document.createElement('span');
+            span.style.cssText = 'background:#f4f4f5; border:1px dashed #71717a; padding:2px 6px; border-radius:4px; font-family:monospace; font-size:12px; font-weight:600; margin:0 2px; display:inline-block;';
+            span.setAttribute('contenteditable', 'false');
+            span.textContent = tag;
+
+            editorPaperInline.focus();
+            const sel = window.getSelection();
+            if (sel.rangeCount > 0) {
+                const range = sel.getRangeAt(0);
+                range.insertNode(span);
+                range.collapse(false);
+            } else {
+                editorPaperInline.appendChild(span);
+            }
+        });
+    });
+
+    if (btnSubmitTemplate) {
+        btnSubmitTemplate.addEventListener('click', (e) => {
+            e.preventDefault();
+            closeModal();
+            showToast('Offer Letter Template saved & applied successfully!');
         });
     }
 

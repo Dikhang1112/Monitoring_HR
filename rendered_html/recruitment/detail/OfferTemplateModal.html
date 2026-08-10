@@ -1,0 +1,217 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offer Letter Template &amp; Document Editor Modal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background: #f4f4f5; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+
+        .modal-card {
+            width: 100%; max-width: 980px; background: #ffffff; border: 1px solid #e4e4e7;
+            border-radius: 14px; box-shadow: 0 12px 32px rgba(0,0,0,0.1); overflow: hidden;
+            display: flex; flex-direction: column; max-height: 92vh;
+        }
+
+        .modal-header { padding: 20px 28px; border-bottom: 1px solid #e4e4e7; display: flex; justify-content: space-between; align-items: center; background: #ffffff; }
+        .modal-title { font-size: 18px; font-weight: 700; color: #09090b; letter-spacing: -0.3px; }
+        .modal-subtitle { font-size: 12.5px; color: #71717a; margin-top: 2px; }
+
+        .modal-body { display: grid; grid-template-columns: 320px 1fr; overflow: hidden; height: 620px; }
+
+        /* Left Config Panel */
+        .config-panel { padding: 24px; border-right: 1px solid #e4e4e7; background: #fafafa; display: flex; flex-direction: column; gap: 20px; overflow-y: auto; }
+        .panel-section-title { font-size: 12px; font-weight: 700; color: #71717a; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-label { font-size: 13px; font-weight: 600; color: #09090b; }
+        .form-select, .form-input {
+            width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid #e4e4e7;
+            font-size: 13px; color: #09090b; outline: none; background: #ffffff;
+        }
+        .form-select:focus, .form-input:focus { border-color: #09090b; }
+
+        .tag-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+        .tag-pill {
+            padding: 5px 10px; border-radius: 6px; background: #ffffff; border: 1px solid #e4e4e7;
+            font-size: 11.5px; font-family: monospace; color: #09090b; cursor: pointer; transition: all 0.15s ease;
+            user-select: none;
+        }
+        .tag-pill:hover { background: #09090b; color: #ffffff; border-color: #09090b; transform: translateY(-1px); }
+
+        .checkbox-group { display: flex; flex-direction: column; gap: 10px; }
+        .checkbox-label { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #09090b; cursor: pointer; }
+        .checkbox-label input { width: 16px; height: 16px; accent-color: #09090b; }
+
+        /* Right Preview & Rich-Text Editor Area */
+        .preview-panel { padding: 24px; background: #f4f4f5; display: flex; flex-direction: column; gap: 16px; overflow-y: auto; }
+        .preview-header { display: flex; justify-content: space-between; align-items: center; background: #ffffff; padding: 12px 16px; border-radius: 8px; border: 1px solid #e4e4e7; }
+        .preview-badge { font-size: 11.5px; font-weight: 700; text-transform: uppercase; background: #09090b; color: #ffffff; padding: 4px 10px; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px; }
+        .preview-badge::before { content: ''; width: 6px; height: 6px; background: #22c55e; border-radius: 50%; display: inline-block; }
+
+        .document-paper {
+            background: #ffffff; border: 1px solid #e4e4e7; border-radius: 10px; padding: 36px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.05); font-size: 13.5px; line-height: 1.7; color: #18181b;
+            display: flex; flex-direction: column; gap: 16px; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .document-paper:focus { border-color: #09090b; box-shadow: 0 0 0 2px rgba(9,9,11,0.08); }
+
+        .doc-brand { font-size: 16px; font-weight: 800; color: #09090b; border-bottom: 2px solid #09090b; padding-bottom: 8px; margin-bottom: 8px; }
+        .doc-title { font-size: 18px; font-weight: 700; text-align: center; margin: 12px 0; color: #09090b; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        .placeholder-highlight { background: #f4f4f5; border: 1px dashed #71717a; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 12px; color: #09090b; font-weight: 600; display: inline-block; }
+
+        .signature-block { margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; border-top: 1px solid #e4e4e7; padding-top: 20px; }
+        .sig-box { display: flex; flex-direction: column; gap: 4px; }
+        .sig-title { font-size: 12px; font-weight: 700; color: #71717a; text-transform: uppercase; }
+        .sig-line { height: 40px; border-bottom: 1px dashed #a1a1aa; margin-bottom: 4px; }
+        .sig-name { font-weight: 600; font-size: 13px; }
+
+        .modal-footer { padding: 16px 28px; border-top: 1px solid #e4e4e7; background: #fafafa; display: flex; justify-content: space-between; align-items: center; }
+        .btn-secondary { padding: 9px 16px; border-radius: 8px; border: 1px solid #e4e4e7; background: #ffffff; font-size: 13px; font-weight: 600; cursor: pointer; color: #09090b; }
+        .btn-secondary:hover { background: #f4f4f5; }
+        .btn-primary { padding: 9px 18px; border-radius: 8px; border: none; background: #09090b; color: #ffffff; font-size: 13px; font-weight: 600; cursor: pointer; }
+        .btn-primary:hover { background: #27272a; }
+    </style>
+</head>
+<body>
+    <div class="modal-card">
+        <div class="modal-header">
+            <div>
+                <h2 class="modal-title">Offer Letter Template &amp; Document Editor</h2>
+                <p class="modal-subtitle">Configure reusable contract templates, dynamic parameters, and legal sign-off clauses</p>
+            </div>
+            <button class="btn-secondary" style="padding: 6px 12px; font-size: 12px;">Close</button>
+        </div>
+
+        <div class="modal-body">
+            <!-- Left Config Sidebar -->
+            <div class="config-panel">
+                <div class="form-group">
+                    <label class="form-label">Select Active Template</label>
+                    <select class="form-select" id="templateSelector">
+                        <option selected="">Standard Fulltime Offer Template</option>
+                        <option>Executive &amp; Leadership Offer Template</option>
+                        <option>Probationary Contractor Agreement</option>
+                        <option>Internship Offer Template</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <div class="panel-section-title">Insert Dynamic Placeholders</div>
+                    <p style="font-size:11.5px; color:#71717a;">Click any tag to insert into live editor:</p>
+                    <div class="tag-list" id="tagList">
+                        <span class="tag-pill" data-tag="{{Candidate_Name}}">{{Candidate_Name}}</span>
+                        <span class="tag-pill" data-tag="{{Job_Title}}">{{Job_Title}}</span>
+                        <span class="tag-pill" data-tag="{{Department}}">{{Department}}</span>
+                        <span class="tag-pill" data-tag="{{Base_Salary}}">{{Base_Salary}}</span>
+                        <span class="tag-pill" data-tag="{{Start_Date}}">{{Start_Date}}</span>
+                        <span class="tag-pill" data-tag="{{Expiry_Date}}">{{Expiry_Date}}</span>
+                        <span class="tag-pill" data-tag="{{Manager_Name}}">{{Manager_Name}}</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="panel-section-title">Legal &amp; Benefit Clauses</div>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" checked="" id="clauseNDA">
+                            <span>Non-Disclosure Agreement (NDA) Clause</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" checked="" id="clauseBonus">
+                            <span>Annual Performance Bonus Clause</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" checked="" id="clauseHealth">
+                            <span>Premium Health Insurance Package</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="clauseESOP">
+                            <span>Stock Options / ESOP Grant Clause</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Preview & Interactive Rich-Text Editor Panel -->
+            <div class="preview-panel">
+                <div class="preview-header">
+                    <span class="preview-badge">Live Interactive Editor</span>
+                    <span style="font-size: 12px; color: #71717a;">Click inside the document paper to edit text directly</span>
+                </div>
+
+                <!-- ContentEditable Document Editor Paper -->
+                <div class="document-paper" contenteditable="true" id="editorPaper">
+                    <div class="doc-brand" contenteditable="false">GLOBAL HR ENTERPRISE CORP</div>
+                    <div class="doc-title" contenteditable="false">OFFER OF EMPLOYMENT</div>
+
+                    <p>Dear <span class="placeholder-highlight" contenteditable="false">{{Candidate_Name}}</span>,</p>
+
+                    <p>We are delighted to extend an offer for you to join <strong>Global HR Enterprise Corp</strong> as a <span class="placeholder-highlight" contenteditable="false">{{Job_Title}}</span> within the <span class="placeholder-highlight" contenteditable="false">{{Department}}</span> department, reporting directly to <span class="placeholder-highlight" contenteditable="false">{{Manager_Name}}</span>.</p>
+
+                    <p><strong>Terms of Offer:</strong></p>
+                    <ul style="padding-left: 20px; display: flex; flex-direction: column; gap: 6px;">
+                        <li><strong>Base Monthly Compensation:</strong> <span class="placeholder-highlight" contenteditable="false">{{Base_Salary}}</span> paid bi-weekly.</li>
+                        <li><strong>Official Commencement Date:</strong> <span class="placeholder-highlight" contenteditable="false">{{Start_Date}}</span>.</li>
+                        <li><strong>Offer Acceptance Deadline:</strong> <span class="placeholder-highlight" contenteditable="false">{{Expiry_Date}}</span>.</li>
+                    </ul>
+
+                    <p id="ndaClauseBlock"><strong>Confidentiality &amp; Compliance:</strong> By accepting this offer, you agree to adhere to our corporate governance policy and execute the attached Non-Disclosure Agreement (NDA) prior to your start date.</p>
+
+                    <div class="signature-block" contenteditable="false">
+                        <div class="sig-box">
+                            <div class="sig-title">For &amp; On Behalf Of Company</div>
+                            <div class="sig-line"></div>
+                            <div class="sig-name">Lucia Doan (HR Director)</div>
+                        </div>
+                        <div class="sig-box">
+                            <div class="sig-title">Candidate E-Signature</div>
+                            <div class="sig-line"></div>
+                            <div class="sig-name"><span class="placeholder-highlight">{{Candidate_Name}}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn-secondary">Export Template as Word / PDF</button>
+            <div style="display: flex; gap: 12px;">
+                <button class="btn-secondary">Save Draft</button>
+                <button class="btn-primary" id="btnSaveTemplate">Save &amp; Apply Template</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tagPills = document.querySelectorAll('.tag-pill');
+            const editorPaper = document.getElementById('editorPaper');
+
+            tagPills.forEach(pill => {
+                pill.addEventListener('click', () => {
+                    const tag = pill.getAttribute('data-tag');
+                    if (!tag || !editorPaper) return;
+                    
+                    const span = document.createElement('span');
+                    span.className = 'placeholder-highlight';
+                    span.setAttribute('contenteditable', 'false');
+                    span.textContent = tag;
+                    
+                    editorPaper.focus();
+                    const sel = window.getSelection();
+                    if (sel.rangeCount > 0) {
+                        const range = sel.getRangeAt(0);
+                        range.insertNode(span);
+                        range.collapse(false);
+                    } else {
+                        editorPaper.appendChild(span);
+                    }
+                });
+            });
+        });
+    </script>
+
+
+</body></html>

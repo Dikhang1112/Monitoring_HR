@@ -83,6 +83,10 @@
                     <div class="page-desc">Schedule candidate interviews, send digital offer letters, and monitor e-signature statuses.</div>
                 </div>
                 <div style="display:flex; gap:12px;">
+                    <button class="btn-secondary" id="btnOfferTemplatesHeader">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                        Offer Templates
+                    </button>
                     <button class="btn-secondary" id="btnScheduleHeader">
                         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                         Schedule Interview
@@ -311,6 +315,106 @@
             <div class="modal-footer" style="padding: 16px 24px; border-top: 1px solid var(--border-color); background: #fafafa; display: flex; justify-content: flex-end; gap: 12px;">
                 <button class="btn-cancel" id="btnCancelOffer" style="padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: #09090b;">Cancel</button>
                 <button class="btn-submit" id="btnSubmitOffer" style="padding: 9px 18px; border-radius: 8px; border: none; background: #09090b; color: white; font-size: 13px; font-weight: 600; cursor: pointer;">Dispatch Offer via E-Signature</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Offer Template Inline Modal Overlay -->
+    <div class="modal-overlay hidden" id="offerTemplateModalOverlay">
+        <div class="modal-card" style="width: 100%; max-width: 960px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: 0 12px 32px rgba(0,0,0,0.1); overflow: hidden; display: flex; flex-direction: column; max-height: 90vh;">
+            <div class="modal-header" style="padding: 20px 28px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: #ffffff;">
+                <div>
+                    <h2 style="font-size: 18px; font-weight: 700; color: var(--text-main); letter-spacing: -0.3px;">Offer Letter Template & Document Editor</h2>
+                    <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 2px;">Configure reusable contract templates, dynamic parameters, and legal sign-off clauses</p>
+                </div>
+                <button class="btn-close-icon" id="btnCloseTemplateModal" style="background:none; border:none; font-size:16px; cursor:pointer; color:var(--text-muted);">✕</button>
+            </div>
+
+            <div class="modal-body" style="display: grid; grid-template-columns: 320px 1fr; overflow: hidden; height: 540px; padding:0;">
+                <!-- Left Config Sidebar -->
+                <div style="padding: 24px; border-right: 1px solid var(--border-color); background: #fafafa; display: flex; flex-direction: column; gap: 20px; overflow-y: auto;">
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size: 13px; font-weight: 600; color: var(--text-main);">Select Active Template</label>
+                        <select class="form-select" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; outline: none; background: #ffffff;">
+                            <option selected>Standard Fulltime Offer Template</option>
+                            <option>Executive & Leadership Offer Template</option>
+                            <option>Probationary Contractor Agreement</option>
+                            <option>Internship Offer Template</option>
+                        </select>
+                    </div>
+
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <div style="font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Insert Dynamic Placeholders</div>
+                        <p style="font-size:11.5px; color:var(--text-muted);">Click any tag to insert into live editor:</p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px;" id="inlineTagList">
+                            <span class="inline-tag-pill" data-tag="{{Candidate_Name}}" style="padding: 4px 10px; border-radius: 6px; background: #ffffff; border: 1px solid var(--border-color); font-size: 11.5px; font-family: monospace; color: var(--text-main); cursor: pointer; user-select:none;">{{Candidate_Name}}</span>
+                            <span class="inline-tag-pill" data-tag="{{Job_Title}}" style="padding: 4px 10px; border-radius: 6px; background: #ffffff; border: 1px solid var(--border-color); font-size: 11.5px; font-family: monospace; color: var(--text-main); cursor: pointer; user-select:none;">{{Job_Title}}</span>
+                            <span class="inline-tag-pill" data-tag="{{Department}}" style="padding: 4px 10px; border-radius: 6px; background: #ffffff; border: 1px solid var(--border-color); font-size: 11.5px; font-family: monospace; color: var(--text-main); cursor: pointer; user-select:none;">{{Department}}</span>
+                            <span class="inline-tag-pill" data-tag="{{Base_Salary}}" style="padding: 4px 10px; border-radius: 6px; background: #ffffff; border: 1px solid var(--border-color); font-size: 11.5px; font-family: monospace; color: var(--text-main); cursor: pointer; user-select:none;">{{Base_Salary}}</span>
+                            <span class="inline-tag-pill" data-tag="{{Start_Date}}" style="padding: 4px 10px; border-radius: 6px; background: #ffffff; border: 1px solid var(--border-color); font-size: 11.5px; font-family: monospace; color: var(--text-main); cursor: pointer; user-select:none;">{{Start_Date}}</span>
+                            <span class="inline-tag-pill" data-tag="{{Expiry_Date}}" style="padding: 4px 10px; border-radius: 6px; background: #ffffff; border: 1px solid var(--border-color); font-size: 11.5px; font-family: monospace; color: var(--text-main); cursor: pointer; user-select:none;">{{Expiry_Date}}</span>
+                        </div>
+                    </div>
+
+                    <div style="display:flex; flex-direction:column; gap:8px;">
+                        <div style="font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Legal & Benefit Clauses</div>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <label style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-main); cursor: pointer;">
+                                <input type="checkbox" checked style="width: 16px; height: 16px; accent-color: #09090b;">
+                                <span>Non-Disclosure Agreement (NDA)</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-main); cursor: pointer;">
+                                <input type="checkbox" checked style="width: 16px; height: 16px; accent-color: #09090b;">
+                                <span>Annual Performance Bonus Clause</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-main); cursor: pointer;">
+                                <input type="checkbox" checked style="width: 16px; height: 16px; accent-color: #09090b;">
+                                <span>Premium Health Insurance Package</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Live Editor -->
+                <div style="padding: 24px; background: #f4f4f5; display: flex; flex-direction: column; gap: 16px; overflow-y: auto;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e4e4e7; padding-bottom: 10px;">
+                        <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; background: #09090b; color:#ffffff; padding: 4px 10px; border-radius: 6px;">Live Interactive Editor</span>
+                        <span style="font-size: 12px; color: var(--text-muted);">Click text below to edit directly</span>
+                    </div>
+
+                    <div style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 10px; padding: 24px; font-size: 13px; line-height: 1.6; color: #18181b; display: flex; flex-direction: column; gap: 14px; outline:none;" contenteditable="true" id="editorPaperInline">
+                        <div style="font-size: 15px; font-weight: 800; color: #09090b; border-bottom: 2px solid #09090b; padding-bottom: 6px;" contenteditable="false">GLOBAL HR ENTERPRISE CORP</div>
+                        <div style="font-size: 16px; font-weight: 700; text-align: center; margin: 8px 0; color: #09090b; text-transform: uppercase;" contenteditable="false">OFFER OF EMPLOYMENT</div>
+
+                        <p>Dear <span style="background: #f4f4f5; border: 1px dashed #71717a; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 12px; font-weight: 600;" contenteditable="false">{{Candidate_Name}}</span>,</p>
+
+                        <p>We are delighted to extend an offer for you to join <strong>Global HR Enterprise Corp</strong> as a <span style="background: #f4f4f5; border: 1px dashed #71717a; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 12px; font-weight: 600;" contenteditable="false">{{Job_Title}}</span> within the <span style="background: #f4f4f5; border: 1px dashed #71717a; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 12px; font-weight: 600;" contenteditable="false">{{Department}}</span> department.</p>
+
+                        <p><strong>Terms of Offer:</strong></p>
+                        <ul style="padding-left: 20px; display: flex; flex-direction: column; gap: 4px;">
+                            <li><strong>Base Monthly Compensation:</strong> <span style="background: #f4f4f5; border: 1px dashed #71717a; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 12px; font-weight: 600;" contenteditable="false">{{Base_Salary}}</span></li>
+                            <li><strong>Official Commencement Date:</strong> <span style="background: #f4f4f5; border: 1px dashed #71717a; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 12px; font-weight: 600;" contenteditable="false">{{Start_Date}}</span></li>
+                        </ul>
+
+                        <div style="margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; border-top: 1px solid var(--border-color); padding-top: 16px;" contenteditable="false">
+                            <div>
+                                <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Company Signatory</div>
+                                <div style="height: 32px; border-bottom: 1px dashed #a1a1aa; margin-bottom: 4px;"></div>
+                                <div style="font-weight: 600; font-size: 12.5px;">Lucia Doan (HR Director)</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Candidate E-Signature</div>
+                                <div style="height: 32px; border-bottom: 1px dashed #a1a1aa; margin-bottom: 4px;"></div>
+                                <div style="font-weight: 600; font-size: 12.5px;"><span style="background: #f4f4f5; border: 1px dashed #71717a; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 12px;">{{Candidate_Name}}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer" style="padding: 16px 28px; border-top: 1px solid var(--border-color); background: #fafafa; display: flex; justify-content: space-between; align-items: center;">
+                <button class="btn-cancel" id="btnCancelTemplate" style="padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: #09090b;">Cancel</button>
+                <button class="btn-submit" id="btnSubmitTemplate" style="padding: 9px 18px; border-radius: 8px; border: none; background: #09090b; color: white; font-size: 13px; font-weight: 600; cursor: pointer;">Save & Apply Offer Template</button>
             </div>
         </div>
     </div>
